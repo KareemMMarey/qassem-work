@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QassimPrincipality.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80affd5fcfe748e9a15571859c9bf7f968dcccf1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac38a0ab8a609cb39c711d081c8425eabc78cf13")]
 [assembly: System.Reflection.AssemblyProductAttribute("QassimPrincipality.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QassimPrincipality.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

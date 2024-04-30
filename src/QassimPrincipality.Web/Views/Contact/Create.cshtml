@@ -1,0 +1,174 @@
+﻿<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
+
+
+
+    <div class="modal" id="newItemRejectLink" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تقديم شكوى</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnClosePopup">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p style="text-align:center;color:#a12d00;font-weight:600;">
+
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnChangeMobaileNo" data-dismiss="modal" class="btn btn-success" style="width:40%">تم</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2>شكوى</h2>
+    <style>
+
+        .caption {
+            position: absolute;
+            top: 20%;
+            left: 0;
+            width: 100%;
+            color: #008055;
+            font-size: calc(50% + 0.5vw + 0.5vh);
+            font-weight: bold;
+        }
+    </style>
+    <script>
+
+        $('#btnChangeMobaileNo,#btnClosePopup').on('click', function (e) {
+
+            var url = "/Complain/BeneficiaryVoice";
+            window.location.pathname = url;
+
+        });
+        $(document).ready(function () {
+            $('#NationalID,#Phone').mask('0000000000');
+
+            if (0 == 1) {
+
+                $('#newItemRejectLink').modal({ backdrop: 'static', keyboard: false })
+                //$("#newItemRejectLink").modal('show');
+            }
+        });
+
+        function ArabicLettersOnly(e) {
+            var regex = /^[\u0621-\u064A\s]+$/;
+            e = e || window.event;
+            var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+            var charStr = String.fromCharCode(charCode);
+            if (!regex.test(charStr)) {
+                //  alert('حروف عربية فقط');
+                $('.Fullname').css('border', '2px red solid');
+                $('.isArabic').show().fadeIn(200);
+            }
+            else {
+                $('.Fullname').css('border', '2px green solid');
+                $('.isArabic').hide().fadeOut(200);
+                return false
+            }
+            e.preventDefault();
+        };
+
+        function mark(el) {
+            var IDs = ['h', 'vh', 'nh'];
+            // alert($(el).attr("id"));
+            for (var i = 0; i < 3; i++) {
+                //uncheck all
+                //if ($(el).attr("id") == 'h' || $(el).attr("id") != 'nh' || $(el).attr("id") != 'vh')
+                if ($(el).attr("id") != IDs[i]) {
+                    var img = document.getElementById(IDs[i]);
+                    img.style.border = "1px solid #dee2e6"
+                }
+            }
+            el.style.border = "1px solid green";
+        }
+    </script>
+    <br>
+    <form action="/Complain/Complain" method="post">
+        <input name="__RequestVerificationToken" type="hidden" value="mCSr50MksiWvJlg2mMhvibetnhpYP4axMcKtUcb8KkpHRDGCRz0_K2NK7LC4ZIScAZl1-59o39JIN4iygouuYpDO43SYo99B_n7V3Rv5b5qRDmwfdLyo0Bpd1AP8v4Z1RH9AWw2">    <div class="container card NoTransform p-5 d-flex justify-content-center">
+
+
+
+            <div class="container ">
+
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-sm-3 col-form-label">اسم</label>
+                    <div class="col-sm-8">
+
+
+                        <input aria-describedby="basic-addon1" autocomplete="off" class="form-control col-8 text-box single-line" data-val="true" data-val-number="الرجاء كتابة الاسم" data-val-required="يجب كتابة الاسم" id="Name" maxlength="50" minlength="3" name="Name" oninvalid="this.setCustomValidity('الرجاء كتابة الاسم ')" placeholder="اسم" required="required" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Name" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">البريد إلكتروني</label>
+                    <div class="col-sm-8">
+
+                        <input class="form-control col-8 text-box single-line" data-val="true" data-val-required="يجب كتابة البريد الإلكتروني" id="Email" name="Email" placeholder="البريد إلكتروني" type="email" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">رقم الهوية / الاقامة</label>
+                    <div class="col-sm-8">
+
+                        <input aria-describedby="basic-addon1" autocomplete="off" class="form-control col-8 text-box single-line" data-val="true" data-val-number="الرجاء كتابة رقم الهوية / الاقامة بصورة صحيح" data-val-required="يجب كتابة رقم الهوية / الإقامة" id="NationalID" maxlength="10" minlength="10" name="NationalID" oninvalid="this.setCustomValidity('الرجاء كتابة رقم  الهوية / الاقامة بصورة صحيحة ')" placeholder="رقم الهوية / الاقامة" required="required" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="NationalID" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">رقم الجوال</label>
+                    <div class="col-sm-8">
+
+                        <input aria-describedby="basic-addon1" autocomplete="off" class="form-control col-8 text-box single-line" data-val="true" data-val-number="الرجاء كتابة رقم جوال صحيح" data-val-required="يجب كتابة رقم الجوال" id="Phone" maxlength="10" minlength="10" name="Phone" oninvalid="this.setCustomValidity('الرجاء كتابة رقم جوال صحيح  ')" placeholder="05xxxxxxxx" required="required" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Phone" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">عنوان الشكوى</label>
+                    <div class="col-sm-8">
+
+                        <input aria-describedby="basic-addon1" autocomplete="off" class="form-control col-8 text-box single-line" data-val="true" data-val-number="الرجاء ادخل عنوان الشكوى" data-val-required="يجب كتابة العنوان" id="ComSugTitle" maxlength="50" minlength="3" name="ComSugTitle" oninvalid="this.setCustomValidity('الرجاء كتابة عنوان الشكوى')" placeholder="عنوان الشكوى" required="required" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="ComSugTitle" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">ملخص الشكوى</label>
+                    <div class="col-sm-8">
+
+                        <textarea aria-describedby="basic-addon1" autocomplete="off" class="form-control col-8" cols="20" data-val="true" data-val-number="الرجاء ادخل ملخص الشكوى" data-val-required="يجب كتابة التفاصيل" id="Note" maxlength="150" minlength="3" name="Note" oninvalid="this.setCustomValidity('الرجاء كتابة ملخص الشكوى')" placeholder="ملخص الشكوى" required="required" rows="4" type="text"></textarea>
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Note" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label for="inputPassword3" class="col-sm-3 col-form-label">تقييم الخدمة</label>
+                    <div class="col-md-6 rating" style="justify-content:flex-end !important">
+                        <input type="radio" name="rating" onclick="handleClick(this);" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+
+                        <a class="btn btn-dark-green btn-bg" href="/Complain/beneficiaryVoice">الى الخلف</a>
+                        <button type="submit" class="btn btn-dark-green text-right">إرسال</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+</div>
