@@ -17,7 +17,7 @@ namespace QassimPrincipality.Web
 
             // Add services to the container.
             //builder.Services.AddControllersWithViews();
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 
             // Add services to the container.
             builder.Services.ConfigureSharedApplicationServices(connectionString);
@@ -86,7 +86,7 @@ namespace QassimPrincipality.Web
             // create AutoMapper configuration
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(typeof(AppAutoMapperProfile));
+                //cfg.AddProfile(typeof(AppAutoMapperProfile));
             });
             AutoMapperConfiguration.Init(config);
 

@@ -20,3 +20,15 @@ C:\DATA\work\QassimPrincipalitySolution\src\sharedbusiness\BusinessLogic.Shared\
 C:\DATA\work\QassimPrincipalitySolution\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\refint\BusinessLogic.Shared.dll
 C:\DATA\work\QassimPrincipalitySolution\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.pdb
 C:\DATA\work\QassimPrincipalitySolution\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\ref\BusinessLogic.Shared.dll
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\bin\Debug\net8.0\BusinessLogic.Shared.deps.json
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\bin\Debug\net8.0\BusinessLogic.Shared.dll
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\bin\Debug\net8.0\BusinessLogic.Shared.pdb
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.AssemblyInfoInputs.cache
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.AssemblyInfo.cs
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.csproj.CoreCompileInputs.cache
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.sourcelink.json
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.dll
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\refint\BusinessLogic.Shared.dll
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\BusinessLogic.Shared.pdb
+C:\DATA\work\qassem-work\src\sharedbusiness\BusinessLogic.Shared\obj\Debug\net8.0\ref\BusinessLogic.Shared.dll

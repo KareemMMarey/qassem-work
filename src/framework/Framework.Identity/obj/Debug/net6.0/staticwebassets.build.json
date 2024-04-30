@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "Hash": "3S7JuUc1I9zYgeevOTMyPW0k8z5NJ+ewmaE0rq6wxqM=",
+  "Hash": "tph5Qm3I/fTqvQq+eJUg1l/cl3/t2E7woJLcgs+jplY=",
   "Source": "Framework.Identity",
   "BasePath": "_content/Framework.Identity",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [
     {
-      "Identity": "C:\\DATA\\work\\QassimPrincipalitySolution\\src\\framework\\Framework.Core\\Framework.Core.csproj",
+      "Identity": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj",
       "Version": 2,
       "Source": "Framework.Core",
       "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
