@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Localization;
+@using QassimPrincipality.Application.Lookups.Dto;
+@using QassimPrincipality.Web.ViewModels.Request;
+@model AddRequestViewModel
+@{
+    ViewData["Title"] = "Add a new Request";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Add a New Request</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group text-center">
+                        <img id="CinemaLogoPreview" class="border-info rounded-circle" style="max-width: 150px" />
+                    </div>
+
+
+                    <!-- Select External Entities-->
+                    @{
+                        if (ViewData["RequestSubcategory"] != null)
+                        {
+                            var requestCulture = Context?.Features?.Get<IRequestCultureFeature>();
+
+
+                            var subCategories = (List<RequestSubcategoryDto>)ViewData["RequestSubcategory"]; // Cast the list
+                            <div class="form-group">
+                                <div id="RequestType" class="form-group">
+                                    <label asp-for="RequestTypeId">
+                                        نوع الطلب
+                                    </label>
+
+                                    <select asp-for="RequestTypeId" required asp-items="@(new SelectList(subCategories, "Id", "NameAr"))"
+                                            class="form-control" id="ddlentity">
+                                    </select>
+
+                                </div>
+                            </div>
+                        }}
+                        <div class="form-group">
+                            <label asp-for="RequestTitle" class="control-label"></label>
+                            <input asp-for="RequestTitle" class="form-control" />
+                            <span asp-validation-for="RequestTitle" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label">اسم المستخدم</label>
+                        @{
+                            string userName = "Guest";
+                            if (Context.User!=null)
+                            {
+                                userName = Context.User.Identity.Name;
+
+                                        }
+                        }
+                        <label class="control-label">@userName</label>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Photo" class="control-label"></label>
+                            <input asp-for="Photo" class="form-control" />
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ListAttachments"></label>
+                            <input asp-for="ListAttachments" />
+                            <span asp-validation-for="ListAttachments" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-outline-success float-right" />
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                        @section Scripts {
+        <script>
+
+            $(document).ready(function () {
+                var output = document.getElementById('CinemaLogoPreview');
+                output.src = $("#Logo").val();
+            })
+
+            $("#Logo").on("change", function () {
+                var output = document.getElementById('CinemaLogoPreview');
+                output.src = $(this).val();
+            })
+        </script>
+                        }
+
