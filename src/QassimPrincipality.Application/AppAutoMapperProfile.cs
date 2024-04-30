@@ -18,6 +18,8 @@ namespace QassimPrincipality.Application
         public AppAutoMapperProfile()
         {
             this.CreateMap<UserDto, ApplicationUser>().ReverseMap();
+            this.CreateMap<RequestTypeDto, RequestType>().ReverseMap();
+            this.CreateMap<UploadRequest, UploadRequestDtoAdd>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();
