@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("QassimPrincipality.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+10fcf20d672ee70d4b4abaca20aff8403be2fab1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5f61ab8d350b4f3e9397cf13bdf87dfa6a1ffb8")]
 [assembly: System.Reflection.AssemblyProductAttribute("QassimPrincipality.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("QassimPrincipality.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

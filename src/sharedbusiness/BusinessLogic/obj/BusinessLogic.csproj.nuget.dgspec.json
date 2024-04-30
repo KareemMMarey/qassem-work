@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj": {}
+    "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj": {}
   },
   "projects": {
-    "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj": {
+    "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\Framework.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj",
+        "projectUniqueName": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\Framework.Core.csproj",
         "projectName": "Framework.Core",
-        "projectPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj",
-        "packagesPath": "C:\\Users\\E-KareemMarey\\.nuget\\packages\\",
-        "outputPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\obj\\",
+        "projectPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\Framework.Core.csproj",
+        "packagesPath": "C:\\Users\\mqassem\\.nuget\\packages\\",
+        "outputPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\E-KareemMarey\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\mqassem\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -151,25 +151,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\Framework.Identity.csproj": {
+    "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\Framework.Identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\Framework.Identity.csproj",
+        "projectUniqueName": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\Framework.Identity.csproj",
         "projectName": "Framework.Identity",
-        "projectPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\Framework.Identity.csproj",
-        "packagesPath": "C:\\Users\\E-KareemMarey\\.nuget\\packages\\",
-        "outputPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\obj\\",
+        "projectPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\Framework.Identity.csproj",
+        "packagesPath": "C:\\Users\\mqassem\\.nuget\\packages\\",
+        "outputPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\E-KareemMarey\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\mqassem\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -177,15 +173,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj": {
-                "projectPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Core\\Framework.Core.csproj"
+              "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\Framework.Core.csproj": {
+                "projectPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Core\\Framework.Core.csproj"
               }
             }
           }
@@ -194,6 +189,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -236,25 +236,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj": {
+    "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj",
+        "projectUniqueName": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj",
         "projectName": "BusinessLogic.Shared",
-        "projectPath": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj",
-        "packagesPath": "C:\\Users\\E-KareemMarey\\.nuget\\packages\\",
-        "outputPath": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\obj\\",
+        "projectPath": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj",
+        "packagesPath": "C:\\Users\\mqassem\\.nuget\\packages\\",
+        "outputPath": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\E-KareemMarey\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\mqassem\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -262,7 +258,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -275,6 +270,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -296,25 +296,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj": {
+    "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj",
+        "projectUniqueName": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj",
         "projectName": "BusinessLogic",
-        "projectPath": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj",
-        "packagesPath": "C:\\Users\\E-KareemMarey\\.nuget\\packages\\",
-        "outputPath": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic\\obj\\",
+        "projectPath": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic\\BusinessLogic.csproj",
+        "packagesPath": "C:\\Users\\mqassem\\.nuget\\packages\\",
+        "outputPath": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\E-KareemMarey\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\mqassem\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -322,18 +318,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\Framework.Identity.csproj": {
-                "projectPath": "C:\\DATA\\work\\qassem-work\\src\\framework\\Framework.Identity\\Framework.Identity.csproj"
+              "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\Framework.Identity.csproj": {
+                "projectPath": "E:\\0\\KareemMMarey\\src\\framework\\Framework.Identity\\Framework.Identity.csproj"
               },
-              "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj": {
-                "projectPath": "C:\\DATA\\work\\qassem-work\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj"
+              "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj": {
+                "projectPath": "E:\\0\\KareemMMarey\\src\\sharedbusiness\\BusinessLogic.Shared\\BusinessLogic.Shared.csproj"
               }
             }
           }
@@ -342,6 +337,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -373,7 +373,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
