@@ -369,3 +369,5 @@ FodyWeavers.xsd
 /src/framework/Framework.Core/bin/
 *.cache
 *.dll
+*/bin/*
+*/obj/*
