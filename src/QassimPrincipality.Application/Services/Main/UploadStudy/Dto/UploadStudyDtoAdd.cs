@@ -5,6 +5,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
     public class UploadRequestDtoAdd : UploadRequestDto
     {
         public string SerialNumber { get; set; }
+        public string RequestTitle { get; set; }
         public int RequestSubClassificationId { get; set; }
         public int requestClassificationId { get; set; }
         public int RequestTypeId { get; set; }

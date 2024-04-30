@@ -33,7 +33,7 @@ namespace QassimPrincipality.Web.Helpers
         }
     }
 
-    [AttributeUsage(AttributeTargets.Method)]
+    //[AttributeUsage(AttributeTargets.Method)]
     public class MaxFileSizeAttribute : Attribute, IAsyncActionFilter
     {
         public MaxFileSizeAttribute(int sizeInByte) { this._maxFileSize = sizeInByte; }
