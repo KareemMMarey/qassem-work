@@ -13,7 +13,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups
         public string FilePath { get; set; }
         public bool IsArabic { get; set; } = true;
         public string ContentType { get; set; }
-
+        public int AttachmentType { get; set; } = 1;
         [NotMapped]
         public string Title => CultureHelper.IsArabic ? TitleAr : TitleEn;
 
@@ -25,10 +25,6 @@ namespace QassimPrincipality.Domain.Entities.Lookups
 
         public string DescriptionAr { get; set; }
         public string DescriptionEn { get; set; }
-        //public byte[] Thumbnail { get; set; }
-        //public byte[] FileContent { get; set; }
-
-        //new
         public bool? IsOpenSourceArabic { get; set; } = false;
 
         public bool? IsOpenSourceEnglish { get; set; } = false;

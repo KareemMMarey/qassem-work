@@ -16,9 +16,13 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public string RequestNameAr { get; set; }
         public string RequestNameEn { get; set; }
         public int RequestSubClassificationId { get; set; }
-        public int RequestTypeId { get; set; }
+        
         public string OriginalRequestId { get; set; }
+        public int RequestTypeId { get; set; }
         public RequestType RequestType { get; set; }
+
+        public int EServiceSubCategoryId { get; set; }
+        public EServiceSubCategory EServiceSubCategory { get; set; }
         public Guid? OriginatorId { get; set; }
         public Guid? RequestOwnerId { get; set; } //from users table
         public string RequestOwnerNameAr { get; set; } //from users table
