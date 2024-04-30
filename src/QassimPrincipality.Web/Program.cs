@@ -24,7 +24,7 @@ namespace QassimPrincipality.Web
             builder.Services.ConfigureApplicationServices();
             builder.Services.ConfigureInfrastructureServices(connectionString);
             builder.Services.IdentityConfigureServices(connectionString);
-            //builder.Services.AddDataProtection(connectionString);
+            builder.Services.AddDataProtection(connectionString);
             //builder.Services.AddControllers().AddNewtonsoftJson();
 
 
