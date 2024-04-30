@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Skoruba.AuditLogging" Version="1.1.0" />
+    <PackageReference Include="Skoruba.AuditLogging.EntityFramework" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\framework\Framework.Identity\Framework.Identity.csproj" />
+    <ProjectReference Include="..\BusinessLogic.Shared\BusinessLogic.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dtos\Configuration\" />
+    <Folder Include="Services\Interfaces\" />
+  </ItemGroup>
+
+</Project>
