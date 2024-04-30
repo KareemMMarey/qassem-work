@@ -86,7 +86,7 @@ namespace QassimPrincipality.Web
             // create AutoMapper configuration
             var config = new MapperConfiguration(cfg =>
             {
-                //cfg.AddProfile(typeof(AppAutoMapperProfile));
+                cfg.AddProfile(typeof(AppAutoMapperProfile));
             });
             AutoMapperConfiguration.Init(config);
 

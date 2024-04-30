@@ -18,28 +18,27 @@ namespace QassimPrincipality.Application
         public AppAutoMapperProfile()
         {
             this.CreateMap<UserDto, ApplicationUser>().ReverseMap();
-            this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
-            this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
-            this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();
-            this.CreateMap<RequestTypeDto, RequestType>().ReverseMap();
-            
-            //this.CreateMap<OutputTypeDto, OutputType>().ReverseMap();
-            this.CreateMap<ApplicationRole, RoleDto>().ReverseMap();
-           
-            this.CreateMap<UploadRequestDtoEdit, UploadRequest>()
-                .ForMember(s => s.Attachments, opt => opt.Ignore())
-                .ReverseMap()
-                .ForMember(s => s.ExistAttachments, opt => opt.MapFrom(s => s.Attachments));
+            //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
+            //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
+            //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();
+            //this.CreateMap<RequestTypeDto, RequestType>().ReverseMap();
 
-            
-            this.CreateMap<Attachment, AttachmentDto>().ReverseMap();
-            
+            //this.CreateMap<ApplicationRole, RoleDto>().ReverseMap();
 
-            this.CreateMap<UploadRequestDtoView, UploadRequest>()
-                .ReverseMap();
+            //this.CreateMap<UploadRequestDtoEdit, UploadRequest>()
+            //    .ForMember(s => s.Attachments, opt => opt.Ignore())
+            //    .ReverseMap()
+            //    .ForMember(s => s.ExistAttachments, opt => opt.MapFrom(s => s.Attachments));
 
-            this.CreateMap<UploadRequestDtoAdd, UploadRequest>()
-                .ReverseMap();
+
+            //this.CreateMap<Attachment, AttachmentDto>().ReverseMap();
+
+
+            //this.CreateMap<UploadRequestDtoView, UploadRequest>()
+            //    .ReverseMap();
+
+            //this.CreateMap<UploadRequestDtoAdd, UploadRequest>()
+            //    .ReverseMap();
 
         }
 

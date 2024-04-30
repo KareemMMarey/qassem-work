@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Pd6iSBJytsHtNxnwY8Li3p/uDKb88gim+hQ4op9HqqYXMytaAu/9DLmOyoBtv0u/iiAJOOAkdYBs4Sf/gfsm+Q==",
+  "dgSpecHash": "sWvLoBIxDz/VH3ymXjIsM022f6FP55XMeDwp+6ptgozmx6IOMnlvmcPJgVtTrO/ARevDse8QN8dw8Cw76eoVQw==",
   "success": true,
   "projectFilePath": "C:\\DATA\\work\\qassem-work\\src\\QassimPrincipality.Web\\QassimPrincipality.Web.csproj",
   "expectedPackageFiles": [
@@ -117,7 +117,6 @@
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.data.sqlclient\\4.4.0\\system.data.sqlclient.4.4.0.nupkg.sha512",
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
-    "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.diagnostics.eventlog\\7.0.0\\system.diagnostics.eventlog.7.0.0.nupkg.sha512",
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.directoryservices\\7.0.0\\system.directoryservices.7.0.0.nupkg.sha512",
     "C:\\Users\\E-KareemMarey\\.nuget\\packages\\system.directoryservices.accountmanagement\\7.0.0\\system.directoryservices.accountmanagement.7.0.0.nupkg.sha512",
