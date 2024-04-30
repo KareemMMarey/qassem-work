@@ -371,3 +371,4 @@ FodyWeavers.xsd
 *.dll
 */bin/*
 */obj/*
+*/Debug/*
