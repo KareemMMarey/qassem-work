@@ -6,6 +6,7 @@ using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using QassimPrincipality.Application.Dtos;
@@ -65,8 +66,29 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
 
             uploadRequest = await _uploadRequestRepository.InsertAsync(uploadRequest, true);
 
+           var photoPath =  SaveFile(uploadRequest.Id, UploadRequestDto.Photo);
+
+            var photo = new AttachmentDto
+            {
+                FileName = photoPath.FirstOrDefault(),
+                Size = UploadRequestDto.Photo.Length,
+                UploadRequestId = uploadRequest.Id
+            };
+            
+           var otherPaths =  SaveFile(uploadRequest.Id, UploadRequestDto.OtherAttachments.ToArray());
+
+            var others = otherPaths.Select(c => new AttachmentDto
+            {
+                FileName = c,
+                UploadRequestId = uploadRequest.Id
+            });
+
+
             //attachments
-            SaveAttachment(new AttachmentDto[] { UploadRequestDto.Photo }, uploadRequest.Id, UploadRequestDto.referralNumber);
+            SaveAttachment(new AttachmentDto[] { photo }, uploadRequest.Id, UploadRequestDto.referralNumber);
+            SaveAttachment(others.ToArray(), uploadRequest.Id, UploadRequestDto.referralNumber);
+
+
             //SaveAttachment(UploadRequestDto.OpenSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceArFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
@@ -85,6 +107,32 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 //await CreateNewRequest(UploadRequestDto);
             }
             return uploadRequest.MapTo<UploadRequestDto>();
+        }
+
+        private List<string> SaveFile(Guid id,params IFormFile[] formFiles)
+        {
+            var path = $"//Uploads//Requests//{id}";
+           
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            List<string> fileNames = new List<string>();
+            foreach (var item in formFiles)
+            {
+                string filename = $"{path}//{item.FileName}_{new Guid().ToString().Substring(0, 10)}";
+                byte[] data = new byte[] { };
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    item.CopyTo(stream);
+                    data = stream.ToArray();
+                    File.WriteAllBytes(filename, data);
+                    fileNames.Add(filename);
+                }
+            }
+
+
+            return fileNames;
         }
 
         public async Task<UploadRequestDtoEdit> UpdateAsync(UploadRequestDtoEdit UploadRequestDto)

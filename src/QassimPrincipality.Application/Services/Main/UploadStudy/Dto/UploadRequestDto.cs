@@ -10,11 +10,11 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         public Guid? Id { get; set; }
         public string referralNumber { get; set; }
         public string RequestName { get; set; }
-        public AttachmentDto Photo { get; set; }
+        public IFormFile Photo { get; set; }
 
         [Required(ErrorMessage = "Please select a file.")]
         [DataType(DataType.Upload)]
-        public List<AttachmentDto> OtherAttachments { get; set; }
+        public List<IFormFile> OtherAttachments { get; set; }
 
         public string NafathNumber { get; set; }
         public string PhoneNumber { get; set; }
