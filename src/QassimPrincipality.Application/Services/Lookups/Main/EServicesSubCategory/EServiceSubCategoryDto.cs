@@ -1,17 +1,16 @@
-﻿using Framework.Core.Data;
-using Framework.Core.Globalization;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ZXing.QrCode.Internal.Mode;
 
-namespace QassimPrincipality.Domain.Entities.Lookups.Main
+namespace QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory
 {
-    public class EServiceSubCategory : LookupEntityBase
+    public class EServiceSubCategoryDto
     {
+        public int Id { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
         public string Icon { get; set; }
         public string Url { get; set; }
         public string DescriptionAr { get; set; }
@@ -22,13 +21,5 @@ namespace QassimPrincipality.Domain.Entities.Lookups.Main
         public string ServiceRequierment { get; set; }
         public decimal ServiceFees { get; set; }
         public string Audience { get; set; }
-        public EServiceCategory EServiceCategory { get; set; }
-
-
-
-        [NotMapped]
-        public string Name => CultureHelper.IsArabic ? NameAr : NameEn;
     }
-    
-    
 }

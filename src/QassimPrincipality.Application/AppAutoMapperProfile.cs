@@ -2,7 +2,6 @@
 using QassimPrincipality.Application.Dtos;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType.Dto;
-using QassimPrincipality.Application.Services.Lookups.Main.RequestClassification.Dto;
 using QassimPrincipality.Domain.Entities.Lookups;
 using QassimPrincipality.Domain.Entities.Lookups.Main;
 using QassimPrincipality.Domain.Entities.Services.Main;
@@ -10,6 +9,9 @@ using Framework.Core.AutoMapper;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
 using Microsoft.AspNetCore.Identity;
+using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
+using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory;
+using QassimPrincipality.Application.Services.Lookups.Main.CommonEService;
 
 namespace QassimPrincipality.Application
 {
@@ -20,6 +22,10 @@ namespace QassimPrincipality.Application
             this.CreateMap<UserDto, ApplicationUser>().ReverseMap();
             this.CreateMap<RequestTypeDto, RequestType>().ReverseMap();
             this.CreateMap<UploadRequest, UploadRequestDtoAdd>().ReverseMap();
+            this.CreateMap<EServiceCategory, EServiceCategoryDto>().ReverseMap();
+            this.CreateMap<EServiceSubCategory, EServiceSubCategoryDto>().ReverseMap();
+            this.CreateMap<EServiceSubCategory, CommonEServiceDto>().ReverseMap();
+            this.CreateMap<EServiceCategory, CommonEServiceDto>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

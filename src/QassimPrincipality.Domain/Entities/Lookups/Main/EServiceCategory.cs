@@ -18,8 +18,11 @@ namespace QassimPrincipality.Domain.Entities.Lookups.Main
         public string DescriptionAr { get; set; }
 
         public string DescriptionEn { get; set; }
+        public int DurationDays { get; set; }
         public bool HasSubCategory { get; set; }
-
+        public string ServiceRequierment { get; set; }
+        public decimal ServiceFees { get; set; }
+        public string Audience { get; set; }
         public List<EServiceSubCategory> EServiceSubCategories { get; set; }
 
 
