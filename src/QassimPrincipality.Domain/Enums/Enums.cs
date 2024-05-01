@@ -136,13 +136,6 @@
 
     #region App
 
-    public enum LevelOfSecrecyEnum
-    {
-        Secret = 1,
-        TopSecret = 2,
-        ExtremelySecret = 3,
-        SharingNotPermitted = 4,
-    }
 
     public enum ReferralTypesEnum
     {

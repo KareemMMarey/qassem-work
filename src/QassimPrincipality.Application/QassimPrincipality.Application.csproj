@@ -100,4 +100,8 @@
     </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Lookups\Dto\" />
+  </ItemGroup>
+
 </Project>
