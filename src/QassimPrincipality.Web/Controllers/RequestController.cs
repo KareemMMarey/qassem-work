@@ -62,8 +62,16 @@ namespace QassimPrincipality.Web.Controllers
                     OtherAttachments = model.ListAttachments
                 };
 
-                await _uploadRequestService.InsertAsync(dto);
+                try
+                {
+                    await _uploadRequestService.InsertAsync(dto);
 
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -62,32 +62,36 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             var uploadRequest =
                 UploadRequestDto.MapTo<Domain.Entities.Services.Main.UploadRequest>();
-            uploadRequest.CreatedBy = _userAppService.CurrentUser.Id.ToString();
+            uploadRequest.CreatedBy = ""; // _userAppService.CurrentUser.Id.ToString();
 
             uploadRequest = await _uploadRequestRepository.InsertAsync(uploadRequest, true);
 
-           var photoPath =  SaveFile(uploadRequest.Id, UploadRequestDto.Photo);
-
             var photo = new AttachmentDto
             {
-                FileName = photoPath.FirstOrDefault(),
+                FileName = UploadRequestDto.Photo.FileName, // photoPath.FirstOrDefault(),
                 Size = UploadRequestDto.Photo.Length,
-                UploadRequestId = uploadRequest.Id
+                UploadRequestId = uploadRequest.Id,
+                FileContent = GetBase64String(UploadRequestDto.Photo),
+                ContentType = UploadRequestDto.Photo.ContentType
             };
-            
-           var otherPaths =  SaveFile(uploadRequest.Id, UploadRequestDto.OtherAttachments.ToArray());
+            SaveAttachment(
+                new AttachmentDto[] { photo },
+                uploadRequest.Id,
+                UploadRequestDto.referralNumber
+            );
 
-            var others = otherPaths.Select(c => new AttachmentDto
+            var others = UploadRequestDto.OtherAttachments.Select(c => new AttachmentDto
             {
-                FileName = c,
-                UploadRequestId = uploadRequest.Id
+                FileName = c.FileName, // photoPath.FirstOrDefault(),
+                Size = c.Length,
+                UploadRequestId = uploadRequest.Id,
+                FileContent = GetBase64String(c),
+                ContentType = c.ContentType
             });
 
-
             //attachments
-            SaveAttachment(new AttachmentDto[] { photo }, uploadRequest.Id, UploadRequestDto.referralNumber);
-            SaveAttachment(others.ToArray(), uploadRequest.Id, UploadRequestDto.referralNumber);
 
+            SaveAttachment(others.ToArray(), uploadRequest.Id, UploadRequestDto.referralNumber);
 
             //SaveAttachment(UploadRequestDto.OpenSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceArFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
@@ -109,30 +113,13 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             return uploadRequest.MapTo<UploadRequestDto>();
         }
 
-        private List<string> SaveFile(Guid id,params IFormFile[] formFiles)
+        private string GetBase64String(IFormFile photo)
         {
-            var path = $"//Uploads//Requests//{id}";
-           
-            if (!Directory.Exists(path))
+            using (MemoryStream stream = new MemoryStream())
             {
-                Directory.CreateDirectory(path);
+                photo.CopyTo(stream);
+                return Convert.ToBase64String(stream.ToArray());
             }
-            List<string> fileNames = new List<string>();
-            foreach (var item in formFiles)
-            {
-                string filename = $"{path}//{item.FileName}_{new Guid().ToString().Substring(0, 10)}";
-                byte[] data = new byte[] { };
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    item.CopyTo(stream);
-                    data = stream.ToArray();
-                    File.WriteAllBytes(filename, data);
-                    fileNames.Add(filename);
-                }
-            }
-
-
-            return fileNames;
         }
 
         public async Task<UploadRequestDtoEdit> UpdateAsync(UploadRequestDtoEdit UploadRequestDto)
@@ -391,8 +378,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                             .Trim()
                             .Contains(model.ReferralNumber.ToLower().Trim())
                         || a.CreatedBy.ToLower() == model.Researcher.ToLower().Trim()
-                    )
-                    && a.IsApproved
+                    ) && a.IsApproved
             };
 
             Func<
@@ -424,7 +410,6 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         private void fillAccessAuthority(UploadRequestDtoView model)
         {
             var currentUser = _userAppService.CurrentUser;
-
         }
 
         public async Task<UploadRequestSearchDto> SearchAsync(

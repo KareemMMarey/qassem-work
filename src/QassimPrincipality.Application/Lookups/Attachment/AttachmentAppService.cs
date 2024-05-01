@@ -1,14 +1,14 @@
-﻿using QassimPrincipality.Application.Dtos;
-using QassimPrincipality.Domain.Entities.Lookups;
-using QassimPrincipality.Domain.Interfaces;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using Framework.Core;
 using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
+using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Domain.Entities.Lookups;
+using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Lookups.Attachments
 {
@@ -18,19 +18,34 @@ namespace QassimPrincipality.Application.Lookups.Attachments
         private readonly IRepository<AttachmentContent> _attachmentContentRepository;
         private readonly AppSettingsService _appSettingsService;
 
-        public AttachmentAppService(IRepository<Attachment> attachmentRepository,
-        AppSettingsService appSettingsService,
-        IRepository<AttachmentContent> attachmentContentRepository)
+        public AttachmentAppService(
+            IRepository<Attachment> attachmentRepository,
+            AppSettingsService appSettingsService,
+            IRepository<AttachmentContent> attachmentContentRepository
+        )
         {
             _attachmentRepository = attachmentRepository;
             _appSettingsService = appSettingsService;
             _attachmentContentRepository = attachmentContentRepository;
         }
 
-        public ReturnResult<Attachment> AddAttachment(IFormFile file, string title = null, string contentType = null, AttachmentDto attachment = null, string referralNumber = "")
+        public ReturnResult<Attachment> AddAttachment(
+            IFormFile file,
+            string title = null,
+            string contentType = null,
+            AttachmentDto attachment = null,
+            string referralNumber = ""
+        )
         {
             var result = new ReturnResult<Attachment>();
-            var attResult = this.AddOrUpdateAttachment(file, null, title, contentType, attachment, referralNumber);
+            var attResult = this.AddOrUpdateAttachment(
+                file,
+                null,
+                title,
+                contentType,
+                attachment,
+                referralNumber
+            );
             if (!attResult.IsValid)
             {
                 result.Merge(attResult);
@@ -44,7 +59,11 @@ namespace QassimPrincipality.Application.Lookups.Attachments
         public ReturnResult<Attachment> AddOrUpdateAttachment(
             IFormFile file,
             Guid? attachmentId = null,
-            string title = null, string contentType = null, AttachmentDto attachment = null, string referralNumber = "")
+            string title = null,
+            string contentType = null,
+            AttachmentDto attachment = null,
+            string referralNumber = ""
+        )
         {
             var result = new ReturnResult<Attachment>();
             if (file == null)
@@ -59,10 +78,14 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 return result;
             }
 
-            if (!_appSettingsService.SaveFilesToDatabase && string.IsNullOrEmpty(_appSettingsService.AttachmentsPath))
+            if (
+                !_appSettingsService.SaveFilesToDatabase
+                && string.IsNullOrEmpty(_appSettingsService.AttachmentsPath)
+            )
             {
                 throw new Exception(
-                    "File can not be saved. Current Settings is. SaveFileToDatabase=true and Attachment Path is Missing");
+                    "File can not be saved. Current Settings is. SaveFileToDatabase=true and Attachment Path is Missing"
+                );
             }
 
             //var fileBytes = new byte[file.Length];
@@ -77,7 +100,10 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 Convert.FromBase64String(attachment.FileContent),
                 attachmentId,
                 title,
-                title, attachmentDto: attachment, referralNumber: referralNumber);
+                title,
+                attachmentDto: attachment,
+                referralNumber: referralNumber
+            );
             return result;
         }
 
@@ -90,17 +116,22 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             string titleEn = null,
             string descriptionAr = null,
             string descriptionEn = null,
-            int? itemOrder = null, AttachmentDto attachmentDto = null, string referralNumber = "")
+            int? itemOrder = null,
+            AttachmentDto attachmentDto = null,
+            string referralNumber = ""
+        )
         {
             var isUpdateFile = attachmentId.HasValue && attachmentId.Value != Guid.Empty;
 
             var attachment = isUpdateFile
-                                 ? _attachmentRepository.GetById(attachmentId.Value)
-                                 : new Attachment { Id = Guid.NewGuid().AsSequentialGuid() };
+                ? _attachmentRepository.GetById(attachmentId.Value)
+                : new Attachment { Id = Guid.NewGuid().AsSequentialGuid() };
 
             if (attachment == null)
             {
-                throw new Exception("The Attachment File You are trying to update Does Not Exist in the database");
+                throw new Exception(
+                    "The Attachment File You are trying to update Does Not Exist in the database"
+                );
             }
 
             //if (attachment.AttachmentContent == null)
@@ -116,7 +147,9 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             attachment.DescriptionEn = descriptionEn ?? attachment.DescriptionEn;
             attachment.ContentType = contentType;
             attachment.Extension = new FileInfo(fileName).Extension;
-            attachment.FileName = string.IsNullOrEmpty(referralNumber) ? fileName : referralNumber + "_" + fileName;
+            attachment.FileName = string.IsNullOrEmpty(referralNumber)
+                ? fileName
+                : referralNumber + "_" + fileName;
             attachment.IsCloseSourceArabic = attachmentDto.IsCloseSourceArabic;
             attachment.IsCloseSourceEnglish = attachmentDto.IsCloseSourceEnglish;
             attachment.IsData = attachmentDto.IsData;
@@ -124,7 +157,6 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             attachment.IsOpenSourceEnglish = attachmentDto.IsOpenSourceEnglish;
             attachment.IsOpenSourceArabic = attachmentDto.IsOpenSourceArabic;
             attachment.IsSanitizedDocument = attachmentDto.IsSanitizedDocument;
-            
 
             // in updating delete old file
             if (isUpdateFile)
@@ -133,8 +165,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             }
 
             attachment.FilePath = _appSettingsService.SaveFilesToDatabase
-                                      ? null
-                                      : this.SaveAttachmentToFileSystem(attachment, fileBytes);
+                ? null
+                : this.SaveAttachmentToFileSystem(attachment, fileBytes);
             //attachment.AttachmentContent.Id = attachment.Id;
             //attachment.AttachmentContent.FileContent =
             //    _appSettingsService.SaveFilesToDatabase ? fileBytes : null;
@@ -173,7 +205,12 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 return null;
             }
             //add new attachments
-            var resultAttachment = AddAttachment(Base64ToImage(attachment), contentType: attachment.ContentType, attachment: attachment, referralNumber: referralNumber);
+            var resultAttachment = AddAttachment(
+                Base64ToImage(attachment),
+                contentType: attachment.ContentType,
+                attachment: attachment,
+                referralNumber: referralNumber
+            );
 
             return resultAttachment.Value.Id;
         }
@@ -226,7 +263,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
 
         private string SaveAttachmentToFileSystem(Attachment attach, byte[] fileBytes)
         {
-            var relativeFolderPath = $"\\{DateTime.Now.Year}\\{DateTime.Now.Month}\\{DateTime.Now.Day}";
+            var relativeFolderPath =
+                $"\\{DateTime.Now.Year}\\{DateTime.Now.Month}\\{DateTime.Now.Day}";
             var fullFolderPath = $"{_appSettingsService.AttachmentsPath}{relativeFolderPath}";
             var fileName = attach.Id + attach.Extension;
             var fileRelativePath = $@"{relativeFolderPath}\{fileName}";
@@ -235,7 +273,11 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             {
                 Directory.CreateDirectory(fullFolderPath);
             }
-            using (var bw = new BinaryWriter(File.Open(Path.Combine(fullFolderPath, fileName), FileMode.OpenOrCreate)))
+            using (
+                var bw = new BinaryWriter(
+                    File.Open(Path.Combine(fullFolderPath, fileName), FileMode.OpenOrCreate)
+                )
+            )
             {
                 bw.Write(fileBytes);
             }
@@ -244,11 +286,16 @@ namespace QassimPrincipality.Application.Lookups.Attachments
 
         public Attachment GetAttachmentForDownload(Guid? attachmentId)
         {
-            var attachment = _attachmentRepository.TableNoTracking.Include(a => a.AttachmentContent).Where(at => at.Id == attachmentId)
-                .AsNoTracking().SingleOrDefault();
+            var attachment = _attachmentRepository
+                .TableNoTracking.Include(a => a.AttachmentContent)
+                .Where(at => at.Id == attachmentId)
+                .AsNoTracking()
+                .SingleOrDefault();
 
-            if (string.IsNullOrEmpty(_appSettingsService.AttachmentsPath)
-                || string.IsNullOrEmpty(attachment?.FilePath))
+            if (
+                string.IsNullOrEmpty(_appSettingsService.AttachmentsPath)
+                || string.IsNullOrEmpty(attachment?.FilePath)
+            )
             {
                 return attachment;
             }
@@ -279,12 +326,18 @@ namespace QassimPrincipality.Application.Lookups.Attachments
 
         public async Task<bool> RemoveSanitizedDocAsync(Guid requestId)
         {
-            return await this._attachmentRepository.DeleteAsync(a => a.UploadRequestId == requestId && a.IsSanitizedDocument.Value, true);
+            return await this._attachmentRepository.DeleteAsync(
+                a => a.UploadRequestId == requestId && a.IsSanitizedDocument.Value,
+                true
+            );
         }
 
         public async Task<bool> RemoveRequestAttachmentsAsync(Guid requestId)
         {
-            return await this._attachmentRepository.DeleteAsync(a => a.UploadRequestId == requestId, true);
+            return await this._attachmentRepository.DeleteAsync(
+                a => a.UploadRequestId == requestId,
+                true
+            );
         }
     }
 }
