@@ -18,6 +18,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups.Main
         public string DescriptionAr { get; set; }
 
         public string DescriptionEn { get; set; }
+        public bool HasSubCategory { get; set; }
 
         public List<EServiceSubCategory> EServiceSubCategories { get; set; }
 

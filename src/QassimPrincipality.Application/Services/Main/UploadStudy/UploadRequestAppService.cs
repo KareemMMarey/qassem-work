@@ -344,7 +344,6 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                             .Contains(model.ReferralNumber.ToLower().Trim())
                         || a.CreatedBy.ToLower() == model.Researcher.ToLower().Trim()
                     )
-                    && a.IsActive
                     && a.IsApproved
             };
 
@@ -407,8 +406,8 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.Researcher))
                 filters.Add(a => a.CreatedBy.Contains(UploadRequestSearchDto.Researcher));
 
-            if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.ResearcherId.ToString()))
-                filters.Add(a => a.OriginatorId == UploadRequestSearchDto.ResearcherId);
+            //if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.ResearcherId.ToString()))
+            //    filters.Add(a => a.OriginatorId == UploadRequestSearchDto.ResearcherId);
 
             if (
                 UploadRequestSearchDto.RequestTypeId.HasValue

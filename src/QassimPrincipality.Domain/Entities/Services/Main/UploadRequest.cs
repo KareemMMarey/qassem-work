@@ -21,5 +21,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
 
         public List<Attachment> Attachments { get; set; }
         public DateTime? RequestDate { get; set; }
+        public string OracleRequestNumber { get; set; }
+        public bool IsApproved { get; set; }
     }
 }
