@@ -1,6 +1,7 @@
 ﻿using Framework.Core.Data;
 using Framework.Identity.Data.Entities;
 using Framework.Identity.Data.Extensions;
+using Framework.Identity.Data.Seed;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,9 +32,9 @@ namespace Framework.Identity.Data
                 options.Schema = Schema;
             });
 
-            //builder.ApplyConfiguration(new RoleConfiguration());
-            //builder.ApplyConfiguration(new AdminConfiguration());
-            //builder.ApplyConfiguration(new UsersWithRolesConfig());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new AdminConfiguration());
+            builder.ApplyConfiguration(new UsersWithRolesConfig());
         }
 
         public override int SaveChanges()
