@@ -94,7 +94,7 @@ namespace QassimPrincipality.Web
             app.UseApplicationDBMigration();
             app.UseSharedApplicationDBMigration();
             app.UseIdentityDBMigration();
-          //  AppDbInitializer.Seed(builder.Services,builder);
+            AppDbInitializer.Seed(builder.Services,builder);
             app.Run();
         }
     }

@@ -16,6 +16,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public string UserMobile { get; set; }
         public string Description { get; set; }
         public int RequesterTypeId { get; set; }
+        public bool IsAllowed { get; set; }
         public RequesterType RequesterType { get; set; } // open data
     }
 }
