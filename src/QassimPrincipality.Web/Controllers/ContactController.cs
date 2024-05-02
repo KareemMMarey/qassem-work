@@ -7,6 +7,7 @@ using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Contact;
 using QassimPrincipality.Web.ViewModels.Request;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -55,7 +56,7 @@ namespace QassimPrincipality.Web.Controllers
             dto.Description= model.Description;
             dto.IdentityNumber = model.IdentityNumber;
             await _contactService.InsertAsync(dto);
-            return RedirectToAction(nameof(MessageResult));
+            return RedirectToAction("Common", "Index");
         }
     }
 }
