@@ -9,7 +9,7 @@
 <div class="row text">
     <div class="col-md-8 offset-2">
         <p>
-            <h1>Add a New Request</h1>
+            <h1>إنشاء طلب جديد</h1>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
@@ -45,6 +45,16 @@
                         <span asp-validation-for="RequestName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label">رقم الهاتف</label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NafathNumber" class="control-label">رقم الهوية</label>
+                        <input asp-for="NafathNumber" class="form-control" />
+                        <span asp-validation-for="NafathNumber" class="text-danger"></span>
+                    </div>@* 
+                    <div class="form-group">
                         <label class="control-label">اسم المستخدم</label>
                         @{
                             string userName = "Guest";
@@ -54,15 +64,15 @@
                             }
                         }
                         <label class="control-label">@userName</label>
-                    </div>
+                    </div> *@
                     <div class="form-group">
-                        <label asp-for="Photo" class="control-label"></label>
+                        <label asp-for="Photo" class="control-label">الصورة الشخصية</label>
                         <input asp-for="Photo" class="form-control" />
                         <span asp-validation-for="Photo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ListAttachments"></label>
-                        <input asp-for="ListAttachments" />
+                        <label asp-for="ListAttachments">مرفقات اخرى</label>
+                        <input class="form-control" asp-for="ListAttachments" />
                         <span asp-validation-for="ListAttachments" class="text-danger"></span>
                     </div>
 
