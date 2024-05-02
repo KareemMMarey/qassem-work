@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Configuration\Test\" />
     <Folder Include="Resources\Views\Shared\Components\" />
+    <Folder Include="Uploads\Requests\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -19,9 +19,6 @@ namespace QassimPrincipality.Web.Controllers
         }
 
 
-        
-
-
         public IActionResult Login() => View(new LoginVM());
 
         [HttpPost]

@@ -58,33 +58,20 @@ namespace QassimPrincipality.Web.Controllers
                     PhoneNumber = model.PhoneNumber,
                     NafathNumber = model.NafathNumber,
                     RequestName = model.RequestName,
-                    Photo = new Application.Dtos.AttachmentDto
-                    {
-                        FileContentData = streamPhoto.ToArray(),
-                        FileName = model.Photo.FileName,
-                    },
-                    OtherAttachments = new List<Application.Dtos.AttachmentDto>()
+                    Photo = model.Photo,
+                    OtherAttachments = model.ListAttachments
                 };
 
-                foreach (var item in model.ListAttachments)
+                try
                 {
-                    byte[] data = new byte[] { };
-                    using (MemoryStream stream = new MemoryStream())
-                    {
-                        item.CopyTo(stream);
-                        data = stream.ToArray();
-                        dto.OtherAttachments.Add(
-                            new Application.Dtos.AttachmentDto
-                            {
-                                FileContentData = data,
-                                FileName = item.FileName,
-                            }
-                        );
-                    }
+                    await _uploadRequestService.InsertAsync(dto);
+
                 }
+                catch (Exception e)
+                {
 
-                await _uploadRequestService.InsertAsync(dto);
-
+                    throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch

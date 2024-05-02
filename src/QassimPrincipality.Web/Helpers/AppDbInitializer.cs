@@ -1,4 +1,4 @@
-﻿using QassimPrincipality.Domain.Entities.Lookups.Main;
+using QassimPrincipality.Domain.Entities.Lookups.Main;
 using QassimPrincipality.Infrastructure.Data;
 using ZXing.QrCode.Internal;
 

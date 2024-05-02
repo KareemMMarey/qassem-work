@@ -26,6 +26,7 @@ namespace QassimPrincipality.Application
             this.CreateMap<EServiceSubCategory, EServiceSubCategoryDto>().ReverseMap();
             this.CreateMap<EServiceSubCategory, CommonEServiceDto>().ReverseMap();
             this.CreateMap<EServiceCategory, CommonEServiceDto>().ReverseMap();
+            this.CreateMap<UploadRequestDto, UploadRequest>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

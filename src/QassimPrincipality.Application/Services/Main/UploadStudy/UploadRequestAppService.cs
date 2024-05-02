@@ -6,6 +6,7 @@ using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using QassimPrincipality.Application.Dtos;
@@ -61,12 +62,37 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             var uploadRequest =
                 UploadRequestDto.MapTo<Domain.Entities.Services.Main.UploadRequest>();
-            uploadRequest.CreatedBy = _userAppService.CurrentUser.Id.ToString();
+            uploadRequest.CreatedBy = ""; // _userAppService.CurrentUser.Id.ToString();
 
             uploadRequest = await _uploadRequestRepository.InsertAsync(uploadRequest, true);
 
+            var photo = new AttachmentDto
+            {
+                FileName = UploadRequestDto.Photo.FileName, // photoPath.FirstOrDefault(),
+                Size = UploadRequestDto.Photo.Length,
+                UploadRequestId = uploadRequest.Id,
+                FileContent = GetBase64String(UploadRequestDto.Photo),
+                ContentType = UploadRequestDto.Photo.ContentType
+            };
+            SaveAttachment(
+                new AttachmentDto[] { photo },
+                uploadRequest.Id,
+                UploadRequestDto.referralNumber
+            );
+
+            var others = UploadRequestDto.OtherAttachments.Select(c => new AttachmentDto
+            {
+                FileName = c.FileName, // photoPath.FirstOrDefault(),
+                Size = c.Length,
+                UploadRequestId = uploadRequest.Id,
+                FileContent = GetBase64String(c),
+                ContentType = c.ContentType
+            });
+
             //attachments
-            SaveAttachment(new AttachmentDto[] { UploadRequestDto.Photo }, uploadRequest.Id, UploadRequestDto.referralNumber);
+
+            SaveAttachment(others.ToArray(), uploadRequest.Id, UploadRequestDto.referralNumber);
+
             //SaveAttachment(UploadRequestDto.OpenSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceArFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
@@ -85,6 +111,15 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 //await CreateNewRequest(UploadRequestDto);
             }
             return uploadRequest.MapTo<UploadRequestDto>();
+        }
+
+        private string GetBase64String(IFormFile photo)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                photo.CopyTo(stream);
+                return Convert.ToBase64String(stream.ToArray());
+            }
         }
 
         public async Task<UploadRequestDtoEdit> UpdateAsync(UploadRequestDtoEdit UploadRequestDto)
@@ -343,8 +378,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                             .Trim()
                             .Contains(model.ReferralNumber.ToLower().Trim())
                         || a.CreatedBy.ToLower() == model.Researcher.ToLower().Trim()
-                    )
-                    && a.IsApproved
+                    ) && a.IsApproved
             };
 
             Func<
@@ -376,7 +410,6 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         private void fillAccessAuthority(UploadRequestDtoView model)
         {
             var currentUser = _userAppService.CurrentUser;
-
         }
 
         public async Task<UploadRequestSearchDto> SearchAsync(
