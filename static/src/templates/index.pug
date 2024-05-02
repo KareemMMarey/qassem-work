@@ -1,0 +1,13 @@
+doctype html
+html(lang='ar', dir='rtl')
+  block vars
+    - var pageTitle = "المركز السعودي للأعمال | الصفحة الرئيسية"
+    - var languageLinks = '/index-en.html'
+    - var lang = 'En'
+  include ./partials/_head
+
+  body
+    include ./partials/_top-bar
+    include ./partials/_header
+    | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita aut obcaecati nemo cum natus, omnis necessitatibus iure voluptatum ex in. Adipisci, numquam ut? Rem quam, fugit eveniet modi ex voluptatem.
+    include ./partials/_footer

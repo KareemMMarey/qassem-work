@@ -1,0 +1,8 @@
+nav
+    ol.breadcrumb
+        li.breadcrumb-item
+            a(href="/") الرئيسية
+        each el in breadCrumbData    
+            li.breadcrumb-item
+                a(href=el.link) #{el.title}
+        li.breadcrumb-item.active #{current}

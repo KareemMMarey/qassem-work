@@ -1,0 +1,16 @@
+:root {
+  --ar-font: "Rubik", sans-serif;
+  --en-font: 'Rubik', sans-serif;
+  --font-num: 'Rubik', sans-serif;
+}
+
+[dir="ltr"] {
+  --bs-body-font-family: var(--en-font);
+}
+
+[dir="rtl"] {
+  --bs-body-font-family: var(--ar-font);
+}
+
+$img-path: "../images";
+$font-path: "../fonts";

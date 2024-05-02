@@ -1,0 +1,158 @@
+$font-weights: (
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "semi-bold": 600,
+  "bold": 700,
+  "black": 900,
+);
+
+:root {
+  // Typography - Size
+  --font-xl-headline: 4.5rem; // 96px
+  --font-lg-headline: 2.5rem; // 48px
+  --font-md-headline: 2rem; // 40px
+  --font-subtitle: 1.8rem; // 32px // =======
+  --font-formgroup-title: 0.9rem; // 16px // =================
+
+  --font-paragraph-md: 0.9rem; // 16px // =================
+  --font-paragraph-sm: 0.7rem; // 14px // =========
+
+  --font-paragraph-lg-ar: 1.15rem; // 20px // =====
+  --font-paragraph-md-ar: 1rem; // 16px // =====
+  --font-paragraph-sm-ar: 0.7rem; // 14px // =========
+
+  --font-button: 1.2rem; // 24px // =========
+  --font-submit: 0.9rem; // 16px // =================
+
+  --font-size-base: 0.9rem; // 16px // =================
+  --font-size-md: 0.9rem; // 16px // =================
+  --font-size-sm: 0.7rem; // 14px // ============
+
+  @each $weight, $value in $font-weights {
+    --font-#{$weight}: #{$value};
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    // Typography - Size
+    --font-xl-headline: 6rem; // 96px
+    --font-lg-headline: 3rem; // 48px
+    --font-md-headline: 2.5rem; // 40px
+    --font-subtitle: 2rem; // 32px
+    --font-formgroup-title: 1rem; // 16px
+
+    --font-paragraph-md: 1rem; // 16px
+    --font-paragraph-sm: 0.875rem; // 14px
+
+    --font-paragraph-lg-ar: 1.25rem; // 20px
+    --font-paragraph-md-ar: 1.125rem; // 16px
+    --font-paragraph-sm-ar: 0.875rem; // 14px
+
+    --font-button: 1.5rem; // 24px
+    --font-submit: 1rem; // 16px
+
+    --font-size-base: 1rem; // 16px
+    --font-size-md: 1rem; // 16px
+    --font-size-sm: 0.85rem; // 14px
+
+    @each $weight, $value in $font-weights {
+      --font-#{$weight}: #{$value};
+    }
+  }
+}
+
+@each $weight, $value in $font-weights {
+  .font-#{$weight} {
+    font-weight: var(--font-#{$weight}) !important;
+  }
+}
+
+@mixin typo($name, $size, $weight: var(--font-regular), $line-height: normal, $transform: capitalize) {
+  #{$name} {
+    font-size: $size;
+    font-weight: $weight;
+    line-height: $line-height;
+    text-transform: $transform;
+    margin: 0;
+  }
+}
+
+@include typo(".typo-xl-headline", var(--font-xl-headline), var(--font-bold), normal);
+@include typo(".typo-lg-headline", var(--font-lg-headline), var(--font-bold), normal);
+@include typo(".typo-md-headline", var(--font-md-headline), var(--font-semi-bold), normal);
+@include typo(".typo-subtitle", var(--font-subtitle), var(--font-medium), normal);
+@include typo(".typo-formgroup-title", var(--font-formgroup-title), var(--font-semi-regular), normal);
+
+@include typo(".typo-paragraph-md", var(--font-paragraph-md), var(--font-regular), 27px);
+@include typo(".typo-paragraph-sm", var(--font-paragraph-sm), var(--font-regular), 24px);
+
+@include typo(".typo-paragraph-lg-ar", var(--font-paragraph-lg-ar), var(--font-regular), 36px);
+@include typo(".typo-paragraph-md-ar", var(--font-paragraph-md-ar), var(--font-regular), 27px);
+@include typo(".typo-paragraph-sm-ar", var(--font-paragraph-sm-ar), var(--font-regular), 24px);
+
+@include typo(".font-button", var(--font-button), var(--font-bold), 32px);
+@include typo(".font-submit", var(--font-submit), var(--font-bold), 21px);
+
+@include typo(".font-size-base", var(--font-size-base), var(--font-regular), 27px);
+@include typo(".font-size-md", var(--font-size-md), var(--font-regular), 27px);
+@include typo(".font-size-sm", var(--font-size-sm), var(--font-light), 24px);
+
+.font-num {
+  font-family: var(--font-num) !important;
+}
+
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+.text-underline {
+  text-decoration: underline !important;
+}
+
+.text-no-underline {
+  text-decoration: none !important;
+}
+
+.text-line-through {
+  text-decoration: line-through !important;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-start {
+  text-align: start !important;
+}
+
+.text-end {
+  text-align: end !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
