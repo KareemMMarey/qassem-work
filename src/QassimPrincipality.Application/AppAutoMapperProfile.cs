@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.CommonEService;
+using QassimPrincipality.Application.Services.Lookups.Main.Contact;
 
 namespace QassimPrincipality.Application
 {
@@ -27,6 +28,7 @@ namespace QassimPrincipality.Application
             this.CreateMap<EServiceSubCategory, CommonEServiceDto>().ReverseMap();
             this.CreateMap<EServiceCategory, CommonEServiceDto>().ReverseMap();
             this.CreateMap<UploadRequestDto, UploadRequest>().ReverseMap();
+            this.CreateMap<ContactForm, ContactFormDto>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

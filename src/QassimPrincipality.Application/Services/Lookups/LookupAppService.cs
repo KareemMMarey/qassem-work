@@ -11,13 +11,16 @@ namespace QassimPrincipality.Application.Lookups.Services
     {
        
         private readonly IRepository<RequestType> _requestTypeRepository;
+        private readonly IRepository<ContactType> _contactTypeRepository;
 
         public LookupAppService(
-                                IRepository<RequestType> requestTypeRepository
+                                IRepository<RequestType> requestTypeRepository,
+                                IRepository<ContactType> contactTypeRepository
                                 )
         {
 
             _requestTypeRepository = requestTypeRepository;
+            _contactTypeRepository = contactTypeRepository;
         }
 
         
@@ -32,7 +35,17 @@ namespace QassimPrincipality.Application.Lookups.Services
                  }
                  ).ToListAsync();
         }
+        public async Task<List<SelectListItem>> GetConatctType()
+        {
+            return await _contactTypeRepository.TableNoTracking.Where(a => a.IsActive).Select(
+                 s => new SelectListItem
+                 {
+                     Text = CultureHelper.IsArabic ? s.NameAr : s.NameEn,
+                     Value = s.Id.ToString()
+                 }
+                 ).ToListAsync();
+        }
 
-        
+
     }
 }
