@@ -67,7 +67,8 @@
                     متطلبات الخدمة
                 </h4>
                 <ul>
-                    @service.ServiceRequierment
+                    @Html.Raw(service.ServiceRequierment)
+                    
                     @* <li>لا يقل عمر المتقدم للزواج عن 35 سنة، ولا يزيد عن 70 سنة.</li>
                     <li>تقرير طبي لطالب الزواج.</li>
                     <li>تقرير طبي عن الحالة الصحية للزوجة إذا كان متزوج.</li>

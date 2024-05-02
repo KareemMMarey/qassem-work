@@ -1,4 +1,4 @@
-﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory
 <div class="container-fluid page-title">
     <h2>
         <a href="/Home" class="text-white text-decoration-none">
@@ -17,8 +17,8 @@
 
             @if (ViewData["subcategories"] != null)
             {
-                var subcategories = (List<EServiceCategoryDto>)ViewData["subcategories"];
-                foreach (EServiceCategoryDto item in subcategories)
+                var subcategories = (List<EServiceSubCategoryDto>)ViewData["subcategories"];
+                foreach (EServiceSubCategoryDto item in subcategories)
                 {
                     <div class="col-4">
                         <div class="card shadow p-3 mb-5 bg-white rounded">
