@@ -1,15 +1,15 @@
 html {
-    font-size: 14px;
+    font-size: var(--font-size-base);
+}
 
-    @media (min-width: 1600px) {
-        font-size: 16px;
-    }
+body {
+    font-family: var(--font-family);
 }
 
 .landing-container {
     --bs-gutter-x: 6.5rem;
 }
 
-.gy-7{
+.gy-7 {
     --bs-gutter-y: 7rem;
 }

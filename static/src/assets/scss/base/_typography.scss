@@ -25,41 +25,12 @@ $font-weights: (
   --font-button: 1.2rem; // 24px // =========
   --font-submit: 0.9rem; // 16px // =================
 
-  --font-size-base: 0.9rem; // 16px // =================
+  --font-size-base: 1rem; // 16px // =================
   --font-size-md: 0.9rem; // 16px // =================
   --font-size-sm: 0.7rem; // 14px // ============
 
   @each $weight, $value in $font-weights {
     --font-#{$weight}: #{$value};
-  }
-}
-
-@media (min-width: 1600px) {
-  :root {
-    // Typography - Size
-    --font-xl-headline: 6rem; // 96px
-    --font-lg-headline: 3rem; // 48px
-    --font-md-headline: 2.5rem; // 40px
-    --font-subtitle: 2rem; // 32px
-    --font-formgroup-title: 1rem; // 16px
-
-    --font-paragraph-md: 1rem; // 16px
-    --font-paragraph-sm: 0.875rem; // 14px
-
-    --font-paragraph-lg-ar: 1.25rem; // 20px
-    --font-paragraph-md-ar: 1.125rem; // 16px
-    --font-paragraph-sm-ar: 0.875rem; // 14px
-
-    --font-button: 1.5rem; // 24px
-    --font-submit: 1rem; // 16px
-
-    --font-size-base: 1rem; // 16px
-    --font-size-md: 1rem; // 16px
-    --font-size-sm: 0.85rem; // 14px
-
-    @each $weight, $value in $font-weights {
-      --font-#{$weight}: #{$value};
-    }
   }
 }
 

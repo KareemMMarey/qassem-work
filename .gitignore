@@ -372,3 +372,4 @@ FodyWeavers.xsd
 */bin/*
 */obj/*
 */Debug/*
+static/dist/

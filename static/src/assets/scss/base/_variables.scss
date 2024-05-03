@@ -1,16 +1,40 @@
-:root {
-  --ar-font: "Rubik", sans-serif;
-  --en-font: 'Rubik', sans-serif;
-  --font-num: 'Rubik', sans-serif;
-}
+$sizes: (
+    "auto": auto,
+    "none": 0,
+    "xs": 0.25rem,
+    "s": 0.5rem,
+    "base": 1rem,
+    "md": 1.5rem,
+    "lg": 2rem,
+    "xl": 2.5rem,
+    "xxl": 3rem,
+);
+$directions: (
+    "top": top,
+    "bottom": bottom,
+    "start": inline-start,
+    "end": inline-end,
+    "right": right,
+    "left": left,
+    "y": "",
+    "x": "",
+);
 
-[dir="ltr"] {
-  --bs-body-font-family: var(--en-font);
-}
+$border-radii: (
+    "none": 0,
+    "soft": 6px,
+    "md": 10px,
+    "rounded": 2em,
+    "circle": 50%,
+);
 
-[dir="rtl"] {
-  --bs-body-font-family: var(--ar-font);
-}
+$border-sizes: (
+    "none": 0,
+    "base": 1px,
+    "md": 2px,
+    "lg": 3px,
+    "xl": 6px,
+);
 
 $img-path: "../images";
 $font-path: "../fonts";
