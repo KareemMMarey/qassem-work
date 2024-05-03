@@ -12,9 +12,16 @@
 $colors: (
     "black": #000,
     "white": #fff,
+    // primary
     "primary": #0A482D,
     "primary-90": #295F48,
     "primary-100": #0A482D,
+    // complement
+    "complement-90": #559299,
+    // grey
+    "dark-grey": #383843,
+    // critical
+    "critical-90": #C51C31,
 );
 
 @include colors-variation($colors);

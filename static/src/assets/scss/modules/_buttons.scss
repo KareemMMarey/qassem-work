@@ -5,7 +5,7 @@
     --bs-btn-border-width: 2px;
     --bs-btn-font-size: 22px;
     display: inline-flex;
-    gap: 10px;
+    gap: var(--space-sm);
     align-items: center;
     border-radius: 2em 0;
 
