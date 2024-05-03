@@ -8,7 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-base);
 }
 
 .header__logo {
@@ -49,4 +49,9 @@
         --bs-dropdown-link-color: var(--color-critical-90);
         --bs-dropdown-link-hover-color: var(--color-critical-90);
     }
+}
+
+.header__nav-bar {
+    flex: 1;
+    padding: 0 var(--space-sm);
 }
