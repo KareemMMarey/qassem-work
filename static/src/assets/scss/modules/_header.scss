@@ -8,11 +8,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--space-sm);
 }
 
 .header__logo {
     display: flex;
-    gap: 30px;
 }
 
 .header__end__container {
