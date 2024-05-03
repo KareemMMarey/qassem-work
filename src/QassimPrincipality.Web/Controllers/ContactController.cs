@@ -1,7 +1,7 @@
 ﻿using Framework.Core.AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Lookups.Services;
-using QassimPrincipality.Application.Services.Lookups.Main.Contact;
+using QassimPrincipality.Application.Services.Main.Contact;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;

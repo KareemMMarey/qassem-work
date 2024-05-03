@@ -3,7 +3,7 @@ using QassimPrincipality.Domain.Interfaces;
 using Framework.Core.AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
-namespace QassimPrincipality.Application.Services.Lookups.Main.Contact
+namespace QassimPrincipality.Application.Services.Main.Contact
 {
     public class ContactFormAppService
     {

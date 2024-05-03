@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QassimPrincipality.Application.Services.Lookups.Main.Contact
+namespace QassimPrincipality.Application.Services.Main.ShareData
 {
-    public class ContactFormDto
+    public class ShareDataDto
     {
         public Guid Id { get; set; }
         public string UserFullName { get; set; }

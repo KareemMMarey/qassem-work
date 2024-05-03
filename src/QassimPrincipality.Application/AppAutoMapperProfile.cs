@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.CommonEService;
-using QassimPrincipality.Application.Services.Lookups.Main.Contact;
+using QassimPrincipality.Application.Services.Main.Contact;
 
 namespace QassimPrincipality.Application
 {
