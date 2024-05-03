@@ -1,9 +1,53 @@
+- 
+	var megaMenuAbout = [
+		{ icon: 'mega-about-icon1', title: 'إمارة منطقة القصيم', description: 'تعرف على إمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-about-icon2', title: 'المحافظات والمراكز', description: 'تعرف على محافظات ومراكز إمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-about-icon3', title: 'الأنظمة واللوائح', description: 'تعرف على الأنظمة واللوائح', 'link': '#' },
+		{ icon: 'mega-about-icon4', title: 'الهيكل التنظيمي', description: 'الهيكل التنظيمي المعتمد لإمارة منطقة القصيم', 'link': '#' },
+	]
+	var megaMenuMedia = [
+		{ icon: 'mega-media-icon1', title: 'البيانات المفتوحة', description: 'تابع آخر أخبار إمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-media-icon2', title: 'استثمر في القصيم', description: 'تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم', 'link': '#' },
+		{ icon: 'mega-media-icon3', title: 'استبيانات إلكترونية', description: 'تعرف على المبادرات التمكينية لإمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-media-icon4', title: 'تقييم الخدمات', description: 'معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية', 'link': '#' },
+		{ icon: 'mega-media-icon5', title: 'اقتراحات', description: 'مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-media-icon6', title: 'تواصل معنا', description: 'نموذج للتواصل معنا وايصال ملاحظاتك لنا', 'link': '#' },
+	]
+	var megaMenuSocial = [
+		{ icon: 'mega-social-icon1', title: 'الأخبار', description: 'تابع آخر أخبار إمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-social-icon2', title: 'الفعاليات', description: 'تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم', 'link': '#' },
+		{ icon: 'mega-social-icon3', title: 'المبادرات', description: 'تعرف على المبادرات التمكينية لإمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-social-icon4', title: 'انفوجرافيك القصيم', description: 'معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية', 'link': '#' },
+		{ icon: 'mega-social-icon5', title: 'مكتبة الصور', description: 'مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم', 'link': '#' },
+		{ icon: 'mega-social-icon6', title: 'مكتبة الفيديو', description: 'مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم', 'link': '#' },
+	]
+mixin megaMenu(el)
+	.mega-menu
+		.container.mega-menu__container
+			.row 
+				each elem in el
+					.col-4 
+						a.mega-menu__item(href=elem.link)
+							.mega-menu__icon
+								svg(width="40" height="40")
+									use(xlink:href="./assets/images/svg-icons.svg#"+elem.icon) 
+							.mega-menu__txt
+								.mega-menu__title
+									=elem.title
+								.mega-menu__description
+									=elem.description
+							svg(width="24" height="24").mega-menu__arrow
+								use(xlink:href="./assets/images/svg-icons.svg#left-arrow") 
+
 nav.nav-bar
 	.nav-bar__item
+		+megaMenu(megaMenuAbout)
 		span.nav-bar__menu عن الإمارة
 	.nav-bar__item
 		a.nav-bar__menu(href="#") الخدمات الإلكترونية
 	.nav-bar__item
+		+megaMenu(megaMenuMedia)
 		span.nav-bar__menu المركز الإعلامي
 	.nav-bar__item
+		+megaMenu(megaMenuSocial)
 		span.nav-bar__menu المشاركة المجتمعية
