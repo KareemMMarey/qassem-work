@@ -72,7 +72,6 @@
         &:before {
             content: "";
             position: absolute;
-            left: 3px;
             top: 50%;
             transform: translate(0px, -50%);
             display: inline-block;
@@ -82,6 +81,14 @@
             border-right: 5px solid transparent;
             border-bottom: 0;
             border-left: 5px solid transparent;
+
+            html[dir="rtl"] & {
+                left: 3px;
+            }
+
+            html[dir="ltr"] & {
+                right: 3px;
+            }
         }
     }
 }
@@ -127,6 +134,13 @@
 
 .mega-menu__arrow {
     opacity: var(--arrow-opacity);
-    transform: var(--arrow-translate);
     transition: all .3s ease-in-out;
+
+    html[dir="rtl"] & {
+        transform: var(--arrow-translate);
+    }
+
+    html[dir="ltr"] & {
+        transform: var(--arrow-translate) rotate(180deg);
+    }
 }
