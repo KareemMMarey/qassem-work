@@ -27,6 +27,10 @@
 .footer__top-shape {
     width: 100%;
     margin-top: -2px;
+
+    html[dir="ltr"] & {
+        transform: scaleX(-1);
+    }
 }
 
 .footer__row {
