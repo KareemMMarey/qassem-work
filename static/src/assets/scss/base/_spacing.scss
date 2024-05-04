@@ -1,0 +1,73 @@
+:root {
+    @each $size, $value in $sizes {
+        --space-#{$size}: #{$value};
+    }
+}
+
+@each $size, $value in $sizes {
+    .margin-#{$size} {
+        margin: var(--space-#{$size}) !important;
+    }
+
+    .padding-#{$size} {
+        padding: var(--space-#{$size}) !important;
+    }
+
+    @each $direction, $value in $directions {
+        .margin-#{$direction}-#{$size} {
+            @if $direction =="x" {
+                margin-left: var(--space-#{$size}) !important;
+                margin-right: var(--space-#{$size}) !important;
+            }
+
+            @else if $direction =="y" {
+                margin-top: var(--space-#{$size}) !important;
+                margin-bottom: var(--space-#{$size}) !important;
+            }
+
+            @else {
+                margin-#{$value}: var(--space-#{$size}) !important;
+            }
+        }
+
+        .padding-#{$direction}-#{$size} {
+            @if $direction =="x" {
+                padding-left: var(--space-#{$size}) !important;
+                padding-right: var(--space-#{$size}) !important;
+            }
+
+            @else if $direction =="y" {
+                padding-top: var(--space-#{$size}) !important;
+                padding-bottom: var(--space-#{$size}) !important;
+            }
+
+            @else {
+                padding-#{$value}: var(--space-#{$size}) !important;
+            }
+        }
+    }
+}
+
+.margin-inline-start-m {
+    margin-inline-start: var(--space-m) !important;
+}
+
+.margin-inline-end-m {
+    margin-inline-end: var(--space-m) !important;
+}
+
+.margin-inline-start-base {
+    margin-inline-start: var(--space-base) !important;
+}
+
+.margin-inline-end-base {
+    margin-inline-end: var(--space-base) !important;
+}
+
+.margin-inline-start-sm {
+    margin-inline-start: var(--space-sm) !important;
+}
+
+.margin-inline-end-sm {
+    margin-inline-end: var(--space-sm) !important;
+}
