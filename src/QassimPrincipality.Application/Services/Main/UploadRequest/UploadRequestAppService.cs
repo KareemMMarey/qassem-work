@@ -52,7 +52,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             _roleAppService = roleAppService;
         }
 
-        public async Task<List<UploadRequestDto>> GetAllUploadStudies()
+        public async Task<List<UploadRequestDto>> GetAllUploadRequests()
         {
             var uploadRequest = await _uploadRequestRepository.TableNoTracking.ToListAsync();
             return uploadRequest.MapTo<List<UploadRequestDto>>();
@@ -377,8 +377,8 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                         a.referralNumber.ToLower()
                             .Trim()
                             .Contains(model.ReferralNumber.ToLower().Trim())
-                        || a.CreatedBy.ToLower() == model.Researcher.ToLower().Trim()
-                    ) && a.IsApproved
+                        
+                    ) 
             };
 
             Func<
@@ -418,35 +418,10 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             var filters =
                 new List<Expression<Func<Domain.Entities.Services.Main.UploadRequest, bool>>>();
-            if (UploadRequestSearchDto.Tags != null && UploadRequestSearchDto.Tags.Length > 0)
-            {
-                List<UploadRequestDto> allResultStudies = new List<UploadRequestDto>();
-                foreach (var tag in UploadRequestSearchDto.Tags)
-                    if (allResultStudies != null)
-                    {
-                        var studiesIdsList = allResultStudies.Select(s => s.Id).ToList();
-                        filters.Add(a => studiesIdsList.Contains(a.Id));
-                    }
-            }
-
-            if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.ReferralNumber))
-                filters.Add(a =>
-                    a.referralNumber.ToLower()
-                        .Trim()
-                        .Contains(UploadRequestSearchDto.ReferralNumber.ToLower().Trim())
-                );
-
-            if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.Researcher))
-                filters.Add(a => a.CreatedBy.Contains(UploadRequestSearchDto.Researcher));
-
-            //if (!string.IsNullOrWhiteSpace(UploadRequestSearchDto.ResearcherId.ToString()))
-            //    filters.Add(a => a.OriginatorId == UploadRequestSearchDto.ResearcherId);
-
-            if (
-                UploadRequestSearchDto.RequestTypeId.HasValue
-                && UploadRequestSearchDto.RequestTypeId > 0
-            )
-                filters.Add(a => a.RequestTypeId == UploadRequestSearchDto.RequestTypeId);
+            
+            
+            if (UploadRequestSearchDto.IsApproved!=null)
+                filters.Add(a => a.IsApproved == UploadRequestSearchDto.IsApproved);
 
             Func<
                 IQueryable<Domain.Entities.Services.Main.UploadRequest>,
@@ -455,19 +430,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             orderBy = a => a.OrderByDescending(b => b.CreatedOn);
 
             Framework.Core.PagedList<UploadRequestDto> result;
-            if (UploadRequestSearchDto.IsRequestLibrary)
-            {
-                result = _uploadRequestRepository.SearchAndSelectWithFilters(
-                    UploadRequestSearchDto.PageNumber,
-                    UploadRequestSearchDto.PageSize ?? _appSettingsService.DefaultPagerPageSize,
-                    orderBy,
-                    a => a.MapTo<UploadRequestDto>(),
-                    filters,
-                    a => a.Attachments
-                );
-            }
-            else
-            {
+           
                 result = _uploadRequestRepository.SearchAndSelectWithFilters(
                     UploadRequestSearchDto.PageNumber,
                     UploadRequestSearchDto.PageSize ?? _appSettingsService.DefaultPagerPageSize,
@@ -475,7 +438,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                     a => a.MapTo<UploadRequestDto>(),
                     filters
                 );
-            }
+            
 
             UploadRequestSearchDto.Items = new StaticPagedList<UploadRequestDto>(
                 result,

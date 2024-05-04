@@ -3,13 +3,38 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - QassimPrincipality.Web</title>
+    @* <title>@ViewData["Title"] - QassimPrincipality.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/QassimPrincipality.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/QassimPrincipality.Web.styles.css" asp-append-version="true" /> *@
+
+    <title>@ViewData["Title"] </title>
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/fav/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/images/fav/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/fav/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/images/fav/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/fav/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/images/fav/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/fav/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/fav/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/fav/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/fav/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/images/fav/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/fav/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.2//assets/css/docs.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-    <header>
+    @* <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QassimPrincipality.Web</a>
@@ -29,6 +54,407 @@
                 </div>
             </div>
         </nav>
+    </header> *@
+    <div class="top-bar">
+        <div class="container top-bar__container">
+            <div class="top-bar__date">
+                <svg width="24" height="24">
+                    <use xlink:href="/assets/images/svg-icons.svg#date"> </use>
+                </svg> @DateTime.Now @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
+            </div>
+            <div class="top-bar__lang"> @* <a class="btn btn-sm" href="/index-en.html">English</a> *@</div>
+        </div>
+    </div>
+    <header class="header">
+        <div class="container header__container">
+            <a class="header__logo" href="/"><img src="/assets/images/qassim-logo.svg" alt="إمارة منطقة القصيم"></a>
+            <div class="header__nav-bar">
+                <nav class="nav-bar">
+                    <div class="nav-bar__item">
+                        <div class="mega-menu">
+                            <div class="container mega-menu__container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon1"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    إمارة منطقة القصيم
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تعرف على إمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon2"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    المحافظات والمراكز
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تعرف على محافظات ومراكز إمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon3"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    الأنظمة واللوائح
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تعرف على الأنظمة واللوائح
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon4"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    الهيكل التنظيمي
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    الهيكل التنظيمي المعتمد لإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><span class="nav-bar__menu">عن الإمارة</span>
+                    </div>
+                    <div class="nav-bar__item"><a class="nav-bar__menu" href="#">الخدمات الإلكترونية</a></div>
+                    <div class="nav-bar__item">
+                        <div class="mega-menu">
+                            <div class="container mega-menu__container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon1"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    البيانات المفتوحة
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تابع آخر أخبار إمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon2"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    استثمر في القصيم
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon3"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    استبيانات إلكترونية
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon4"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    تقييم الخدمات
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon5"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    اقتراحات
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon6"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    تواصل معنا
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    نموذج للتواصل معنا وايصال ملاحظاتك لنا
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><span class="nav-bar__menu">المركز الإعلامي</span>
+                    </div>
+                    <div class="nav-bar__item">
+                        <div class="mega-menu">
+                            <div class="container mega-menu__container">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon1"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    الأخبار
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تابع آخر أخبار إمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon2"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    الفعاليات
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon3"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    المبادرات
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon4"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    انفوجرافيك القصيم
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon5"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    مكتبة الصور
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="col-4">
+                                        <a class="mega-menu__item" href="#">
+                                            <div class="mega-menu__icon">
+                                                <svg width="40" height="40">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon6"> </use>
+                                                </svg>
+                                            </div>
+                                            <div class="mega-menu__txt">
+                                                <div class="mega-menu__title">
+                                                    مكتبة الفيديو
+                                                </div>
+                                                <div class="mega-menu__description">
+                                                    مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم
+                                                </div>
+                                            </div>
+                                            <svg class="mega-menu__arrow" width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><span class="nav-bar__menu">المشاركة المجتمعية</span>
+                    </div>
+                </nav>
+            </div>
+            <div class="header__login">
+                <div class="header-login">
+                    <div id="loginBtn"><a class="btn btn-outline-primary" href="/">تسجيل الدخول</a></div>
+                    <div class="d-none" id="userMenu">
+                        <div class="dropdown header-login__dropdown">
+                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <svg width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#user-circle"> </use>
+                                </svg>مرحبا <span>أحمد الفلاني</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <svg width="24" height="24">
+                                            <use xlink:href="/assets/images/svg-icons.svg#user" />
+                                        </svg> ملفي الشخصي
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <svg width="24" height="24">
+                                            <use xlink:href="/assets/images/svg-icons.svg#orders" />
+                                        </svg> طلباتي
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item dropdown-item--logout" href="#">
+                                        <svg width="24" height="24">
+                                            <use xlink:href="/assets/images/svg-icons.svg#logout" />
+                                        </svg> تسجيل الخروج
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -36,14 +462,208 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    @* <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - QassimPrincipality.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script> *@
+
+    <footer class="footer">
+        <svg viewBox="0 0 1440 287" class="footer__top-shape" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M1340 200.659H100H99.9605C44.7502 200.641 2.4547e-05 162.262 2.93741e-05 114.921L0 200.659V203.231V3V2.84259V12.6115V15.1837L2.93741e-05 0.921326C99.9605 0.921326 44.7321 0.921326 99.9605 0.921326H490.5H1440C1440 26.8001 1440 56.7976 1440 9.44592V286.397C1440 239.045 1395.23 200.659 1340 200.659Z" fill="#F7F7F7" />
+        </svg>
+        <div class="container">
+            <div class="row footer__row">
+                <div class="col-xl-4 footer__col">
+                    <h4 class="footer__title">تصفح</h4>
+                    <ul class="footer__list">
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                خارطة الموقع
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                منصة منقولات
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                سياسة الخصوصية
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                اتفاقية مستوى الخدمة
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xl-4 footer__col">
+                    <h4 class="footer__title">روابط خارجية</h4>
+                    <ul class="footer__list">
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                منصة صوت المواطن
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                خدمات الإمارة في أبشر
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                المكتبة القانونية الرقمية
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                اكتشف القصيم
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                المكتبة الرقمية
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xl-4 footer__col">
+                    <h4 class="footer__title">تواصل</h4>
+                    <ul class="footer__list">
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                تواصل معنا
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                اقتراحات
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="footer__li">
+                            <a class="footer__link" href="#">
+                                دعم فني
+                                <svg>
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="footer__apps">
+                        <li class="footer__apps-li">
+                            <a class="footer__apps-link" href="#" target="_blank">
+                                <svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <mask id="path-1-inside-1_2_22657" fill="white">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.7816 35.6628C5.5651 38.4463 10.0434 38.4463 19 38.4463C27.9566 38.4463 32.4368 38.4463 35.2165 35.6628C38 32.8812 38 28.4029 38 19.4463C38 10.4897 38 6.01329 35.2165 3.22789C32.4349 0.446289 27.9566 0.446289 19 0.446289C10.0434 0.446289 5.567 0.446289 2.7816 3.22789C0 6.01139 0 10.4897 0 19.4463C0 28.4029 0 32.8831 2.7816 35.6628ZM20.8806 28.3742C22.1252 28.918 23.4181 29.0992 24.6023 27.9513L24.5902 27.9634C26.0764 26.6342 26.9706 24.8338 27.6594 23.0213C24.2035 21.6317 23.3094 16.6655 27.0794 14.4059C26.1731 13.1009 24.7956 12.3759 22.971 12.2309C21.9991 12.1614 21.0911 12.4761 20.1906 12.7883C19.6805 12.965 19.1729 13.141 18.6573 13.2459C18.2527 13.2151 17.8155 13.052 17.3218 12.8677C16.6508 12.6173 15.8754 12.3279 14.9356 12.2792C8.24145 12.6175 7.37145 21.8734 13.2681 27.9513C14.3073 28.9059 15.2256 29.1234 16.9656 28.3742C18.3552 27.7942 19.5635 27.8184 20.8806 28.3742ZM18.5364 12.2067C18.3552 9.51212 20.5423 7.28879 23.0556 7.07129C23.406 10.1888 20.2281 12.5088 18.5364 12.2067Z" />
+                                    </mask>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.7816 35.6628C5.5651 38.4463 10.0434 38.4463 19 38.4463C27.9566 38.4463 32.4368 38.4463 35.2165 35.6628C38 32.8812 38 28.4029 38 19.4463C38 10.4897 38 6.01329 35.2165 3.22789C32.4349 0.446289 27.9566 0.446289 19 0.446289C10.0434 0.446289 5.567 0.446289 2.7816 3.22789C0 6.01139 0 10.4897 0 19.4463C0 28.4029 0 32.8831 2.7816 35.6628ZM20.8806 28.3742C22.1252 28.918 23.4181 29.0992 24.6023 27.9513L24.5902 27.9634C26.0764 26.6342 26.9706 24.8338 27.6594 23.0213C24.2035 21.6317 23.3094 16.6655 27.0794 14.4059C26.1731 13.1009 24.7956 12.3759 22.971 12.2309C21.9991 12.1614 21.0911 12.4761 20.1906 12.7883C19.6805 12.965 19.1729 13.141 18.6573 13.2459C18.2527 13.2151 17.8155 13.052 17.3218 12.8677C16.6508 12.6173 15.8754 12.3279 14.9356 12.2792C8.24145 12.6175 7.37145 21.8734 13.2681 27.9513C14.3073 28.9059 15.2256 29.1234 16.9656 28.3742C18.3552 27.7942 19.5635 27.8184 20.8806 28.3742ZM18.5364 12.2067C18.3552 9.51212 20.5423 7.28879 23.0556 7.07129C23.406 10.1888 20.2281 12.5088 18.5364 12.2067Z" fill="#FBFFFC" />
+                                    <path d="M2.7816 35.6628L4.10389 34.3405L4.10344 34.34L2.7816 35.6628ZM35.2165 35.6628L33.8947 34.34L33.8933 34.3414L35.2165 35.6628ZM35.2165 3.22789L36.5392 1.90605L36.5388 1.9056L35.2165 3.22789ZM2.7816 3.22789L1.46021 1.9047L1.45886 1.90605L2.7816 3.22789ZM24.6023 27.9513L25.9248 29.2734L23.3007 26.6086L24.6023 27.9513ZM20.8806 28.3742L21.6293 26.6606L21.6185 26.6559L21.6077 26.6513L20.8806 28.3742ZM24.5902 27.9634L23.2677 26.6413L25.8368 29.3573L24.5902 27.9634ZM27.6594 23.0213L29.4074 23.6855L30.0591 21.9707L28.357 21.2863L27.6594 23.0213ZM27.0794 14.4059L28.0407 16.0098L29.756 14.9818L28.6153 13.3392L27.0794 14.4059ZM22.971 12.2309L23.1192 10.3667L23.1117 10.3662L23.1043 10.3656L22.971 12.2309ZM20.1906 12.7883L20.803 14.5551H20.803L20.1906 12.7883ZM18.6573 13.2459L18.5157 15.1105L18.7751 15.1302L19.03 15.0784L18.6573 13.2459ZM17.3218 12.8677L16.6679 14.6197L16.6679 14.6197L17.3218 12.8677ZM14.9356 12.2792L15.0324 10.4117L14.9368 10.4068L14.8412 10.4116L14.9356 12.2792ZM13.2681 27.9513L11.926 29.2534L11.9634 29.292L12.0031 29.3284L13.2681 27.9513ZM16.9656 28.3742L16.2453 26.6485L16.2357 26.6525L16.2261 26.6566L16.9656 28.3742ZM18.5364 12.2067L16.6707 12.3322L16.7688 13.7906L18.2077 14.0476L18.5364 12.2067ZM23.0556 7.07129L24.9139 6.86241L24.7103 5.0511L22.8944 5.20825L23.0556 7.07129ZM19 36.5763C14.4688 36.5763 11.2586 36.5723 8.82514 36.245C6.44556 35.925 5.09039 35.327 4.10389 34.3405L1.45931 36.9851C3.25631 38.7821 5.53204 39.5758 8.32664 39.9517C11.0673 40.3203 14.5746 40.3163 19 40.3163V36.5763ZM33.8933 34.3414C32.9091 35.327 31.5551 35.925 29.1753 36.245C26.7419 36.5723 23.5312 36.5763 19 36.5763V40.3163C23.4254 40.3163 26.9331 40.3203 29.6738 39.9517C32.4682 39.5759 34.7442 38.7821 36.5397 36.9842L33.8933 34.3414ZM36.13 19.4463C36.13 23.9775 36.126 27.1877 35.7988 29.6209C35.4787 32.0003 34.8807 33.3546 33.8947 34.34L36.5383 36.9855C38.3358 35.1893 39.1295 32.9138 39.5054 30.1194C39.874 27.379 39.87 23.8717 39.87 19.4463H36.13ZM33.8938 4.54973C34.8808 5.5374 35.4787 6.89301 35.7988 9.27216C36.126 11.7054 36.13 14.9151 36.13 19.4463H39.87C39.87 15.0209 39.874 11.5141 39.5054 8.77361C39.1295 5.97907 38.3357 3.70377 36.5392 1.90605L33.8938 4.54973ZM19 2.31629C23.5312 2.31629 26.7414 2.32026 29.1748 2.64732C31.5544 2.96717 32.9089 3.56482 33.8942 4.55018L36.5388 1.9056C34.7425 0.109356 32.4671 -0.683789 29.673 -1.05934C26.9326 -1.42768 23.4254 -1.42371 19 -1.42371V2.31629ZM4.10299 4.55108C5.09061 3.5648 6.44632 2.96714 8.82571 2.64732C11.259 2.32026 14.4689 2.31629 19 2.31629V-1.42371C14.5745 -1.42371 11.0679 -1.42768 8.32749 -1.05934C5.53318 -0.683759 3.25799 0.109376 1.46021 1.9047L4.10299 4.55108ZM1.87 19.4463C1.87 14.9151 1.87397 11.7048 2.20104 9.27126C2.52088 6.89145 3.11857 5.53617 4.10434 4.54973L1.45886 1.90605C-0.336969 3.70311 -1.13008 5.97873 -1.50564 8.77309C-1.87397 11.5137 -1.87 15.0208 -1.87 19.4463H1.87ZM4.10344 34.34C3.11859 33.3559 2.52091 32.0018 2.20104 29.6218C1.87397 27.1882 1.87 23.9774 1.87 19.4463H-1.87C-1.87 23.8717 -1.87397 27.3794 -1.50564 30.12C-1.13011 32.9141 -0.336989 35.19 1.45976 36.9855L4.10344 34.34ZM23.3007 26.6086C23.0204 26.8803 22.8266 26.9219 22.6741 26.9293C22.4564 26.9398 22.1278 26.8784 21.6293 26.6606L20.132 30.0878C20.878 30.4137 21.8182 30.7149 22.8541 30.665C23.9553 30.6119 25 30.1702 25.9039 29.294L23.3007 26.6086ZM25.9127 29.2855L25.9248 29.2734L23.2798 26.6292L23.2677 26.6413L25.9127 29.2855ZM25.9113 22.357C25.2551 24.0838 24.4912 25.5432 23.3436 26.5695L25.8368 29.3573C27.6617 27.7252 28.6861 25.5837 29.4074 23.6855L25.9113 22.357ZM26.118 12.8019C20.8828 15.9397 22.2256 22.8519 26.9617 24.7563L28.357 21.2863C26.1815 20.4115 25.736 17.3912 28.0407 16.0098L26.118 12.8019ZM22.8229 14.095C24.1893 14.2036 25.0103 14.7048 25.5434 15.4725L28.6153 13.3392C27.336 11.4969 25.4019 10.5482 23.1192 10.3667L22.8229 14.095ZM20.803 14.5551C21.7664 14.2212 22.3115 14.0585 22.8378 14.0961L23.1043 10.3656C21.6867 10.2644 20.4158 10.7311 19.5782 11.0214L20.803 14.5551ZM19.03 15.0784C19.6886 14.9444 20.3148 14.7244 20.803 14.5551L19.5782 11.0214C19.0463 11.2057 18.6571 11.3376 18.2846 11.4134L19.03 15.0784ZM16.6679 14.6197C17.0849 14.7753 17.792 15.0555 18.5157 15.1105L18.7989 11.3812C18.7133 11.3747 18.546 11.3286 17.9756 11.1158L16.6679 14.6197ZM14.8388 14.1467C15.4571 14.1788 15.9851 14.3649 16.6679 14.6197L17.9756 11.1158C17.3164 10.8698 16.2937 10.4771 15.0324 10.4117L14.8388 14.1467ZM14.6103 26.6492C12.0035 23.9622 10.9854 20.6605 11.2407 18.1523C11.3673 16.9081 11.7948 15.9367 12.397 15.2831C12.976 14.6546 13.8154 14.2082 15.03 14.1468L14.8412 10.4116C12.7088 10.5194 10.9291 11.3568 9.64646 12.7489C8.38708 14.1158 7.71046 15.9017 7.51992 17.7735C7.14086 21.4973 8.6361 25.8624 11.926 29.2534L14.6103 26.6492ZM16.2261 26.6566C15.4978 26.9702 15.203 26.9622 15.111 26.9494C15.0573 26.9419 14.9065 26.9171 14.5332 26.5741L12.0031 29.3284C12.6689 29.9401 13.4969 30.5013 14.5971 30.6539C15.6591 30.8013 16.6934 30.5274 17.7051 30.0918L16.2261 26.6566ZM21.6077 26.6513C19.835 25.9032 18.105 25.8723 16.2453 26.6485L17.6859 30.0999C18.6054 29.7161 19.2921 29.7335 20.1535 30.0971L21.6077 26.6513ZM20.4022 12.0812C20.2964 10.5074 21.6112 9.07328 23.2168 8.93433L22.8944 5.20825C19.4734 5.5043 16.414 8.51688 16.6707 12.3322L20.4022 12.0812ZM21.1973 7.28017C21.2917 8.11992 20.9226 8.93712 20.2608 9.57813C19.9348 9.89385 19.5819 10.1192 19.2787 10.2472C18.9487 10.3864 18.8129 10.3565 18.8652 10.3658L18.2077 14.0476C19.1058 14.208 20.0016 14.0014 20.7324 13.6931C21.4898 13.3736 22.2267 12.8808 22.8628 12.2645C24.1253 11.0417 25.1699 9.14016 24.9139 6.86241L21.1973 7.28017Z" fill="#FBFFFC" mask="url(#path-1-inside-1_2_22657)" />
+                                </svg>
+                            </a>
+                        <li class="footer__apps-li">
+                            <a class="footer__apps-link" href="#" target="_blank">
+                                <svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <mask id="path-1-inside-1_2_22663" fill="red">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M2.7816 35.6628C5.5651 38.4463 10.0434 38.4463 19 38.4463C27.9566 38.4463 32.4368 38.4463 35.2165 35.6628C38 32.8812 38 28.4029 38 19.4463C38 10.4897 38 6.01329 35.2165 3.22789C32.4349 0.446289 27.9566 0.446289 19 0.446289C10.0434 0.446289 5.567 0.446289 2.7816 3.22789C0 6.01139 0 10.4897 0 19.4463C0 28.4029 0 32.8831 2.7816 35.6628ZM25.948 12.1306C25.8642 11.8791 25.684 11.6712 25.447 11.5526C25.2099 11.4342 24.9354 11.4147 24.684 11.4985C24.4325 11.5824 24.2247 11.7626 24.106 11.9996L22.972 14.2666C21.755 13.7386 20.411 13.4466 19 13.4466C17.6338 13.4448 16.2818 13.7239 15.028 14.2666L13.894 11.9996C13.8378 11.878 13.7578 11.7689 13.6587 11.6789C13.5596 11.5888 13.4434 11.5196 13.317 11.4753C13.1907 11.431 13.0567 11.4125 12.923 11.4209C12.7893 11.4294 12.6588 11.4646 12.539 11.5245C12.4192 11.5844 12.3127 11.6678 12.2257 11.7696C12.1387 11.8714 12.0731 11.9897 12.0327 12.1174C11.9923 12.2451 11.978 12.3796 11.9906 12.5129C12.0032 12.6463 12.0424 12.7757 12.106 12.8936L13.28 15.2426C11.9578 16.1634 10.8779 17.3905 10.1326 18.819C9.38735 20.2476 8.99876 21.8353 9 23.4466V24.4466C9 24.977 9.21072 25.4857 9.58579 25.8608C9.96086 26.2359 10.4696 26.4466 11 26.4466H27C27.5304 26.4466 28.0391 26.2359 28.4142 25.8608C28.7893 25.4857 29 24.977 29 24.4466V23.4466C29.0011 21.8355 28.6124 20.248 27.8671 18.8196C27.1219 17.3912 26.0421 16.1643 24.72 15.2436L25.894 12.8936C26.0124 12.6565 26.0319 12.382 25.948 12.1306ZM13.4393 19.8859C13.7206 19.6046 14.1022 19.4466 14.5 19.4466C14.8978 19.4466 15.2794 19.6046 15.5607 19.8859C15.842 20.1672 16 20.5488 16 20.9466C16 21.3444 15.842 21.7259 15.5607 22.0072C15.2794 22.2886 14.8978 22.4466 14.5 22.4466C14.1022 22.4466 13.7206 22.2886 13.4393 22.0072C13.158 21.7259 13 21.3444 13 20.9466C13 20.5488 13.158 20.1672 13.4393 19.8859ZM22.4393 19.8859C22.7206 19.6046 23.1022 19.4466 23.5 19.4466C23.8978 19.4466 24.2794 19.6046 24.5607 19.8859C24.842 20.1672 25 20.5488 25 20.9466C25 21.3444 24.842 21.7259 24.5607 22.0072C24.2794 22.2886 23.8978 22.4466 23.5 22.4466C23.1022 22.4466 22.7206 22.2886 22.4393 22.0072C22.158 21.7259 22 21.3444 22 20.9466C22 20.5488 22.158 20.1672 22.4393 19.8859Z" />
+                                    </mask>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.7816 35.6628C5.5651 38.4463 10.0434 38.4463 19 38.4463C27.9566 38.4463 32.4368 38.4463 35.2165 35.6628C38 32.8812 38 28.4029 38 19.4463C38 10.4897 38 6.01329 35.2165 3.22789C32.4349 0.446289 27.9566 0.446289 19 0.446289C10.0434 0.446289 5.567 0.446289 2.7816 3.22789C0 6.01139 0 10.4897 0 19.4463C0 28.4029 0 32.8831 2.7816 35.6628ZM25.948 12.1306C25.8642 11.8791 25.684 11.6712 25.447 11.5526C25.2099 11.4342 24.9354 11.4147 24.684 11.4985C24.4325 11.5824 24.2247 11.7626 24.106 11.9996L22.972 14.2666C21.755 13.7386 20.411 13.4466 19 13.4466C17.6338 13.4448 16.2818 13.7239 15.028 14.2666L13.894 11.9996C13.8378 11.878 13.7578 11.7689 13.6587 11.6789C13.5596 11.5888 13.4434 11.5196 13.317 11.4753C13.1907 11.431 13.0567 11.4125 12.923 11.4209C12.7893 11.4294 12.6588 11.4646 12.539 11.5245C12.4192 11.5844 12.3127 11.6678 12.2257 11.7696C12.1387 11.8714 12.0731 11.9897 12.0327 12.1174C11.9923 12.2451 11.978 12.3796 11.9906 12.5129C12.0032 12.6463 12.0424 12.7757 12.106 12.8936L13.28 15.2426C11.9578 16.1634 10.8779 17.3905 10.1326 18.819C9.38735 20.2476 8.99876 21.8353 9 23.4466V24.4466C9 24.977 9.21072 25.4857 9.58579 25.8608C9.96086 26.2359 10.4696 26.4466 11 26.4466H27C27.5304 26.4466 28.0391 26.2359 28.4142 25.8608C28.7893 25.4857 29 24.977 29 24.4466V23.4466C29.0011 21.8355 28.6124 20.248 27.8671 18.8196C27.1219 17.3912 26.0421 16.1643 24.72 15.2436L25.894 12.8936C26.0124 12.6565 26.0319 12.382 25.948 12.1306ZM13.4393 19.8859C13.7206 19.6046 14.1022 19.4466 14.5 19.4466C14.8978 19.4466 15.2794 19.6046 15.5607 19.8859C15.842 20.1672 16 20.5488 16 20.9466C16 21.3444 15.842 21.7259 15.5607 22.0072C15.2794 22.2886 14.8978 22.4466 14.5 22.4466C14.1022 22.4466 13.7206 22.2886 13.4393 22.0072C13.158 21.7259 13 21.3444 13 20.9466C13 20.5488 13.158 20.1672 13.4393 19.8859ZM22.4393 19.8859C22.7206 19.6046 23.1022 19.4466 23.5 19.4466C23.8978 19.4466 24.2794 19.6046 24.5607 19.8859C24.842 20.1672 25 20.5488 25 20.9466C25 21.3444 24.842 21.7259 24.5607 22.0072C24.2794 22.2886 23.8978 22.4466 23.5 22.4466C23.1022 22.4466 22.7206 22.2886 22.4393 22.0072C22.158 21.7259 22 21.3444 22 20.9466C22 20.5488 22.158 20.1672 22.4393 19.8859Z" fill="#FBFFFC" />
+                                    <path d="M2.7816 35.6628L4.10389 34.3405L4.10344 34.34L2.7816 35.6628ZM35.2165 35.6628L33.8947 34.34L33.8933 34.3414L35.2165 35.6628ZM35.2165 3.22789L36.5392 1.90605L36.5388 1.9056L35.2165 3.22789ZM2.7816 3.22789L1.46021 1.9047L1.45886 1.90605L2.7816 3.22789ZM25.447 11.5526L26.2841 9.8804L26.2825 9.87961L25.447 11.5526ZM24.684 11.4985L25.2753 13.2726L25.2753 13.2726L24.684 11.4985ZM24.106 11.9996L22.4338 11.1625L22.4336 11.163L24.106 11.9996ZM22.972 14.2666L22.2277 15.9821L23.8522 16.6869L24.6444 15.1032L22.972 14.2666ZM19 13.4466L18.9976 15.3166H19V13.4466ZM15.028 14.2666L13.3556 15.1032L14.1471 16.6855L15.7708 15.9827L15.028 14.2666ZM13.894 11.9996L12.1964 12.7838L12.2086 12.8102L12.2216 12.8362L13.894 11.9996ZM13.6587 11.6789L12.4011 13.0628L12.4011 13.0628L13.6587 11.6789ZM12.539 11.5245L11.7027 9.85194L11.7027 9.85194L12.539 11.5245ZM12.2257 11.7696L13.6478 12.9839L13.6478 12.9839L12.2257 11.7696ZM12.0327 12.1174L13.8157 12.6813L13.8157 12.6813L12.0327 12.1174ZM12.106 12.8936L13.7787 12.0576L13.7657 12.0316L13.7519 12.006L12.106 12.8936ZM13.28 15.2426L14.3487 16.7771L15.6756 15.853L14.9527 14.4066L13.28 15.2426ZM10.1326 18.819L11.7906 19.684L11.7906 19.684L10.1326 18.819ZM9 23.4466H10.87L10.87 23.4451L9 23.4466ZM9.58579 25.8608L10.9081 24.5385L10.9081 24.5385L9.58579 25.8608ZM28.4142 25.8608L27.0919 24.5385L27.0919 24.5385L28.4142 25.8608ZM29 23.4466L27.13 23.4453V23.4466H29ZM24.72 15.2436L23.0471 14.4079L22.3246 15.8542L23.6513 16.7781L24.72 15.2436ZM25.894 12.8936L27.5669 13.7293L27.567 13.7291L25.894 12.8936ZM24.5607 19.8859L23.2384 21.2082L23.2384 21.2082L24.5607 19.8859ZM24.5607 22.0072L23.2384 20.685L23.2384 20.685L24.5607 22.0072ZM19 36.5763C14.4688 36.5763 11.2586 36.5723 8.82514 36.245C6.44556 35.925 5.09039 35.327 4.10389 34.3405L1.45931 36.9851C3.25631 38.7821 5.53204 39.5758 8.32664 39.9517C11.0673 40.3203 14.5746 40.3163 19 40.3163V36.5763ZM33.8933 34.3414C32.9091 35.327 31.5551 35.925 29.1753 36.245C26.7419 36.5723 23.5312 36.5763 19 36.5763V40.3163C23.4254 40.3163 26.9331 40.3203 29.6738 39.9517C32.4682 39.5759 34.7442 38.7821 36.5397 36.9842L33.8933 34.3414ZM36.13 19.4463C36.13 23.9775 36.126 27.1877 35.7988 29.6209C35.4787 32.0003 34.8807 33.3546 33.8947 34.34L36.5383 36.9855C38.3358 35.1893 39.1295 32.9138 39.5054 30.1194C39.874 27.379 39.87 23.8717 39.87 19.4463H36.13ZM33.8938 4.54973C34.8808 5.5374 35.4787 6.89301 35.7988 9.27216C36.126 11.7054 36.13 14.9151 36.13 19.4463H39.87C39.87 15.0209 39.874 11.5141 39.5054 8.77361C39.1295 5.97907 38.3357 3.70377 36.5392 1.90605L33.8938 4.54973ZM19 2.31629C23.5312 2.31629 26.7414 2.32026 29.1748 2.64732C31.5544 2.96717 32.9089 3.56482 33.8942 4.55018L36.5388 1.9056C34.7425 0.109356 32.4671 -0.683789 29.673 -1.05934C26.9326 -1.42768 23.4254 -1.42371 19 -1.42371V2.31629ZM4.10299 4.55108C5.09061 3.5648 6.44632 2.96714 8.82571 2.64732C11.259 2.32026 14.4689 2.31629 19 2.31629V-1.42371C14.5745 -1.42371 11.0679 -1.42768 8.32749 -1.05934C5.53318 -0.683759 3.25799 0.109376 1.46021 1.9047L4.10299 4.55108ZM1.87 19.4463C1.87 14.9151 1.87397 11.7048 2.20104 9.27126C2.52088 6.89145 3.11857 5.53617 4.10434 4.54973L1.45886 1.90605C-0.336969 3.70311 -1.13008 5.97873 -1.50564 8.77309C-1.87397 11.5137 -1.87 15.0208 -1.87 19.4463H1.87ZM4.10344 34.34C3.11859 33.3559 2.52091 32.0018 2.20104 29.6218C1.87397 27.1882 1.87 23.9774 1.87 19.4463H-1.87C-1.87 23.8717 -1.87397 27.3794 -1.50564 30.12C-1.13011 32.9141 -0.336989 35.19 1.45976 36.9855L4.10344 34.34ZM24.6099 13.2248C24.4037 13.1215 24.2469 12.9407 24.174 12.7219L27.7221 11.5392C27.4815 10.8176 26.9643 10.2209 26.2841 9.88041L24.6099 13.2248ZM25.2753 13.2726C25.0566 13.3455 24.8178 13.3286 24.6115 13.2256L26.2825 9.87961C25.6019 9.53974 24.8143 9.48395 24.0926 9.72451L25.2753 13.2726ZM25.7782 12.8367C25.675 13.0429 25.4941 13.1997 25.2753 13.2726L24.0926 9.72451C23.371 9.96506 22.7743 10.4823 22.4338 11.1625L25.7782 12.8367ZM24.6444 15.1032L25.7784 12.8362L22.4336 11.163L21.2996 13.43L24.6444 15.1032ZM19 15.3166C20.1511 15.3166 21.242 15.5544 22.2277 15.9821L23.7163 12.5511C22.268 11.9227 20.6709 11.5766 19 11.5766V15.3166ZM15.7708 15.9827C16.7894 15.5419 17.8877 15.3151 18.9976 15.3166L19.0024 11.5766C17.3799 11.5745 15.7743 11.9059 14.2852 12.5504L15.7708 15.9827ZM12.2216 12.8362L13.3556 15.1032L16.7004 13.43L15.5664 11.163L12.2216 12.8362ZM12.4011 13.0628C12.3148 12.9844 12.2452 12.8896 12.1964 12.7838L15.5916 11.2154C15.4304 10.8665 15.2008 10.5535 14.9164 10.295L12.4011 13.0628ZM12.6983 13.2399C12.5884 13.2014 12.4873 13.1412 12.4011 13.0628L14.9164 10.295C14.6319 10.0365 14.2984 9.83774 13.9357 9.71058L12.6983 13.2399ZM13.0411 13.2872C12.9249 13.2946 12.8083 13.2785 12.6983 13.2399L13.9357 9.71058C13.573 9.58341 13.1884 9.5304 12.8049 9.55468L13.0411 13.2872ZM13.3753 13.1971C13.271 13.2492 13.1574 13.2798 13.0411 13.2872L12.8049 9.55468C12.4213 9.57896 12.0465 9.68005 11.7027 9.85194L13.3753 13.1971ZM13.6478 12.9839C13.5722 13.0725 13.4795 13.145 13.3753 13.1971L11.7027 9.85194C11.3589 10.0238 11.0531 10.263 10.8036 10.5553L13.6478 12.9839ZM13.8157 12.6813C13.7806 12.7924 13.7235 12.8953 13.6478 12.9839L10.8036 10.5553C10.554 10.8476 10.3657 11.1871 10.2498 11.5536L13.8157 12.6813ZM13.8523 12.3372C13.8633 12.4532 13.8508 12.5702 13.8157 12.6813L10.2498 11.5535C10.1339 11.92 10.0928 12.306 10.1289 12.6887L13.8523 12.3372ZM13.7519 12.006C13.8072 12.1086 13.8414 12.2212 13.8523 12.3372L10.1289 12.6887C10.165 13.0714 10.2776 13.4429 10.4601 13.7812L13.7519 12.006ZM14.9527 14.4066L13.7787 12.0576L10.4333 13.7296L11.6073 16.0786L14.9527 14.4066ZM11.7906 19.684C12.3963 18.5229 13.274 17.5256 14.3487 16.7771L12.2113 13.708C10.6415 14.8013 9.35951 16.2581 8.47469 17.9541L11.7906 19.684ZM10.87 23.4451C10.869 22.1355 11.1848 20.8451 11.7906 19.684L8.4747 17.9541C7.58988 19.6501 7.12852 21.5351 7.13 23.448L10.87 23.4451ZM10.87 24.4466V23.4466H7.13V24.4466H10.87ZM10.9081 24.5385C10.8837 24.5141 10.87 24.4811 10.87 24.4466H7.13C7.13 25.473 7.53773 26.4573 8.2635 27.1831L10.9081 24.5385ZM11 24.5766C10.9655 24.5766 10.9325 24.5629 10.9081 24.5385L8.2635 27.1831C8.98926 27.9089 9.97361 28.3166 11 28.3166V24.5766ZM27 24.5766H11V28.3166H27V24.5766ZM27.0919 24.5385C27.0675 24.5629 27.0345 24.5766 27 24.5766V28.3166C28.0264 28.3166 29.0107 27.9089 29.7365 27.1831L27.0919 24.5385ZM27.13 24.4466C27.13 24.4811 27.1163 24.5141 27.0919 24.5385L29.7365 27.1831C30.4623 26.4573 30.87 25.473 30.87 24.4466H27.13ZM27.13 23.4466V24.4466H30.87V23.4466H27.13ZM26.2092 19.6846C26.815 20.8456 27.1309 22.1358 27.13 23.4453L30.87 23.4478C30.8713 21.5351 30.4098 19.6504 29.525 17.9546L26.2092 19.6846ZM23.6513 16.7781C24.7259 17.5265 25.6035 18.5237 26.2092 19.6846L29.525 17.9546C28.6402 16.2588 27.3583 14.8022 25.7887 13.709L23.6513 16.7781ZM24.2211 12.0579L23.0471 14.4079L26.3929 16.0793L27.5669 13.7293L24.2211 12.0579ZM24.174 12.7219C24.1011 12.5032 24.118 12.2644 24.221 12.0581L27.567 13.7291C27.9069 13.0485 27.9626 12.2609 27.7221 11.5392L24.174 12.7219ZM14.5 17.5766C13.6062 17.5766 12.7491 17.9316 12.1171 18.5636L14.7616 21.2082C14.6922 21.2776 14.5981 21.3166 14.5 21.3166V17.5766ZM16.883 18.5636C16.251 17.9316 15.3938 17.5766 14.5 17.5766V21.3166C14.4019 21.3166 14.3078 21.2776 14.2384 21.2082L16.883 18.5636ZM17.87 20.9466C17.87 20.0528 17.5149 19.1956 16.883 18.5636L14.2384 21.2082C14.169 21.1388 14.13 21.0447 14.13 20.9466H17.87ZM16.883 23.3295C17.5149 22.6975 17.87 21.8404 17.87 20.9466H14.13C14.13 20.8484 14.169 20.7543 14.2384 20.685L16.883 23.3295ZM14.5 24.3166C15.3938 24.3166 16.251 23.9615 16.883 23.3295L14.2384 20.685C14.3078 20.6156 14.4019 20.5766 14.5 20.5766V24.3166ZM12.1171 23.3295C12.749 23.9615 13.6062 24.3166 14.5 24.3166V20.5766C14.5981 20.5766 14.6922 20.6156 14.7616 20.685L12.1171 23.3295ZM11.13 20.9466C11.13 21.8404 11.4851 22.6975 12.1171 23.3295L14.7616 20.685C14.831 20.7543 14.87 20.8485 14.87 20.9466H11.13ZM12.1171 18.5636C11.4851 19.1956 11.13 20.0528 11.13 20.9466H14.87C14.87 21.0447 14.831 21.1388 14.7616 21.2082L12.1171 18.5636ZM23.5 17.5766C22.6062 17.5766 21.7491 17.9316 21.1171 18.5636L23.7616 21.2082C23.6922 21.2776 23.5981 21.3166 23.5 21.3166V17.5766ZM25.883 18.5636C25.251 17.9316 24.3938 17.5766 23.5 17.5766V21.3166C23.4019 21.3166 23.3078 21.2776 23.2384 21.2082L25.883 18.5636ZM26.87 20.9466C26.87 20.0528 26.5149 19.1956 25.883 18.5636L23.2384 21.2082C23.169 21.1388 23.13 21.0447 23.13 20.9466H26.87ZM25.883 23.3295C26.5149 22.6975 26.87 21.8404 26.87 20.9466H23.13C23.13 20.8484 23.169 20.7543 23.2384 20.685L25.883 23.3295ZM23.5 24.3166C24.3938 24.3166 25.251 23.9615 25.883 23.3295L23.2384 20.685C23.3078 20.6156 23.4019 20.5766 23.5 20.5766V24.3166ZM21.1171 23.3295C21.7491 23.9615 22.6062 24.3166 23.5 24.3166V20.5766C23.5981 20.5766 23.6922 20.6156 23.7616 20.685L21.1171 23.3295ZM20.13 20.9466C20.13 21.8404 20.4851 22.6975 21.1171 23.3295L23.7616 20.685C23.831 20.7543 23.87 20.8485 23.87 20.9466H20.13ZM21.1171 18.5636C20.4851 19.1956 20.13 20.0528 20.13 20.9466H23.87C23.87 21.0447 23.831 21.1388 23.7616 21.2082L21.1171 18.5636Z" fill="#FBFFFC" mask="url(#path-1-inside-1_2_22663)" />
+                                </svg>
+                            </a>
+                        </li>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row footer__accessibility-row">
+                <div class="col-auto">
+                    <h4 class="footer__title">أدوات سهولة الوصول</h4>
+                    <div class="footer__accessibility">
+                        <button class="footer__accessibility-item">
+                            <svg>
+                                <use xlink:href="/assets/images/svg-icons.svg#zoom-out"> </use>
+                            </svg>
+                        </button>
+                        <button class="footer__accessibility-item">
+                            <svg>
+                                <use xlink:href="/assets/images/svg-icons.svg#zoom-in"> </use>
+                            </svg>
+                        </button>
+                        <button class="footer__accessibility-item">
+                            <svg>
+                                <use xlink:href="/assets/images/svg-icons.svg#moon"> </use>
+                            </svg>
+                        </button>
+                        <button class="footer__accessibility-item">
+                            <svg>
+                                <use xlink:href="/assets/images/svg-icons.svg#volume-loud"> </use>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-auto"><a class="btn btn-outline-light" href="#">البريد الإلكتروني للموظفين</a></div>
+            </div>
+            <div class="row footer__registration">
+                <div class="col-auto"><img src="/assets/images/DGA.png" alt="هيئة الحكومة الرقمية"></div>
+                <div class="col-auto">
+                    <svg>
+                        <use xlink:href="/assets/images/svg-icons.svg#browsers-compatiblity"> </use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto"><img src="/assets/images/qassim-emblem.svg" alt="إمارة منطقة القصيم"></div>
+                <div class="col-auto">جميع الحقوق محفوظة - إمارة منطقة القصيم © 2024</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skrollr/0.6.29/skrollr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/assets/scripts/scripts.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

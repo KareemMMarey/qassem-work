@@ -19,6 +19,11 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         public string NafathNumber { get; set; }
         public string PhoneNumber { get; set; }
         public int RequestTypeId { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime? RequestDate { get; set; }
+        public bool? IsApproved { get; set; }
+        public string CreatedByFullName { get; set; }
+        public string RejectReason { get; set; }
 
     }
 }

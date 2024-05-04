@@ -15,6 +15,41 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\css\main.css" />
+    <None Include="wwwroot\assets\images\DGA.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-144x144.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-192x192.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-36x36.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-48x48.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-72x72.png" />
+    <None Include="wwwroot\assets\images\fav\android-icon-96x96.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-114x114.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-120x120.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-144x144.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-152x152.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-180x180.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-57x57.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-60x60.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-72x72.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-76x76.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon-precomposed.png" />
+    <None Include="wwwroot\assets\images\fav\apple-icon.png" />
+    <None Include="wwwroot\assets\images\fav\favicon-16x16.png" />
+    <None Include="wwwroot\assets\images\fav\favicon-32x32.png" />
+    <None Include="wwwroot\assets\images\fav\favicon-96x96.png" />
+    <None Include="wwwroot\assets\images\fav\favicon.ico" />
+    <None Include="wwwroot\assets\images\fav\ms-icon-144x144.png" />
+    <None Include="wwwroot\assets\images\fav\ms-icon-150x150.png" />
+    <None Include="wwwroot\assets\images\fav\ms-icon-310x310.png" />
+    <None Include="wwwroot\assets\images\fav\ms-icon-70x70.png" />
+    <None Include="wwwroot\assets\images\footer-vector.svg" />
+    <None Include="wwwroot\assets\images\qassim-emblem.svg" />
+    <None Include="wwwroot\assets\images\qassim-logo.svg" />
+    <None Include="wwwroot\assets\images\svg-icons.svg" />
+    <None Include="wwwroot\assets\scripts\scripts.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="IdentityModel" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
