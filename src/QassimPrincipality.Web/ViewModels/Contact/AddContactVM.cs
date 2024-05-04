@@ -18,6 +18,7 @@ namespace QassimPrincipality.Web.ViewModels.Contact
         [Required(ErrorMessage = "أدخل عنوان النموذج")]
         public string ContactTitle { get; set; }
         [Required(ErrorMessage = "أدخل نص الشكوى ")]
+        [MaxLength(400)]
         public string Description { get; set; }
         public string IdentityNumber { get; set; }
         [Required, Range(1, int.MaxValue, ErrorMessage = "أدخل نوع الطلب")]
