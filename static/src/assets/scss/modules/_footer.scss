@@ -127,7 +127,7 @@
     }
 }
 
-.footer__bottom {
+.footer__registration {
     --bs-gutter-x: 0;
     padding-top: var(--space-xl);
     margin-top: var(--space-xl);
@@ -139,4 +139,11 @@
         height: 39px;
         width: 305px;
     }
+}
+
+.footer-bottom {
+    color: var(--color-white);
+    background-color: #005E36;
+    padding-top: var(--space-base);
+    padding-bottom: var(--space-base);
 }
