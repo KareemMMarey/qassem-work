@@ -8,6 +8,7 @@ using Framework.Identity.Data;
 using NLog.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using QassimPrincipality.Web.Helpers;
+using Framework.Core.Globalization;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -37,6 +38,11 @@ namespace QassimPrincipality.Web
             });
 
             builder.Services.AddControllersWithViews();
+
+
+            // Localization 
+
+
             #region Nlog
 
             builder.Logging.ClearProviders();
@@ -95,6 +101,7 @@ namespace QassimPrincipality.Web
             app.UseSharedApplicationDBMigration();
             app.UseIdentityDBMigration();
             AppDbInitializer.Seed(builder.Services,builder);
+            app.UseMiddleware<GlobalizationMiddleware>();
             app.Run();
         }
     }

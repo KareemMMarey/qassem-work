@@ -82,7 +82,7 @@ namespace Framework.Core.Globalization
         /// </param>
         public static void InitializeCultureFromCookie(HttpContext context)
         {
-            var defaultCulture = "en-GB"; // USAMA READ FROM FRAMEWORK SETTINGS
+            var defaultCulture = "ar-SA"; // USAMA READ FROM FRAMEWORK SETTINGS
 
             // USAMA CHECK THE FORMAT IS AS c='en-UK'|uic='en-US'
             // The cookie format is c=%LANGCODE%|uic=%LANGCODE%, where c is Culture and uic is UICulture

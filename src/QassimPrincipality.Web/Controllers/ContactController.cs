@@ -55,8 +55,9 @@ namespace QassimPrincipality.Web.Controllers
             dto.UserMobile = model.UserMobile;  
             dto.Description= model.Description;
             dto.IdentityNumber = model.IdentityNumber;
+            dto.ContactTypeId=model.ContactTypeId;
             await _contactService.InsertAsync(dto);
-            return RedirectToAction("Common", "Index");
+            return RedirectToAction("Index", "Common");
         }
     }
 }
