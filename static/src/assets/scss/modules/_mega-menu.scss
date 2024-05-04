@@ -135,6 +135,7 @@
 .mega-menu__arrow {
     opacity: var(--arrow-opacity);
     transition: all .3s ease-in-out;
+    stroke: #575661;
 
     html[dir="rtl"] & {
         transform: var(--arrow-translate);

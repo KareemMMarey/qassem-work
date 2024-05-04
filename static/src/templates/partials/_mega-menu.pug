@@ -1,3 +1,4 @@
+//- variables
 - 
 	var megaMenuAbout = [
 		{ icon: 'mega-about-icon1', title: 'إمارة منطقة القصيم', description: 'تعرف على إمارة منطقة القصيم', 'link': '#' },
@@ -21,6 +22,8 @@
 		{ icon: 'mega-social-icon5', title: 'مكتبة الصور', description: 'مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم', 'link': '#' },
 		{ icon: 'mega-social-icon6', title: 'مكتبة الفيديو', description: 'مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم', 'link': '#' },
 	]
+
+//- mixin
 mixin megaMenu(el)
 	.mega-menu
 		.container.mega-menu__container
@@ -39,6 +42,7 @@ mixin megaMenu(el)
 							svg(width="24" height="24").mega-menu__arrow
 								use(xlink:href="./assets/images/svg-icons.svg#left-arrow") 
 
+//- navbar template
 nav.nav-bar
 	.nav-bar__item
 		+megaMenu(megaMenuAbout)
