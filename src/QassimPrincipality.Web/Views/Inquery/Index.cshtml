@@ -1,0 +1,261 @@
+﻿<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
+
+
+
+    <style>
+        .login_popup_message {
+            display: block;
+            padding: 10px;
+            background-color: #d9edf7;
+            color: #31708f;
+            margin-bottom: 10px;
+        }
+
+        .rtl .login_popup_message {
+            float: right;
+            width: 100%;
+        }
+    </style>
+    <link href="/Content/Notes.css" rel="stylesheet">
+    <br>
+    <h2 class="offset-1">
+        استعلام عن معاملة
+    </h2>
+
+
+    <form action="/ServiceForm/FormEnquiry?service=FormEnquiry&amp;Category=AllServices" method="post" novalidate="novalidate">
+        <input name="__RequestVerificationToken" type="hidden" value="mtAgXPinqJ75zRWUoMBIG1nL3YArVMhNI1fr98iQDuEMN_Kvd_bj5ogcoQtSQxbSeE9AIZutjrlPDuSu9bDQmB-pfryYjGLjCfUKMH7n7S39KIDMjPlT4rsMY-joE7ogL8uwkQ2">    <hr>
+        <div class="form-horizontal container">
+
+
+
+            <div id="check" class="0"></div>
+            <div class="modal" id="newItemRejectLink" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">الاستعلام عن معاملة</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p style="text-align:center;color:#a12d00;font-weight:600;">
+                                عفوأ : رقم الجوال المدخل غير مطابق لرقم الجوال بالنظام
+                            </p>
+                            <h4 style="text-align:center"> هل تريد تحديث رقم الجوال؟</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnChangeMobaileNo" class="btn btn-success" style="width:40%">نعم</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:15%">لا</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal" id="SmsPopup" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">الاستعلام عن معاملة</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="login_popup_message">
+
+                                <h6 style="font-size:0.94rem">
+                                    الرجاء إدخال رقم التأكيد الذي تم إرساله على الهاتف الجوال
+                                    <spn style="font-weight:600" id="LastFourNimer"></spn>*****
+                                </h6>
+
+                            </div>
+                            <input id="txt_locale" name="txt_locale" type="text" value="ar" style="display: none;" autocomplete="off">
+                            <div class="login_popup_activation">
+
+
+                                <div class="  row" style="margin-right:10px">
+                                    <label style="margin-left:10px" for="VerificationCode">رمز التحقق:</label>
+
+                                    <input tabindex="1" id="VerificationCode" name="VerificationCode" class="form-control text-box single-line col-6" type="text" maxlength="4" autofocus="autofocus" onkeypress="return allowNumberOnly(event)" autocomplete="off">
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnVerification" class="btn btn-success" style="width:40%">نعم</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="width:15%">لا</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-4">
+                    <div class="form-group col-12">
+                        <label class="control-label" for="NationalNo">رقم الهوية/الإقامة</label>
+                        <div>
+                            <input class="form-control text-box single-line" data-val="true" data-val-regex="يجب إدخال رقم الهوية/الإقامة بصورة صحيحة" data-val-regex-pattern="^\d{10}$" data-val-required="الحقل مطلوب" id="NationalNo" name="NationalNo" readonly="readonly" type="text" value="2415560263">
+                            <span class="field-validation-valid text-danger" data-valmsg-for="NationalNo" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="control-label" for="MobileNo">رقم الجوال</label>
+                        <div>
+                            <input aria-describedby="basic-addon1" autocomplete="off" class="form-control required numbers text-box single-line" data-val="true" data-val-number="الرجاء ادخل رقم جوال صحيح" data-val-regex="يجب ادخل رقم جوال بصورة صحيحة" data-val-regex-pattern="^\d{10}$" data-val-required="الحقل مطلوب" id="MobileNo" maxlength="10" minlength="10" name="MobileNo" placeholder="05xxxxxxxx" required="required" type="text" value="">
+                            <span class="field-validation-valid text-danger" data-valmsg-for="MobileNo" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-12">
+                        <label class="control-label" for="RecordNo">رقم وارد المعاملة</label>
+                        <div>
+                            <input class="form-control text-box single-line" data-val="true" data-val-regex="يجب إدخال رقم المعاملة بصورة صحيحة" data-val-regex-pattern="^\d{1,10}$" data-val-required="الحقل مطلوب" id="RecordNo" name="RecordNo" type="text" value="">
+                            <span class="field-validation-valid text-danger" data-valmsg-for="RecordNo" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="form-group col-4">
+                    <div class="col-md-offset-2">
+                        <input type="submit" id="btnShowInfo" value="استعلام" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+    <script type="text/javascript">
+        function closeMessage(el) {
+            el.addClass('is-hidden');
+        }
+
+        $('.js-messageClose').on('click', function (e) {
+            closeMessage($(this).closest('.Message'));
+        });
+
+        $('#js-helpMe').on('click', function (e) {
+            alert('Help you we will, young padawan');
+            closeMessage($(this).closest('.Message'));
+        });
+
+        $('#js-authMe').on('click', function (e) {
+            alert('Okelidokeli, requesting data transfer.');
+            closeMessage($(this).closest('.Message'));
+        });
+
+        $('#btnChangeMobaileNo').on('click', function (e) {
+            $("#newItemRejectLink").modal('hide');
+
+            var _MobileNo = $("#MobileNo").val();
+
+            var lastFourNumber = _MobileNo.slice(-4);
+            var random = Math.floor(1000 + Math.random() * 9000);
+
+
+            $.ajax({
+                url: '/ServiceForm/SendSMS',
+                type: 'GET',
+                datatype: "json",
+                data: {
+                    _MobNo: _MobileNo,
+                    _random: random
+                },
+                success: function (result) {
+
+                    $("#LastFourNimer").text(lastFourNumber);
+                    $('#SmsPopup').modal({ backdrop: 'static', keyboard: false })
+                    //$("#SmsPopup").modal('show');
+                },
+                error: function (xhr, error, status) {
+                    console.log(error)
+
+                }
+            });
+
+
+        });
+
+        $('#btnVerification').on('click', function (e) {
+            var _Code = $("#VerificationCode").val();
+            var _NationalNo = $("#NationalNo").val();
+            var _MobileNo = $("#MobileNo").val();
+            $.ajax({
+                url: '/ServiceForm/ValidOTP',
+                type: 'GET',
+                data: {
+                    Code: _Code,
+                    NationalNo: _NationalNo,
+                    MobileNo: _MobileNo
+                },
+                success: function (done) {
+                    $("#SmsPopup").modal('hide');
+                    $("#btnShowInfo").click();
+                },
+                error: function (xhr, error, status) {
+                    alert("Error");
+                    console.log(error)
+
+                }
+            });
+
+
+        });
+
+        $('#js-helpMe').on('click', function (e) {
+            alert('Help you we will, young padawan');
+            closeMessage($(this).closest('.Message'));
+        });
+
+
+        $(document).ready(function () {
+            //$("#check").removeClass("Classshow");
+            $('#MobileNo').mask('0000000000');
+            $('#VerificationCode').mask('0000');
+            $("#MobileNo,#RecordNo,#VerificationCode").keypress(function (e) {
+                var keyCode = e.which;
+                /*
+                  8 - (backspace)
+                  32 - (space)
+                  48-57 - (0-9)Numbers
+                */
+
+                if ((keyCode != 8 || keyCode == 32) && (keyCode < 48 || keyCode > 57)) {
+                    return false;
+                }
+            });
+
+            $('.numbers').keypress(function (e) {
+                if (String.fromCharCode(e.keyCode).match(/[^0-9]/g)) return false;
+            });
+
+            if (0 == 1) {
+
+                $('#newItemRejectLink').modal({ backdrop: 'static', keyboard: false })
+                //$("#newItemRejectLink").modal('show');
+            }
+            //$("#check").on('classChange', function () {
+            //    alert("dfd");
+
+            //});
+            setTimeout(function () {
+                closeMessage($('#js-timer'));
+            }, 5000);
+        });
+    </script>
+
+</div>

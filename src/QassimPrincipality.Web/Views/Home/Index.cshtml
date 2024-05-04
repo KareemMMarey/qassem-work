@@ -1,8 +1,111 @@
-﻿@{
+﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+@{
     ViewData["Title"] = "Home Page";
 }
+<div class="container-fluid page-title">
+    <h2>
+        <a href="/Home" class="text-white text-decoration-none">
+            الخدمات الإلكترونية لإمارة منطقة تبوك
+        </a>
+    </h2>
+</div>
+<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+
+
+   
+    <div class="container">
+        <div class="row">
+
+            @if (ViewData["categories"] != null)
+                    {
+                var categories = (List<EServiceCategoryDto>)ViewData["categories"];
+                foreach (EServiceCategoryDto item in categories)
+                {
+                 <div class="col-4">
+                    <div class="card shadow p-3 mb-5 bg-white rounded">
+                            <img class="card-img-top" src="/Images/service.png" alt="@item.NameAr">
+                        <div class="card-body text-center">
+                            <h3 class="card-title"> @item.NameAr</h3>
+                                @{
+                                    if (item.HasSubCategory)
+                                    {
+                                        @Html.ActionLink(
+                                             "دخول",                                                  // linkText
+                                             "SubCategories",                                    // actionName
+                                             "Home",                                                   // routeValues
+                                             new
+                                             {                                                     // htmlAttributes
+                                                 categoryId = item.Id,
+                                             }
+                                             )
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink(
+                                             "دخول",                                                  // linkText
+                                             "ServiceDefination",                                    // actionName
+                                             "Home",                                                   // routeValues
+                                             new
+                                             {                                                     // htmlAttributes
+                                                 id = item.Id,
+                                                 isCategory = true
+                                             }
+                                             )
+                                    }
+                                }
+                                
+                        </div>
+                    </div>
+                </div>    
+                }
+               
+                    }
+
+           
+            @* <div class="col-4">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <img class="card-img-top" src="/Images/service.png" alt="سجناء">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">خدمات السجناء</h3>
+                        <a href="/Home/CoverPrisonersServices" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <img class="card-img-top" src="/Images/service.png" alt="عامة">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">خدمات تنفيذ الأحكام</h3>
+                        <a href="/Home/JudgementServices" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+
+        @* <div class="row">
+            <div class="col-4 offset-2">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <img class="card-img-top" src="/Images/service.png" alt="استعلام">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">خدمة الاستعلام عن المعاملات</h3>
+                        <a href="/Home/EnquiryPage" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="card shadow p-3 mb-5 bg-white rounded">
+                    <img class="card-img-top" src="/Images/service.png" alt="استدعاء">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">خدمة الاستدعاء الإلكتروني</h3>
+                        <a href="/Home/RequisitePage" class="stretched-link"></a>
+                    </div>
+                </div>
+            </div>
+        </div> *@
+    </div>
+
 </div>

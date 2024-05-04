@@ -195,7 +195,7 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.ToTable("ContactType", "lookup");
                 });
 
-            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.EServiceCategory", b =>
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.EntityType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -209,11 +209,54 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EntityType", "lookup");
+                });
+
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.EServiceCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Audience")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("DescriptionAr")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DurationDays")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HasSubCategory")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
@@ -225,6 +268,12 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ServiceFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ServiceRequierment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -249,6 +298,12 @@ namespace QassimPrincipality.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Audience")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -261,11 +316,56 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EServiceCategoryId")
+                    b.Property<int>("DurationDays")
                         .HasColumnType("int");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("NameAr")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameEn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("ServiceFees")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ServiceRequierment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("EServiceSubCategory", "lookup");
+                });
+
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.RequesterType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -282,14 +382,9 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EServiceCategoryId");
-
-                    b.ToTable("EServiceSubCategory", "lookup");
+                    b.ToTable("RequesterType", "lookup");
                 });
 
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.RequestType", b =>
@@ -335,6 +430,9 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("ContactTitle")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ContactTypeId")
                         .HasColumnType("int");
 
@@ -347,6 +445,9 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -356,11 +457,60 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("UserEmail")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserMobile")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ContactTypeId");
 
                     b.ToTable("ContactForm", "services");
+                });
+
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.OpenDataRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("RequesterTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserMobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RequesterTypeId");
+
+                    b.ToTable("OpenDataRequest", "services");
                 });
 
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.ServiceEvaluation", b =>
@@ -392,6 +542,73 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.ToTable("ServiceEvaluation", "services");
                 });
 
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.ShareDataRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EntityTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdentityNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsContainsPersonalData")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsLegalJustification")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsRequesterDataOfficePresenter")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsShareAgreementExist")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LegalJustificationDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PurposeOfRequest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserFullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserMobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntityTypeId");
+
+                    b.ToTable("ShareDataRequest", "services");
+                });
+
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.UploadRequest", b =>
                 {
                     b.Property<Guid>("Id")
@@ -404,27 +621,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("EServiceSubCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ExecutiveSummary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<bool>("IsApproved")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
-                    b.Property<string>("OriginalRequestId")
+                    b.Property<string>("OracleRequestNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("OriginatorId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("RequestDate")
                         .HasColumnType("datetime2");
@@ -434,21 +635,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
 
                     b.Property<string>("RequestNameEn")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RequestNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("RequestOwnerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("RequestOwnerNameAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RequestSource")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("RequestSubClassificationId")
-                        .HasColumnType("int");
 
                     b.Property<int>("RequestTypeId")
                         .HasColumnType("int");
@@ -463,8 +649,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EServiceSubCategoryId");
 
                     b.HasIndex("RequestTypeId");
 
@@ -495,7 +679,9 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 {
                     b.HasOne("QassimPrincipality.Domain.Entities.Lookups.Main.EServiceCategory", "EServiceCategory")
                         .WithMany("EServiceSubCategories")
-                        .HasForeignKey("EServiceCategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("EServiceCategory");
                 });
@@ -511,21 +697,35 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Navigation("ContactType");
                 });
 
-            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.UploadRequest", b =>
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.OpenDataRequest", b =>
                 {
-                    b.HasOne("QassimPrincipality.Domain.Entities.Lookups.Main.EServiceSubCategory", "EServiceSubCategory")
+                    b.HasOne("QassimPrincipality.Domain.Entities.Lookups.Main.RequesterType", "RequesterType")
                         .WithMany()
-                        .HasForeignKey("EServiceSubCategoryId")
+                        .HasForeignKey("RequesterTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("RequesterType");
+                });
+
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.ShareDataRequest", b =>
+                {
+                    b.HasOne("QassimPrincipality.Domain.Entities.Lookups.Main.EntityType", "EntityType")
+                        .WithMany()
+                        .HasForeignKey("EntityTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EntityType");
+                });
+
+            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Services.Main.UploadRequest", b =>
+                {
                     b.HasOne("QassimPrincipality.Domain.Entities.Lookups.Main.RequestType", "RequestType")
                         .WithMany()
                         .HasForeignKey("RequestTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("EServiceSubCategory");
 
                     b.Navigation("RequestType");
                 });

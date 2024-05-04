@@ -1,10 +1,9 @@
-﻿using QassimPrincipality.Application.Dtos;
+﻿using System.ComponentModel.DataAnnotations;
 using QassimPrincipality.Web.Helpers;
-using System.ComponentModel.DataAnnotations;
 
 namespace QassimPrincipality.Web.ViewModels.Request
 {
-    public class AddRequestViewModel: IValidatableObject
+    public class AddRequestViewModel : IValidatableObject
     {
         [Required(ErrorMessage = "Please select a file.")]
         [DataType(DataType.Upload)]
@@ -18,23 +17,10 @@ namespace QassimPrincipality.Web.ViewModels.Request
         [AllowedExtensions(new string[] { ".jpg", ".png" })]
         public List<IFormFile> ListAttachments { get; set; }
 
-
-        public string SerialNumber { get; set; }
-        public string RequestTitle { get; set; }
-        public int RequestSubClassificationId { get; set; }
-        public int requestClassificationId { get; set; }
-        public int RequestTypeId { get; set; }
-        public int? ConsultantId { get; set; }
-        public int LevelOfSecrecyId { get; set; }
-        public string RequestSource { get; set; }
-        public Guid? RequestOwnerId { get; set; }
-        public AttachmentDto[] OpenSourceArFiles { get; set; }
-        public AttachmentDto[] OpenSourceEnFiles { get; set; }
-        public AttachmentDto[] CloseSourceArFiles { get; set; }
-        public AttachmentDto[] CloseSourceEnFiles { get; set; }
-        public AttachmentDto[] DataFiles { get; set; }
-        public AttachmentDto[] SupportingFiles { get; set; }
-        public DateTime? RequestDate { get; set; }
+        public string NafathNumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = null!;
+        public string RequestName { get; set; } = null!;
+        public int RequestTypeId { get; set; } 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

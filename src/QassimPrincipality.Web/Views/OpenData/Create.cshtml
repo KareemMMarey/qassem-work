@@ -1,0 +1,62 @@
+﻿<div id="requestContent" class="container-fluid div-content" style="">
+    <h1 class="mt-4">طلب البيانات المفتوحة</h1>
+    <br>
+    <div>
+        <form action="/OpenData" method="post" novalidate="novalidate">
+            <input name="__RequestVerificationToken" type="hidden" value="Z922Hqsm3t7bAHI-bfgKPNNbA-0m6nmRFmrEEvvMgr6CCtZwY87rEUEFmOxWw76OpXEwGbm2b1QwmIE2GJkmljA6TKGtpBWZq9E1Zb9kcGMeI3v-jT9iE58PjW5dRRkQCewg2Q2">                        <div class="form-horizontal offset-1">
+
+                <div class="form-group">
+                    <label class="control-label" for="FullName">اسم مقدم الطلب</label>
+                    <strong class="text-danger">*</strong>
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="FullName" name="FullName" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="PhoneNumber">رقم الجوال</label>
+
+                    <strong class="text-danger">*</strong>
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-phone="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex-pattern="^05[0-9]{8}$" data-val-required="الحقل مطلوب" id="PhoneNumber" name="PhoneNumber" placeholder="--------05" type="tel" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="Email">البريد الإلكتروني</label>
+                    <strong class="text-danger">*</strong>
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-email="صيغة البريد الإلكتروني غير صحيحة" data-val-required="الحقل مطلوب" id="Email" name="Email" type="email" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="Description">صفة مقدم الطلب</label>
+                    <strong class="text-danger">*</strong>
+                    <div>
+                        <input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="Description" name="Description" placeholder="فرد / شركة / منظمة" type="text" value="">
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="Details">تفاصيل الطلب</label>
+                    <strong class="text-danger">*</strong>
+                    <div>
+                        <textarea class="form-control" cols="20" data-val="true" data-val-required="الحقل مطلوب" id="Details" name="Details" rows="5"></textarea>
+                        <span class="field-validation-valid text-danger" data-valmsg-for="Details" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2">
+                        <input type="submit" value="إرسال" title="إرسال" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

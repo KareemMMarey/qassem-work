@@ -82,46 +82,46 @@ namespace Framework.Identity.Data.Services
             var oldData = await _userRolesRepository.TableNoTracking.Where(s => s.Id == id).FirstOrDefaultAsync();
             if (oldData != null)
             {
-                if (oldData.RoleId == RoleHelper.CentralOperationsGM || oldData.RoleId == RoleHelper.DebtDepartmentManager || oldData.RoleId == RoleHelper.AuctionManager || oldData.RoleId == RoleHelper.CommitmentOfficer)
-                {
-                    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
-                    if (!IsAnotherUserExist)
-                    {
-                        objResult.DeleteStatus = false;
-                        objResult.VerificationMSG = "Resources.SharedResources.DeleteApprovalUserError";
-                        return objResult;
-                    }
-                }
-                if (oldData.RoleId == RoleHelper.PortSupervisor)
-                {
-                    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
-                    if (!IsAnotherUserExist)
-                    {
-                        objResult.DeleteStatus = false;
-                        objResult.VerificationMSG = "Resources.SharedResources.DeletePortSupervisorError";
-                        return objResult;
-                    }
-                }
-                if (oldData.RoleId == RoleHelper.CentralOperationsOfficer)
-                {
-                    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
-                    if (!IsAnotherUserExist)
-                    {
-                        objResult.DeleteStatus = false;
-                        objResult.VerificationMSG = "Resources.SharedResources.DeleteCentralOperationsOfficerError";
-                        return objResult;
-                    }
-                }
-                if (oldData.RoleId == RoleHelper.PortSupervisor)
-                {
-                    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
-                    if (!IsAnotherUserExist)
-                    {
-                        objResult.DeleteStatus = false;
-                        objResult.VerificationMSG = "Resources.SharedResources.PortSupervisorError";
-                        return objResult;
-                    }
-                }
+                //if (oldData.RoleId == RoleHelper.CentralOperationsGM || oldData.RoleId == RoleHelper.DebtDepartmentManager || oldData.RoleId == RoleHelper.AuctionManager || oldData.RoleId == RoleHelper.CommitmentOfficer)
+                //{
+                //    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
+                //    if (!IsAnotherUserExist)
+                //    {
+                //        objResult.DeleteStatus = false;
+                //        objResult.VerificationMSG = "Resources.SharedResources.DeleteApprovalUserError";
+                //        return objResult;
+                //    }
+                //}
+                //if (oldData.RoleId == RoleHelper.PortSupervisor)
+                //{
+                //    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
+                //    if (!IsAnotherUserExist)
+                //    {
+                //        objResult.DeleteStatus = false;
+                //        objResult.VerificationMSG = "Resources.SharedResources.DeletePortSupervisorError";
+                //        return objResult;
+                //    }
+                //}
+                //if (oldData.RoleId == RoleHelper.CentralOperationsOfficer)
+                //{
+                //    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
+                //    if (!IsAnotherUserExist)
+                //    {
+                //        objResult.DeleteStatus = false;
+                //        objResult.VerificationMSG = "Resources.SharedResources.DeleteCentralOperationsOfficerError";
+                //        return objResult;
+                //    }
+                //}
+                //if (oldData.RoleId == RoleHelper.ad)
+                //{
+                //    var IsAnotherUserExist = await _userRolesRepository.TableNoTracking.Where(s => s.RoleId == oldData.RoleId && s.UserId != oldData.UserId).AnyAsync();
+                //    if (!IsAnotherUserExist)
+                //    {
+                //        objResult.DeleteStatus = false;
+                //        objResult.VerificationMSG = "Resources.SharedResources.PortSupervisorError";
+                //        return objResult;
+                //    }
+                //}
                 objResult.DeleteStatus = await _userRolesRepository.DeleteAsync(s => s.Id == id, true);
             }
             else
@@ -135,13 +135,13 @@ namespace Framework.Identity.Data.Services
         {
             var filters = new List<Expression<Func<ApplicationUserRoles, bool>>>();
             filters.Add(q => q.IsActive != false);
-            if (model.IsApprovalRole.HasValue)
-            {
-                if (model.IsApprovalRole.Value)
-                {
-                    filters.Add(q => q.RoleId == RoleHelper.CentralOperationsGM || q.RoleId == RoleHelper.AuctionManager || q.RoleId == RoleHelper.CommitmentOfficer || q.RoleId == RoleHelper.DebtDepartmentManager);
-                }
-            }
+            //if (model.IsApprovalRole.HasValue)
+            //{
+            //    if (model.IsApprovalRole.Value)
+            //    {
+            //        filters.Add(q => q.RoleId == RoleHelper.CentralOperationsGM || q.RoleId == RoleHelper.AuctionManager || q.RoleId == RoleHelper.CommitmentOfficer || q.RoleId == RoleHelper.DebtDepartmentManager);
+            //    }
+            //}
             if (model.RoleId.HasValue)
             {
                 filters.Add(q => q.RoleId == model.RoleId);

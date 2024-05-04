@@ -1,11 +1,27 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Framework.Core.AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
+using QassimPrincipality.Application.Services.Main.UploadRequest;
+using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Request;
 
 namespace QassimPrincipality.Web.Controllers
 {
     public class RequestController : Controller
     {
+        private readonly UploadRequestAppService _uploadRequestService;
+        private readonly RequestTypeAppService _requestTypeAppService;
+
+        public RequestController(
+            UploadRequestAppService uploadRequestAppService,
+            RequestTypeAppService requestTypeAppService
+        )
+        {
+            _uploadRequestService = uploadRequestAppService;
+            _requestTypeAppService = requestTypeAppService;
+        }
+
         // GET: RequestController
         public ActionResult Index()
         {
@@ -19,22 +35,49 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         // GET: RequestController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            ViewData["RequestTypes"] = await _requestTypeAppService.GetAllRequestTypes();
             return View();
         }
 
         // POST: RequestController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(AddRequestViewModel model)
+        public async Task<ActionResult> Create(AddRequestViewModel model)
         {
             try
             {
+                MemoryStream streamPhoto = new MemoryStream();
+                model.Photo.CopyTo(streamPhoto);
+
+                var dto = new UploadRequestDtoAdd
+                {
+                    RequestDate = DateTime.Now,
+                    RequestTypeId = model.RequestTypeId,
+                    PhoneNumber = model.PhoneNumber,
+                    NafathNumber = model.NafathNumber,
+                    RequestName = model.RequestName,
+                    Photo = model.Photo,
+                    OtherAttachments = model.ListAttachments
+                };
+
+                try
+                {
+                    await _uploadRequestService.InsertAsync(dto);
+
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                ViewData["RequestTypes"] = await _requestTypeAppService.GetAllRequestTypes();
+
                 return View();
             }
         }

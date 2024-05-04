@@ -7,6 +7,7 @@ using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
 using NLog.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using QassimPrincipality.Web.Helpers;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -93,7 +94,7 @@ namespace QassimPrincipality.Web
             app.UseApplicationDBMigration();
             app.UseSharedApplicationDBMigration();
             app.UseIdentityDBMigration();
-
+            AppDbInitializer.Seed(builder.Services,builder);
             app.Run();
         }
     }

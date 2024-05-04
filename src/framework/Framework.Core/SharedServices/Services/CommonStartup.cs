@@ -2,10 +2,14 @@
 using Framework.Core.Data.Repositories;
 using Framework.Core.Data.Uow;
 using Framework.Core.Notifications;
+using Framework.Core.SharedServices.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Core.SharedServices.Services
 {
@@ -42,6 +46,35 @@ namespace Framework.Core.SharedServices.Services
             .CreateScope())
             {
                 serviceScope.ServiceProvider.GetService<CommonsDbContext>().Database.Migrate();
+                SeedCommonInfo(serviceScope);
+            }
+        }
+
+        private static void SeedCommonInfo(IServiceScope serviceScope)
+        {
+            var context = serviceScope.ServiceProvider.GetService<CommonsDbContext>();
+
+            context.Database.EnsureCreated();
+            if (!context.Set<SystemSetting>().Any())
+            {
+                context.Set<SystemSetting>().AddRange(new List<SystemSetting>()
+                    {
+                        new SystemSetting()
+                        {
+                            Name = "AttachmentsPath",
+                            ValueType="",
+                            Value = "Uploads/Requests/",
+                            GroupName ="",
+                            IsSecure = false,
+                            IsSticky=false,
+                            IsActive=true,
+                            CreatedBy = "E-k.marey",
+                            CreatedOn = DateTime.Now,
+
+                        },
+
+                    }); ;
+                context.SaveChanges();
             }
         }
     }
