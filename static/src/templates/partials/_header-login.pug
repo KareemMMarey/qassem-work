@@ -1,0 +1,35 @@
+.header-login
+    #loginBtn
+        a.btn.btn-outline-primary(href="/") تسجيل الدخول
+    #userMenu.d-none
+        <div class="dropdown header-login__dropdown">
+            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                svg(width="24" height="24")
+                    use(xlink:href="./assets/images/svg-icons.svg#user-circle") 
+                | مرحبا 
+                span أحمد الفلاني
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <svg width="24" height="24">
+                            <use xlink:href="./assets/images/svg-icons.svg#user" />
+                        </svg> ملفي الشخصي
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <svg width="24" height="24">
+                            <use xlink:href="./assets/images/svg-icons.svg#orders" />
+                        </svg> طلباتي
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item dropdown-item--logout" href="#">
+                        <svg width="24" height="24">
+                            <use xlink:href="./assets/images/svg-icons.svg#logout" />
+                        </svg> تسجيل الخروج
+                    </a>
+                </li>
+            </ul>
+        </div>

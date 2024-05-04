@@ -372,5 +372,4 @@ FodyWeavers.xsd
 */bin/*
 */obj/*
 */Debug/*
-/src/QassimPrincipality.Web/Uploads/Requests/
-/src/QassimPrincipality.Web/Uploads/Requests/*
+

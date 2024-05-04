@@ -1,0 +1,31 @@
+.top-bar {
+    --color: var(--color-white);
+    --bg: var(--color-primary-100);
+    --font-size: var(--font-size-base);
+
+    background-color: var(--bg);
+    color: var(--color);
+    font-size: var(--font-size);
+    padding: var(--space-base) 0;
+}
+
+.top-bar__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar__date {
+    display: flex;
+    gap: var(--space-sm);
+
+    svg {
+        fill: #fff;
+    }
+}
+
+.top-bar__lang {
+    .btn {
+        --bs-btn-color: var(--color-white);
+    }
+}
