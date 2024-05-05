@@ -1,8 +1,127 @@
-﻿<div id="requestContent" class="container-fluid div-content" style="">
+﻿@using Microsoft.AspNetCore.Localization;
+@using QassimPrincipality.Web.ViewModels.Contact;
+@using QassimPrincipality.Web.ViewModels.OpenData
+@model AddOpenDataViewModel
+@{
+    ViewData["Title"] = "Add a new Request";
+}
+
+<div id="requestContent" class="container-fluid div-content" style="">
     <h1 class="mt-4">طلب البيانات المفتوحة</h1>
     <br>
     <div>
-        <form action="/OpenData" method="post" novalidate="novalidate">
+
+        <form id="client-form" asp-controller="Contact" asp-action="Create" Method="post">
+        <div class="container card NoTransform p-5 d-flex justify-content-center">
+
+
+
+            <div class="container ">
+                  
+
+                <div class="form-group row">
+                    
+
+                    <label class="col-sm-3 col-form-label" asp-for="UserFullName">
+                        اسم مقدم الطلب
+                    </label>
+
+
+
+                    <div class="col-sm-8">
+
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
+                        <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    
+
+                    <label class="col-sm-3 col-form-label" asp-for="UserEmail">
+                        البريد إلكتروني
+                    </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail">
+                        <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="IdentityNumber">
+                       رقم الهوية / الإقامة
+                    </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="IdentityNumber">
+                        <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="UserMobile">
+                        رقم الجوال
+                    </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile">
+                        <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
+                    @if (ViewData["requestertypes"] != null)
+                    {
+                        var types = (List<SelectListItem>)ViewData["requestertypes"];
+                        <div class="form-group row">
+                            <div id="RequestType" class="form-group">
+                                <label asp-for="RequesterTypeId">
+                                    صفة مقدم الطلب
+                                </label>
+
+                                <select asp-for="RequesterTypeId" required asp-items="@(new SelectList(types, "Value", "Text"))"
+                                        class="form-control" id="ddlContactTypes">
+                                </select>
+                                <span asp-validation-for="RequesterTypeId" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    }
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="Title">
+                        عنوان الشكوى
+                    </label>
+                    <div class="col-sm-8">
+
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="Title">
+                            <span asp-validation-for="Title" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
+               
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"> التفاصيل</label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                </div>
+
+
+
+
+             
+                <div class="form-group row">
+                    <div class="col-sm-10">
+
+                        <a class="btn btn-dark-green btn-bg" href="/">الى الخلف</a>
+                        <button type="submit" class="btn btn-dark-green text-right">إرسال</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </form>
+
+        @* <form action="/OpenData" method="post" novalidate="novalidate">
             <input name="__RequestVerificationToken" type="hidden" value="Z922Hqsm3t7bAHI-bfgKPNNbA-0m6nmRFmrEEvvMgr6CCtZwY87rEUEFmOxWw76OpXEwGbm2b1QwmIE2GJkmljA6TKGtpBWZq9E1Zb9kcGMeI3v-jT9iE58PjW5dRRkQCewg2Q2">                        <div class="form-horizontal offset-1">
 
                 <div class="form-group">
@@ -56,7 +175,7 @@
                     </div>
                 </div>
             </div>
-        </form>
+        </form> *@
     </div>
 
 </div>

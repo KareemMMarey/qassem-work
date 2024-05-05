@@ -25,6 +25,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public bool? IsRequesterDataOfficePresenter { get; set; }
         public bool? IsLegalJustification { get; set; }
         public bool IsAllowed { get; set; }
+        public bool IsApproved { get; set; }
         public string LegalJustificationDescription { get; set; }
     }
 }

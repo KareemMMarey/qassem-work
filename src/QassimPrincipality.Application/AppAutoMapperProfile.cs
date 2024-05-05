@@ -13,6 +13,8 @@ using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.CommonEService;
 using QassimPrincipality.Application.Services.Main.Contact;
+using QassimPrincipality.Application.Services.Main.ShareData;
+using QassimPrincipality.Application.Services.Main.OpenData;
 
 namespace QassimPrincipality.Application
 {
@@ -29,6 +31,8 @@ namespace QassimPrincipality.Application
             this.CreateMap<EServiceCategory, CommonEServiceDto>().ReverseMap();
             this.CreateMap<UploadRequestDto, UploadRequest>().ReverseMap();
             this.CreateMap<ContactForm, ContactFormDto>().ReverseMap();
+            this.CreateMap<ShareDataRequest, ShareDataDto>().ReverseMap();
+            this.CreateMap<OpenDataRequest, OpenDataDto>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

@@ -3,6 +3,7 @@ using QassimPrincipality.Domain.Entities.Lookups.Main;
 using QassimPrincipality.Infrastructure.Data;
 using System.Drawing;
 using ZXing.QrCode.Internal;
+using static PhoneNumbers.PhoneNumber;
 
 namespace QassimPrincipality.Web.Helpers
 {
@@ -16,7 +17,7 @@ namespace QassimPrincipality.Web.Helpers
 
                 context.Database.EnsureCreated();
 
-                //EServiceCategory
+                //ContactTypes
                 if (!context.Set<EServiceCategory>().Any())
                 {
                     context.Set<EServiceCategory>().AddRange(new List<EServiceCategory>()
@@ -90,7 +91,87 @@ namespace QassimPrincipality.Web.Helpers
                     }); ;
                     context.SaveChanges();
                 }
-                
+
+
+                // Contact Types
+                if (!context.Set<ContactType>().Any())
+                {
+                    context.Set<ContactType>().AddRange(new List<ContactType>()
+                    {
+                        
+                        new ContactType()
+                        {
+                            NameAr = "شكوى",
+                            NameEn="Complain",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,    
+
+                        },
+                        new ContactType()
+                        {
+                            NameAr = "اقتراح",
+                            NameEn="Suggession",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        }
+                    }); 
+                    context.SaveChanges();
+                }
+                // Entity Types
+                if (!context.Set<EntityType>().Any())
+                {
+                    context.Set<EntityType>().AddRange(new List<EntityType>()
+                    {
+
+                        new EntityType()
+                        {
+                            NameAr = "أفراد",
+                            NameEn="Individuals",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+
+                        },
+                        new EntityType()
+                        {
+                            NameAr = "حكومي",
+                            NameEn="Government",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        }
+                    });
+                    context.SaveChanges();
+                }
+                // Requester Types
+                if (!context.Set<RequesterType>().Any())
+                {
+                    context.Set<RequesterType>().AddRange(new List<RequesterType>()
+                    {
+
+                        new RequesterType()
+                        {
+                            NameAr = "قطاع خاص",
+                            NameEn="Companies",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+
+                        },
+                        new RequesterType()
+                        {
+                            NameAr = "قطاع صحي",
+                            NameEn="Health",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        }
+                    });
+                    context.SaveChanges();
+                }
+
 
             }
 
