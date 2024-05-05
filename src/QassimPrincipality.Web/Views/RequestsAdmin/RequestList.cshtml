@@ -22,23 +22,23 @@
             تصفية
             </button>*@
 
-            <form asp-controller="RequestsAdmin" asp-action="Index" method="get">
-                <div class="form-group">
+            <form asp-controller="RequestsAdmin" asp-action="RequestList" method="get" >
+               @*  <div class="form-group">
                     <div class="col-12 mb-3">
-                        <select id="type">
-                            <option value="@ViewBag.True">طلبات منتهية بالموافقة</option>
-                            <option value="@ViewBag.False">طلبات منتهية بالرفض</option>
-                            <option value="@ViewBag.Pending">طلبات قيد الإجراء</option>
+                        <select id="type" name="type">
+                            <option value="1" >طلبات منتهية بالموافقة</option>
+                            <option value="0" >طلبات منتهية بالرفض</option>
+                            <option value="2" >طلبات قيد الإجراء</option>
+                            <option value="3" > كل الطلبات </option>
                         </select>
-                       @*  <input name="search" value="@ViewBag.Search" type="text" placeholder="@Localizer["InputSearchPlaceHolder"]" class="form-control" /> *@
                     </div>
-                </div>
+                </div> *@
 
-                <div class="form-group">
-                    <div class="col-12 mb-3">
-                        <button type="submit" class="btn btn-primary">بحث</button>
-                    </div>
-                </div>
+                <select id="type" name="type" onchange="this.form.submit()" asp-items="@ViewBag.items"
+                        class="form-control" >
+                </select>
+
+             
             </form>
         </div>
         
@@ -50,34 +50,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th>عنوان الطلب</th>
-                        <th>مقدم الطلب</th>
-                        <th>تاريخ الطلب</th>
-                        <th>حالة الطلب</th>
-                        <th></th>
+                        <th style="width:150px" class="text-center">عنوان الطلب</th>
+                        <th style="width:150px"  class="text-center">مقدم الطلب</th>
+                        <th style="width:150px"  class="text-center">تاريخ الطلب</th>
+                        <th style="width:150px"  class="text-center">حالة الطلب</th>
+                        <th style="width:150px"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var request in Model.Items)
                     {
                         <tr>
-                            <td>@request.RequestName</td>
-                            <td>@request.CreatedByFullName</td>
-                            <td>@request.RequestDate</td>
-                            <td>@request.RequestDate</td>
-                            @if (request.IsApproved!=null)
+                            <td class="text-center">@(request.RequestName ?? "--")</td>
+                            <td class="text-center">@(request.CreatedByFullName ?? "--")</td>
+                            <td class="text-center">@request.RequestDate</td>
+                            @switch (request.IsApproved)
                             {
-                                <td>@request.IsApproved?"تمت الموافقة":"مرفوض"</td>
-                                
+                                case true :
+                                    <td class="text-center alert alert-success">تمت الموافقة</td>
+                                    break;
+                                case false :
+                                    <td class="text-center alert alert-danger">مرفوض</td>
+                                    break;
+                                default:
+                                    <td class="text-center  alert alert-info">الطلب تحت الإجراء</td>
+                                    break;
                             }
-                            else
-                            {
-                                <td>الطلب تحت الإجراء</td>
-                            }
+                           
 
                             <td>
 
-                                <a class="idm-edit" asp-action="Details" asp-route-id="@request.Id">
+                                <a class="idm-edit" asp-action="Details" asp-route-requestId="@request.Id" asp->
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14.548" height="14.549" viewBox="0 0 14.548 14.549">
                                         <g id="Actions" transform="translate(12.654)">
                                             <g id="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-11.745)">
@@ -99,6 +102,6 @@
         <div class="" style="text-align: center; padding-top: 25px">لا يوجد بيانات</div>
     }
     <div class="idm-pager">
-        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
+        @await Html.PartialAsync("Common/Pager", new Pager { Action = "RequestList", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
     </div>
 </div>

@@ -48,9 +48,6 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                MemoryStream streamPhoto = new MemoryStream();
-                model.Photo.CopyTo(streamPhoto);
-
                 var dto = new UploadRequestDtoAdd
                 {
                     RequestDate = DateTime.Now,

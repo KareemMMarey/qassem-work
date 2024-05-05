@@ -152,6 +152,26 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 throw;
             }
         }
+        
+        public async Task AcceptOrReject(Guid id,bool isApproved,string notes="")
+        {
+            try
+            {
+
+                var uploadRequest = await _uploadRequestRepository.GetByIdAsync(id);
+                uploadRequest.IsApproved = isApproved;
+                if (!isApproved)
+                {
+                    uploadRequest.RejectReason = notes;
+
+                }
+                uploadRequest = await _uploadRequestRepository.UpdateAsync(uploadRequest, true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
 
         public void updateAttachments(
             UploadRequestDtoEdit UploadRequestDto,
@@ -422,6 +442,9 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             
             if (UploadRequestSearchDto.IsApproved!=null)
                 filters.Add(a => a.IsApproved == UploadRequestSearchDto.IsApproved);
+            
+            if (UploadRequestSearchDto.isPending != null)
+                filters.Add(a => a.IsApproved == null);
 
             Func<
                 IQueryable<Domain.Entities.Services.Main.UploadRequest>,
