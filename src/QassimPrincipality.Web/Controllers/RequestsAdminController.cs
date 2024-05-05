@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Framework.Core.AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json.Linq;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
+using static OfficeOpenXml.ExcelErrorValue;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -19,18 +22,67 @@ namespace QassimPrincipality.Web.Controllers
             _uploadRequestService = uploadRequestAppService;
             _requestTypeAppService = requestTypeAppService;
         }
-        public async Task<IActionResult> RequestList(int page=1)
+
+        public async Task<IActionResult> RequestList(string type,int page = 1)
         {
             bool? status = null;
-            if (ViewBag.True != null) status = true;
-            if (ViewBag.False != null) status = false;
-            var result = await _uploadRequestService.SearchAsync(new UploadRequestSearchDto() { IsApproved=status,PageNumber=page,PageSize=10});
+            bool? isPending = null;
+            switch (type)
+            {
+                case "1":
+                    status = true;
+                    break;
+                case "0":
+                    status = false;
+                    break;
+                case "2":
+                    status = null;
+                    isPending = true;
+                    break;
+                default:
+                    status = null;
+                    type = "20";
+                    break;
+            }
+
+            var lst = new List<object>
+            {
+                new {Id = "0",Name="طلبات منتهية بالرفض"},
+                new {Id = "1",Name="طلبات منتهية بالموافقة"},
+                new {Id = "2",Name="طلبات قيد الإجراء"},
+                new {Id = "20",Name="كل الطلبات"},
+            };
+
+
+            ViewBag.items = new SelectList(lst,"Id","Name", type);
+            ViewBag.status = type;
+            var result = await _uploadRequestService.SearchAsync(
+                new UploadRequestSearchDto()
+                {
+                    isPending = isPending,
+                    IsApproved = status,
+                    PageNumber = page,
+                    PageSize = 10
+                }
+            );
             return View(result);
         }
-        public IActionResult Details(string requestId)
+
+        public async Task<IActionResult> Details(string requestId)
         {
-           
-            return View();
+            var result = await _uploadRequestService.GetById(Guid.Parse(requestId));
+
+            return View(result.MapTo<UploadRequestDto>());
+        }
+        public async Task<IActionResult> Accept(string requestId)
+        {
+            await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
+            return RedirectToAction("Details",new { requestId });
+        }
+        public async Task<IActionResult> Reject(string requestId,string notes)
+        {
+            await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, notes);
+            return RedirectToAction("Details",new { requestId });
         }
         // [HttpGet]
         //public async Task<IActionResult> Users(int? page, string search)
