@@ -32,9 +32,9 @@ namespace Framework.Identity.Data
                 options.Schema = Schema;
             });
 
-            builder.ApplyConfiguration(new RoleConfiguration());
-            builder.ApplyConfiguration(new AdminConfiguration());
-            builder.ApplyConfiguration(new UsersWithRolesConfig());
+            //builder.ApplyConfiguration(new RoleConfiguration());
+            //builder.ApplyConfiguration(new AdminConfiguration());
+            //builder.ApplyConfiguration(new UsersWithRolesConfig());
         }
 
         public override int SaveChanges()

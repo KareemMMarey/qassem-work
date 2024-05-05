@@ -11,6 +11,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
        
         public int? RequestTypeId { get; set; }
         public bool? IsApproved { get; set; }
+        public bool? isPending { get; set; }
         public bool IsActive { get; set; }
         public string[] Tags { get; set; }
         public int? TotalItemsCount { get; set; }

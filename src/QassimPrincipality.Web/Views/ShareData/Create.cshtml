@@ -1,4 +1,7 @@
-﻿<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
+﻿@using QassimPrincipality.Web.ViewModels.ShareData
+@model AddShareDataVM
+
+<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
 
         
 
@@ -27,245 +30,243 @@
 </div>
 <h1 class="mt-4">طلب مشاركة البيانات</h1>
 <br>
+    <form id="client-form" asp-controller="ShareData" asp-action="Create" Method="post">
+        <div class="container card NoTransform p-5 d-flex justify-content-center">
 
-<form action="/ServiceForm/SharingData?service=SharingData&amp;Category=ServiceForm" method="post" novalidate="novalidate"><input name="__RequestVerificationToken" type="hidden" value="VkL_Yn811xTZet-51-HLppjB4c8sSeII2-366DZb2B5EK8yR-6qXYQW021i8sgTdHGnD2Q6Xzma9Pq57WkIhAROBghIy6Ic34-afGvw5lL83Q0m3Q_XWMuRQb65S00UFkhRLWw2">    <div class="p-5 d-flex justify-content-center">
-        <div class="container border border-dark">
-            <br>
-            
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3" for="Name">الاسم</label>
+
+
+            <div class="container ">
                 
-                <div class="col-md-9">
-                    <input value="كريم شعبان مرعى الجغب" class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="Name" name="Name" readonly="readonly" type="text">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="Name" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3" for="NationalNo">رقم الهوية/الإقامة</label>
-                
-                <div class="col-md-9">
-                    <input value="2415560263" class="form-control text-box single-line" data-val="true" data-val-regex="يجب إدخال رقم الهوية/الإقامة بصورة صحيحة" data-val-regex-pattern="^\d{10}$" data-val-required="الحقل مطلوب" id="NationalNo" name="NationalNo" readonly="readonly" type="text">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="NationalNo" data-valmsg-replace="true"></span>
-                </div>
-            </div>
+                <div class="form-group row">
 
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="MobileNo">رقم الجوال</label>
-                
-                <div class="col-md-9">
-                    <input aria-describedby="basic-addon1" autocomplete="off" class="form-control text-box single-line" data-val="true" data-val-number="الرجاء كتابة رقم جوال صحيح" data-val-required="الحقل مطلوب" id="MobileNo" maxlength="10" minlength="10" name="MobileNo" oninvalid="this.setCustomValidity('الرجاء كتابة رقم جوال صحيح  ')" placeholder="05xxxxxxxx" type="text" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="MobileNo" data-valmsg-replace="true"></span>
-                </div>
-            </div>
 
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="Email">البريد الإلكتروني</label>
-
-                <div class="col-md-9">
-                    <input class="form-control text-box single-line" data-val="true" data-val-required="يجب كتابة البريد الإلكتروني" id="Email" name="Email" type="email" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="agency">نوع الجهة</label>
-
-                <div class="col-md-9">
-                    <select class="form-control valid" data-val="true" data-val-required="الرجاء اختيار نوع الجهة" id="agency" name="agency" required="" aria-describedby="agency-error" aria-invalid="false"><option selected="selected" value="0">--الرجاء الاختيار--</option>
-<option value="1">حكومى</option>
-<option value="2">خاص</option>
-</select>
-                    <span class="text-danger field-validation-valid" data-valmsg-for="agency" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="AgencyName">إسم الجهة</label>
-                
-                <div class="col-md-9">
-                    <input class="form-control col-md-10 text-box single-line" data-val="true" data-val-required="يجب كتابة إسم الجهة" id="AgencyName" name="AgencyName" type="text" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="AgencyName" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="RequestPurpose">الغرض من طلب البيانات</label>
-                
-                <div class="col-md-9">
-                    <input class="form-control col-md-10 text-box single-line" data-val="true" data-val-required="يجب كتابة الغرض من طلب البيانات" id="RequestPurpose" name="RequestPurpose" type="text" value="">
-                    <span class="field-validation-valid text-danger" data-valmsg-for="RequestPurpose" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="SharedInfoRequeriedDetails">وصف البيانات المطلوبة</label>
-                
-                <div class="col-md-9">
-                    <textarea class="form-control col-md-10" cols="20" data-val="true" data-val-required="يجب كتابة وصف البيانات المطلوبة" id="SharedInfoRequeriedDetails" name="SharedInfoRequeriedDetails" rows="4"></textarea>
-                    <span class="field-validation-valid text-danger" data-valmsg-for="SharedInfoRequeriedDetails" data-valmsg-replace="true"></span>
-                </div>
-            </div>
-
-            <div class="form-group row ">
-                <label style="font-weight:600;" class="control-label  col-md-4 offset-md-3 required" for="SharingAgreement">هل توجد اتفاقية مشاركة بيانات مسبقاً؟</label>
-                
-                <div class="col-md-5 ">
-                    <label class="col-md-2">
-
-                        <input data-val="true" data-val-required="الرجاء الاختيار" id="SharingAgreement" name="SharingAgreement" type="radio" value="نعم">
-                       
-                        <label for="">نعم</label>
-                    </label>
-                    <label class="col-md-2">
-
-                       
-                        <input id="SharingAgreement" name="SharingAgreement" type="radio" value="لا">
-                        <label for="">لا</label>
+                    <label class="col-sm-3 col-form-label" asp-for="UserFullName">
+                        اسم
                     </label>
 
-                    
-                    <span class="field-validation-valid text-danger" data-valmsg-for="SharingAgreement" data-valmsg-replace="true"></span>
+
+
+                    <div class="col-sm-8">
+
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
+                        <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-4 offset-md-3 required" for="ContainPersonalData">هل تحتوي على بيانات شخصية؟</label>
-                
-                <div class="col-md-5">
-                    <label class="col-md-2">
+                <div class="form-group row">
 
-                        <input data-val="true" data-val-required="الرجاء الاختيار" id="ContainPersonalData" name="ContainPersonalData" type="radio" value="نعم">
-                        <label for="">نعم</label>
+
+                    <label class="col-sm-3 col-form-label" asp-for="UserEmail">
+                        البريد إلكتروني
                     </label>
-                    <label class="col-md-2">
+                    <div class="col-sm-8">
 
-                        <input id="ContainPersonalData" name="ContainPersonalData" type="radio" value="لا">
-                        <label for="">لا</label>
-                    </label>
-
-                    
-                    <span class="field-validation-valid text-danger" data-valmsg-for="ContainPersonalData" data-valmsg-replace="true"></span>
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail" maxlength="50">
+                        <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                    </div>
                 </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label style="font-weight:600;padding-left:8px !important;" class="control-label col-md-4 offset-md-3 required" for="RepresentativeDataOffice">هل مقدم الطلب هو ممثل مكتب البيانات لدى الجهة؟</label>
-              
-                <div class="col-md-5">
-                    <label class="col-md-2">
-
-                       
-                        <input data-val="true" data-val-required="الرجاء الاختيار" id="RepresentativeDataOffice" name="RepresentativeDataOffice" type="radio" value="نعم">
-                        <label for="">نعم</label>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="IdentityNumber">
+                        رقم الهوية / الإقامة
                     </label>
-                    <label class="col-md-2">
+                    <div class="col-sm-8">
 
-                        <input id="RepresentativeDataOffice" name="RepresentativeDataOffice" type="radio" value="لا">
-                        <label for="">لا</label>
-                    </label>
-
-                   
-                    <span class="field-validation-valid text-danger" data-valmsg-for="RepresentativeDataOffice" data-valmsg-replace="true"></span>
+                        <input type="text" class="form-control col-8 text-box single-line" maxlength="10" asp-for="IdentityNumber">
+                        <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group row">
-                <label style="font-weight:600;" class="control-label col-md-4 offset-md-3 required" for="LegalJustification">هل يوجد لدى الجهة مسوغ قانوني لطلب البيانات؟</label>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="UserMobile">
+                        رقم الجوال
+                    </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile" maxlength="14">
+                        <span asp-validation-for="UserMobile" class="field-validation-valid text-danger" > </span>
+                    </div>
+                </div>
+                @if (ViewData["entities"] != null)
+                {
+                    var entities = (List<SelectListItem>)ViewData["entities"];
+                    <div class="form-group row">
+                        <div id="RequestType" class="form-group">
+                            <label asp-for="EntityId">
+                                نوع الجهة
+                            </label>
+
+                            <select asp-for="EntityId" required asp-items="@(new SelectList(entities, "Value", "Text"))"
+                                    class="form-control" id="ddlentityTypes">
+                            </select>
+                            <span asp-validation-for="EntityId" class="text-danger"></span>
+
+                        </div>
+                    </div>
+                }
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label" asp-for="PurposeOfRequest">
+                       الغرض من طلب البيانات
+                    </label>
+                    <div class="col-sm-8">
+
+                        <input type="text" class="form-control col-8 text-box single-line" asp-for="PurposeOfRequest">
+                        <span asp-validation-for="PurposeOfRequest" class="field-validation-valid text-danger"> </span>
+                    </div>
+                </div>
                
-                <div class="col-md-5">
-                    <label class="col-md-2">
-                        <input data-val="true" data-val-required="الرجاء الاختيار" id="y" name="LegalJustification" type="radio" value="نعم">
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">وصف البيانات المطلوبة</label>
+                    <textarea asp-for="Description" class="form-control" rows="5" cols="6" maxlength="400"></textarea>
+                    <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                </div>
+
+                <div class="form-group row ">
+                    <label  class="control-label  col-md-4 offset-md-3 required" asp-for="IsShareAgreementExist">هل توجد اتفاقية مشاركة بيانات مسبقاً؟</label>
+
+                    <div class="col-md-5 ">
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsShareAgreementExist"  value="نعم" id="IsShareAgreementExistTrue" />
+
+                            <label for="">نعم</label>
+                        </label>
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsShareAgreementExist"  value="لا" id="IsShareAgreementExistFalse" />
+                            <label for="">لا</label>
+                        </label>
+
+                        <span asp-validation-for="IsShareAgreementExist" class="field-validation-valid text-danger"> </span>
+                        
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="control-label col-md-4 offset-md-3 required" asp-for="IsContainsPersonalData">هل تحتوي على بيانات شخصية؟</label>
+
+                    <div class="col-md-5 ">
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsContainsPersonalData" value="نعم" id="IsContainsPersonalDataTrue" />
+
+                            <label for="">نعم</label>
+                        </label>
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsContainsPersonalData" value="لا" id="IsContainsPersonalDataFalse" />
+                            <label for="">لا</label>
+                        </label>
+
+                        <span asp-validation-for="IsContainsPersonalData" class="field-validation-valid text-danger"> </span>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label  class="control-label col-md-4 offset-md-3 required" asp-for="IsRequesterDataOfficePresenter">هل مقدم الطلب هو ممثل مكتب البيانات لدى الجهة؟</label>
+
+                    <div class="col-md-5 ">
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsRequesterDataOfficePresenter" value="نعم" id="IsRequesterDataOfficePresenterTrue" />
+
+                            <label for="">نعم</label>
+                        </label>
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsRequesterDataOfficePresenter" value="لا" id="IsRequesterDataOfficePresenterFalse" />
+                            <label for="">لا</label>
+                        </label>
+                        <span asp-validation-for="IsRequesterDataOfficePresenter" class="field-validation-valid text-danger"> </span>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label  class="control-label col-md-4 offset-md-3 required" asp-for="IsLegalJustification">هل يوجد لدى الجهة مسوغ قانوني لطلب البيانات؟</label>
+
+                    <div class="col-md-5 ">
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsLegalJustification" value="نعم" id="IsLegalJustificationTrue" />
+
+                            <label for="">نعم</label>
+                        </label>
+                        <label class="col-md-2">
+
+
+                            <input type="radio" asp-for="IsLegalJustification" value="لا" id="IsLegalJustificationFalse" />
+                            <label for="">لا</label>
+                        </label>
+
+                        <span asp-validation-for="IsLegalJustification" class="field-validation-valid text-danger"> </span>
+
+                    </div>
+                </div>
+
+
+                <div class="form-group row" id="divLegalJustificationDescription" style="display:none">
+                    <label  class="control-label col-md-3 " asp-for="LegalJustificationDescription">وصف المسوغ القانوني</label>
+
+                    <div class="col-md-9">
+                        <textarea asp-for="LegalJustificationDescription" class="form-control"></textarea>
                        
-                        <label for="">نعم</label>
-                    </label>
-                    <label class="col-md-2">
-
-                        <input id="n" name="LegalJustification" type="radio" value="لا">
-                        <label for="">لا</label>
-                    </label>
-
-                   
-                    <span class="field-validation-valid text-danger" data-valmsg-for="LegalJustification" data-valmsg-replace="true"></span>
+                    </div>
                 </div>
-            </div>
 
 
-            <div class="form-group row" id="myDiv" style="">
-                <label style="font-weight:600;" class="control-label col-md-3 required" for="Descriptionjustification">وصف المسوغ القانوني</label>
                 
-                <div class="col-md-9">
-                    <textarea class="form-control col-md-10" cols="20" id="Descriptionjustification" name="Descriptionjustification" rows="4"></textarea>
-                    <span class="field-validation-valid text-danger" data-valmsg-for="Descriptionjustification" data-valmsg-replace="true"></span>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+
+                        <a class="btn btn-dark-green btn-bg" href="/">الى الخلف</a>
+                        <button type="submit" class="btn btn-dark-green text-right">إرسال</button>
+                    </div>
                 </div>
+
             </div>
 
-
-            <div class="form-group">
-                <div class="col-md-offset-2">
-                    <input type="submit" value="إرسال" title="إرسال" class="btn btn-success">
-                </div>
-            </div>
         </div>
+    </form>
     </div>
-</form>
-
 <script>
-     $(document).ready(function () {
-         $('#MobileNo').mask('0000000000');
-
-         if (0== 1) {
-
-            $('#newItemRejectLink').modal({ backdrop: 'static', keyboard: false })
-            //$("#newItemRejectLink").modal('show');
-         };
-
-
-
-         $('#y').click(function () {
-             //var demovalue = $(this).val();
-             //alert(LegalJustification);
-
-             var gender = $("#y").val();
-             
-             if (gender == "نعم") {
-                 $("#myDiv").show();
-                
-             };
-
-             //if (gender == "لا") {
-             //    alert(gender);
-             //    $("#myDiv").show();
-             //};
-            
-            
-         });
-         $('#n').click(function () {
-             //var demovalue = $(this).val();
-             //alert(LegalJustification);
-
-             var gender = $("#n").val();
-           
-             if (gender == "لا") {
-                 $("#myDiv").hide();
-                
-             };
-
-             //if (gender == "لا") {
-             //    alert(gender);
-             //    $("#myDiv").show();
-             //};
+    $(document).ready(function () {
+       alert('mine')
+        debugger;
+        $(':radio[name=IsLegalJustification]').change(function () {
+            // read the value of the selected radio
+            var value = $(this).val();
+            console.log(value);
+            if (value == 'نعم') {
+                $('#divLegalJustificationDescription').show();
+            }
+            else { $('#divLegalJustificationDescription').hide(); }
+        });
 
 
-         });
+        // $('#IsLegalJustificationTrue').click(function () {
 
-         $("#btnChangeMobaileNo").on('click', function () {
 
-             setTimeout(function () {
-                 window.location = '/';
-             });
-         });
+        //     $("#divLegalJustificationDescription").show();
+        // });
+        // $('#IsLegalJustificationFalse').click(function () {
+
+        //     $("#divLegalJustificationDescription").hide();
+
+        // });
+
+
     });
 </script>
 
-    </div>

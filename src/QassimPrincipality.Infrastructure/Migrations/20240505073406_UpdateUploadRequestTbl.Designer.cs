@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QassimPrincipality.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using QassimPrincipality.Infrastructure.Data;
 namespace QassimPrincipality.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505073406_UpdateUploadRequestTbl")]
+    partial class UpdateUploadRequestTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,8 +254,8 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DurationDays")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DurationDays")
+                        .HasColumnType("int");
 
                     b.Property<bool>("HasSubCategory")
                         .HasColumnType("bit");
@@ -316,8 +318,8 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DurationDays")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DurationDays")
+                        .HasColumnType("int");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
@@ -445,9 +447,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentityNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
@@ -488,20 +487,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentityNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsAllowed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
                     b.Property<int>("RequesterTypeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -579,9 +569,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsAllowed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsApproved")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsContainsPersonalData")

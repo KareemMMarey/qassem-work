@@ -4,8 +4,9 @@ namespace QassimPrincipality.Web.Controllers
 {
     public class CommonController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string SuccessMessage="")
         {
+            ViewBag.SuccessMessage = SuccessMessage;
             return View();
         }
     }

@@ -12,6 +12,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
     {
         public string UserFullName { get; set; }
         public string UserEmail { get; set; }
+        public string IdentityNumber { get; set; }
         public string UserMobile { get; set; }
         public string ContactTitle { get; set; }
         public string Description { get; set; }

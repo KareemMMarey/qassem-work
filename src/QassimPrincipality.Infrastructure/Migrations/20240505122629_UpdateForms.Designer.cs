@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QassimPrincipality.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using QassimPrincipality.Infrastructure.Data;
 namespace QassimPrincipality.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240505122629_UpdateForms")]
+    partial class UpdateForms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,8 +254,8 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DurationDays")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DurationDays")
+                        .HasColumnType("int");
 
                     b.Property<bool>("HasSubCategory")
                         .HasColumnType("bit");
@@ -316,8 +318,8 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("DescriptionEn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DurationDays")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DurationDays")
+                        .HasColumnType("int");
 
                     b.Property<string>("Icon")
                         .HasColumnType("nvarchar(max)");
