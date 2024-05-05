@@ -33,6 +33,11 @@ namespace QassimPrincipality.Web.Controllers
             ViewData["categories"] = await _categoriesService.GetAllEServiceCategories();
             return View();
         }
+        public ActionResult About()
+        {
+            
+            return View();
+        }
         public async Task<ActionResult> SubCategories(int? categoryId)
         {
             ViewData["subcategories"] = await _subCategoriesService.GetAllEServiceSubCategories(categoryId);

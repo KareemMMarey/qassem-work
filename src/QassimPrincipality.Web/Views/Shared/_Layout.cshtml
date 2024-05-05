@@ -60,7 +60,7 @@
             <div class="top-bar__date">
                 <svg width="24" height="24">
                     <use xlink:href="/assets/images/svg-icons.svg#date"> </use>
-                </svg> @DateTime.Now @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
+                </svg> @DateTime.Now.ToLongDateString() @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
             </div>
             <div class="top-bar__lang"> @* <a class="btn btn-sm" href="/index-en.html">English</a> *@</div>
         </div>
@@ -75,7 +75,7 @@
                             <div class="container mega-menu__container">
                                 <div class="row">
                                     <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
+                                        <a class="mega-menu__item" href="/About">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
                                                     <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon1"> </use>
@@ -94,7 +94,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    <div class="col-4">
+                                   @*  <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -153,18 +153,18 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
                         </div><span class="nav-bar__menu">عن الإمارة</span>
                     </div>
-                    <div class="nav-bar__item"><a class="nav-bar__menu" href="#">الخدمات الإلكترونية</a></div>
+                    <div class="nav-bar__item"><a class="nav-bar__menu" href="/">الخدمات الإلكترونية</a></div>
                     <div class="nav-bar__item">
                         <div class="mega-menu">
                             <div class="container mega-menu__container">
                                 <div class="row">
                                     <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
+                                        <a class="mega-menu__item" href="/OpenData">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
                                                     <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon1"> </use>
@@ -175,7 +175,8 @@
                                                     البيانات المفتوحة
                                                 </div>
                                                 <div class="mega-menu__description">
-                                                    تابع آخر أخبار إمارة منطقة القصيم
+                                                    البيانات المفتوحة
+                                                    @* تابع آخر أخبار إمارة منطقة القصيم *@
                                                 </div>
                                             </div>
                                             <svg class="mega-menu__arrow" width="24" height="24">
@@ -183,7 +184,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    <div class="col-4">
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -202,8 +203,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -222,8 +223,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -242,8 +243,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -262,8 +263,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -282,10 +283,10 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
-                        </div><span class="nav-bar__menu">المركز الإعلامي</span>
+                        </div><span class="nav-bar__menu">البيانات المفتوحة</span>
                     </div>
                     <div class="nav-bar__item">
                         <div class="mega-menu">

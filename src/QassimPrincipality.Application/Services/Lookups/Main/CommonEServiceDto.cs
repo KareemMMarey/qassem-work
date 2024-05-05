@@ -15,8 +15,8 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.CommonEService
         public string Url { get; set; }
         public string DescriptionAr { get; set; }
         public int CategoryId { get; set; }
-        public int DurationDays { get; set; }
-        public string DescriptionEn { get; set; }
+		public string DurationDays { get; set; }
+		public string DescriptionEn { get; set; }
         public bool HasSubCategory { get; set; }
         public string ServiceRequierment { get; set; }
         public decimal ServiceFees { get; set; }
