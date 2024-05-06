@@ -1,4 +1,5 @@
 ﻿using Framework.Core.AutoMapper;
+using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace QassimPrincipality.Web.Controllers
         public IActionResult List()
         {
             var roles = _roleManager.Roles.ToListAsync().Result;
-            var roleViewModel = roles.MapTo<List<RoleViewModel>>();
+            var roleViewModel = roles.MapTo<List<RoleDto>>();
             return View(roleViewModel);
         }
 
@@ -29,7 +30,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RoleViewModel model)
+        public async Task<IActionResult> Create(RoleDto model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -57,18 +58,18 @@ namespace QassimPrincipality.Web.Controllers
                 return RedirectToAction(nameof(List));
 
             var role = _roleManager.FindByIdAsync(roleId).Result;
-            var roleViewModel = role.MapTo<RoleViewModel>();
+            var roleViewModel = role.MapTo<RoleDto>();
 
             return View(roleViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(RoleViewModel model)
+        public async Task<IActionResult> Edit(RoleDto model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            var appRole = await _roleManager.FindByIdAsync(model.Id);
+            var appRole = await _roleManager.FindByIdAsync(model.Id.ToString());
             appRole.Name = model.Name;
 
             IdentityResult result = await _roleManager.UpdateAsync(appRole);

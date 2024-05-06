@@ -1,7 +1,10 @@
-﻿using Framework.Identity.Data.Entities;
+﻿using Framework.Core.AutoMapper;
+using Framework.Identity.Data.Dtos;
+using Framework.Identity.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using QassimPrincipality.Infrastructure.Data;
@@ -12,24 +15,34 @@ using System.Text.RegularExpressions;
 
 namespace QassimPrincipality.Web.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly AppDbContext _context;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IOptions<NafathConfiguration> nafathConfiguartion)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IOptions<NafathConfiguration> nafathConfiguartion)
+            : base(userManager, signInManager, roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _nafathConfiguartion = nafathConfiguartion;
         }
-
+        [AllowAnonymous]
         public IActionResult Index() => View();
+
+        [HttpGet]
+        public IActionResult Profile()
+        {
+            
+            var userViewModel = CurrentUser.MapTo<UserDto>();
+
+            return View(userViewModel);
+        }
+        [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
         public IActionResult NafathLogin() => View(new NafathLoginVM());
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
@@ -47,11 +60,11 @@ namespace QassimPrincipality.Web.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                TempData["Error"] = "Wrong credentials. Please, try again!";
+                TempData["Error"] = "بيانات المستخدم غير صحيحة";
                 return View(loginVM);
             }
 
-            TempData["Error"] = "Wrong credentials. Please, try again!";
+            TempData["Error"] = "بيانات المستخدم غير صحيحة!";
             return View(loginVM);
         }
 
@@ -108,7 +121,12 @@ namespace QassimPrincipality.Web.Controllers
         }
 
 
-        [HttpPost]
+        //[HttpPost]
+        //public async Task<IActionResult> Logout()
+        //{
+        //    await _signInManager.SignOutAsync();
+        //    return RedirectToAction("Index", "Home");
+        //}
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -234,6 +252,13 @@ namespace QassimPrincipality.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
+        }
+        [HttpGet]
+        public async Task<IActionResult> Members()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userViewModel = users.MapTo<List<UserDto>>();
+            return View(userViewModel);
         }
 
 

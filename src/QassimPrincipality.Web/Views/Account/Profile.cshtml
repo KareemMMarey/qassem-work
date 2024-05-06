@@ -1,0 +1,31 @@
+﻿@using Framework.Identity.Data.Dtos
+@model UserDto
+
+@{
+    ViewData["Title"] = "الملف الشخصي";
+}
+
+<h3 class="text-center">بياناتي</h3>
+
+<div class="row">
+    @* <div class="col-sm-3">
+        <img src="@Model.Picture" style="width:100%;height:100%" />
+    </div> *@
+    <div class="col-sm-9">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <th>User Name</th>
+                <td>@Model.UserName</td>
+            </tr>
+            <tr>
+                <th>E-Mail</th>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <th>Phone Number</th>
+                <td>@Model.PhoneNumber</td>
+            </tr>
+           
+        </table>
+    </div>
+</div>

@@ -33,6 +33,11 @@ namespace QassimPrincipality.Application
             this.CreateMap<ContactForm, ContactFormDto>().ReverseMap();
             this.CreateMap<ShareDataRequest, ShareDataDto>().ReverseMap();
             this.CreateMap<OpenDataRequest, OpenDataDto>().ReverseMap();
+            this.CreateMap<ApplicationUser, UserDto>().ReverseMap();
+            this.CreateMap<UserUpdateDto, UserDto>().ReverseMap();
+            this.CreateMap<ApplicationRole, RoleDto>().ReverseMap();
+            this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
+            this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

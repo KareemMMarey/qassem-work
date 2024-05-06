@@ -21,5 +21,6 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public bool IsApproved { get; set; }
         public string IdentityNumber { get; set; }
         public RequesterType RequesterType { get; set; } // open data
+
     }
 }
