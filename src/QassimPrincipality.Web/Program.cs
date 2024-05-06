@@ -9,6 +9,7 @@ using NLog.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using QassimPrincipality.Web.Helpers;
 using Framework.Core.Globalization;
+using System.Configuration;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -20,7 +21,8 @@ namespace QassimPrincipality.Web
             // Add services to the container.
             //builder.Services.AddControllersWithViews();
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-
+            var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
+            builder.Services.Configure<NafathConfiguration>(mailConfiguration);
             // Add services to the container.
             builder.Services.ConfigureSharedApplicationServices(connectionString);
             builder.Services.ConfigureApplicationServices();

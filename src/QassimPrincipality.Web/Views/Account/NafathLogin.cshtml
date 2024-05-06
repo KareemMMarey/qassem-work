@@ -1,9 +1,9 @@
 ﻿@using QassimPrincipality.Web.ViewModels.Account
 
-@model LoginVM;
+@model NafathLoginVM;
 
 @{
-    ViewData["Title"] = "Log in to your account";
+    ViewData["Title"] = "الدخول من خلال نفاذ";
 }
 
 <div class="row">
@@ -18,29 +18,70 @@
                 <span><b>Sorry!</b> - @TempData["Error"] </span>
             </div>
         }
-
+       
         <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Login">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             @if (!String.IsNullOrEmpty(ViewBag.Message) && !string.IsNullOrEmpty(ViewBag.Random))
+                {
+                    <script>
+                        var objData = { userName: '@ViewBag.UserName', random: '@ViewBag.Random', transId: '@ViewBag.TransId' };
+                        document.addEventListener("DOMContentLoaded", () => {
+                            $("#msg").html('@Html.Raw(ViewBag.Message)');
+                            var timeleft = 12;
+                            var downloadTimer = setInterval(function () {
+                                if (timeleft <= 0) {
+                                    clearInterval(downloadTimer);
+                                }
+                                document.getElementById("progressBar").value = 12 - timeleft;
+                                timeleft -= 1;
+                            }, 1000);
 
-                    <div class="form-group">
-                        <label asp-for="EmailAddress" class="control-label"></label>
-                        <input asp-for="EmailAddress" class="form-control" />
-                        <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                            $.get("/Account/CheckNafathRequest", objData,
+                                function (data) {
+                                    if (data.status === 'COMPLETED') {
+                                        window.location.href = window.location.origin
+                                            + '/Account/CompleteLogin?username=@ViewBag.UserName&&rememberLogin=@ViewBag.RememberLogin&&random=@ViewBag.Random&&transId=@ViewBag.TransId';
+                                    }
+                                    else { window.location.href = window.location.origin }
+                                });
+                        });
+                    </script>
+
+                    <div class="nafath-container">
+                        <img class="nafath-loader" src="~/images/spinner.svg" />
+                        <div id="msg" class="nafath-title">
+                            @Html.Raw(ViewBag.Message)
+                        </div>
                     </div>
-                    <div class="form-group">
+                    <div class="row">
+                        <progress value="0" max="12" id="progressBar" style="width:100%"></progress>
+                </div>
+            }
+
+            else
+            {
+                    <div class="col-md-8 offset-2">
+                    <form asp-action="NafathLogin">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="IdentityNumber" class="control-label"></label>
+                            <input asp-for="IdentityNumber" class="form-control" />
+                            <span asp-validation-for="IdentityNumber" class="text-danger"></span>
+                        </div>
+                        @* <div class="form-group">
                         <label asp-for="Password" class="control-label"></label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
+                    </div> *@
 
-                    <div class="form-group">
-                        <input class="btn btn-outline-success float-right" type="submit" value="Log in" />
-                        <a class="btn btn-outline-secondary" asp-controller="Movies" asp-action="Index">Cancel</a>
-                    </div>
-                </form>
-            </div>
+                        <div class="form-group">
+                            <input class="btn btn-outline-success float-right" type="submit" value="الدخول من خلال نفاذ" />
+                            <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Index">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            }
+
         </div>
     </div>
 </div>
