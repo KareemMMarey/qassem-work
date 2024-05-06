@@ -18,8 +18,9 @@ namespace QassimPrincipality.Web.Controllers
             _signInManager = signInManager;
         }
 
-
+        public IActionResult Index() => View();
         public IActionResult Login() => View(new LoginVM());
+        public IActionResult NafathLogin() => View(new NafathLoginVM());
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)

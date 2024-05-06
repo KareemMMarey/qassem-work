@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QassimPrincipality.Infrastructure.Migrations
 {
-    public partial class initialmaindb : Migration
+    public partial class initmigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,6 +57,26 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EntityType",
+                schema: "lookup",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EntityType", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EServiceCategory",
                 schema: "lookup",
                 columns: table => new
@@ -67,6 +87,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescriptionAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescriptionEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DurationDays = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HasSubCategory = table.Column<bool>(type: "bit", nullable: false),
+                    ServiceRequierment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Audience = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -78,6 +103,26 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_EServiceCategory", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequesterType",
+                schema: "lookup",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    NameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NameEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequesterType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,9 +170,14 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserMobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -146,6 +196,44 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ShareDataRequest",
+                schema: "services",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserMobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntityTypeId = table.Column<int>(type: "int", nullable: false),
+                    EntityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PurposeOfRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsShareAgreementExist = table.Column<bool>(type: "bit", nullable: true),
+                    IsContainsPersonalData = table.Column<bool>(type: "bit", nullable: true),
+                    IsRequesterDataOfficePresenter = table.Column<bool>(type: "bit", nullable: true),
+                    IsLegalJustification = table.Column<bool>(type: "bit", nullable: true),
+                    IsAllowed = table.Column<bool>(type: "bit", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    LegalJustificationDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShareDataRequest", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ShareDataRequest_EntityType_EntityTypeId",
+                        column: x => x.EntityTypeId,
+                        principalSchema: "lookup",
+                        principalTable: "EntityType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EServiceSubCategory",
                 schema: "lookup",
                 columns: table => new
@@ -156,7 +244,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescriptionAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DescriptionEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EServiceCategoryId = table.Column<int>(type: "int", nullable: true),
+                    DurationDays = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    ServiceRequierment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceFees = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Audience = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -169,11 +261,44 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_EServiceSubCategory", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EServiceSubCategory_EServiceCategory_EServiceCategoryId",
-                        column: x => x.EServiceCategoryId,
+                        name: "FK_EServiceSubCategory_EServiceCategory_CategoryId",
+                        column: x => x.CategoryId,
                         principalSchema: "lookup",
                         principalTable: "EServiceCategory",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OpenDataRequest",
+                schema: "services",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserMobile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequesterTypeId = table.Column<int>(type: "int", nullable: false),
+                    IsAllowed = table.Column<bool>(type: "bit", nullable: false),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: false),
+                    IdentityNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OpenDataRequest", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OpenDataRequest_RequesterType_RequesterTypeId",
+                        column: x => x.RequesterTypeId,
+                        principalSchema: "lookup",
+                        principalTable: "RequesterType",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,19 +310,12 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     referralNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequestNameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequestNameEn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequestSubClassificationId = table.Column<int>(type: "int", nullable: false),
-                    OriginalRequestId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequestTypeId = table.Column<int>(type: "int", nullable: false),
-                    EServiceSubCategoryId = table.Column<int>(type: "int", nullable: false),
-                    OriginatorId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    RequestOwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    RequestOwnerNameAr = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExecutiveSummary = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsApproved = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    RequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RequestSource = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RequestDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    OracleRequestNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsApproved = table.Column<bool>(type: "bit", nullable: true),
+                    CreatedByFullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RejectReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -206,13 +324,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UploadRequest", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UploadRequest_EServiceSubCategory_EServiceSubCategoryId",
-                        column: x => x.EServiceSubCategoryId,
-                        principalSchema: "lookup",
-                        principalTable: "EServiceSubCategory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UploadRequest_RequestType_RequestTypeId",
                         column: x => x.RequestTypeId,
@@ -304,16 +415,22 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 column: "ContactTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EServiceSubCategory_EServiceCategoryId",
+                name: "IX_EServiceSubCategory_CategoryId",
                 schema: "lookup",
                 table: "EServiceSubCategory",
-                column: "EServiceCategoryId");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UploadRequest_EServiceSubCategoryId",
+                name: "IX_OpenDataRequest_RequesterTypeId",
                 schema: "services",
-                table: "UploadRequest",
-                column: "EServiceSubCategoryId");
+                table: "OpenDataRequest",
+                column: "RequesterTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShareDataRequest_EntityTypeId",
+                schema: "services",
+                table: "ShareDataRequest",
+                column: "EntityTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UploadRequest_RequestTypeId",
@@ -337,7 +454,19 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 schema: "services");
 
             migrationBuilder.DropTable(
+                name: "EServiceSubCategory",
+                schema: "lookup");
+
+            migrationBuilder.DropTable(
+                name: "OpenDataRequest",
+                schema: "services");
+
+            migrationBuilder.DropTable(
                 name: "ServiceEvaluation",
+                schema: "services");
+
+            migrationBuilder.DropTable(
+                name: "ShareDataRequest",
                 schema: "services");
 
             migrationBuilder.DropTable(
@@ -349,19 +478,23 @@ namespace QassimPrincipality.Infrastructure.Migrations
                 schema: "lookup");
 
             migrationBuilder.DropTable(
+                name: "EServiceCategory",
+                schema: "lookup");
+
+            migrationBuilder.DropTable(
+                name: "RequesterType",
+                schema: "lookup");
+
+            migrationBuilder.DropTable(
+                name: "EntityType",
+                schema: "lookup");
+
+            migrationBuilder.DropTable(
                 name: "UploadRequest",
                 schema: "services");
 
             migrationBuilder.DropTable(
-                name: "EServiceSubCategory",
-                schema: "lookup");
-
-            migrationBuilder.DropTable(
                 name: "RequestType",
-                schema: "lookup");
-
-            migrationBuilder.DropTable(
-                name: "EServiceCategory",
                 schema: "lookup");
         }
     }

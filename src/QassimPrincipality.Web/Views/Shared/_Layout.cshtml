@@ -302,10 +302,10 @@
                                             </div>
                                             <div class="mega-menu__txt">
                                                 <div class="mega-menu__title">
-                                                    الأخبار
+                                                    تواصل مع الإمارة
                                                 </div>
                                                 <div class="mega-menu__description">
-                                                    تابع آخر أخبار إمارة منطقة القصيم
+                                                    تواصل مع الإمارة
                                                 </div>
                                             </div>
                                             <svg class="mega-menu__arrow" width="24" height="24">
@@ -313,7 +313,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    <div class="col-4">
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -332,8 +332,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -352,8 +352,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -372,8 +372,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -392,8 +392,8 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
-                                    <div class="col-4">
+                                    </div> *@
+                                    @* <div class="col-4">
                                         <a class="mega-menu__item" href="#">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
@@ -412,7 +412,7 @@
                                                 <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
                                             </svg>
                                         </a>
-                                    </div>
+                                    </div> *@
                                 </div>
                             </div>
                         </div><span class="nav-bar__menu">المشاركة المجتمعية</span>
@@ -421,39 +421,48 @@
             </div>
             <div class="header__login">
                 <div class="header-login">
-                    <div id="loginBtn"><a class="btn btn-outline-primary" href="/">تسجيل الدخول</a></div>
-                    <div class="d-none" id="userMenu">
-                        <div class="dropdown header-login__dropdown">
-                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <svg width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#user-circle"> </use>
-                                </svg>مرحبا <span>أحمد الفلاني</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <svg width="24" height="24">
-                                            <use xlink:href="/assets/images/svg-icons.svg#user" />
-                                        </svg> ملفي الشخصي
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#">
-                                        <svg width="24" height="24">
-                                            <use xlink:href="/assets/images/svg-icons.svg#orders" />
-                                        </svg> طلباتي
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item dropdown-item--logout" href="#">
-                                        <svg width="24" height="24">
-                                            <use xlink:href="/assets/images/svg-icons.svg#logout" />
-                                        </svg> تسجيل الخروج
-                                    </a>
-                                </li>
-                            </ul>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+
+                        <a class="btn btn-outline-primary" href="/Account">تسجيل الدخول</a>
+                    }
+                    else
+                    {
+                        
+                            <div class="d-none" id="userMenu">
+                            <div class="dropdown header-login__dropdown">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <svg width="24" height="24">
+                                        <use xlink:href="/assets/images/svg-icons.svg#user-circle"> </use>
+                                    </svg>مرحبا <span>أحمد الفلاني</span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <svg width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#user" />
+                                            </svg> ملفي الشخصي
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <svg width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#orders" />
+                                            </svg> طلباتي
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item dropdown-item--logout" href="#">
+                                            <svg width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#logout" />
+                                            </svg> تسجيل الخروج
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    }
+
                 </div>
             </div>
         </div>
