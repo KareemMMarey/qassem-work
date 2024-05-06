@@ -11,6 +11,7 @@
     <Folder Include="Resources\Views\Shared\Components\" />
     <Folder Include="Uploads\Requests\" />
     <Folder Include="ViewModels\Common\" />
+    <Folder Include="Views\Roles\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
