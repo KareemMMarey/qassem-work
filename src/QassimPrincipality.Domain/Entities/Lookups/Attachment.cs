@@ -37,6 +37,8 @@ namespace QassimPrincipality.Domain.Entities.Lookups
         public Guid? UploadRequestId { get; set; }
         public UploadRequest UploadRequest { get; set; }
 
+        public Guid? OpenDataRequestId { get; set; }
+        public OpenDataRequest OpenDataRequest { get; set; }
         public AttachmentContent AttachmentContent { get; set; }
     }
 }

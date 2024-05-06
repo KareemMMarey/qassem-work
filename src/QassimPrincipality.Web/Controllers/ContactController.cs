@@ -8,6 +8,9 @@ using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Contact;
 using QassimPrincipality.Web.ViewModels.Request;
 using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using QassimPrincipality.Application.Services.Main.ShareData;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -58,6 +61,56 @@ namespace QassimPrincipality.Web.Controllers
             dto.ContactTypeId=model.ContactTypeId;
             await _contactService.InsertAsync(dto);
             return RedirectToAction("Index", "Common");
+        }
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RequestList(string type, int page = 1)
+        {
+            bool? status = null;
+            bool? isPending = null;
+            switch (type)
+            {
+                case "1":
+                    status = true;
+                    break;
+                case "0":
+                    status = false;
+                    break;
+                case "2":
+                    status = null;
+                    isPending = true;
+                    break;
+                default:
+                    status = null;
+                    type = "20";
+                    break;
+            }
+
+            var lst = new List<object>
+            {
+                new {Id = "0",Name="طلبات منتهية بالرفض"},
+                new {Id = "1",Name="طلبات منتهية بالموافقة"},
+                new {Id = "2",Name="طلبات قيد الإجراء"},
+                new {Id = "20",Name="كل الطلبات"},
+            };
+
+
+            ViewBag.items = new SelectList(lst, "Id", "Name", type);
+            ViewBag.status = type;
+            var result = await _contactService.SearchAsync(
+                new ContactDataSearchDto()
+                {
+                    IsApproved = status,
+                    PageNumber = page,
+                    PageSize = 10
+                }
+            );
+            return View(result);
+        }
+        public async Task<IActionResult> Details(string requestId)
+        {
+            var result = await _contactService.GetById(Guid.Parse(requestId));
+
+            return View(result);
         }
     }
 }

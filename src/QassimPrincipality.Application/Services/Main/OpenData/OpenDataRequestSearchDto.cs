@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Framework.Core.Data;
+using PagedList.Core;
+using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace QassimPrincipality.Application.Services.Main.OpenData
 {
-    public class OpenDataDto
+    public class OpenDataRequestSearchDto : PagingDto
     {
-        public Guid Id { get; set; }
         public string UserFullName { get; set; }
         public string UserEmail { get; set; }
         public string IdentityNumber { get; set; }
@@ -19,8 +19,8 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
         public string Description { get; set; }
         public int RequesterTypeId { get; set; }
         public bool IsAllowed { get; set; }
-        public bool IsApproved { get; set; }
-        public List<IFormFile> OtherAttachments { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public bool? IsApproved { get; set; }
+        public int? TotalItemsCount { get; set; }
+        public new StaticPagedList<OpenDataDto> Items { get; set; }
     }
 }

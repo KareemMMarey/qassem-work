@@ -2,16 +2,22 @@
 using QassimPrincipality.Domain.Interfaces;
 using Framework.Core.AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Framework.Core.SharedServices.Services;
+using PagedList.Core;
+using QassimPrincipality.Application.Services.Main.ShareData;
+using System.Linq.Expressions;
 
 namespace QassimPrincipality.Application.Services.Main.Contact
 {
     public class ContactFormAppService
     {
         private readonly IRepository<Domain.Entities.Services.Main.ContactForm> _contactRepository;
+        private readonly AppSettingsService _appSettingsService;
 
-        public ContactFormAppService(IRepository<Domain.Entities.Services.Main.ContactForm> eServiceCategoryRepository)
+        public ContactFormAppService(IRepository<Domain.Entities.Services.Main.ContactForm> eServiceCategoryRepository, AppSettingsService appSettingsService)
         {
             _contactRepository = eServiceCategoryRepository;
+            _appSettingsService = appSettingsService;
         }
 
         public async Task<List<ContactFormDto>> GetAllContactRequest()
@@ -33,7 +39,7 @@ namespace QassimPrincipality.Application.Services.Main.Contact
             return saved;
         }
 
-        public async Task<ContactFormDto> GetById(int id)
+        public async Task<ContactFormDto> GetById(Guid id)
         {
             try
             {
@@ -82,6 +88,45 @@ namespace QassimPrincipality.Application.Services.Main.Contact
             {
                 throw;
             }
+        }
+        public async Task<ContactDataSearchDto> SearchAsync(
+           ContactDataSearchDto contactSearchDto
+       )
+        {
+            var filters =
+                new List<Expression<Func<Domain.Entities.Services.Main.ContactForm, bool>>>();
+
+
+            if (contactSearchDto.IsApproved != null)
+                filters.Add(a => a.IsApproved == contactSearchDto.IsApproved);
+
+
+
+            Func<
+                IQueryable<Domain.Entities.Services.Main.ContactForm>,
+                IOrderedQueryable<Domain.Entities.Services.Main.ContactForm>
+            > orderBy;
+            orderBy = a => a.OrderByDescending(b => b.CreatedOn);
+            Framework.Core.PagedList<ContactFormDto> result;
+
+            result = _contactRepository.SearchAndSelectWithFilters(
+                contactSearchDto.PageNumber,
+                contactSearchDto.PageSize ?? _appSettingsService.DefaultPagerPageSize,
+                orderBy,
+                a => a.MapTo<ContactFormDto>(),
+                filters
+            );
+
+
+            contactSearchDto.Items = new StaticPagedList<ContactFormDto>(
+                result,
+                result.PageNumber,
+                result.PageSize,
+                result.TotalItemCount
+            );
+
+            contactSearchDto.TotalItemsCount = contactSearchDto.Items.TotalItemCount;
+            return await Task.FromResult(contactSearchDto);
         }
     }
 }

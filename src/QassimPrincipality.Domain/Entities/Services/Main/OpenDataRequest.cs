@@ -1,5 +1,6 @@
 ﻿
 using Framework.Core.Data;
+using QassimPrincipality.Domain.Entities.Lookups;
 using QassimPrincipality.Domain.Entities.Lookups.Main;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public bool IsApproved { get; set; }
         public string IdentityNumber { get; set; }
         public RequesterType RequesterType { get; set; } // open data
+        public List<Attachment> Attachments { get; set; }
 
     }
 }
