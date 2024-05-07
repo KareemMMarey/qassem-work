@@ -298,7 +298,7 @@ namespace QassimPrincipality.Web.Helpers
                     });
                     context.SaveChanges();
                 }
-                // Requester Types
+                // Request Types
                 if (!context.Set<RequestType>().Any())
                 {
                     context.Set<RequestType>().AddRange(new List<RequestType>()
