@@ -32,7 +32,16 @@ namespace Framework.Core.Data.Repositories
 
             if (autoSave)
             {
-                DbContext.SaveChanges();
+                try
+                {
+                    DbContext.SaveChanges();
+
+                }
+                catch (Exception e)
+                {
+
+                    throw;
+                }
             }
 
             return savedEntity;
