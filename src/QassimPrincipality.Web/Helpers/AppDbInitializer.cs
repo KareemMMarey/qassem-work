@@ -298,6 +298,96 @@ namespace QassimPrincipality.Web.Helpers
                     });
                     context.SaveChanges();
                 }
+                // Requester Types
+                if (!context.Set<RequestType>().Any())
+                {
+                    context.Set<RequestType>().AddRange(new List<RequestType>()
+                    {
+
+                        new RequestType()
+                        {
+                            NameAr = "زواج سعودي من غير سعودية من الخارج",
+                            NameEn="Marriage of a Saudi man to a non-Saudi woman from abroad",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "زواج سعودي من غير سعودية مقيمة ومولودة بالمملكة",
+                            NameEn="Marriage of a Saudi woman to a non-Saudi woman residing and born in the Kingdom",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "زواج سعودي من غير سعودية مقيمة ومولودة خارج المملكة",
+                            NameEn="Marriage of a Saudi woman to a non-Saudi woman residing and born outside the Kingdom",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "زواج سعودية من غير سعودي مولود بالمملكة",
+                            NameEn="Marriage of a Saudi woman to a non-Saudi born in the Kingdom",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = " خدمة الاستعلام عن معاملة",
+                            NameEn="Transaction inquiry service",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "طلب تنفيذ حكم صادر ضد جهة حكومية",
+                            NameEn="Request to implement a judgment issued against a government entity",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "خدمة طلب الاستدعاء الإلكتروني",
+                            NameEn="Electronic summons request service",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "طلب أعفاء من باقي محكومية",
+                            NameEn="Request for exemption from remaining sentence",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "طلب نقل سجين",
+                            NameEn="Request to transfer a prisoner",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        },
+                        new RequestType()
+                        {
+                            NameAr = "​ أطلاق​ سراح مؤقت",
+                            NameEn="Temporary release",
+                            IsActive=true,
+                            CreatedBy="admin",
+                            CreatedOn= DateTime.Now,
+                        }
+                    });
+                    context.SaveChanges();
+                }
 
 
             }
