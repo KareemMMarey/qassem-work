@@ -60,11 +60,11 @@ namespace QassimPrincipality.Web.Controllers
                     Photo = model.Photo,
                     OtherAttachments = model.ListAttachments
                 };
-                await _uploadRequestService.InsertAsync(dto);
+                var res = await _uploadRequestService.InsertAsync(dto);
                 return RedirectToAction(
                     "Index",
                     "Common",
-                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = "" }
+                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = res.referralNumber }
                 );
             }
             catch
