@@ -65,6 +65,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             uploadRequest.CreatedBy = ""; // _userAppService.CurrentUser.Id.ToString();
 
 
+            uploadRequest.referralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
             uploadRequest.RequestNameAr = UploadRequestDto.RequestName;
             uploadRequest.RequestNameEn = UploadRequestDto.RequestName;
 

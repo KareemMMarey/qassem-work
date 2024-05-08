@@ -48,6 +48,9 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid) { 
+                    return View(model);
+                }
                 var dto = new UploadRequestDtoAdd
                 {
                     RequestDate = DateTime.Now,
