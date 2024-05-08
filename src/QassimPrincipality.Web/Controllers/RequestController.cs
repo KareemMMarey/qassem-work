@@ -1,6 +1,4 @@
-﻿using Framework.Core.AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
@@ -48,7 +46,8 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                if (!ModelState.IsValid) { 
+                if (!ModelState.IsValid)
+                {
                     return View(model);
                 }
                 var dto = new UploadRequestDtoAdd
@@ -62,7 +61,11 @@ namespace QassimPrincipality.Web.Controllers
                     OtherAttachments = model.ListAttachments
                 };
                 await _uploadRequestService.InsertAsync(dto);
-                return RedirectToAction("Index", "Common", new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber="" });
+                return RedirectToAction(
+                    "Index",
+                    "Common",
+                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = "" }
+                );
             }
             catch
             {
@@ -113,7 +116,5 @@ namespace QassimPrincipality.Web.Controllers
                 return View();
             }
         }
-        
-
     }
 }

@@ -3,7 +3,7 @@ using QassimPrincipality.Web.Helpers;
 
 namespace QassimPrincipality.Web.ViewModels.Request
 {
-    public class AddRequestViewModel 
+    public class AddRequestViewModel
     {
         [DataType(DataType.Upload)]
         [MaxFileSizeValidation(1 * 1024 * 1024)]
@@ -40,7 +40,5 @@ namespace QassimPrincipality.Web.ViewModels.Request
         [Required(ErrorMessage = "هذا الحقل مطلوب")]
         public string RequestName { get; set; } = null!;
         public int RequestTypeId { get; set; }
-
-
     }
 }

@@ -80,7 +80,7 @@ namespace QassimPrincipality.Web.Helpers
     //[AttributeUsage(AttributeTargets.Method)]
     public class MaxFilesSizeAttribute : ValidationAttribute
     {
-        public MaxFilesSizeAttribute( int sizesInByte)
+        public MaxFilesSizeAttribute(int sizesInByte)
         {
             this._maxFilesSize = sizesInByte;
         }
@@ -95,7 +95,7 @@ namespace QassimPrincipality.Web.Helpers
             var files = value as List<IFormFile>;
             if (files != null)
             {
-                if (files.Sum(c=>c.Length)  > _maxFilesSize)
+                if (files.Sum(c => c.Length) > _maxFilesSize)
                 {
                     return new ValidationResult(GetErrorMessage());
                 }
@@ -106,13 +106,14 @@ namespace QassimPrincipality.Web.Helpers
 
         public string GetErrorMessage()
         {
-            return $"الحجم الاقصى للملفات هو {_maxFilesSize/(1024*1024)} ميجا";
+            return $"الحجم الاقصى للملفات هو {_maxFilesSize / (1024 * 1024)} ميجا";
         }
     }
-        //[AttributeUsage(AttributeTargets.Method)]
+
+    //[AttributeUsage(AttributeTargets.Method)]
     public class MaxFileSizeValidationAttribute : ValidationAttribute
     {
-        public MaxFileSizeValidationAttribute( int sizeInByte)
+        public MaxFileSizeValidationAttribute(int sizeInByte)
         {
             this._maxFileSize = sizeInByte;
         }
@@ -127,7 +128,7 @@ namespace QassimPrincipality.Web.Helpers
             var files = value as IFormFile;
             if (files != null)
             {
-                if (files.Length  > _maxFileSize)
+                if (files.Length > _maxFileSize)
                 {
                     return new ValidationResult(GetErrorMessage());
                 }
@@ -138,7 +139,7 @@ namespace QassimPrincipality.Web.Helpers
 
         public string GetErrorMessage()
         {
-            return $"الحجم الاقصى للملف هو {_maxFileSize/ (1024 * 1024)} ميجا";
+            return $"الحجم الاقصى للملف هو {_maxFileSize / (1024 * 1024)} ميجا";
         }
     }
 
