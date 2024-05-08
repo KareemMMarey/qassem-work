@@ -58,17 +58,7 @@ namespace QassimPrincipality.Web.Controllers
                     Photo = model.Photo,
                     OtherAttachments = model.ListAttachments
                 };
-
-                try
-                {
-                    await _uploadRequestService.InsertAsync(dto);
-
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
+                await _uploadRequestService.InsertAsync(dto);
                 return RedirectToAction("Index", "Common", new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber="" });
             }
             catch
