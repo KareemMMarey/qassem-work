@@ -61,7 +61,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     return View(model);
                 }
-                var currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+                //var currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
                 var dto = new UploadRequestDtoAdd
                 {
                     RequestDate = DateTime.Now,
