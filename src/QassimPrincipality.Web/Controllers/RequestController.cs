@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
@@ -10,14 +13,19 @@ namespace QassimPrincipality.Web.Controllers
     {
         private readonly UploadRequestAppService _uploadRequestService;
         private readonly RequestTypeAppService _requestTypeAppService;
+        private readonly UserAppService _userServices;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public RequestController(
             UploadRequestAppService uploadRequestAppService,
-            RequestTypeAppService requestTypeAppService
+            RequestTypeAppService requestTypeAppService,
+             UserAppService userServices, UserManager<ApplicationUser> userManager
         )
         {
             _uploadRequestService = uploadRequestAppService;
             _requestTypeAppService = requestTypeAppService;
+            _userServices = userServices;
+            _userManager = userManager;
         }
 
         // GET: RequestController
@@ -50,6 +58,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     return View(model);
                 }
+                var currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
                 var dto = new UploadRequestDtoAdd
                 {
                     RequestDate = DateTime.Now,
