@@ -3,36 +3,42 @@ using QassimPrincipality.Web.Helpers;
 
 namespace QassimPrincipality.Web.ViewModels.Request
 {
-    public class AddRequestViewModel : IValidatableObject
+    public class AddRequestViewModel
     {
-        [Required(ErrorMessage = "Please select a file.")]
         [DataType(DataType.Upload)]
-        [MaxFileSize(5 * 1024 * 1024)]
-        [AllowedExtensions(new string[] { ".jpg", ".png" })]
+        [MaxFileSizeValidation(1 * 1024 * 1024)]
+        [Required(ErrorMessage = "يجب اختيار الصورة")]
+        [AllowedExtensions(
+            new string[] { ".jpg", ".png", ".jpeg", ".pdf" },
+            ErrorMessage = "يجب رفع الملفات بالصيغ ({1}) فقط"
+        )]
+        //[FileExtensions(Extensions = ".png,.jpg,.jpeg", ErrorMessage = "يجب رفع الملفات بالصيغ ({1}) فقط")]
         public IFormFile Photo { get; set; }
 
-        [Required(ErrorMessage = "Please select a file.")]
         [DataType(DataType.Upload)]
-        [MaxFileSize(5 * 1024 * 1024)]
-        [AllowedExtensions(new string[] { ".jpg", ".png" })]
+        [MaxFilesSize(10 * 1024 * 1024)]
+        [AllowedExtensions(
+            new string[] { ".jpg", ".png", ".jpeg", ".pdf" },
+            ErrorMessage = "يجب رفع الملفات بالصيغ ({1}) فقط"
+        )]
+        //[FileExtensions(Extensions = ".png,.jpg,.jpeg,.pdf",ErrorMessage = "يجب رفع الملفات بالصيغ ({1}) فقط")]
+        [MaxLength(10, ErrorMessage = "يجب ارفاق 10 ملفات فقط كحد اقصى")]
+        [Required(ErrorMessage = "يجب اختيار ملف واحد على الاقل")]
         public List<IFormFile> ListAttachments { get; set; }
 
+        [MaxLength(10, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "يجب ادخال ارقام فقط")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
         public string NafathNumber { get; set; } = null!;
+
+        [MaxLength(14, ErrorMessage = "يجب ادخال 14 رقم كحد اقصى")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "يجب ادخال ارقام فقط")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
         public string PhoneNumber { get; set; } = null!;
+
+        [MaxLength(50)]
+        [Required(ErrorMessage = "هذا الحقل مطلوب")]
         public string RequestName { get; set; } = null!;
-        public int RequestTypeId { get; set; } 
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var photo = ((AddRequestViewModel)validationContext.ObjectInstance).Photo;
-            var extension = Path.GetExtension(photo.FileName);
-            var size = photo.Length;
-
-            if (!extension.ToLower().Equals(".jpg"))
-                yield return new ValidationResult("File extension is not valid.");
-
-            if (size > (5 * 1024 * 1024))
-                yield return new ValidationResult("File size is bigger than 5MB.");
-        }
+        public int RequestTypeId { get; set; }
     }
 }
