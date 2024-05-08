@@ -10,6 +10,31 @@ html(lang='ar', dir='rtl')
   body
     include ./partials/_top-bar
     include ./partials/_header
-    .container
-      | Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita aut obcaecati nemo cum natus, omnis necessitatibus iure voluptatum ex in. Adipisci, numquam ut? Rem quam, fugit eveniet modi ex voluptatem.
+    main.page-layout
+      .container
+        .row.justify-content-xxl-center
+          .col-xxl-10
+            .page-panel
+              h3.page-title.margin-bottom-lg الخدمات الإلكترونية
+              .form
+                .row
+                  .col-xl-6
+                    .form-group
+                      label.form-label رقم الهوية الوطنية / الإقامة
+                      input.form-control(type="text" placeholder="رقم الهوية الوطنية / الإقامة")
+                  .col-xl-6
+                    .form-group
+                      label.form-label كلمة المرور
+                      input.form-control(type="text" placeholder="كلمة المرور")
+                  .col-xl-6
+                    .form-group
+                      label.form-label كلمة المرور
+                      input.form-control(type="text" placeholder="كلمة المرور")
+                  .col-xl-6
+                    .form-group
+                      label.form-label كلمة المرور
+                      input.form-control(type="file" placeholder="كلمة المرور")
+                  .col-xl-6
+                    button.btn.btn-primary دخول
+
     include ./partials/_footer

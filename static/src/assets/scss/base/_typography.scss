@@ -18,19 +18,11 @@ $font-weights: (
   --font-size-h4: 1.5rem; // 24px
   --font-size-h5: 1.25rem; // 20px
   --font-size-h6: 1.125rem; // 18px
-  --font-lead: 0.875rem; // 14px
   --font-internal-body: 1.125rem; // 18px
   --font-body: 1rem; // 16px
   --font-small-body: 0.875rem; // 14px
-  --font-blockquotes: 1.75rem; // 28px
-  --font-small-text: 0.75rem; // 12px
-  --font-tiny-text: 0.625rem; // 10px
-  --font-small-label: 0.625rem; // 10px
-  --font-mid-label: 0.75rem; // 12px
-  --font-text-label: 0.875rem; // 14px
-  --font-large-label: 1rem; // 16px
 
-  --font-size-mx: 2.25rem;
+  --font-size-lg: 2.25rem;
   --font-size-md: 1.25rem;
   --font-size-base: 1rem;
   --font-size-sm: 0.875rem;
@@ -57,29 +49,27 @@ $font-weights: (
   }
 }
 
-@include typo(".typo-xl-headline", var(--font-xl-headline), var(--font-bold), normal);
-@include typo(".typo-lg-headline", var(--font-lg-headline), var(--font-bold), normal);
-@include typo(".typo-md-headline", var(--font-md-headline), var(--font-semi-bold), normal);
-@include typo(".typo-subtitle", var(--font-subtitle), var(--font-medium), normal);
-@include typo(".typo-formgroup-title", var(--font-formgroup-title), var(--font-semi-regular), normal);
+@include typo(".font-display1", var(--font-size-display1), var(--font-bold), normal);
+@include typo(".font-display2", var(--font-size-display2), var(--font-bold), normal);
+@include typo(".font-display3", var(--font-size-display3), var(--font-bold), normal);
 
-@include typo(".typo-paragraph-md", var(--font-paragraph-md), var(--font-regular), 27px);
-@include typo(".typo-paragraph-sm", var(--font-paragraph-sm), var(--font-regular), 24px);
+@include typo(".h1", var(--font-size-h1), var(--font-bold), normal);
+@include typo(".h2", var(--font-size-h2), var(--font-bold), normal);
+@include typo(".h3", var(--font-size-h3), var(--font-bold), normal);
+@include typo(".h4", var(--font-size-h4), var(--font-bold), normal);
+@include typo(".h5", var(--font-size-h5), var(--font-bold), normal);
+@include typo(".h6", var(--font-size-h6), var(--font-bold), normal);
 
-@include typo(".typo-paragraph-lg-ar", var(--font-paragraph-lg-ar), var(--font-regular), 36px);
-@include typo(".typo-paragraph-md-ar", var(--font-paragraph-md-ar), var(--font-regular), 27px);
-@include typo(".typo-paragraph-sm-ar", var(--font-paragraph-sm-ar), var(--font-regular), 24px);
 
-@include typo(".font-button", var(--font-button), var(--font-bold), 32px);
-@include typo(".font-submit", var(--font-submit), var(--font-bold), 21px);
+@include typo(".font-internal-body", var(--font-internal-body), var(--font-regular), normal);
+@include typo(".font-body", var(--font-body), var(--font-regular), normal);
+@include typo(".font-small-body", var(--font-small-body), var(--font-regular), normal);
 
-@include typo(".font-size-base", var(--font-size-base), var(--font-regular), 27px);
-@include typo(".font-size-md", var(--font-size-md), var(--font-regular), 27px);
-@include typo(".font-size-sm", var(--font-size-sm), var(--font-light), 24px);
-
-.font-num {
-  font-family: var(--font-num) !important;
-}
+@include typo(".font-size-lg", var(--font-size-lg), var(--font-regular), normal);
+@include typo(".font-size-md", var(--font-size-md), var(--font-regular), normal);
+@include typo(".font-size-base", var(--font-size-base), var(--font-regular), normal);
+@include typo(".font-size-sm", var(--font-size-sm), var(--font-light), normal);
+@include typo(".font-size-xs", var(--font-size-xs), var(--font-regular), normal);
 
 .text-lowercase {
   text-transform: lowercase !important;
