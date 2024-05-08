@@ -4,7 +4,7 @@
     ViewData["Title"] = "تسجيل مستخدم";
 }
 
-<h1>تسجيل مستخدم جديد</h1>
+
 
 @model RegisterVM;
 
@@ -13,45 +13,45 @@
 <div class="row">
     <div class="col-md-6 offset-3">
         <p>
-            <h4>Sign up for a new account</h4>
+            <h1>تسجيل مستخدم جديد</h1>
         </p>
 
         @if(TempData["Error"] != null)
             {
                 <div class="col-md-12 alert alert-danger">
-                    <span><b>Sorry!</b> - @TempData["Error"] </span>
+                    <span><b>نأسف!</b> - @TempData["Error"] </span>
                 </div>
             }
 
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Register">
+                <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
-                        <label asp-for="FullName" class="control-label"></label>
+                        <label asp-for="FullName" class="control-label">الاسم الكامل</label>
                         <input asp-for="FullName" class="form-control" />
                         <span asp-validation-for="FullName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="EmailAddress" class="control-label"></label>
+                        <label asp-for="EmailAddress" class="control-label">البريد الإلكتروني</label>
                         <input asp-for="EmailAddress" class="form-control" />
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
+                        <label asp-for="Password" class="control-label">كلمة المرور</label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ConfirmPassword" class="control-label"></label>
+                        <label asp-for="ConfirmPassword" class="control-label">تاكيد كلمة المرور</label>
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input class="btn btn-outline-success float-right" type="submit" value="Sign up" />
-                        <a class="btn btn-outline-secondary" asp-controller="Movies" asp-action="Index">Cancel</a>
+                        <input class="btn btn-outline-success float-right" type="submit" value="السجيل" />
+                        <a class="btn btn-outline-secondary" asp-controller="Account" asp-action="Index">ألغاء</a>
                     </div>
                 </form>
             </div>

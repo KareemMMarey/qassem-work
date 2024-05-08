@@ -1,4 +1,5 @@
 ﻿using Framework.Core.AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
@@ -9,6 +10,7 @@ using static OfficeOpenXml.ExcelErrorValue;
 
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class RequestsAdminController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
@@ -52,9 +54,8 @@ namespace QassimPrincipality.Web.Controllers
                 new {Id = "2",Name="طلبات قيد الإجراء"},
                 new {Id = "20",Name="كل الطلبات"},
             };
+            ViewBag.items = new SelectList(lst, "Id", "Name", type);
 
-
-            ViewBag.items = new SelectList(lst,"Id","Name", type);
             ViewBag.status = type;
             var result = await _uploadRequestService.SearchAsync(
                 new UploadRequestSearchDto()

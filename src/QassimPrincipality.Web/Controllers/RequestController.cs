@@ -1,25 +1,34 @@
-﻿using Framework.Core.AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Request;
+using Framework.Core.Extensions;
 
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class RequestController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
         private readonly RequestTypeAppService _requestTypeAppService;
+        private readonly UserAppService _userServices;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public RequestController(
             UploadRequestAppService uploadRequestAppService,
-            RequestTypeAppService requestTypeAppService
+            RequestTypeAppService requestTypeAppService,
+             UserAppService userServices, UserManager<ApplicationUser> userManager
         )
         {
             _uploadRequestService = uploadRequestAppService;
             _requestTypeAppService = requestTypeAppService;
+            _userServices = userServices;
+            _userManager = userManager;
         }
 
         // GET: RequestController
@@ -48,6 +57,11 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+                var currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
                 var dto = new UploadRequestDtoAdd
                 {
                     RequestDate = DateTime.Now,
@@ -56,20 +70,15 @@ namespace QassimPrincipality.Web.Controllers
                     NafathNumber = model.NafathNumber,
                     RequestName = model.RequestName,
                     Photo = model.Photo,
-                    OtherAttachments = model.ListAttachments
+                    OtherAttachments = model.ListAttachments,
+                    CreatedBy = HttpContext.User.GetId()
                 };
-
-                try
-                {
-                    await _uploadRequestService.InsertAsync(dto);
-
-                }
-                catch (Exception e)
-                {
-
-                    throw;
-                }
-                return RedirectToAction(nameof(Index));
+                var res = await _uploadRequestService.InsertAsync(dto);
+                return RedirectToAction(
+                    "Index",
+                    "Common",
+                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = res.referralNumber }
+                );
             }
             catch
             {
@@ -120,7 +129,5 @@ namespace QassimPrincipality.Web.Controllers
                 return View();
             }
         }
-        
-
     }
 }

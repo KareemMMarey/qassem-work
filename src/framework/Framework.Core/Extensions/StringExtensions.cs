@@ -13,6 +13,7 @@ namespace Framework.Core.Extensions
     using System;
     using System.Globalization;
     using System.Linq;
+    using System.Security.Claims;
     using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -33,6 +34,10 @@ namespace Framework.Core.Extensions
         ///     The random.
         /// </summary>
         private static readonly Random Random = new Random((int)DateTime.Now.Ticks);
+        public static  string GetId(this ClaimsPrincipal user)
+        {
+            return user.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        }
 
         /// <summary>
         /// Appends random chars and numeric.

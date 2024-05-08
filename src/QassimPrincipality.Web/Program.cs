@@ -14,6 +14,8 @@ namespace QassimPrincipality.Web
 {
     public class Program
     {
+        //dotnet ef migrations add AdjustAddRequest -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
+        //dotnet ef database update -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
