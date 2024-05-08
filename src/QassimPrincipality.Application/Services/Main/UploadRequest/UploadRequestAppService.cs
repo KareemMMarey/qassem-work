@@ -64,6 +64,10 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 UploadRequestDto.MapTo<Domain.Entities.Services.Main.UploadRequest>();
             uploadRequest.CreatedBy = ""; // _userAppService.CurrentUser.Id.ToString();
 
+
+            uploadRequest.RequestNameAr = UploadRequestDto.RequestName;
+            uploadRequest.RequestNameEn = UploadRequestDto.RequestName;
+
             uploadRequest = await _uploadRequestRepository.InsertAsync(uploadRequest, true);
 
             var photo = new AttachmentDto
