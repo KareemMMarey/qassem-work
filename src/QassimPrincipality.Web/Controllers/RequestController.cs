@@ -69,7 +69,7 @@ namespace QassimPrincipality.Web.Controllers
 
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Common", new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber="" });
             }
             catch
             {
