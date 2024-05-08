@@ -58,7 +58,8 @@ namespace QassimPrincipality.Web.Controllers
                     NafathNumber = model.NafathNumber,
                     RequestName = model.RequestName,
                     Photo = model.Photo,
-                    OtherAttachments = model.ListAttachments
+                    OtherAttachments = model.ListAttachments,
+                    CreatedByFullName="مستخدم اختبار"
                 };
                 var res = await _uploadRequestService.InsertAsync(dto);
                 return RedirectToAction(
