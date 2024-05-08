@@ -80,9 +80,9 @@ namespace QassimPrincipality.Web.Controllers
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details",new { requestId });
         }
-        public async Task<IActionResult> Reject(string requestId,string notes)
+        public async Task<IActionResult> Reject(string requestId,string rejectReasons)
         {
-            await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, notes);
+            await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
             return RedirectToAction("Details",new { requestId });
         }
         // [HttpGet]

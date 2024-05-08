@@ -24,6 +24,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
     public class UploadRequestAppService
     {
         private readonly IRepository<Domain.Entities.Services.Main.UploadRequest> _uploadRequestRepository;
+        private readonly IRepository<RequestType> _requestTypeRepository;
         private readonly IUserAppService _userAppService;
         private readonly AttachmentAppService _attachmentAppService;
         private readonly IRepository<Attachment> _attachmentRepository;
@@ -34,6 +35,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
 
         public UploadRequestAppService(
             IRepository<Domain.Entities.Services.Main.UploadRequest> uploadRequestRepository,
+            IRepository<RequestType> requestTypeRepository,
             IUserAppService userAppService,
             AppSettingsService appSettingsService,
             AttachmentAppService attachmentAppService,
@@ -50,6 +52,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             _lookupAppService = lookupAppService;
             _attachmentRepository = attachmentRepository;
             _roleAppService = roleAppService;
+            _requestTypeRepository = requestTypeRepository;
         }
 
         public async Task<List<UploadRequestDto>> GetAllUploadRequests()
@@ -324,8 +327,9 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             try
             {
                 var entity = await _uploadRequestRepository.GetByIdAsync(id);
+                var reqType = await _requestTypeRepository.GetByIdAsync(entity.RequestTypeId);
                 var UploadRequestDto = entity.MapTo<UploadRequestDto>();
-
+                UploadRequestDto.RequestTypeName = reqType.RequestTypeName;
                 return await Task.FromResult(UploadRequestDto);
             }
             catch (Exception e)

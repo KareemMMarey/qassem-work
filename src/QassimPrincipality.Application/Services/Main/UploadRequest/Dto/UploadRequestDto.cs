@@ -9,6 +9,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
     {
         public Guid? Id { get; set; }
         public string referralNumber { get; set; }
+        public string RequestTypeName { get; set; }
 
         [MaxLength(50)]
         [Required(ErrorMessage = "هذا الحقل مطلوب")]
