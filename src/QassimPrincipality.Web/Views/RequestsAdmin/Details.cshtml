@@ -4,10 +4,10 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>التفاصيل</h1>
 
 <div>
-    <h4>UploadRequestDto</h4>
+    <h4>تفاصيل الطلب</h4>
     <hr />
     <dl class="row">
 
@@ -18,10 +18,16 @@
             @Html.DisplayFor(model => model.referralNumber)
         </dd>
         <dt class="col-sm-2">
-            الاسم
+            عنوان الطلب
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RequestName)
+        </dd>
+        <dt class="col-sm-2">
+            مقدم الطلب
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CreatedByFullName)
         </dd>
         <dt class="col-sm-2">
             رقم الهوية
@@ -90,7 +96,7 @@
                 </dd>
                 break;
         }
-       
+
 
     </dl>
 </div>

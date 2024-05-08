@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Request;
+using Framework.Core.Extensions;
 
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class RequestController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
@@ -58,7 +61,8 @@ namespace QassimPrincipality.Web.Controllers
                     NafathNumber = model.NafathNumber,
                     RequestName = model.RequestName,
                     Photo = model.Photo,
-                    OtherAttachments = model.ListAttachments
+                    OtherAttachments = model.ListAttachments,
+                    CreatedBy = HttpContext.User.GetId()
                 };
                 await _uploadRequestService.InsertAsync(dto);
                 return RedirectToAction(

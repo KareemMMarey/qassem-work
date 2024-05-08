@@ -15,6 +15,8 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
 
         public string RequestNameAr { get; set; }
         public string RequestNameEn { get; set; }
+        public string PhoneNumber { get; set; }
+        public string NafathNumber { get; set; }
 
         public int RequestTypeId { get; set; }
         public RequestType RequestType { get; set; }

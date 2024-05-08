@@ -62,7 +62,10 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             var uploadRequest =
                 UploadRequestDto.MapTo<Domain.Entities.Services.Main.UploadRequest>();
-            uploadRequest.CreatedBy = ""; // _userAppService.CurrentUser.Id.ToString();
+            //  uploadRequest.CreatedBy =  _userAppService.CurrentUser.Id.ToString();
+
+            var user = await _userAppService.GetUserAsync(Guid.Parse(uploadRequest.CreatedBy));
+            uploadRequest.CreatedByFullName = user.FullNameAr ?? user.FullName;
 
 
             uploadRequest.referralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
