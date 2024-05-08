@@ -1,7 +1,15 @@
+.services-list{
+    .row{
+        --bs-gutter-x: var(--space-lg);
+        --bs-gutter-y: var(--space-lg);
+    }
+}
+
 .services-card{
+    height: 100%;
     background-color: var(--color-white);
     border-radius: 1em;
-    padding: var(--space-base);
+    padding: var(--space-lg);
     display: flex;
     flex-direction: column;
     gap: var(--space-sm);
@@ -10,6 +18,17 @@
     text-decoration: none;
     color: var(--color-primary);
     &:hover{
-        color: var(--color-primary-100);
+        color: var(--color-secondary);
     }
 }
+.service-card__title{
+    font-size: var(--font-size-md);
+    transition: color .3s ease-in-out;
+}
+.service-card__icon{
+    fill: var(--color-secondary);
+    svg{
+        width: 60px;
+        height: 60px;
+    }
+} 
