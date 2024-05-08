@@ -1,12 +1,33 @@
 ﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory
-<div class="container-fluid page-title">
-    <h2>
-        <a href="/Home" class="text-white text-decoration-none">
-            الخدمات الإلكترونية لإمارة منطقة تبوك
-        </a>
-    </h2>
+<h3 class="page-title margin-bottom-lg">
+    الخدمات الإلكترونية لإمارة منطقة القصيم
+</h3>
+<div class="container">
+    <div class="services-list">
+        <div class="row">
+            @if (ViewData["subcategories"] != null)
+            {
+                var subcategories = (List<EServiceSubCategoryDto>)ViewData["subcategories"];
+                foreach (EServiceSubCategoryDto item in subcategories)
+                {
+                    <div class="col-xxl-3">
+                        <a class="services-card" href="#">
+                            <div class="service-card__icon">
+                                <svg width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#logo"> </use>
+                                </svg>
+                            </div>
+                            <div class="service-card__title"> @item.NameAr</div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
-<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
+
+
+<div class="container-fluid body-content bg-transparent">
 
 
 
@@ -22,7 +43,6 @@
                 {
                     <div class="col-4">
                         <div class="card shadow p-3 mb-5 bg-white rounded">
-                            <img class="card-img-top" src="/Images/service.png" alt="@item.NameAr">
                             <div class="card-body text-center">
                                 <h3 class="card-title"> @item.NameAr</h3>
                                 @{

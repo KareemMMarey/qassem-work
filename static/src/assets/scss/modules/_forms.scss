@@ -1,35 +1,31 @@
-input::placeholder,.form-select {
-	color: #343253 !important;
-	font-size: 14px !important;
-	font-weight: 400 !important;
-}
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-base);
+	--form-label-color: #3A3A3A;
+	--form-label-size: var(--font-size-base);
 
-.form-label{
-	color: #d5d5da;
-	font-size: 14px;
-	font-weight: 400;
-}
-.form-control,.form-select{
-	min-height: 38px;
-}
-.card__search-field{
-	.form-control{	
-		background-image: url(/assets/images/search-icon.svg);
-		padding: 0.375rem 0.75rem 0.375rem 2.25rem;
-		background-position: left 0.75rem center;
-		background-color: #fff;
-		background-repeat: no-repeat;
-		background-size: 16px 12px;
-		[dir="rtl"] & {
-			padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-			background-position: right 0.75rem center;
-		}
+	--form-control-border-color: #DCDBE1;
+	--form-control-padding: var(--space-base);
+
+	.row {
+		--bs-gutter-x: var(--space-md);
+		--bs-gutter-y: var(--space-md);
 	}
 }
 
-.form-select{
-	[dir="rtl"] & {
-		padding: 0.375rem 0.75rem 0.375rem 2.25rem;
-		background-position: left 0.75rem center;
+.form-label {
+	color: var(--form-label-color);
+	font-size: var(--form-label-size);
+}
+
+.form-control {
+	border: 1px solid var(--form-control-border-color);
+	padding: var(--form-control-padding);
+	outline: 0;
+
+	&:focus {
+		border-color: var(--color-primary);
+		box-shadow: var(--shadow-base);
 	}
 }
