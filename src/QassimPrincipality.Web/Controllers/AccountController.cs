@@ -7,11 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using QassimPrincipality.Infrastructure.Data;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Account;
-using System.Reflection.PortableExecutable;
-using System.Text.RegularExpressions;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -21,32 +18,41 @@ namespace QassimPrincipality.Web.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IOptions<NafathConfiguration> nafathConfiguartion)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager,
+            IOptions<NafathConfiguration> nafathConfiguartion
+        )
             : base(userManager, signInManager, roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _nafathConfiguartion = nafathConfiguartion;
         }
+
         [AllowAnonymous]
         public IActionResult Index() => View();
 
         [HttpGet]
         public IActionResult Profile()
         {
-            
             var userViewModel = CurrentUser.MapTo<UserDto>();
 
             return View(userViewModel);
         }
+
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
+
         public IActionResult NafathLogin() => View(new NafathLoginVM());
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
-            if (!ModelState.IsValid) return View(loginVM);
+            if (!ModelState.IsValid)
+                return View(loginVM);
 
             var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
             if (user != null)
@@ -54,7 +60,12 @@ namespace QassimPrincipality.Web.Controllers
                 var passwordCheck = await _userManager.CheckPasswordAsync(user, loginVM.Password);
                 if (passwordCheck)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user,
+                        loginVM.Password,
+                        false,
+                        false
+                    );
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Index", "Home");
@@ -73,7 +84,8 @@ namespace QassimPrincipality.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NafathLogin(NafathLoginVM loginVM)
         {
-            if (!ModelState.IsValid) return View(loginVM);
+            if (!ModelState.IsValid)
+                return View(loginVM);
             return await ProcessNafathUser(loginVM);
             //var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
             //if (user != null)
@@ -94,10 +106,12 @@ namespace QassimPrincipality.Web.Controllers
             //TempData["Error"] = "Wrong credentials. Please, try again!";
             //return View(loginVM);
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
-            if (!ModelState.IsValid) return View(registerVM);
+            if (!ModelState.IsValid)
+                return View(registerVM);
 
             var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
             if (user != null)
@@ -117,9 +131,12 @@ namespace QassimPrincipality.Web.Controllers
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
 
-            return RedirectToAction("Index", "Common", new { SuccessMessage = "تم تسجيل المستخدم بنجاح" });
+            return RedirectToAction(
+                "Index",
+                "Common",
+                new { SuccessMessage = "تم تسجيل المستخدم بنجاح" }
+            );
         }
-
 
         //[HttpPost]
         //public async Task<IActionResult> Logout()
@@ -140,16 +157,15 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<IActionResult> ProcessNafathUser(NafathLoginVM model)
         {
-
             List<ApiHeaders> headers = new List<ApiHeaders>
-                    {
-                        new ApiHeaders
-                        {
-                            Name = "Authorization",
-                            Value = _nafathConfiguartion.Value.ApiKey
-                        },
-                        new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey }
-                    };
+            {
+                new ApiHeaders
+                {
+                    Name = "Authorization",
+                    Value = _nafathConfiguartion.Value.ApiKey
+                },
+                new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey }
+            };
 
             _nafathConfiguartion.Value.NafathBody.Parameters.id = long.Parse(model.IdentityNumber);
 
@@ -163,29 +179,40 @@ namespace QassimPrincipality.Web.Controllers
             {
                 var random = token["random"].ToString();
                 var transId = token["transId"].ToString();
-                ViewBag.Message = string.Format("الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}", random);
+                ViewBag.Message = string.Format(
+                    "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}",
+                    random
+                );
                 ViewBag.TransId = transId;
                 ViewBag.Random = random;
             }
             catch (Exception exce)
             {
-
                 if (token == null)
                     ModelState.AddModelError("token", "null");
-                else ModelState.AddModelError("token", token.ToString());
-                ModelState.AddModelError("_nafathConfiguartion.Value.ApiUrl", _nafathConfiguartion.Value.ApiUrl);
-                ModelState.AddModelError("_nafathConfiguartion.Value.ApiKey", _nafathConfiguartion.Value.ApiKey);
+                else
+                    ModelState.AddModelError("token", token.ToString());
+                ModelState.AddModelError(
+                    "_nafathConfiguartion.Value.ApiUrl",
+                    _nafathConfiguartion.Value.ApiUrl
+                );
+                ModelState.AddModelError(
+                    "_nafathConfiguartion.Value.ApiKey",
+                    _nafathConfiguartion.Value.ApiKey
+                );
                 return View(model);
             }
 
             return View();
         }
-        public async Task<IActionResult> CompleteLogin(string username,
+
+        public async Task<IActionResult> CompleteLogin(
+            string username,
             bool rememberLogin,
             string random,
-            string transId) {
-
-
+            string transId
+        )
+        {
             if (!string.IsNullOrEmpty(transId))
             {
                 try
@@ -194,14 +221,17 @@ namespace QassimPrincipality.Web.Controllers
 
                     if (TempData["arTwoNames"] != null)
                     {
-
-                        var accesstoken = JsonConvert.DeserializeObject(TempData["accessToken"].ToString()).ToString();
+                        var accesstoken = JsonConvert
+                            .DeserializeObject(TempData["accessToken"].ToString())
+                            .ToString();
 
                         ViewBag.accesstoken = accesstoken;
                         string userFullName = "";
                         if (user is null)
                         {
-                            userFullName = JsonConvert.DeserializeObject(TempData["arTwoNames"].ToString()).ToString();
+                            userFullName = JsonConvert
+                                .DeserializeObject(TempData["arTwoNames"].ToString())
+                                .ToString();
                             string phone = "05xxxxxxxx";
                             user = new ApplicationUser(username, userFullName)
                             {
@@ -213,25 +243,23 @@ namespace QassimPrincipality.Web.Controllers
                         }
                         await _signInManager.SignInAsync(user, rememberLogin);
 
-                        return RedirectToAction("Index", "Home", new { nafathFullName = userFullName });
-
+                        return RedirectToAction(
+                            "Index",
+                            "Home",
+                            new { nafathFullName = userFullName }
+                        );
                     }
                     else
                     {
-
                         return RedirectToAction("Index", "Home");
                     }
-
                 }
                 catch (Exception)
                 {
-
                     ModelState.AddModelError("خطأ", "حدث خطأ");
                     return RedirectToAction("Index", "Account");
                 }
-
             }
-
             else
             {
                 var user = await _userManager.FindByNameAsync($"{username}@Nafath");
@@ -253,6 +281,7 @@ namespace QassimPrincipality.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Members()
         {
@@ -260,7 +289,5 @@ namespace QassimPrincipality.Web.Controllers
             var userViewModel = users.MapTo<List<UserDto>>();
             return View(userViewModel);
         }
-
-
     }
 }

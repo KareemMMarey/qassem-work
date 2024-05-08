@@ -6,7 +6,7 @@
     ViewData["Title"] = "Add a new Request";
 }
 
-<div class="row text">
+<div class="row text" style="direction:rtl;">
     <div class="col-md-8 offset-2">
         <p>
             <h1>إنشاء طلب جديد</h1>
@@ -14,8 +14,8 @@
         <div class="row">
             <div class="col-md-8 offset-2">
                 <form asp-action="Create" enctype="multipart/form-data">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                    @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+ *@
                     <div class="form-group text-center">
                         <img id="CinemaLogoPreview" class="border-info rounded-circle" style="max-width: 150px" />
                     </div>
@@ -34,13 +34,14 @@
                                 <select asp-for="RequestTypeId" required asp-items="@(new SelectList(requestTypes, "Id", "NameAr"))"
                                         class="form-control" id="ddlentity">
                                 </select>
-
+                                @* <span asp-validation-for="RequestTypeId" class="text-danger"></span>
+ *@
                             </div>
                         </div>
                     }
 
                     <div class="form-group">
-                        <label asp-for="RequestName" class="control-label">الاسم</label>
+                        <label asp-for="RequestName" class="control-label">عنوان الطلب	</label>
                         <input asp-for="RequestName" class="form-control" />
                         <span asp-validation-for="RequestName" class="text-danger"></span>
                     </div>
@@ -67,18 +68,18 @@
                     </div> *@
                     <div class="form-group">
                         <label asp-for="Photo" class="control-label">الصورة الشخصية</label>
-                        <input asp-for="Photo" class="form-control" />
+                        <input asp-for="Photo" class="form-control" accept=".png,.jpg,.jpeg" />
                         <span asp-validation-for="Photo" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="ListAttachments">مرفقات اخرى</label>
-                        <input class="form-control" asp-for="ListAttachments" />
+                        <input class="form-control" asp-for="ListAttachments" accept=".png,.jpg,.jpeg,.pdf" />
                         <span asp-validation-for="ListAttachments" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
-                        <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        <input type="submit" value="تقديم طلب" class="btn btn-outline-success float-right" />
+                       @*  <a class="btn btn-outline-secondary" asp-action="Index">عرض الكل</a> *@
                     </div>
                 </form>
             </div>
