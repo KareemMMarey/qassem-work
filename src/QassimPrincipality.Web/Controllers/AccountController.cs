@@ -1,6 +1,7 @@
 ﻿using Framework.Core.AutoMapper;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using QassimPrincipality.Infrastructure.Data;
 using QassimPrincipality.Web.Helpers;
+using QassimPrincipality.Web.Identity.Configuration;
+using QassimPrincipality.Web.Identity.Helpers.Localization;
 using QassimPrincipality.Web.ViewModels.Account;
 using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
@@ -19,14 +22,16 @@ namespace QassimPrincipality.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserAppService _userServices;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IOptions<NafathConfiguration> nafathConfiguartion)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IOptions<NafathConfiguration> nafathConfiguartion, UserAppService userAppService)
             : base(userManager, signInManager, roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _nafathConfiguartion = nafathConfiguartion;
+            _userServices = userAppService;
         }
         [AllowAnonymous]
         public IActionResult Index() => View();
@@ -94,6 +99,15 @@ namespace QassimPrincipality.Web.Controllers
             //TempData["Error"] = "Wrong credentials. Please, try again!";
             //return View(loginVM);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Register(string returnUrl = null)
+        {
+
+            return View();
+        }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM registerVM)
         {
@@ -110,12 +124,20 @@ namespace QassimPrincipality.Web.Controllers
             {
                 FullName = registerVM.FullName,
                 Email = registerVM.EmailAddress,
-                UserName = registerVM.EmailAddress
+                UserName = registerVM.EmailAddress,
+                CreatedBy = "Admin",
+                CreatedOn = DateTime.Now,
+                EmailConfirmed = true
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
-            if (newUserResponse.Succeeded)
-                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+            if (newUserResponse.Succeeded) {
+
+                //var addedUser = await _roleManager.FindByNameAsync(UserRoles.User);
+                //await _userManager.AddToRoleAsync(newUser, addedUser.Name);
+                await _userServices.AddRoleAsync(newUser.Id, UserRoles.User);
+            }
+               
 
             return RedirectToAction("Index", "Common", new { SuccessMessage = "تم تسجيل المستخدم بنجاح" });
         }
