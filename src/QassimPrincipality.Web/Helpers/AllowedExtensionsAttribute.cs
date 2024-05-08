@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QassimPrincipality.Web.Helpers;
+namespace QassimPrincipality.Web.Helpers
 {
     public class AllowedExtensionsAttribute : ValidationAttribute
     {
