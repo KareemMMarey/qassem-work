@@ -1,13 +1,13 @@
 .btn {
-    --bs-btn-padding-y: var(--space-base);
-    --bs-btn-padding-x: var(--space-md);
+    --bs-btn-padding-y: var(--space-sm);
+    --bs-btn-padding-x: var(--space-base);
     --bs-btn-font-weight: var(--font-regular);
-    --bs-btn-border-width: 2px;
-    --bs-btn-font-size: var(--font-size-lg);
+    --bs-btn-border-width: 1px;
+    --bs-btn-font-size: var(--font-size-base);
     display: inline-flex;
     gap: var(--space-sm);
     align-items: center;
-    border-radius: 2em 0;
+    border-radius: 1.5em 0;
 
     svg {
         fill: var(--bs-btn-color);
@@ -19,6 +19,13 @@
         --bs-btn-font-size: 0.875rem;
         --bs-btn-border-width: 1px;
     }
+
+    &-lg {
+        --bs-btn-padding-y: var(--space-sm);
+        --bs-btn-padding-x: var(--space-md);
+        --bs-btn-font-size: var(--font-size-md);
+    }
+
 }
 
 .btn-outline-primary {
