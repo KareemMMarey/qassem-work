@@ -44,41 +44,23 @@
                 var categories = (List<EServiceCategoryDto>)ViewData["categories"];
                 foreach (EServiceCategoryDto item in categories)
                 {
-                    <div class="col-4">
-                        <div class="card shadow p-3 mb-5 bg-white rounded">
-                            <div class="card-body text-center">
-                                <h3 class="card-title"> @item.NameAr</h3>
-                                @{
-                                    if (item.HasSubCategory)
-                                    {
-                                        @Html.ActionLink(
-                                             "دخول",                                                  // linkText
-                                             "SubCategories",                                    // actionName
-                                             "Home",                                                   // routeValues
-                                             new
+                    <a href="@Url.Action("SubCategories", "Home", new
                                              {                                                     // htmlAttributes
                                                  categoryId = item.Id,
-                                             }
-                                             )
-                                    }
-                                    else
-                                    {
-                                        @Html.ActionLink(
-                                             "دخول",                                                  // linkText
-                                             "ServiceDefination",                                    // actionName
-                                             "Home",                                                   // routeValues
-                                             new
-                                             {                                                     // htmlAttributes
-                                                 id = item.Id,
-                                                 isCategory = true
-                                             }
-                                             )
-                                    }
-                                }
+                                             })">
 
+                        <div class="col-4">
+                            <div class="card shadow p-3 mb-5 bg-white rounded">
+                                <div class="card-body text-center">
+                                    <h3 class="card-title"> @item.NameAr</h3>
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    </a>
+                    
                 }
 
             }
