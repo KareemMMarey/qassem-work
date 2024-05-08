@@ -5,29 +5,21 @@
 @{
     ViewData["Title"] = "Add a new Request";
 }
-
-<div class="row text" style="direction:rtl;">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h1>إنشاء طلب جديد</h1>
-        </p>
-        <div class="row">
-            <div class="col-md-8 offset-2">
-                <form asp-action="Create" enctype="multipart/form-data">
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">إنشاء طلب جديد</h3>
+            <form asp-action="Create" class="form" enctype="multipart/form-data">
+                <div class="row">
                     @* <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     *@
-                    <div class="form-group text-center">
-                        <img id="CinemaLogoPreview" class="border-info rounded-circle" style="max-width: 150px" />
-                    </div>
-
-
                     <!-- Select Request Types-->
                     @if (ViewData["RequestTypes"] != null)
                     {
                         var requestTypes = (List<RequestTypeDto>)ViewData["RequestTypes"];
-                        <div class="form-group">
+                        <div class="col-xl-6">
                             <div id="RequestType" class="form-group">
-                                <label asp-for="RequestTypeId">
+                                <label asp-for="RequestTypeId" class="form-label">
                                     نوع الطلب
                                 </label>
 
@@ -39,24 +31,29 @@
                             </div>
                         </div>
                     }
-
-                    <div class="form-group">
-                        <label asp-for="RequestName" class="control-label">عنوان الطلب	</label>
-                        <input asp-for="RequestName" class="form-control" />
-                        <span asp-validation-for="RequestName" class="text-danger"></span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label asp-for="RequestName" class="form-label">عنوان الطلب	</label>
+                            <input asp-for="RequestName" class="form-control" placeholder="عنوان الطلب" />
+                            <span asp-validation-for="RequestName" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="PhoneNumber" class="control-label">رقم الهاتف</label>
-                        <input asp-for="PhoneNumber" class="form-control" />
-                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="رقم الهاتف" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="NafathNumber" class="control-label">رقم الهوية</label>
-                        <input asp-for="NafathNumber" class="form-control" />
-                        <span asp-validation-for="NafathNumber" class="text-danger"></span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label asp-for="NafathNumber" class="form-label">رقم الهوية</label>
+                            <input asp-for="NafathNumber" class="form-control" placeholder="رقم الهوية" />
+                            <span asp-validation-for="NafathNumber" class="text-danger"></span>
+                        </div>
                     </div>@*
                     <div class="form-group">
-                    <label class="control-label">اسم المستخدم</label>
+                    <label class="form-label">اسم المستخدم</label>
                     @{
                     string userName = "Guest";
                     if (Context.User != null)
@@ -64,41 +61,36 @@
                     userName = Context.User.Identity.Name;
                     }
                     }
-                    <label class="control-label">@userName</label>
+                    <label class="form-label">@userName</label>
                     </div> *@
-                    <div class="form-group">
-                        <label asp-for="Photo" class="control-label">الصورة الشخصية</label>
-                        <input asp-for="Photo" class="form-control" accept=".png,.jpg,.jpeg" />
-                        <span asp-validation-for="Photo" class="text-danger"></span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label asp-for="Photo" class="form-label">الصورة الشخصية</label>
+                            <input asp-for="Photo" class="form-control" accept=".png,.jpg,.jpeg" />
+                            <span asp-validation-for="Photo" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="ListAttachments">مرفقات اخرى</label>
-                        <input class="form-control" asp-for="ListAttachments" accept=".png,.jpg,.jpeg,.pdf" />
-                        <span asp-validation-for="ListAttachments" class="text-danger"></span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label asp-for="ListAttachments" class="form-label">مرفقات اخرى</label>
+                            <input class="form-control" asp-for="ListAttachments" accept=".png,.jpg,.jpeg,.pdf" />
+                            <span asp-validation-for="ListAttachments" class="text-danger"></span>
+                        </div>
                     </div>
+                    <div class="col-xl-12">
 
-                    <div class="form-group">
-                        <input type="submit" value="تقديم طلب" class="btn btn-outline-success float-right" />
-                        @*  <a class="btn btn-outline-secondary" asp-action="Index">عرض الكل</a> *@
+                        <div class="form-group">
+                            <input type="submit" value="تقديم طلب" class="btn btn-outline-success float-right" />
+                            @*  <a class="btn btn-outline-secondary" asp-action="Index">عرض الكل</a> *@
+                        </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
+
 @section Scripts {
-    <script>
-
-        $(document).ready(function () {
-            var output = document.getElementById('CinemaLogoPreview');
-            output.src = $("#Logo").val();
-        })
-
-        $("#Logo").on("change", function () {
-            var output = document.getElementById('CinemaLogoPreview');
-            output.src = $(this).val();
-        })
-    </script>
 }
 
