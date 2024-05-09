@@ -3,7 +3,9 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Framework.Core;
 using Framework.Core.Extensions;
+using Framework.Core.Notifications;
 using Framework.Core.SharedServices.Services;
+using Framework.Identity.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using QassimPrincipality.Application.Dtos;
@@ -34,7 +36,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             string title = null,
             string contentType = null,
             AttachmentDto attachment = null,
-            string referralNumber = ""
+            string referralNumber = "",
+            AttachmentTypes attachmentType = AttachmentTypes.Others
         )
         {
             var result = new ReturnResult<Attachment>();
@@ -44,7 +47,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 title,
                 contentType,
                 attachment,
-                referralNumber
+                referralNumber,
+                attachmentType
             );
             if (!attResult.IsValid)
             {
@@ -62,7 +66,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             string title = null,
             string contentType = null,
             AttachmentDto attachment = null,
-            string referralNumber = ""
+            string referralNumber = "",
+            AttachmentTypes attachmentType = AttachmentTypes.Others
         )
         {
             var result = new ReturnResult<Attachment>();
@@ -102,7 +107,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 title,
                 title,
                 attachmentDto: attachment,
-                referralNumber: referralNumber
+                referralNumber: referralNumber,
+                attachmentType: attachmentType
             );
             return result;
         }
@@ -118,7 +124,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             string descriptionEn = null,
             int? itemOrder = null,
             AttachmentDto attachmentDto = null,
-            string referralNumber = ""
+            string referralNumber = "",
+            AttachmentTypes attachmentType = AttachmentTypes.Others
         )
         {
             var isUpdateFile = attachmentId.HasValue && attachmentId.Value != Guid.Empty;
@@ -157,7 +164,8 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             attachment.IsOpenSourceEnglish = attachmentDto.IsOpenSourceEnglish;
             attachment.IsOpenSourceArabic = attachmentDto.IsOpenSourceArabic;
             attachment.IsSanitizedDocument = attachmentDto.IsSanitizedDocument;
-
+            attachment.AttachmentType = (int)attachmentType;
+            attachment.UploadRequestId = attachmentDto.UploadRequestId;
             // in updating delete old file
             if (isUpdateFile)
             {
@@ -198,7 +206,11 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             return attachment;
         }
 
-        public Guid? UploadAttachmenAsync(AttachmentDto attachment, string referralNumber = "")
+        public Guid? UploadAttachmenAsync(
+            AttachmentDto attachment,
+            string referralNumber = "",
+            AttachmentTypes attachmentType = AttachmentTypes.Others
+        )
         {
             if (attachment == null)
             {
@@ -209,13 +221,14 @@ namespace QassimPrincipality.Application.Lookups.Attachments
                 Base64ToImage(attachment),
                 contentType: attachment.ContentType,
                 attachment: attachment,
-                referralNumber: referralNumber
+                referralNumber: referralNumber,
+                attachmentType: attachmentType
             );
 
             return resultAttachment.Value.Id;
         }
 
-        private IFormFile Base64ToImage(AttachmentDto attach)
+        public IFormFile Base64ToImage(AttachmentDto attach)
         {
             byte[] bytes = Convert.FromBase64String(attach.FileContent);
             MemoryStream stream = new MemoryStream(bytes);
@@ -284,13 +297,13 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             return fileRelativePath;
         }
 
-        public Attachment GetAttachmentForDownload(Guid? attachmentId)
+        public async Task<Attachment> GetAttachmentForDownload(Guid? attachmentId)
         {
-            var attachment = _attachmentRepository
+            var attachment = await _attachmentRepository
                 .TableNoTracking.Include(a => a.AttachmentContent)
                 .Where(at => at.Id == attachmentId)
                 .AsNoTracking()
-                .SingleOrDefault();
+                .SingleOrDefaultAsync();
 
             if (
                 string.IsNullOrEmpty(_appSettingsService.AttachmentsPath)
@@ -303,10 +316,54 @@ namespace QassimPrincipality.Application.Lookups.Attachments
             var filePath = $"{_appSettingsService.AttachmentsPath}{attachment.FilePath}";
             if (File.Exists(filePath))
             {
+                if (attachment.AttachmentContent is null)
+                {
+                    attachment.AttachmentContent = new AttachmentContent
+                    {
+                        AttachmentId = attachment.Id,
+
+                    };
+                }
                 attachment.AttachmentContent.FileContent = File.ReadAllBytes(filePath);
             }
 
             return attachment;
+        }
+        
+        public async Task<List<Attachment>> GetAttachmentsForDownload(params Guid[] attachmentIds)
+        {
+            var attachments =await _attachmentRepository
+                .TableNoTracking.Include(a => a.AttachmentContent)
+                .Where(at => attachmentIds.Contains( at.Id))
+                .AsNoTracking()
+                .ToListAsync();
+            foreach (var attachment in attachments)
+            {
+
+                if (
+                    string.IsNullOrEmpty(_appSettingsService.AttachmentsPath)
+                    || string.IsNullOrEmpty(attachment?.FilePath)
+                )
+                {
+                    continue;
+                }
+
+                var filePath = $"{_appSettingsService.AttachmentsPath}{attachment.FilePath}";
+                if (File.Exists(filePath))
+                {
+                    if (attachment.AttachmentContent is null)
+                    {
+                        attachment.AttachmentContent = new AttachmentContent
+                        {
+                            AttachmentId = attachment.Id,
+
+                        };
+                    }
+                    attachment.AttachmentContent.FileContent = File.ReadAllBytes(filePath);
+                }
+            }
+
+            return attachments;
         }
 
         public void Remove(Guid id)

@@ -38,6 +38,9 @@ namespace QassimPrincipality.Application
             this.CreateMap<ApplicationRole, RoleDto>().ReverseMap();
             this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
+            this.CreateMap<AttachmentDto, Attachment>()
+                .ForMember(c=>c.AttachmentType,s=>s.MapFrom(x=>x.AttachmentTypeId))
+                .ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

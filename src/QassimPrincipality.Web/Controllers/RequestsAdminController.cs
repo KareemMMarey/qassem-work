@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json.Linq;
+using QassimPrincipality.Application.Lookups.Attachments;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
@@ -14,15 +15,18 @@ namespace QassimPrincipality.Web.Controllers
     public class RequestsAdminController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
+        private readonly AttachmentAppService _attachmentAppService;
         private readonly RequestTypeAppService _requestTypeAppService;
 
         public RequestsAdminController(
             UploadRequestAppService uploadRequestAppService,
-            RequestTypeAppService requestTypeAppService
+            RequestTypeAppService requestTypeAppService,
+            AttachmentAppService attachmentAppService
         )
         {
             _uploadRequestService = uploadRequestAppService;
             _requestTypeAppService = requestTypeAppService;
+            _attachmentAppService = attachmentAppService;
         }
 
         public async Task<IActionResult> RequestList(string type,int page = 1)
@@ -73,7 +77,20 @@ namespace QassimPrincipality.Web.Controllers
         {
             var result = await _uploadRequestService.GetById(Guid.Parse(requestId));
 
-            return View(result.MapTo<UploadRequestDto>());
+            return View(result);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Download(Guid id)
+        {
+            // Fetch the file information from your data store
+            var file = await _attachmentAppService.GetAttachmentForDownload(id);
+
+            if (file == null)
+                return NotFound();
+
+            // Return the file using a FileResult
+            return File(file.AttachmentContent.FileContent, file.ContentType, file.FileName);
         }
         public async Task<IActionResult> Accept(string requestId)
         {

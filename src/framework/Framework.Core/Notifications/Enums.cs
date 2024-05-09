@@ -47,4 +47,19 @@ namespace Framework.Core.Notifications
         /// </summary>
         En = 2
     }
+    /// <summary>
+    /// The Attachment Types
+    /// </summary>
+    public enum AttachmentTypes
+    {
+        /// <summary>
+        /// The PersonalPhoto.
+        /// </summary>
+        PersonalPhoto = 1,
+
+        /// <summary>
+        /// The Other Attachments.
+        /// </summary>
+        Others = 2
+    }
 }

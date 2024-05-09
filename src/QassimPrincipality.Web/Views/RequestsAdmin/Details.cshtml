@@ -59,6 +59,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.RequestDate)
         </dd>
+        <dt class="col-sm-2">
+            الصورة الشخصية 
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.PhotoId != null)
+            {
+                <a asp-action="Download" asp-route-id="@Model.PhotoId" class="btn btn-primary">تحميل الصورة الشخصية </a>
+            }
+        </dd>
         @*   <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.IsApproved)
         </dt>

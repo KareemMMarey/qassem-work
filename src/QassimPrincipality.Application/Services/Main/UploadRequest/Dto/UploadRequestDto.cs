@@ -19,10 +19,12 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         [Required(ErrorMessage = "يجب اختيار الصورة")]
         [FileExtensions(Extensions =".png,.jpg,.jpeg")]
         public IFormFile Photo { get; set; }
+        public Guid? PhotoId { get; set; }
 
         [DataType(DataType.Upload)]
         [Required(ErrorMessage = "يجب اختيار ملف واحد على الاقل")]
         public List<IFormFile> OtherAttachments { get; set; }
+        public List<Guid>? OtherAttachmentIds { get; set; }
 
         [MaxLength(14, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "يجب ادخال ارقام فقط")]

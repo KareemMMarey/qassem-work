@@ -2,6 +2,7 @@
 using AutoMapper.Internal;
 using Framework.Core;
 using Framework.Core.AutoMapper;
+using Framework.Core.Notifications;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
 using Framework.Identity.Data.Dtos;
@@ -70,7 +71,6 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             var user = await _userAppService.GetUserAsync(Guid.Parse(uploadRequest.CreatedBy));
             uploadRequest.CreatedByFullName = user.FullNameAr ?? user.FullName;
 
-
             uploadRequest.referralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
             uploadRequest.RequestNameAr = UploadRequestDto.RequestName;
             uploadRequest.RequestNameEn = UploadRequestDto.RequestName;
@@ -88,7 +88,8 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             SaveAttachment(
                 new AttachmentDto[] { photo },
                 uploadRequest.Id,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.referralNumber,
+                AttachmentTypes.PersonalPhoto
             );
 
             var others = UploadRequestDto.OtherAttachments.Select(c => new AttachmentDto
@@ -102,7 +103,12 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
 
             //attachments
 
-            SaveAttachment(others.ToArray(), uploadRequest.Id, UploadRequestDto.referralNumber);
+            SaveAttachment(
+                others.ToArray(),
+                uploadRequest.Id,
+                UploadRequestDto.referralNumber,
+                AttachmentTypes.Others
+            );
 
             //SaveAttachment(UploadRequestDto.OpenSourceEnFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
             //SaveAttachment(UploadRequestDto.CloseSourceArFiles, uploadRequest.Id, UploadRequestDto.referralNumber);
@@ -163,18 +169,16 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 throw;
             }
         }
-        
-        public async Task AcceptOrReject(Guid id,bool isApproved,string notes="")
+
+        public async Task AcceptOrReject(Guid id, bool isApproved, string notes = "")
         {
             try
             {
-
                 var uploadRequest = await _uploadRequestRepository.GetByIdAsync(id);
                 uploadRequest.IsApproved = isApproved;
                 if (!isApproved)
                 {
                     uploadRequest.RejectReason = notes;
-
                 }
                 uploadRequest = await _uploadRequestRepository.UpdateAsync(uploadRequest, true);
             }
@@ -228,7 +232,8 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         public void SaveAttachment(
             AttachmentDto[] attachments,
             Guid? UploadRequestId,
-            string referralNumber = ""
+            string referralNumber = "",
+            AttachmentTypes attachmentType = AttachmentTypes.Others
         )
         {
             if (attachments == null)
@@ -240,7 +245,11 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 attachment.UploadRequestId = UploadRequestId.Value;
                 if (!string.IsNullOrEmpty(attachment.FileContent))
                 {
-                    _attachmentAppService.UploadAttachmenAsync(attachment, referralNumber);
+                    _attachmentAppService.UploadAttachmenAsync(
+                        attachment,
+                        referralNumber,
+                        attachmentType
+                    );
                 }
                 else
                 {
@@ -326,16 +335,48 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             try
             {
-                var entity = await _uploadRequestRepository.GetByIdAsync(id);
-                var reqType = await _requestTypeRepository.GetByIdAsync(entity.RequestTypeId);
+                var entity = await _uploadRequestRepository
+                    .TableNoTracking.Include(c => c.RequestType)
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
+                var attIds = await _attachmentRepository
+                    .TableNoTracking.Where(c => c.UploadRequestId == id)
+                    .Select(c => c.Id)
+                    .ToArrayAsync();
+                var atts = (await _attachmentAppService.GetAttachmentsForDownload(attIds)).MapTo<
+                    List<AttachmentDto>
+                >();
+
                 var UploadRequestDto = entity.MapTo<UploadRequestDto>();
-                UploadRequestDto.RequestTypeName = reqType.RequestTypeName;
+                UploadRequestDto.RequestTypeName = entity.RequestType.RequestTypeName;
+                UploadRequestDto.PhotoId = atts.FirstOrDefault(c =>
+                    c.AttachmentTypeId == (int)AttachmentTypes.PersonalPhoto
+                ).Id;
+
+                UploadRequestDto.OtherAttachmentIds = atts.Where(c =>
+                        c.AttachmentTypeId == (int)AttachmentTypes.Others
+                    )
+                    .Select(c => c.Id)
+                    .ToList();
+
                 return await Task.FromResult(UploadRequestDto);
             }
             catch (Exception e)
             {
                 throw;
             }
+        }
+
+        private IFormFile GetFile(Attachment attachment, AttachmentDto attach)
+        {
+            MemoryStream stream = new MemoryStream(attachment.AttachmentContent.FileContent);
+            return new FormFile(
+                stream,
+                0,
+                attachment.AttachmentContent.FileContent.Length,
+                attach.FileName,
+                attach.FileName
+            );
         }
 
         public async Task<UploadRequestDtoView> GetByIdViewMode(Guid id)
@@ -406,11 +447,11 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             {
                 a =>
                     (
-                        a.referralNumber.ToLower()
+                        a
+                            .referralNumber.ToLower()
                             .Trim()
                             .Contains(model.ReferralNumber.ToLower().Trim())
-                        
-                    ) 
+                    )
             };
 
             Func<
@@ -450,11 +491,10 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
         {
             var filters =
                 new List<Expression<Func<Domain.Entities.Services.Main.UploadRequest, bool>>>();
-            
-            
-            if (UploadRequestSearchDto.IsApproved!=null)
+
+            if (UploadRequestSearchDto.IsApproved != null)
                 filters.Add(a => a.IsApproved == UploadRequestSearchDto.IsApproved);
-            
+
             if (UploadRequestSearchDto.isPending != null)
                 filters.Add(a => a.IsApproved == null);
 
@@ -465,15 +505,14 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             orderBy = a => a.OrderByDescending(b => b.CreatedOn);
 
             Framework.Core.PagedList<UploadRequestDto> result;
-           
-                result = _uploadRequestRepository.SearchAndSelectWithFilters(
-                    UploadRequestSearchDto.PageNumber,
-                    UploadRequestSearchDto.PageSize ?? _appSettingsService.DefaultPagerPageSize,
-                    orderBy,
-                    a => a.MapTo<UploadRequestDto>(),
-                    filters
-                );
-            
+
+            result = _uploadRequestRepository.SearchAndSelectWithFilters(
+                UploadRequestSearchDto.PageNumber,
+                UploadRequestSearchDto.PageSize ?? _appSettingsService.DefaultPagerPageSize,
+                orderBy,
+                a => a.MapTo<UploadRequestDto>(),
+                filters
+            );
 
             UploadRequestSearchDto.Items = new StaticPagedList<UploadRequestDto>(
                 result,
