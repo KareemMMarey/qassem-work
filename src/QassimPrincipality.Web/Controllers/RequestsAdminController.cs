@@ -75,11 +75,13 @@ namespace QassimPrincipality.Web.Controllers
 
             return View(result.MapTo<UploadRequestDto>());
         }
+        [HttpPost]
         public async Task<IActionResult> Accept(string requestId)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details",new { requestId });
         }
+        [HttpPost]
         public async Task<IActionResult> Reject(string requestId,string rejectReasons)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
