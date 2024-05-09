@@ -1,5 +1,5 @@
 .nav-bar {
-    --menu-link-font-size: var(--font-size-lg);
+    --menu-link-font-size: var(--font-size-md);
     --menu-link-color: var(--color-primary);
     --menu-link-hover: var(--color-complement-90);
     --menu-link-padding: var(--space-sm);
@@ -97,9 +97,10 @@
     display: flex;
     align-items: center;
     gap: var(--space-base);
-    padding: var(--space-md);
+    padding: var(--space-base);
     text-decoration: none;
     background-color: var(--menu-item-bg);
+    border-radius: 0.8em;
     transition: background-color .3s ease-in-out;
 
     &:hover {
@@ -121,13 +122,13 @@
 
 .mega-menu__title {
     color: var(--color-dark-grey);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-md);
     font-weight: var(--font-medium);
 }
 
 .mega-menu__description {
     color: #575661;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     font-weight: var(--font-regular);
 
 }

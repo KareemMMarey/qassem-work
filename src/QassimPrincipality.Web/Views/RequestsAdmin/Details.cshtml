@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<div>
+    <a asp-action="RequestList">عرض الكل</a>
+</div>
+<br />
 <h1>التفاصيل</h1>
 
 <div>
@@ -85,18 +88,21 @@
             case null:
                 <div class="row">
                     <div class="form-control">
-                        <a class="btn btn-success" asp-action="Accept" asp-route-requestId="@Model.Id" asp->
+                        @* <a class="btn btn-success" asp-action="Accept" asp-route-requestId="@Model.Id" asp->
                             قبول
-                        </a>
-                        <form asp-controller="RequestsAdmin" asp-action="Reject" method="get">
+                        </a> *@
+                        <form asp-controller="RequestsAdmin" asp-action="" method="post">
                             <div class="form-group">
-                                <label class="control-label" for="RequestName">أسباب الرفض	</label>
+                                <label class="control-label" for="RequestName">ملاحظات	</label>
                                 <input class="form-control" type="text" data-val="true" required data-val-required="هذا الحقل مطلوب" id="rejectReasons" name="rejectReasons" value="">
                                 <input class="form-control" type="text" value="@Model.Id" id="requestId" name="requestId" hidden>
                                 <span class="text-danger field-validation-valid" data-valmsg-for="rejectReasons" data-valmsg-replace="true"></span>
                             </div>
-                            <div class="form-group">
-                                <input type="submit" value="رفض" class="btn btn-danger float-right">
+                            <br />
+                            <div class="form-group mt-5">
+                                @* <input type="submit" value="رفض" class="btn btn-danger float-right"> *@
+                                <input class="btn btn-success"  type="submit" value="رفض" formaction="Reject" />
+                                <input class="btn btn-danger float-right"  type="submit" value="قبول" formaction="Accept" />
                             </div>
 
                         </form>
@@ -118,6 +124,4 @@
 
     </dl>
 </div>
-<div>
-    <a asp-action="RequestList">عرض الكل</a>
-</div>
+

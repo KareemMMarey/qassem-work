@@ -36,5 +36,15 @@ $border-sizes: (
     "xl": 6px,
 );
 
+:root {
+    // Elevation / Shadow
+    --shadow-none: none;
+    --shadow-xs: 0px 12px 24px -10px rgba(179, 182, 186, 0.05);
+    --shadow-sm: 0px 24px 32px -15px rgba(168, 175, 182, 0.15);
+    --shadow-base: 0px 2px 12px rgba(182, 182, 182, 0.08);
+    --shadow-md: 0px 32px 48px -20px rgba(100, 112, 122, 0.15);
+    --shadow-lg: 0px 48px 56px -25px rgba(100, 112, 122, 0.15);
+}
+
 $img-path: "../images";
 $font-path: "../fonts";

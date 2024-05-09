@@ -1,0 +1,12 @@
+.page-layout {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-xxl) 0;
+}
+
+.page-panel {
+    padding: var(--space-xxl);
+    background-color: var(--color-white);
+    box-shadow: var(--shadow-base);
+    border-radius: 1em;
+}

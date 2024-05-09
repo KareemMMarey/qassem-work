@@ -92,11 +92,13 @@ namespace QassimPrincipality.Web.Controllers
             // Return the file using a FileResult
             return File(file.AttachmentContent.FileContent, file.ContentType, file.FileName);
         }
+        [HttpPost]
         public async Task<IActionResult> Accept(string requestId)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details",new { requestId });
         }
+        [HttpPost]
         public async Task<IActionResult> Reject(string requestId,string rejectReasons)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
