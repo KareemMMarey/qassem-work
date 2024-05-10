@@ -346,123 +346,63 @@
       </div>
     </header>
     <main class="page-layout">
-      <div class="margin-bottom-lg">
-        <h3 class="page-title margin-bottom-md">الخدمات الإلكترونية لإمارة منطقة القصيم</h3>
-        <div class="container"> 
-          <div class="row justify-content-center">
-            <div class="col-4">
-              <div class="form-group">
-                <input class="form-control" id="filterInput" type="search" placeholder="البحث في الخدمات">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="container">
-        <div class="services-list">
-          <div class="row">
-            <div class="col-xxl-3 services-card-wrapper"><a class="services-card" href="#">
-                <div class="service-card__icon"> 
-                  <svg width="24" height="24">
-                    <use xlink:href="./assets/images/svg-icons.svg#logo"> </use>
-                  </svg>
-                </div>
-                <div class="service-card__title">خدمات الاستعلام عن معاملة خدمات الاستعلام عن معاملة</div></a></div>
-            <div class="col-xxl-3 services-card-wrapper"><a class="services-card" href="#">
-                <div class="service-card__icon"> 
-                  <svg width="24" height="24">
-                    <use xlink:href="./assets/images/svg-icons.svg#logo"> </use>
-                  </svg>
-                </div>
-                <div class="service-card__title">خدمات الاستعلام عن معاملة2</div></a></div>
-            <div class="col-xxl-3 services-card-wrapper"><a class="services-card" href="#">
-                <div class="service-card__icon"> 
-                  <svg width="24" height="24">
-                    <use xlink:href="./assets/images/svg-icons.svg#logo"> </use>
-                  </svg>
-                </div>
-                <div class="service-card__title">خدمات الاستعلام عن معاملة3</div></a></div>
-            <div class="col-xxl-3 services-card-wrapper"><a class="services-card" href="#">
-                <div class="service-card__icon"> 
-                  <svg width="24" height="24">
-                    <use xlink:href="./assets/images/svg-icons.svg#logo"> </use>
-                  </svg>
-                </div>
-                <div class="service-card__title">خدمات الاستعلام عن معاملة4</div></a></div>
-            <div class="col-xxl-3 services-card-wrapper"><a class="services-card" href="#">
-                <div class="service-card__icon"> 
-                  <svg width="24" height="24">
-                    <use xlink:href="./assets/images/svg-icons.svg#logo"> </use>
-                  </svg>
-                </div>
-                <div class="service-card__title">خدمات الاستعلام عن معاملة5</div></a></div>
-          </div>
-          <div class="row justify-content-center margin-top-base service-list-empty" id="serviceEmptyState">
-            <div class="col-6">
-              <div class="services-card service-card--empty">
-                <div class="service-card__icon"> 
-                  <svg>
-                    <use xlink:href="./assets/images/svg-icons.svg#no-search-result"></use>
-                  </svg>
-                </div>
-                <div class="service-card__title">عذراً .. لا يوجد خدمات</div>
-              </div>
-            </div>
-          </div>
+        <div class="service-header"> 
+          <div class="service-header__title">طلب نقل سجين من سجن لآخر</div>
+          <div class="service-header__actions"> <a class="btn btn-outline-primary">ابدأ الخدمة</a></div>
         </div>
-        <div class="row justify-content-xxl-center">
-          <div class="col-xxl-10">
-            <div class="page-panel">
-              <h3 class="page-title margin-bottom-lg">الخدمات الإلكترونية</h3>
-              <div class="form">
-                <div class="row">
-                  <div class="col-xl-6">
-                    <div class="form-group">
-                      <label class="form-label">رقم الهوية الوطنية / الإقامة</label><select required="" class="form-control" id="ddlentity" data-val="true" data-val-required="The RequestTypeId field is required." name="RequestTypeId">
-<option value="1">زواج سعودي من غير سعودية من الخارج</option>
-<option value="2">زواج سعودي من غير سعودية مقيمة ومولودة بالمملكة</option>
-<option value="3">زواج سعودي من غير سعودية مقيمة ومولودة خارج المملكة</option>
-<option value="4">زواج سعودية من غير سعودي مولود بالمملكة</option>
-<option value="5"> خدمة الاستعلام عن معاملة</option>
-<option value="6">طلب تنفيذ حكم صادر ضد جهة حكومية</option>
-<option value="7">خدمة طلب الاستدعاء الإلكتروني</option>
-<option value="8">طلب أعفاء من باقي محكومية</option>
-<option value="9">طلب نقل سجين</option>
-<option value="10">&ZeroWidthSpace; أطلاق&ZeroWidthSpace; سراح مؤقت</option>
+        <div class="row service-details">
+          <div class="col-xxl-9 service-tabs-wrapper"><ul class="service-tabs nav nav-pills" id="pills-tab" role="tablist">
+<li class="service-tabs__item nav-item" role="presentation">
+<button class="nav-link service-tabs__link active" id="tab1" data-bs-toggle="pill" data-bs-target="#tab1Content" type="button" role="tab" aria-controls="tab1Content" aria-selected="true">وصف الخدمة</button>
+</li>
+<li class="service-tabs__item nav-item" role="presentation">
+<button class="nav-link service-tabs__link" id="tab2" data-bs-toggle="pill" data-bs-target="#tab2Content" type="button" role="tab" aria-controls="tab2Content" aria-selected="false">متطلبات الخدمة</button>
+</li>
+<li class="service-tabs__item nav-item" role="presentation">
+<button class="nav-link service-tabs__link" id="tab3" data-bs-toggle="pill" data-bs-target="#tab3Content" type="button" role="tab" aria-controls="tab3Content" aria-selected="false">مخطط سير الخدمة</button>
+</li>
+</ul>
+<div class="tab-content service-tabs-content" id="pills-tabContent">
+<div class="tab-pane fade show active" id="tab1Content" role="tabpanel" aria-labelledby="tab1" tabindex="0">...</div>
+<div class="tab-pane fade" id="tab2Content" role="tabpanel" aria-labelledby="tab2" tabindex="0">...</div>
+<div class="tab-pane fade" id="tab3Content" role="tabpanel" aria-labelledby="tab3" tabindex="0">
+<ol>
+<li>إرفاق صورة من الهوية الوطنية</li>
+<li>إرفاق صورة لحكم ابتدائي</li>
+<li>إرفاق صورة لحكم استئناف (إن وجد)</li>
+<li>إرفاق صورة الوكالة(في حال وجود وكيل)</li>
+</ol>
+</div>
+</div>
+          </div>
+          <aside class="col-xxl-3">
+            <div class="service-details__meta">
+              <div class="service-details__meta-setions">
+                <div class="service-details__meta-title">نوع المستفيد</div>
+                <div class="service-details__audience">
+                  <div>المواطنون</div>
+                  <div>المواطنون</div>
+                </div>
+              </div>
+              <div class="service-details__meta-setions">
+                <div class="service-details__meta-title">تقييم الخدمة</div>
+                <div class="service-details__rating"><div class="service-details__rating-stars">
+<select id="glsr-ltr" class="star-rating">
+<option value="">Select a rating</option>
+<option value="5">Fantastic</option>
+<option value="4">Great</option>
+<option value="3" selected>Good</option>
+<option value="2">Poor</option>
+<option value="1">Terrible</option>
 </select>
-                    </div>
-                  </div>
-                  <div class="col-xl-6">
-                    <div class="form-group">
-                      <label class="form-label">رقم الهوية الوطنية / الإقامة</label>
-                      <input class="form-control" type="text" placeholder="رقم الهوية الوطنية / الإقامة">
-                    </div>
-                  </div>
-                  <div class="col-xl-6">
-                    <div class="form-group">
-                      <label class="form-label">كلمة المرور</label>
-                      <input class="form-control" type="text" placeholder="كلمة المرور">
-                    </div>
-                  </div>
-                  <div class="col-xl-6">
-                    <div class="form-group">
-                      <label class="form-label">كلمة المرور</label>
-                      <input class="form-control" type="text" placeholder="كلمة المرور">
-                    </div>
-                  </div>
-                  <div class="col-xl-6">
-                    <div class="form-group">
-                      <label class="form-label">كلمة المرور</label>
-                      <input class="form-control" type="file" placeholder="كلمة المرور">
-                    </div>
-                  </div>
-                  <div class="col-xl-6">
-                    <button class="btn btn-primary">دخول</button>
-                  </div>
+</div>
+                  <div class="service-details__rating-row"><span>التقييم:</span>5 / 3</div>
+                  <div class="service-details__rating-row"><span>عدد الأصوات:</span>350</div>
                 </div>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </main>

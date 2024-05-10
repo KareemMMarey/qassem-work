@@ -1,0 +1,72 @@
+doctype html
+html(lang='ar', dir='rtl')
+  block vars
+    - var pageTitle = "إمازة منطقة القصيم | الصفحة الرئيسية"
+    - var languageLinks = '/index-en.html'
+    - var indexpageLink = '/'
+    - var lang = 'English'
+  include ./partials/_head
+
+  body
+    include ./partials/_top-bar
+    include ./partials/_header
+    main.page-layout
+      .container
+        .service-header 
+          .service-header__title طلب نقل سجين من سجن لآخر
+          .service-header__actions 
+            a.btn.btn-outline-primary ابدأ الخدمة
+        .row.service-details
+          .col-xxl-9.service-tabs-wrapper
+            <ul class="service-tabs nav nav-pills" id="pills-tab" role="tablist">
+              <li class="service-tabs__item nav-item" role="presentation">
+                <button class="nav-link service-tabs__link active" id="tab1" data-bs-toggle="pill" data-bs-target="#tab1Content" type="button" role="tab" aria-controls="tab1Content" aria-selected="true">وصف الخدمة</button>
+              </li>
+              <li class="service-tabs__item nav-item" role="presentation">
+                <button class="nav-link service-tabs__link" id="tab2" data-bs-toggle="pill" data-bs-target="#tab2Content" type="button" role="tab" aria-controls="tab2Content" aria-selected="false">متطلبات الخدمة</button>
+              </li>
+              <li class="service-tabs__item nav-item" role="presentation">
+                <button class="nav-link service-tabs__link" id="tab3" data-bs-toggle="pill" data-bs-target="#tab3Content" type="button" role="tab" aria-controls="tab3Content" aria-selected="false">مخطط سير الخدمة</button>
+              </li>
+            </ul>
+            <div class="tab-content service-tabs-content" id="pills-tabContent">
+              <div class="tab-pane fade show active" id="tab1Content" role="tabpanel" aria-labelledby="tab1" tabindex="0">...</div>
+              <div class="tab-pane fade" id="tab2Content" role="tabpanel" aria-labelledby="tab2" tabindex="0">...</div>
+              <div class="tab-pane fade" id="tab3Content" role="tabpanel" aria-labelledby="tab3" tabindex="0">
+                <ol>
+                  <li>إرفاق صورة من الهوية الوطنية</li>
+                  <li>إرفاق صورة لحكم ابتدائي</li>
+                  <li>إرفاق صورة لحكم استئناف (إن وجد)</li>
+                  <li>إرفاق صورة الوكالة(في حال وجود وكيل)</li>
+                </ol>
+              </div>
+            </div>
+          aside.col-xxl-3
+            .service-details__meta
+              .service-details__meta-setions
+                .service-details__meta-title نوع المستفيد
+                .service-details__audience
+                  div المواطنون
+                  div المواطنون
+              .service-details__meta-setions
+                .service-details__meta-title تقييم الخدمة
+                .service-details__rating
+                  <div class="service-details__rating-stars">
+                    <select id="glsr-ltr" class="star-rating">
+                      <option value="">Select a rating</option>
+                      <option value="5">Fantastic</option>
+                      <option value="4">Great</option>
+                      <option value="3" selected>Good</option>
+                      <option value="2">Poor</option>
+                      <option value="1">Terrible</option>
+                    </select>
+                  </div>
+                  .service-details__rating-row
+                    span التقييم:
+                    | 5 / 3
+                  .service-details__rating-row
+                    span عدد الأصوات:
+                    | 350
+                
+    include ./partials/_footer
+    

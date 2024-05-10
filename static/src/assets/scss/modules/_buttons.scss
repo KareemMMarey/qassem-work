@@ -35,6 +35,9 @@
 .btn-outline-primary {
     --bs-btn-color: var(--color-primary-90);
     --bs-btn-border-color: var(--color-primary-90);
+
+    --bs-btn-active-bg: var(--color-primary-100);
+    --bs-btn-active-border-color: var(--color-primary-100);
 }
 
 .btn-primary {
