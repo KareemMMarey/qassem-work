@@ -23,6 +23,7 @@ gulp.task('sass', function () {
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write())
         .pipe(gulp.dest('dist/assets/css'))
+        .pipe(gulp.dest('../src/QassimPrincipality.Web/wwwroot/assets/css'))  
         .pipe(browserSync.stream());
 });
 
