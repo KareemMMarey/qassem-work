@@ -11,46 +11,74 @@ html(lang='ar', dir='rtl')
     include ./partials/_top-bar
     include ./partials/_header
     main.page-layout
+      .margin-bottom-lg
+        h3.page-title.margin-bottom-md الخدمات الإلكترونية لإمارة منطقة القصيم
+        .container 
+          .row.justify-content-center
+            .col-4
+              .form-group
+                input#filterInput.form-control(type="search" placeholder="البحث في الخدمات")
       .container
         .services-list
           .row
-            .col-xxl-3
+            .col-xxl-3.services-card-wrapper
               a.services-card(href="#")
                 .service-card__icon 
                   svg(width="24" height="24")
                     use(xlink:href="./assets/images/svg-icons.svg#logo") 
                 .service-card__title خدمات الاستعلام عن معاملة خدمات الاستعلام عن معاملة
-            .col-xxl-3
+            .col-xxl-3.services-card-wrapper
               a.services-card(href="#")
                 .service-card__icon 
                   svg(width="24" height="24")
                     use(xlink:href="./assets/images/svg-icons.svg#logo") 
-                .service-card__title خدمات الاستعلام عن معاملة
-            .col-xxl-3
+                .service-card__title خدمات الاستعلام عن معاملة2
+            .col-xxl-3.services-card-wrapper
               a.services-card(href="#")
                 .service-card__icon 
                   svg(width="24" height="24")
                     use(xlink:href="./assets/images/svg-icons.svg#logo") 
-                .service-card__title خدمات الاستعلام عن معاملة
-            .col-xxl-3
+                .service-card__title خدمات الاستعلام عن معاملة3
+            .col-xxl-3.services-card-wrapper
               a.services-card(href="#")
                 .service-card__icon 
                   svg(width="24" height="24")
                     use(xlink:href="./assets/images/svg-icons.svg#logo") 
-                .service-card__title خدمات الاستعلام عن معاملة
-            .col-xxl-3
+                .service-card__title خدمات الاستعلام عن معاملة4
+            .col-xxl-3.services-card-wrapper
               a.services-card(href="#")
                 .service-card__icon 
                   svg(width="24" height="24")
                     use(xlink:href="./assets/images/svg-icons.svg#logo") 
-                .service-card__title خدمات الاستعلام عن معاملة
-
+                .service-card__title خدمات الاستعلام عن معاملة5
+          #serviceEmptyState.row.justify-content-center.margin-top-base.service-list-empty
+            .col-6
+              .services-card.service-card--empty
+                .service-card__icon 
+                  svg
+                    use(xlink:href="./assets/images/svg-icons.svg#no-search-result")
+                .service-card__title عذراً .. لا يوجد خدمات
         .row.justify-content-xxl-center
           .col-xxl-10
             .page-panel
               h3.page-title.margin-bottom-lg الخدمات الإلكترونية
               .form
                 .row
+                  .col-xl-6
+                    .form-group
+                      label.form-label رقم الهوية الوطنية / الإقامة
+                      <select required="" class="form-control" id="ddlentity" data-val="true" data-val-required="The RequestTypeId field is required." name="RequestTypeId">
+                        <option value="1">زواج سعودي من غير سعودية من الخارج</option>
+                        <option value="2">زواج سعودي من غير سعودية مقيمة ومولودة بالمملكة</option>
+                        <option value="3">زواج سعودي من غير سعودية مقيمة ومولودة خارج المملكة</option>
+                        <option value="4">زواج سعودية من غير سعودي مولود بالمملكة</option>
+                        <option value="5"> خدمة الاستعلام عن معاملة</option>
+                        <option value="6">طلب تنفيذ حكم صادر ضد جهة حكومية</option>
+                        <option value="7">خدمة طلب الاستدعاء الإلكتروني</option>
+                        <option value="8">طلب أعفاء من باقي محكومية</option>
+                        <option value="9">طلب نقل سجين</option>
+                        <option value="10">&ZeroWidthSpace; أطلاق&ZeroWidthSpace; سراح مؤقت</option>
+                      </select>
                   .col-xl-6
                     .form-group
                       label.form-label رقم الهوية الوطنية / الإقامة

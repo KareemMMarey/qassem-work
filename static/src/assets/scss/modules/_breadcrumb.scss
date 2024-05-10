@@ -1,41 +1,28 @@
 .breadcrumb {
-    --bs-breadcrumb-item-color: #E6EFFA;
-    --bs-breadcrumb-item-active-color: #999eac;
+    --bs-breadcrumb-item-color: var(--color-primary);
+    --bs-breadcrumb-item-active-color: var(--color-primary);
     --bs-breadcrumb-font-size: 0.875rem;
-    --bs-breadcrumb-font-weight: 400;
-    --bs-breadcrumb-divider: url("../../images/svg-icons.svg#arrow");
     margin-top: 1.5rem;
 
     .breadcrumb-item {
+        font-weight: var(--font-semi-bold);
         a {
             transition: all .3s;
             text-decoration: none;
             font-size: var(--bs-breadcrumb-font-size);
-            font-weight: var(--bs-breadcrumb-font-weight);
+            font-weight: var(--font-regular);
             color: var(--bs-breadcrumb-item-color);
         }
 
         &:hover a {
-            color: #7070A3;
+            color: var(--color-secondary);
         }
 
-        // &+.breadcrumb-item::before{
-        //     content: "arrow_forward_ios";
-        //     font-family: Material Icons;
-        //     color: var(--bs-breadcrumb-item-active-color);
-        //     font-weight: 600;
-        //     [dir="rtl"] & {
-        //         float: right;
-        //         padding-right: 0;
-        //         padding-left: var(--bs-breadcrumb-item-padding-x);
-        //         content: "arrow_back_ios";
-        //     }
-        // }
         &+.breadcrumb-item {
             &::before {
                 content: "<";
                 color: var(--bs-breadcrumb-item-active-color);
-                font-weight: 600;
+                font-weight: var(--font-semi-bold);
 
                 [dir="rtl"] & {
                     content: ">";
