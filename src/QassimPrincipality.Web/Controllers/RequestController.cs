@@ -8,6 +8,7 @@ using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Request;
 using Framework.Core.Extensions;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -31,11 +32,51 @@ namespace QassimPrincipality.Web.Controllers
             _userManager = userManager;
         }
 
-        // GET: RequestController
-        public ActionResult Index()
+        public async Task<IActionResult> Index(string type, int page = 1)
         {
-            return View();
+            bool? status = null;
+            bool? isPending = null;
+            switch (type)
+            {
+                case "1":
+                    status = true;
+                    break;
+                case "0":
+                    status = false;
+                    break;
+                case "2":
+                    status = null;
+                    isPending = true;
+                    break;
+                default:
+                    status = null;
+                    type = "20";
+                    break;
+            }
+
+            var lst = new List<object>
+            {
+                new {Id = "0",Name="طلبات منتهية بالرفض"},
+                new {Id = "1",Name="طلبات منتهية بالموافقة"},
+                new {Id = "2",Name="طلبات قيد الإجراء"},
+                new {Id = "20",Name="كل الطلبات"},
+            };
+            ViewBag.items = new SelectList(lst, "Id", "Name", type);
+
+            ViewBag.status = type;
+            var result = await _uploadRequestService.SearchAsync(
+                new UploadRequestSearchDto()
+                {
+                    isPending = isPending,
+                    IsApproved = status,
+                    PageNumber = page,
+                    PageSize = 10,
+                    CreatedBy = HttpContext.User.GetId()
+                }
+            );
+            return View(result);
         }
+
 
         // GET: RequestController/Details/5
         public ActionResult Details(int id)

@@ -2,6 +2,7 @@
 using AutoMapper.Internal;
 using Framework.Core;
 using Framework.Core.AutoMapper;
+using Framework.Core.Extensions;
 using Framework.Core.Notifications;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
@@ -497,6 +498,9 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
 
             if (UploadRequestSearchDto.isPending != null)
                 filters.Add(a => a.IsApproved == null);
+            
+            if (!UploadRequestSearchDto.CreatedBy.IsNullOrWhiteSpace())
+                filters.Add(a => a.CreatedBy == UploadRequestSearchDto.CreatedBy);
 
             Func<
                 IQueryable<Domain.Entities.Services.Main.UploadRequest>,
