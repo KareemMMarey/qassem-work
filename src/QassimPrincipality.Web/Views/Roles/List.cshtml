@@ -1,0 +1,18 @@
+﻿@using Framework.Identity.Data.Dtos
+@model List<RoleDto>
+@{
+    ViewData["Title"] = "القائمة";
+}
+<h4>القائمة</h4>
+@for (int i = 0; i < Model.Count; i++)
+{
+    <div class="form-check my-1">
+       
+        <label class="form-check-label">@Model[i].Name</label>
+
+        <a class="services-card" href="@Url.Action("Create", "Roles")">
+           إضافة صلاحية
+        </a>
+    </div>
+}
+

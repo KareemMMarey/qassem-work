@@ -1,18 +1,23 @@
-﻿using Framework.Core.AutoMapper;
+﻿using Framework.Core;
+using Framework.Core.AutoMapper;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Roles;
 
 namespace QassimPrincipality.Web.Controllers
 {
     public class RolesController : BaseController
     {
-        public RolesController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        private readonly UserAppService _userServices;
+        public RolesController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager,  UserAppService userServices)
             : base(userManager, null, roleManager)
         {
+            _userServices=userServices;
         }
 
         [HttpGet]
@@ -160,24 +165,30 @@ namespace QassimPrincipality.Web.Controllers
 
             if (rolesToAssigned != null && rolesToAssigned.Any())
             {
-                IdentityResult result = await _userManager.AddToRolesAsync(user, rolesToAssigned);
+                await _userServices.AddRolesAsync(user.Id, rolesToAssigned.ToArray());
+                //IdentityResult result = await _userManager.AddToRolesAsync(user, rolesToAssigned);
 
-                if (!result.Succeeded)
-                {
-                    AddModelErrors(result);
-                    transactionStatus = false;
-                }
+                //if (!result.Succeeded)
+                //{
+                //    AddModelErrors(result);
+                //    transactionStatus = false;
+                //}
             }
 
             if (rolesToRemoved != null && rolesToRemoved.Any())
             {
-                IdentityResult result = await _userManager.RemoveFromRolesAsync(user, rolesToRemoved);
+                //IdentityResult result = await _userManager.RemoveFromRolesAsync(user, rolesToRemoved);
 
-                if (!result.Succeeded)
+                //if (!result.Succeeded)
+                //{
+                //    AddModelErrors(result);
+                //    transactionStatus = false;
+                //}
+                foreach (var item in rolesToRemoved.ToArray())
                 {
-                    AddModelErrors(result);
-                    transactionStatus = false;
+                    await _userServices.RemoveUserFromRole(user.Id, item);
                 }
+                
             }
 
             if (!transactionStatus)
