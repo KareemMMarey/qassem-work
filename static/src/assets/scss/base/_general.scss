@@ -17,3 +17,19 @@ body {
     gap: var(--space-base);
     color: var(--color-primary);
 }
+
+.badge {
+    --bs-badge-padding-x: 0.75em;
+    --bs-badge-padding-y: 0.55em;
+    --bs-badge-font-size: 0.9rem;
+    --bs-badge-font-weight: 400;
+}
+.text-bg-success{
+    color: var(--color-success-100) !important;
+    background-color: var(--color-success-50) !important;
+}
+
+.text-bg-danger{
+    color: var(--color-critical-100) !important;
+    background-color: var(--color-critical-50) !important;
+}

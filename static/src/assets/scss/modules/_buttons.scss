@@ -4,7 +4,6 @@
     --bs-btn-font-weight: var(--font-regular);
     --bs-btn-border-width: 1px;
     --bs-btn-font-size: var(--font-size-base);
-    --bs-btn-hover-bg: var(--color-primary-100);
     --bs-btn-hover-border-color: var(--color-primary-100);
 
 
@@ -14,6 +13,7 @@
     border-radius: .5em;
 
     svg {
+        --icon-color: var(--bs-btn-color);
         fill: var(--bs-btn-color);
     }
 
@@ -37,6 +37,7 @@
     --bs-btn-border-color: var(--color-primary-90);
 
     --bs-btn-active-bg: var(--color-primary-100);
+    --bs-btn-hover-bg: transparent;
     --bs-btn-active-border-color: var(--color-primary-100);
 }
 
@@ -44,4 +45,6 @@
     --bs-btn-color: #fff;
     --bs-btn-bg: var(--color-primary-90);
     --bs-btn-border-color: var(--color-primary-90);
+    --bs-btn-hover-bg: var(--color-primary-100);
+    --bs-btn-hover-border-color: var(--color-primary-100);
 }

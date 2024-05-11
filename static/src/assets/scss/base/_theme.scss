@@ -24,8 +24,16 @@ $colors: (
     "complement-90": #559299,
     // grey
     "dark-grey": #383843,
+    "light-grey": #EEEDEF,
+    
     // critical
+    "critical-50": #F8E3E6,
     "critical-90": #C51C31,
+    "critical-100": #7E2B36,
+
+    // success
+    "success-50": #E4F2E1,
+    "success-100": #2E6521,
 );
 
 @include colors-variation($colors);
