@@ -47,6 +47,10 @@ select.form-control{
 	display: inline-flex;
     align-items: center;
     gap: var(--space-sm);
+	.form-check-input{
+		float: none;
+		margin: 0;
+	}
 }
 .form-check-input{
 	float: none;
