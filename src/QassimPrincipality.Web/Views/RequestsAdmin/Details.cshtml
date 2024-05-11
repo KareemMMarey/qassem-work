@@ -3,13 +3,6 @@
 @{
     ViewData["Title"] = "Details";
 }
-<div>
-    <a asp-action="RequestList">عرض الكل</a>
-    <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>
-</div>
-<br />
-<h1>التفاصيل</h1>
-
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -129,8 +122,8 @@
                                 </div>
                                 <div class="d-flex gap-2 justify-content-between margin-top-lg">
                                     <div class="d-flex gap-2">
-                                        <input class="btn btn-danger" type="submit" value="رفض" formaction="Reject" />
                                         <input class="btn btn-success" type="submit" value="قبول" formaction="Accept" />
+                                        <input class="btn btn-outline-danger" type="submit" value="رفض" formaction="Reject" />
                                     </div>
                                     <a asp-action="RequestList" class="btn btn-outline-primary">رجوع</a>
                                 </div>
