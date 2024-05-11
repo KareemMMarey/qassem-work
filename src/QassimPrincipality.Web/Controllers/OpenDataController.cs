@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.OpenData;
-using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.OpenData;
 
 namespace QassimPrincipality.Web.Controllers
@@ -52,10 +51,10 @@ namespace QassimPrincipality.Web.Controllers
 
             var lst = new List<object>
             {
-                new {Id = "0",Name="طلبات منتهية بالرفض"},
-                new {Id = "1",Name="طلبات منتهية بالموافقة"},
-                new {Id = "2",Name="طلبات قيد الإجراء"},
-                new {Id = "20",Name="كل الطلبات"},
+                new { Id = "0", Name = "طلبات منتهية بالرفض" },
+                new { Id = "1", Name = "طلبات منتهية بالموافقة" },
+                new { Id = "2", Name = "طلبات قيد الإجراء" },
+                new { Id = "20", Name = "كل الطلبات" },
             };
             ViewBag.items = new SelectList(lst, "Id", "Name", type);
 
@@ -77,7 +76,6 @@ namespace QassimPrincipality.Web.Controllers
         {
             AddOpenDataViewModel vM = new AddOpenDataViewModel();
             var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
-            
 
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = "1234567899";
@@ -109,7 +107,7 @@ namespace QassimPrincipality.Web.Controllers
             return RedirectToAction("Common", "Index");
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "OpenDataRequestAdmin")]
         public async Task<IActionResult> RequestList(string type, int page = 1)
         {
             bool? status = null;
@@ -165,6 +163,7 @@ namespace QassimPrincipality.Web.Controllers
             await _openService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details", new { requestId });
         }
+
         [HttpPost]
         public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {

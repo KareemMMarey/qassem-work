@@ -11,7 +11,7 @@ using static OfficeOpenXml.ExcelErrorValue;
 
 namespace QassimPrincipality.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "EServicesRequestAdmin")]
     public class RequestsAdminController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
