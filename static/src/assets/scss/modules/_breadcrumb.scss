@@ -2,7 +2,7 @@
     --bs-breadcrumb-item-color: var(--color-primary);
     --bs-breadcrumb-item-active-color: var(--color-primary);
     --bs-breadcrumb-font-size: 0.875rem;
-    margin-top: 1.5rem;
+    margin-bottom: var(--space-md);
 
     .breadcrumb-item {
         font-weight: var(--font-semi-bold);

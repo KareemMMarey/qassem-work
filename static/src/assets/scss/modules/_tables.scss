@@ -21,16 +21,24 @@
         }
     }
     tbody{
+        tr{
+            td{
+                &:first-of-type{
+                    padding-inline-start: var(--table-inline-padding);
+                }
+                &:last-of-type{
+                    padding-inline-end: var(--table-inline-padding);
+                }
+            }
+        }
         tr:last-of-type{
             td{
                 border: 0;
                 &:first-of-type{
                     border-radius: 0 0 var(--table-border-radius) 0;
-                    padding-inline-start: var(--table-inline-padding);
                 }
                 &:last-of-type{
                     border-radius: 0 0 0 var(--table-border-radius);
-                    padding-inline-end: var(--table-inline-padding);
                 }
             }
         }
