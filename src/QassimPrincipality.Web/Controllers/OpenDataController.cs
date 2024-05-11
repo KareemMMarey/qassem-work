@@ -1,66 +1,34 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Framework.Core.Extensions;
+using Framework.Identity.Data.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using QassimPrincipality.Application.Lookups.Services;
-using QassimPrincipality.Application.Services.Main.Contact;
 using QassimPrincipality.Application.Services.Main.OpenData;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
-using QassimPrincipality.Web.ViewModels.Contact;
 using QassimPrincipality.Web.ViewModels.OpenData;
-using QassimPrincipality.Web.ViewModels.ShareData;
 
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class OpenDataController : Controller
     {
         private readonly OpenDataAppService _openService;
         private readonly LookupAppService _lookUpService;
+        private readonly UserAppService _userAppService;
 
-       
         public OpenDataController(
-            OpenDataAppService openService, LookupAppService lookUpService
+            OpenDataAppService openService,
+            LookupAppService lookUpService,
+            UserAppService userAppService
         )
         {
             _openService = openService;
             _lookUpService = lookUpService;
+            _userAppService = userAppService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        public async Task<ActionResult> Create()
-        {
-            AddOpenDataViewModel vM = new AddOpenDataViewModel();
-            vM.UserFullName = "Kareem marey";
-            vM.IdentityNumber = "123232123231";
-            ViewData["requestertypes"] = await _lookUpService.GetRequestType();
-            return View(vM);
-        }
-       
 
-        // POST:
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(AddOpenDataViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewData["requestertypes"] = await _lookUpService.GetRequestType();
-                return View(model);
-            }
-            OpenDataDto dto = new OpenDataDto();
-            dto.Title = model.Title;
-            dto.UserEmail = model.UserEmail;
-            dto.UserFullName = model.UserFullName;  
-            dto.UserMobile = model.UserMobile;
-            dto.Description = model.Description;
-            dto.IdentityNumber = model.IdentityNumber;
-            dto.RequesterTypeId = model.RequesterTypeId;
-            await _openService.InsertAsync(dto);
-            return RedirectToAction("Common", "Index");
-        }
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> RequestList(string type, int page = 1)
+        public async Task<IActionResult> Index(string type, int page = 1)
         {
             bool? status = null;
             bool? isPending = null;
@@ -89,7 +57,88 @@ namespace QassimPrincipality.Web.Controllers
                 new {Id = "2",Name="طلبات قيد الإجراء"},
                 new {Id = "20",Name="كل الطلبات"},
             };
+            ViewBag.items = new SelectList(lst, "Id", "Name", type);
 
+            ViewBag.status = type;
+            var result = await _openService.SearchAsync(
+                new OpenDataRequestSearchDto()
+                {
+                    isPending = isPending,
+                    IsApproved = status,
+                    PageNumber = page,
+                    PageSize = 10,
+                    CreatedBy = HttpContext.User.GetId()
+                }
+            );
+            return View(result);
+        }
+
+        public async Task<ActionResult> Create()
+        {
+            AddOpenDataViewModel vM = new AddOpenDataViewModel();
+            var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
+            
+
+            vM.UserFullName = user.FullNameAr ?? user.FullName;
+            vM.IdentityNumber = "1234567899";
+            ViewData["requestertypes"] = await _lookUpService.GetRequesterTypes();
+            return View(vM);
+        }
+
+        // POST:
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(AddOpenDataViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["requestertypes"] = await _lookUpService.GetRequestType();
+                return View(model);
+            }
+            OpenDataDto dto = new OpenDataDto();
+            dto.Title = model.Title;
+            dto.UserEmail = model.UserEmail;
+            dto.UserFullName = model.UserFullName;
+            dto.UserMobile = model.UserMobile;
+            dto.Description = model.Description;
+            dto.IdentityNumber = model.IdentityNumber;
+            dto.RequesterTypeId = model.RequesterTypeId;
+            dto.IsApproved = null;
+            dto.CreatedBy = HttpContext.User.GetId();
+            await _openService.InsertAsync(dto);
+            return RedirectToAction("Common", "Index");
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RequestList(string type, int page = 1)
+        {
+            bool? status = null;
+            bool? isPending = null;
+            switch (type)
+            {
+                case "1":
+                    status = true;
+                    break;
+                case "0":
+                    status = false;
+                    break;
+                case "2":
+                    status = null;
+                    isPending = true;
+                    break;
+                default:
+                    status = null;
+                    type = "20";
+                    break;
+            }
+
+            var lst = new List<object>
+            {
+                new { Id = "0", Name = "طلبات منتهية بالرفض" },
+                new { Id = "1", Name = "طلبات منتهية بالموافقة" },
+                new { Id = "2", Name = "طلبات قيد الإجراء" },
+                new { Id = "20", Name = "كل الطلبات" },
+            };
 
             ViewBag.items = new SelectList(lst, "Id", "Name", type);
             ViewBag.status = type;
@@ -103,11 +152,24 @@ namespace QassimPrincipality.Web.Controllers
             );
             return View(result);
         }
+
         public async Task<IActionResult> Details(string requestId)
         {
             var result = await _openService.GetById(Guid.Parse(requestId));
 
             return View(result);
+        }
+
+        public async Task<IActionResult> Accept(string requestId)
+        {
+            await _openService.AcceptOrReject(Guid.Parse(requestId), true);
+            return RedirectToAction("Details", new { requestId });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Reject(string requestId, string rejectReasons)
+        {
+            await _openService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
+            return RedirectToAction("Details", new { requestId });
         }
     }
 }

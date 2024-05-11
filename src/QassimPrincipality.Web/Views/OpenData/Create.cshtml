@@ -11,7 +11,7 @@
     <br>
     <div>
 
-        <form id="client-form" asp-controller="Contact" asp-action="Create" Method="post">
+        <form id="client-form" asp-controller="OpenData" asp-action="Create" Method="post">
         <div class="container card NoTransform p-5 d-flex justify-content-center">
 
 
@@ -31,7 +31,7 @@
                     <div class="col-sm-8">
 
 
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
+                        <input type="text" readonly class="form-control col-8 text-box single-line" asp-for="UserFullName">
                         <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
                     </div>
                 </div>

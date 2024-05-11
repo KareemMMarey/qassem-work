@@ -5,6 +5,7 @@
 }
 <div>
     <a asp-action="RequestList">عرض الكل</a>
+    <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>
 </div>
 <br />
 <h1>التفاصيل</h1>
@@ -133,10 +134,7 @@
                 </dd>
                 break;
         }
-        <div class="form-control form-group">
-            <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>
-
-       </div>
+       
 
     </dl>
 </div>
