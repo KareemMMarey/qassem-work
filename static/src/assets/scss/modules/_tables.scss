@@ -1,0 +1,64 @@
+.table{
+    --bs-table-color: #575661;
+    --bs-table-border-color: var(--color-light-grey);
+    --table-border-radius: 1.3rem;
+    --table-inline-padding: 2rem;
+    outline: 1px solid var(--bs-table-border-color);
+    border-radius: var(--table-border-radius);
+    thead{
+        tr{
+            background-color: #E1E9E5;
+            th{
+                &:first-of-type{
+                    border-radius: 0 var(--table-border-radius) 0 0;
+                    padding-inline-start: var(--table-inline-padding);
+                }
+                &:last-of-type{
+                    border-radius: var(--table-border-radius) 0 0 0;
+                    padding-inline-end: var(--table-inline-padding);
+                }
+            }
+        }
+    }
+    tbody{
+        tr{
+            td{
+                &:first-of-type{
+                    padding-inline-start: var(--table-inline-padding);
+                }
+                &:last-of-type{
+                    padding-inline-end: var(--table-inline-padding);
+                }
+            }
+        }
+        tr:last-of-type{
+            td{
+                border: 0;
+                &:first-of-type{
+                    border-radius: 0 0 var(--table-border-radius) 0;
+                }
+                &:last-of-type{
+                    border-radius: 0 0 0 var(--table-border-radius);
+                }
+            }
+        }
+    }
+}
+.table>:not(caption)>*>*{
+    padding: 1.3rem 0.9rem;
+}
+
+.pagination{
+    gap: var(--space-sm);
+    --bs-pagination-border-radius: 0.5rem;
+    --bs-pagination-active-border-color: var(--color-primary);
+    --bs-pagination-active-bg: var(--color-primary);
+    --bs-pagination-bg: #E1E9E5;
+    --bs-pagination-color: var(--color-primary);
+    --bs-pagination-hover-color: var(--color-secondary);
+    --bs-pagination-focus-color: var(--color-secondary);
+    --bs-pagination-focus-box-shadow: var(--shadow-base);
+    .page-link{
+        border-radius: var(--bs-pagination-border-radius);
+    }
+}

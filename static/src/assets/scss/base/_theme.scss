@@ -14,16 +14,26 @@ $colors: (
     "white": #fff,
     // primary
     "primary": #0A482D,
+    "primary-80": #487662,
     "primary-90": #295F48,
     "primary-100": #0A482D,
     // secondary
     "secondary": #b48115,
     // complement
+    "complement-60": #EAF2F3,
     "complement-90": #559299,
     // grey
     "dark-grey": #383843,
+    "light-grey": #DCDBE1,
+    
     // critical
+    "critical-50": #F8E3E6,
     "critical-90": #C51C31,
+    "critical-100": #7E2B36,
+
+    // success
+    "success-50": #E4F2E1,
+    "success-100": #2E6521,
 );
 
 @include colors-variation($colors);

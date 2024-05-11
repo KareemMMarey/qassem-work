@@ -6,176 +6,149 @@
     ViewData["Title"] = "Add a new Request";
 }
 
-<div id="requestContent" class="container-fluid div-content" style="">
-    <h1 class="mt-4">طلب البيانات المفتوحة</h1>
-    <br>
-    <div>
-
-        <form id="client-form" asp-controller="Contact" asp-action="Create" Method="post">
-        <div class="container card NoTransform p-5 d-flex justify-content-center">
-
-
-
-            <div class="container ">
-                  
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserFullName">
-                        اسم مقدم الطلب
-                    </label>
-
-
-
-                    <div class="col-sm-8">
-
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
-                        <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+<div id="requestContent" class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">طلب البيانات المفتوحة</h3>
+            <form id="client-form" class="form" asp-controller="Contact" asp-action="Create" Method="post">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserFullName">
+                                اسم مقدم الطلب
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserFullName">
+                            <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserEmail">
-                        البريد إلكتروني
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail">
-                        <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserEmail">
+                                البريد إلكتروني
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserEmail">
+                            <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="IdentityNumber">
-                       رقم الهوية / الإقامة
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="IdentityNumber">
-                        <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="IdentityNumber">
+                                رقم الهوية / الإقامة
+                            </label>
+                            <input type="text" class="form-control" asp-for="IdentityNumber">
+                            <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="UserMobile">
-                        رقم الجوال
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile">
-                        <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserMobile">
+                                رقم الجوال
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserMobile">
+                            <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
                     @if (ViewData["requestertypes"] != null)
                     {
                         var types = (List<SelectListItem>)ViewData["requestertypes"];
-                        <div class="form-group row">
-                            <div id="RequestType" class="form-group">
-                                <label asp-for="RequesterTypeId">
-                                    صفة مقدم الطلب
-                                </label>
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <div id="RequestType" class="form-group">
+                                    <label class="form-label" asp-for="RequesterTypeId">
+                                        صفة مقدم الطلب
+                                    </label>
 
-                                <select asp-for="RequesterTypeId" required asp-items="@(new SelectList(types, "Value", "Text"))"
-                                        class="form-control" id="ddlContactTypes">
-                                </select>
-                                <span asp-validation-for="RequesterTypeId" class="text-danger"></span>
-
-                            </div>
+                                    <select asp-for="RequesterTypeId" required asp-items="@(new SelectList(types, "Value", "Text"))"
+                                            class="form-control" id="ddlContactTypes">
+                                    </select>
+                                    <span asp-validation-for="RequesterTypeId" class="text-danger"></span>
+                                </div>
+                             </div>
                         </div>
                     }
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="Title">
-                        عنوان الشكوى
-                    </label>
-                    <div class="col-sm-8">
-
-                            <input type="text" class="form-control col-8 text-box single-line" asp-for="Title">
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Title">
+                                عنوان الشكوى
+                            </label>
+                            <input type="text" class="form-control" asp-for="Title">
                             <span asp-validation-for="Title" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label"> التفاصيل</label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">إرسال</button>
+                            <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                        </div>
                     </div>
                 </div>
-               
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"> التفاصيل</label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
-                </div>
-
-
-
-
-             
-                <div class="form-group row">
-                    <div class="col-sm-10">
-
-                        <a class="btn btn-dark-green btn-bg" href="/">الى الخلف</a>
-                        <button type="submit" class="btn btn-dark-green text-right">إرسال</button>
-                    </div>
-                </div>
-
-            </div>
-
+            </form>
         </div>
-    </form>
-
-        @* <form action="/OpenData" method="post" novalidate="novalidate">
-            <input name="__RequestVerificationToken" type="hidden" value="Z922Hqsm3t7bAHI-bfgKPNNbA-0m6nmRFmrEEvvMgr6CCtZwY87rEUEFmOxWw76OpXEwGbm2b1QwmIE2GJkmljA6TKGtpBWZq9E1Zb9kcGMeI3v-jT9iE58PjW5dRRkQCewg2Q2">                        <div class="form-horizontal offset-1">
-
-                <div class="form-group">
-                    <label class="control-label" for="FullName">اسم مقدم الطلب</label>
-                    <strong class="text-danger">*</strong>
-                    <div>
-                        <input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="FullName" name="FullName" type="text" value="">
-                        <span class="field-validation-valid text-danger" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="PhoneNumber">رقم الجوال</label>
-
-                    <strong class="text-danger">*</strong>
-                    <div>
-                        <input class="form-control text-box single-line" data-val="true" data-val-phone="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex-pattern="^05[0-9]{8}$" data-val-required="الحقل مطلوب" id="PhoneNumber" name="PhoneNumber" placeholder="--------05" type="tel" value="">
-                        <span class="field-validation-valid text-danger" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="Email">البريد الإلكتروني</label>
-                    <strong class="text-danger">*</strong>
-                    <div>
-                        <input class="form-control text-box single-line" data-val="true" data-val-email="صيغة البريد الإلكتروني غير صحيحة" data-val-required="الحقل مطلوب" id="Email" name="Email" type="email" value="">
-                        <span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="Description">صفة مقدم الطلب</label>
-                    <strong class="text-danger">*</strong>
-                    <div>
-                        <input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="Description" name="Description" placeholder="فرد / شركة / منظمة" type="text" value="">
-                        <span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label" for="Details">تفاصيل الطلب</label>
-                    <strong class="text-danger">*</strong>
-                    <div>
-                        <textarea class="form-control" cols="20" data-val="true" data-val-required="الحقل مطلوب" id="Details" name="Details" rows="5"></textarea>
-                        <span class="field-validation-valid text-danger" data-valmsg-for="Details" data-valmsg-replace="true"></span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2">
-                        <input type="submit" value="إرسال" title="إرسال" class="btn btn-success">
-                    </div>
-                </div>
-            </div>
-        </form> *@
     </div>
-
 </div>
+
+
+
+@* <form action="/OpenData" method="post" novalidate="novalidate">
+<input name="__RequestVerificationToken" type="hidden" value="Z922Hqsm3t7bAHI-bfgKPNNbA-0m6nmRFmrEEvvMgr6CCtZwY87rEUEFmOxWw76OpXEwGbm2b1QwmIE2GJkmljA6TKGtpBWZq9E1Zb9kcGMeI3v-jT9iE58PjW5dRRkQCewg2Q2">                        <div class="form-horizontal offset-1">
+
+<div class="form-group">
+<label class="control-label" for="FullName">اسم مقدم الطلب</label>
+<strong class="text-danger">*</strong>
+<div>
+<input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="FullName" name="FullName" type="text" value="">
+<span class="field-validation-valid text-danger" data-valmsg-for="FullName" data-valmsg-replace="true"></span>
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label" for="PhoneNumber">رقم الجوال</label>
+
+<strong class="text-danger">*</strong>
+<div>
+<input class="form-control text-box single-line" data-val="true" data-val-phone="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex="يجب إدخال رقم الجوال بصورة صحيحة" data-val-regex-pattern="^05[0-9]{8}$" data-val-required="الحقل مطلوب" id="PhoneNumber" name="PhoneNumber" placeholder="--------05" type="tel" value="">
+<span class="field-validation-valid text-danger" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label" for="Email">البريد الإلكتروني</label>
+<strong class="text-danger">*</strong>
+<div>
+<input class="form-control text-box single-line" data-val="true" data-val-email="صيغة البريد الإلكتروني غير صحيحة" data-val-required="الحقل مطلوب" id="Email" name="Email" type="email" value="">
+<span class="field-validation-valid text-danger" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+</div>
+</div>
+<div class="form-group">
+<label class="control-label" for="Description">صفة مقدم الطلب</label>
+<strong class="text-danger">*</strong>
+<div>
+<input class="form-control text-box single-line" data-val="true" data-val-required="الحقل مطلوب" id="Description" name="Description" placeholder="فرد / شركة / منظمة" type="text" value="">
+<span class="field-validation-valid text-danger" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label" for="Details">تفاصيل الطلب</label>
+<strong class="text-danger">*</strong>
+<div>
+<textarea class="form-control" cols="20" data-val="true" data-val-required="الحقل مطلوب" id="Details" name="Details" rows="5"></textarea>
+<span class="field-validation-valid text-danger" data-valmsg-for="Details" data-valmsg-replace="true"></span>
+</div>
+</div>
+
+<div class="form-group">
+<div class="col-md-offset-2">
+<input type="submit" value="إرسال" title="إرسال" class="btn btn-success">
+</div>
+</div>
+</div>
+</form> *@
+

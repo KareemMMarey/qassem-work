@@ -1,0 +1,35 @@
+.empty-state-wrapper{
+
+}
+.empty-state{
+    --icon-size: 140px;
+    --icon-color: green;
+    background-color: var(--color-white);
+    border-radius: 1em;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-base);
+    align-items: center;
+    box-shadow: var(--shadow-base);
+    text-decoration: none;
+    color: var(--color-primary);
+    max-width: 800px;
+    margin: auto;
+}
+.empty-state__icon{
+    width: var(--icon-size);
+    height: var(--icon-size);
+    svg{
+        max-width: 100%;
+        max-height: 100%;
+        fill: var(--icon-color)
+    }
+}
+.empty-state__title{
+    @extend .h3;
+}
+.empty-state__description{
+    @extend .h6;
+    font-weight: var(--font-regular);
+}

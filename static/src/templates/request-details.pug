@@ -1,0 +1,87 @@
+doctype html
+html(lang='ar', dir='rtl')
+  block vars
+    - var pageTitle = "إمازة منطقة القصيم | الصفحة الرئيسية"
+    - var languageLinks = '/index-en.html'
+    - var indexpageLink = '/'
+    - var lang = 'English'
+  include ./partials/_head
+
+  body
+    include ./partials/_top-bar
+    include ./partials/_header
+    main.page-layout
+      .container
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="/">طلباتي</a></li>
+            <li class="breadcrumb-item active"> @ViewBag.Title</li>
+          </ol>
+        </nav>
+        .page-panel 
+          .request-details
+            header.request-details__header 
+              h2.request-details__title 
+                | تفاصيل طلب -  <span> نقل سجين من سجن لآخر </span> 
+              .request-details__number 
+                |  رقم#  <span> 1238363 </span> 
+            .row.justify-content-xxl-center
+              .col-xxl-10
+                .request-details__content
+                  .card
+                    .card-body
+                      .request-details__header 
+                        h3.request-details__title 
+                          | بيانات مقدم الطلب
+                      .row.g-2
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                  .card
+                    .card-body
+                      .request-details__header 
+                        h3.request-details__title 
+                          | بيانات مقدم الطلب
+                      .row.g-2
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+                        .col-lg-4
+                          span.color-primary.font-bold الاسم 
+                          | أحمد محمد الصالح
+    include ./partials/_footer
+    
