@@ -4,28 +4,24 @@
 @{
     ViewData["Title"] = "الملف الشخصي";
 }
-
-<h3 class="text-center">بياناتي</h3>
-
-<div class="row">
-    @* <div class="col-sm-3">
-        <img src="@Model.Picture" style="width:100%;height:100%" />
-    </div> *@
-    <div class="col-sm-9">
-        <table class="table table-bordered table-striped">
-            <tr>
-                <th>User Name</th>
-                <td>@Model.UserName</td>
-            </tr>
-            <tr>
-                <th>E-Mail</th>
-                <td>@Model.Email</td>
-            </tr>
-            <tr>
-                <th>Phone Number</th>
-                <td>@Model.PhoneNumber</td>
-            </tr>
-           
-        </table>
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-8">
+        <div class="page-panel" id="elementToToggle">
+            <h3 class="page-title margin-bottom-lg"> بياناتي </h3>
+            <div class="d-flex flex-column gap-2">
+                <div class="d-flex gap-2">
+                    <label class="color-primary font-bold">User Name</label>
+                    <span>@Model.UserName</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <label class="color-primary font-bold">E-Mail</label>
+                    <span>@Model.Email</span>
+                </div>
+                <div class="d-flex gap-2">
+                    <label class="color-primary font-bold">Phone Number</label>
+                    <span>@Model.PhoneNumber</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

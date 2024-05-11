@@ -6,69 +6,48 @@
     ViewData["Title"] = "Add a new Request";
 }
 
-<div id="requestContent" class="container-fluid div-content" style="">
-    <h1 class="mt-4">طلب البيانات المفتوحة</h1>
-    <br>
-    <div>
-
-        <form id="client-form" asp-controller="Contact" asp-action="Create" Method="post">
-        <div class="container card NoTransform p-5 d-flex justify-content-center">
-
-
-
-            <div class="container ">
-                  
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserFullName">
-                        اسم مقدم الطلب
-                    </label>
-
-
-
-                    <div class="col-sm-8">
-
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
-                        <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+<div id="requestContent" class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">طلب البيانات المفتوحة</h3>
+            <form id="client-form" class="form" asp-controller="Contact" asp-action="Create" Method="post">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserFullName">
+                                اسم مقدم الطلب
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserFullName">
+                            <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserEmail">
-                        البريد إلكتروني
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail">
-                        <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserEmail">
+                                البريد إلكتروني
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserEmail">
+                            <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="IdentityNumber">
-                       رقم الهوية / الإقامة
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="IdentityNumber">
-                        <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="IdentityNumber">
+                                رقم الهوية / الإقامة
+                            </label>
+                            <input type="text" class="form-control" asp-for="IdentityNumber">
+                            <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="UserMobile">
-                        رقم الجوال
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile">
-                        <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserMobile">
+                                رقم الجوال
+                            </label>
+                            <input type="text" class="form-control" asp-for="UserMobile">
+                            <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                        </div>
                     </div>
-                </div>
                     @if (ViewData["requestertypes"] != null)
                     {
                         var types = (List<SelectListItem>)ViewData["requestertypes"];
