@@ -68,5 +68,12 @@ html(lang='ar', dir='rtl')
                     span عدد الأصوات:
                     | 350
                 
+        .empty-state
+          .empty-state__icon 
+            svg
+              use(xlink:href="./assets/images/svg-icons.svg#done")
+          h3.empty-state__title تم حفظ بيانات الطلب بنجاح
+          .empty-state__description رقم الطلب : 20240511025244
+
     include ./partials/_footer
     

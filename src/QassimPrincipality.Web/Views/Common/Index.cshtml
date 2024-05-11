@@ -1,6 +1,13 @@
-﻿
-<div>
-
-    <h3>@ViewBag.SuccessMessage</h3>
-    <h4>رقم الطلب : @ViewBag.requestNumber</h4>
+﻿<div cite="row">
+    <div cite="col-12">
+        <div class="empty-state">
+            <div class="empty-state__icon">
+                <svg>
+                    <use xlink:href="./assets/images/svg-icons.svg#done"></use>
+                </svg>
+            </div>
+            <h3 class="empty-state__title">@ViewBag.SuccessMessage</h3>
+            <div class="empty-state__description">رقم الطلب : @ViewBag.requestNumber</div>
+        </div>
+    </div>
 </div>
