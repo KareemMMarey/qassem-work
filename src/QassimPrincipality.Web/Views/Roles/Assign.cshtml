@@ -1,13 +1,16 @@
 ﻿@using QassimPrincipality.Web.ViewModels.Roles
 @model List<RoleAssignViewModel>
 
-
+@{
+    ViewData["Title"] = "تعيين صلاحية";
+    // Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
 
 <h1 class="mb-3">Assign a role to the user - @ViewBag.Username</h1>
 
 @if (0 >= Model.Count)
 {
-    <h3 class="h3">Roles is not found!</h3>
+    <h3 class="h3">الصلاحيات غير موجودة!</h3>
 }
 else
 {
@@ -24,6 +27,6 @@ else
             </div>
         }
 
-        <button type="submit" class="btn btn-sm btn-secondary mt-2">Role Assign</button>
+        <button type="submit" class="btn btn-sm btn-secondary mt-2">تعيين صلاحية</button>
     </form>
 }

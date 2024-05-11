@@ -444,7 +444,7 @@
                                             </svg> ملفي الشخصي
                                         </a>
                                     </li>
-                                     @if (User.IsInRole("Admin")) 
+                                    @if (User.IsInRole("Admin")) 
                                     {
 
                                         <li>
@@ -452,6 +452,27 @@
                                                 <svg width="24" height="24">
                                                     <use xlink:href="/assets/images/svg-icons.svg#orders" />
                                                 </svg> طلبات الخدمات
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="~/Account/Members">
+                                                <svg width="24" height="24">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#orders" />
+                                                </svg>المستخدمين
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="~/Roles/Create">
+                                                <svg width="24" height="24">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#orders" />
+                                                </svg>الأدوار
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="~/Roles/Assign">
+                                                <svg width="24" height="24">
+                                                    <use xlink:href="/assets/images/svg-icons.svg#orders" />
+                                                </svg>صلاحيات
                                             </a>
                                         </li>
                                     }
