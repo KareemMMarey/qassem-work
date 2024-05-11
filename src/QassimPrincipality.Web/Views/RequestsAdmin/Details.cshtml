@@ -71,6 +71,19 @@
                 <a asp-action="Download" asp-route-id="@Model.PhotoId" class="btn btn-primary">تحميل الصورة الشخصية </a>
             }
         </dd>
+        <dt class="col-sm-2">
+            مرفقات اخرى
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.OtherAttachmentIds != null)
+            {
+                int index = 1;
+                foreach (var att in Model.OtherAttachmentIds)
+                {
+                    <a asp-action="Download" asp-route-id="@att" class="btn btn-primary">تحميل مرفق @(index++) </a>
+                }
+            }
+        </dd>
         @*   <dt class = "col-sm-2">
         @Html.DisplayNameFor(model => model.IsApproved)
         </dt>
@@ -102,7 +115,7 @@
                             <div class="form-group mt-5">
                                 @* <input type="submit" value="رفض" class="btn btn-danger float-right"> *@
                                 <input class="btn btn-success"  type="submit" value="رفض" formaction="Reject" />
-                                <input class="btn btn-danger float-right"  type="submit" value="قبول" formaction="Accept" />
+                                <input class="btn btn-danger float-right" type="submit" value="قبول" formaction="Accept" />
                             </div>
 
                         </form>
@@ -120,7 +133,10 @@
                 </dd>
                 break;
         }
+        <div class="form-control form-group">
+            <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>
 
+       </div>
 
     </dl>
 </div>
