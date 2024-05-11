@@ -32,4 +32,3 @@ if(filterInput){
 	});
 }
 
-var starrating = new StarRating('#serviceRating', {tooltip:false});
