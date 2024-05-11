@@ -2,8 +2,8 @@
 @model RoleViewModel
 
 @{
-    ViewData["Title"] = "RoleCreate";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "إنشاء صلاحية";
+    // Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h4>Role Create</h4>
@@ -14,12 +14,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label"> اسم الصلاحية</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Rol Create" class="btn btn-primary" />
+                <input type="submit" value="إنشاء صلاحية" class="btn btn-primary" />
             </div>
         </form>
     </div>

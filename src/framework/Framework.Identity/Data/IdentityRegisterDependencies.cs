@@ -186,9 +186,9 @@ namespace Framework.Identity.Data
         private static void SeedIdentityUsersInfo(IServiceScope serviceScope)
         {
           Guid _adminId = new Guid("B22698B8-42A2-4115-9631-1C2D1E2AC5F7");
-          Guid _individualId = new Guid("AAAA4BA6-94D9-4395-BB1C-9D54939E70EF");
-          Guid _companyId = new Guid("ED6D642F-50ED-4E28-BDE5-03B4C88F9387");
-          Guid _AuctionSupervisorId = new Guid("DB262BE8-1A1A-4910-99BA-65D89D8FD90E");
+          Guid _EServiceAdmin = new Guid("AAAA4BA6-94D9-4395-BB1C-9D54939E70EF");
+          Guid _OpenDataAdmin = new Guid("ED6D642F-50ED-4E28-BDE5-03B4C88F9387");
+          Guid _ShareDataAdmin = new Guid("DB262BE8-1A1A-4910-99BA-65D89D8FD90E");
         var context = serviceScope.ServiceProvider.GetService<AppIdentityDbContext>();
 
             context.Database.EnsureCreated();
@@ -202,7 +202,7 @@ namespace Framework.Identity.Data
                     NormalizedUserName = "ADMIN",
                     FullName = "Administrator",
                     NormalizedEmail = "KAREEM.M.MAREY@GMAIL.COM",
-                    PhoneNumber = "+201012222212",
+                    PhoneNumber = "+966564829845",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     SecurityStamp = new Guid().ToString("D"),
@@ -214,62 +214,62 @@ namespace Framework.Identity.Data
                 admin.PasswordHash = PassGenerate(admin);
                 Data.Add(admin);
 
-                var individual = new ApplicationUser("admin", "Administrator")
+                var EServiceAdmin = new ApplicationUser("EServiceAdmin", "E-Service Admin")
                 {
-                    Id = _individualId,
-                    UserName = "individual",
-                    NormalizedUserName = "INDIVIDUAL",
-                    FullName = "Individual",
-                    NormalizedEmail = "Individual@Gmail.com",
+                    Id = _EServiceAdmin,
+                    UserName = "EServiceAdmin",
+                    NormalizedUserName = "ESERVICEADMIN",
+                    FullName = "E-Service Admin",
+                    NormalizedEmail = "ESERVICEADMIN@GMAIL.COM",
                     PhoneNumber = "+201000000000",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     SecurityStamp = new Guid().ToString("D"),
-                    Email = "Individual@Gmail.com",
+                    Email = "EServiceAdmin@Gmail.com",
                     IsActive = true,
                     CreatedBy = "Admin",
                     CreatedOn = DateTime.Now
                 };
-                individual.PasswordHash = PassGenerate(individual);
-                Data.Add(individual);
+                EServiceAdmin.PasswordHash = PassGenerate(EServiceAdmin);
+                Data.Add(EServiceAdmin);
 
-                var company = new ApplicationUser("admin", "Administrator")
+                var OpenDataAdmin = new ApplicationUser("OpenDataAdmin", "Open Data Admin")
                 {
-                    Id = _companyId,
-                    UserName = "company",
-                    NormalizedUserName = "COMPANY",
-                    FullName = "Company",
-                    NormalizedEmail = "Company@Gmail.com",
+                    Id = _OpenDataAdmin,
+                    UserName = "OpenDataAdmin",
+                    NormalizedUserName = "OPENDATAADMIN",
+                    FullName = "Open Data Admin",
+                    NormalizedEmail = "OPENDATAADMIN@Gmail.com",
                     PhoneNumber = "+201000000111",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     SecurityStamp = new Guid().ToString("D"),
-                    Email = "Company@Gmail.com",
+                    Email = "OpenDataAdmin@Gmail.com",
                     IsActive = true,
                     CreatedBy = "Admin",
                     CreatedOn = DateTime.Now
                 };
-                company.PasswordHash = PassGenerate(company);
-                Data.Add(company);
+                OpenDataAdmin.PasswordHash = PassGenerate(OpenDataAdmin);
+                Data.Add(OpenDataAdmin);
 
-                var AuctionSupervisor = new ApplicationUser("admin", "Administrator")
+                var ShareDataAdmin = new ApplicationUser("ShareDataAdmin", "Share Data Admin")
                 {
-                    Id = _AuctionSupervisorId,
-                    UserName = "AuctionSupervisor",
-                    NormalizedUserName = "AuctionSupervisor",
-                    FullName = "AuctionSupervisor",
-                    NormalizedEmail = "auctionSupervisor@Gmail.com",
-                    PhoneNumber = "+201000001111",
+                    Id = _ShareDataAdmin,
+                    UserName = "ShareDataAdmin",
+                    NormalizedUserName = "SHAREDATAADMIN",
+                    FullName = "Share Data Admin",
+                    NormalizedEmail = "SHAREDATAADMIN@Gmail.com",
+                    PhoneNumber = "+201000000111",
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                     SecurityStamp = new Guid().ToString("D"),
-                    Email = "auctionSupervisor@Gmail.com",
+                    Email = "ShareDataAdmin@Gmail.com",
                     IsActive = true,
                     CreatedBy = "Admin",
                     CreatedOn = DateTime.Now
                 };
-                AuctionSupervisor.PasswordHash = PassGenerate(AuctionSupervisor);
-                Data.Add(AuctionSupervisor);
+                ShareDataAdmin.PasswordHash = PassGenerate(ShareDataAdmin);
+                Data.Add(ShareDataAdmin);
 
                 context.Set<ApplicationUser>().AddRange(Data); 
                 context.SaveChanges();
@@ -278,8 +278,11 @@ namespace Framework.Identity.Data
         private static void SeedIdentityUsersRolesInfo(IServiceScope serviceScope)
         {
             var context = serviceScope.ServiceProvider.GetService<AppIdentityDbContext>();
-              Guid _adminId = new Guid("B22698B8-42A2-4115-9631-1C2D1E2AC5F7");
-        context.Database.EnsureCreated();
+            Guid _adminId = new Guid("B22698B8-42A2-4115-9631-1C2D1E2AC5F7");
+            Guid _EServiceAdmin = new Guid("AAAA4BA6-94D9-4395-BB1C-9D54939E70EF");
+            Guid _OpenDataAdmin = new Guid("ED6D642F-50ED-4E28-BDE5-03B4C88F9387");
+            Guid _ShareDataAdmin = new Guid("DB262BE8-1A1A-4910-99BA-65D89D8FD90E");
+            context.Database.EnsureCreated();
             if (!context.Set<ApplicationUserRoles>().Any())
             {
                 List<ApplicationUserRoles> Data = new List<ApplicationUserRoles>() {
@@ -288,6 +291,24 @@ namespace Framework.Identity.Data
                     Id = new Guid("533810E7-AD5A-4883-AC15-A004A48D51D5"),
                     RoleId = RoleHelper.Admin,
                     UserId = _adminId
+                },
+                 new ApplicationUserRoles
+                {
+                    Id = new Guid("EE143D53-814A-409D-B6E0-60B520750918"),
+                    RoleId = RoleHelper.OpenDataRequestAdmin,
+                    UserId = _OpenDataAdmin
+                },
+                  new ApplicationUserRoles
+                {
+                    Id = new Guid("1A9299BA-2253-4B7D-969F-6A8A7EE73A2B"),
+                    RoleId = RoleHelper.ShareDataRequestAdmin,
+                    UserId = _ShareDataAdmin
+                },
+                   new ApplicationUserRoles
+                {
+                    Id = new Guid("237601F2-CB12-42A6-8940-5E318F7186E3"),
+                    RoleId = RoleHelper.EServicesRequestAdmin,
+                    UserId = _EServiceAdmin
                 }
                 };
 

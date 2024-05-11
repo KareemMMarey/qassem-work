@@ -18,6 +18,8 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         public new StaticPagedList<UploadRequestDto> Items { get; set; }
         public DateTime? RequestDateFrom { get; set; }
         public DateTime? RequestDateTo { get; set; }
+        public string CreatedBy { get; set; }
+
     }
 
 }
