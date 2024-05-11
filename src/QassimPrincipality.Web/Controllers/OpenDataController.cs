@@ -76,7 +76,6 @@ namespace QassimPrincipality.Web.Controllers
         {
             AddOpenDataViewModel vM = new AddOpenDataViewModel();
             var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
-
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = "1234567899";
             ViewData["requestertypes"] = await _lookUpService.GetRequesterTypes();
