@@ -59,6 +59,12 @@ namespace QassimPrincipality.Web.Controllers
             var currentUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
             ViewBag.UserName = currentUser.UserName;
             ViewBag.ServiceId = id;
+
+            var checkInserted = await _evaluationAppService.CheckExist(id, currentUser.UserName);
+            if (checkInserted.Count > 0)
+                ViewBag.IsEvaluationDone = "True";
+            else ViewBag.IsEvaluationDone = "False";
+
             var allEvaluations = await _evaluationAppService.GetAllEvaluationsByService(id);
             if (allEvaluations.Count > 0)
             {

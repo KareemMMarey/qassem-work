@@ -92,12 +92,7 @@
                         @service.Audience
                     </div>
                 </div>
-                @if (ViewBag.AddValuationErrorMessage != null)
-                {
-
-                    <span class="text-danger">@ViewBag.AddValuationErrorMessage</span>
-
-                }
+                
                 <div class="service-details__meta-setions">
                     <div class="service-details__meta-title">تقييم الخدمة</div>
                     <div class="service-details__rating-stars">
@@ -137,7 +132,9 @@
                             </div>
                         }
 
-                        
+                        <div id="prevevaluted" style="display:none">
+                            <span class="text-danger">تم التقييم مسبقا</span> 
+                        </div>
 
                     </div>
                 </div>
@@ -153,13 +150,7 @@
     
 }
 <script type="text/javascript">
-
-    $(document).ready(function () {
-       
-        debugger;
-        // var element = document.getElementsByClassName("gl-star-rating--stars");
-        // var attValue = $element.attr("data-rating");
-        // $element.attr("data-rating", @ViewBag.EvaluationAvarege);
+    function SetSerrviceRating() {
         var element = $(".gl-star-rating--stars");
         var startsValue = null;
         if (@ViewBag.EvaluationAvarege && @ViewBag.EvaluationAvarege> 0) {
@@ -186,6 +177,13 @@
             $('.serviceRating option[value=1]').attr('selected', 'selected');
         }
         var starrating = new StarRating('#serviceRating', { tooltip: false });
+    }
+
+    $(document).ready(function () {
+       
+        debugger;
+        SetSerrviceRating();
+        
 
 
     });
@@ -194,14 +192,22 @@
 
     $('#serviceRating').change(function () {
         debugger;
-        var url = "/Home/AddEvaluation";
-        var eveluationValue = $('#serviceRating').val();
+        if ('@ViewBag.IsEvaluationDone' == 'False') {
+            var url = "/Home/AddEvaluation";
+            var eveluationValue = $('#serviceRating').val();
 
-        var objData = { userName: '@ViewBag.UserName', serviceId: '@ViewBag.serviceId', eveluationValue: eveluationValue };
+            var objData = { userName: '@ViewBag.UserName', serviceId: '@ViewBag.serviceId', eveluationValue: eveluationValue };
 
-        $.get(url, objData, function (data) {
-            console.log(data);
-        });
+            $.get(url, objData, function (data) {
+                console.log(data);
+            });
+            $('#prevevaluted').hide();
+        }
+        else {
+            $('#prevevaluted').show();
+            SetSerrviceRating();
+        }
+        
 
 
     });
