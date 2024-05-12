@@ -18,6 +18,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public string Description { get; set; }
         public int EntityTypeId { get; set; }
         public string EntityName { get; set; }
+        public string RejectReason { get; set; }
         public string PurposeOfRequest { get; set; }
         public EntityType EntityType { get; set; } // open data
         public bool? IsShareAgreementExist { get; set; }
@@ -25,7 +26,7 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public bool? IsRequesterDataOfficePresenter { get; set; }
         public bool? IsLegalJustification { get; set; }
         public bool IsAllowed { get; set; }
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
         public string LegalJustificationDescription { get; set; }
     }
 }

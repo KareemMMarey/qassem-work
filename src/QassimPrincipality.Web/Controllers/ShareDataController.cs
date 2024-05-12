@@ -115,6 +115,8 @@ namespace QassimPrincipality.Web.Controllers
             ;
             dto.IsContainsPersonalData = model.IsContainsPersonalData == "true" ? true : false;
             dto.IsShareAgreementExist = model.IsShareAgreementExist == "true" ? true : false;
+            dto.IsApproved = null;
+            dto.CreatedBy = HttpContext.User.GetId();
             await _shareDataService.InsertAsync(dto);
             return RedirectToAction(
                 "Index",
@@ -173,6 +175,21 @@ namespace QassimPrincipality.Web.Controllers
             var result = await _shareDataService.GetById(Guid.Parse(requestId));
 
             return View(result);
+        }
+
+        [Authorize(Roles = "ShareDataRequestAdmin")]
+        public async Task<IActionResult> Accept(string requestId)
+        {
+            await _shareDataService.AcceptOrReject(Guid.Parse(requestId), true);
+            return RedirectToAction("Details", new { requestId });
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "ShareDataRequestAdmin")]
+        public async Task<IActionResult> Reject(string requestId, string rejectReasons)
+        {
+            await _shareDataService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
+            return RedirectToAction("Details", new { requestId });
         }
     }
 }

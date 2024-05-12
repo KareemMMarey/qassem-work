@@ -61,6 +61,24 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
             }
         }
 
+
+        public async Task AcceptOrReject(Guid id, bool isApproved, string notes = "")
+        {
+            try
+            {
+                var shareDataRequest = await _repo.GetByIdAsync(id);
+                shareDataRequest.IsApproved = isApproved;
+                if (!isApproved)
+                {
+                    shareDataRequest.RejectReason = notes;
+                }
+                shareDataRequest = await _repo.UpdateAsync(shareDataRequest, true);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public async Task<Guid> UpdateAsync(ShareDataDto ShareDataDto)
         {
             if (ShareDataDto.Id == Guid.Empty)
