@@ -1,0 +1,90 @@
+﻿@using QassimPrincipality.Application.Services.Main.UploadRequest.Dto
+@using QassimPrincipality.Web.Helpers.TagHelpers
+
+@model UploadRequestSearchDto;
+@{
+    ViewBag.Title = "طلباتي";
+    Layout = "_Layout";
+}
+
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-12">
+        <div class="page-panel" id="elementToToggle">
+            <h3 class="page-title margin-bottom-lg"> @ViewBag.Title </h3>
+            <div class="idm-search">
+                <form asp-controller="Request" asp-action="Index" method="get">
+                    @*  <div class="form-group">
+                    <div class="col-12 mb-3">
+                    <select id="type" name="type">
+                    <option value="1" >طلبات منتهية بالموافقة</option>
+                    <option value="0" >طلبات منتهية بالرفض</option>
+                    <option value="2" >طلبات قيد الإجراء</option>
+                    <option value="3" > كل الطلبات </option>
+                    </select>
+                    </div>
+                    </div> *@
+                    <div class="row g-3 align-items-center margin-bottom-lg">
+                        <div class="col-auto"><label class="col-form-label">أنواع الطلبات</label></div>
+                        <div class="col-auto">
+                            <select id="type" name="type" onchange="this.form.submit()" asp-items="@ViewBag.items"
+                                    class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            @if (Model.TotalItemsCount > 0)
+            {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>عنوان الطلب</th>
+                                <th>مقدم الطلب</th>
+                                <th>تاريخ الطلب</th>
+                                <th>حالة الطلب</th>
+                                <th style="width:80px"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var request in Model.Items)
+                            {
+                                <tr>
+                                    <td>@(request.RequestName ?? "--")</td>
+                                    <td>@(request.CreatedByFullName ?? "--")</td>
+                                    <td>@request.RequestDate</td>
+                                    @switch (request.IsApproved)
+                                    {
+                                        case true:
+                                    <td><span class="badge text-bg-success">تمت الموافقة</span></td>
+                                            break;
+                                        case false:
+                                    <td><span class="badge text-bg-danger">مرفوض</span></td>
+                                            break;
+                                        default:
+                                    <td><span class="badge text-bg-info">الطلب تحت الإجراء</span></td>
+                                            break;
+                                    }
+                                    <td>
+
+                                        <a class="btn bt-sm" asp-action="Details" asp-route-requestId="@request.Id" asp->
+                                            <svg width="24" height="24">
+                                                <use xlink:href="/assets/images/svg-icons.svg#view"></use>
+                                            </svg>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+            }
+            else
+            {
+                <div class="" style="text-align: center; padding-top: 25px">لا يوجد بيانات</div>
+            }
+            <div class="idm-pager">
+                @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
+            </div>
+        </div>
+    </div>
+</div>
+

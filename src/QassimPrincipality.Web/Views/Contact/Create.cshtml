@@ -5,6 +5,130 @@
 @{
     ViewData["Title"] = "Add a new Request";
 }
+
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">شكوى</h3>
+            <form id="client-form" class="form" asp-controller="Contact" asp-action="Create" Method="post">
+                <div class="row">
+                    @if (ViewData["contacttypes"] != null)
+                    {
+                        var types = (List<SelectListItem>)ViewData["contacttypes"];
+                        <div class="col-xl-6">
+                            <div id="RequestType" class="form-group">
+                                <label class="form-label" asp-for="ContactTypeId">
+                                    نوع الطلب
+                                </label>
+
+                                <select asp-for="ContactTypeId" required asp-items="@(new SelectList(types, "Value", "Text"))"
+                                        class="form-control" id="ddlContactTypes">
+                                </select>
+                                <span asp-validation-for="ContactTypeId" class="text-danger"></span>
+
+                            </div>
+                        </div>
+                    }
+
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserFullName">
+                                اسم
+                            </label>
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
+                            <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="form-group">
+
+
+                            <label class="form-label" asp-for="UserEmail">
+                                البريد إلكتروني
+                            </label>
+
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail">
+                            <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="IdentityNumber">
+                                رقم الهوية / الإقامة
+                            </label>
+
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="IdentityNumber">
+                            <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="UserMobile">
+                                رقم الجوال
+                            </label>
+
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile">
+                            <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="ContactTitle">
+                                عنوان الشكوى
+                            </label>
+
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="ContactTitle">
+                            <span asp-validation-for="ContactTitle" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    @* <div class="form-group">
+                    <label class="form-label" asp-for="Description">
+                    >ملخص الشكوى
+                    </label>
+                    <div class="col-sm-8">
+
+
+                    <textarea  class="form-control col-8" cols="20"  id="Note" maxlength="150" minlength="3" name="Note" asp-for="Description" placeholder="ملخص الشكوى" rows="4"></textarea>
+                    <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                    </div>
+                    </div> *@
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label asp-for="Description" class="control-label">ملخص الشكوى</label>
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+
+
+
+                    @*  <div class="form-group">
+                    <label for="inputPassword3" class="form-label">تقييم الخدمة</label>
+                    <div class="col-md-6 rating" style="justify-content:flex-end !important">
+                    <input type="radio" name="rating" onclick="handleClick(this);" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="1" id="1"><label for="1">☆</label>
+                    </div>
+                    </div> *@
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">إرسال</button>
+                            <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 <div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
 
 
@@ -31,143 +155,8 @@
             </div>
         </div>
     </div>
-    <h2>شكوى</h2>
-    <style>
-
-        .caption {
-            position: absolute;
-            top: 20%;
-            left: 0;
-            width: 100%;
-            color: #008055;
-            font-size: calc(50% + 0.5vw + 0.5vh);
-            font-weight: bold;
-        }
-    </style>
-
-    <form id="client-form" asp-controller="Contact" asp-action="Create" Method="post">
-        <div class="container card NoTransform p-5 d-flex justify-content-center">
 
 
-
-            <div class="container ">
-                @if (ViewData["contacttypes"] != null)
-                {
-                    var types = (List<SelectListItem>)ViewData["contacttypes"];
-                    <div class="form-group row">
-                        <div id="RequestType" class="form-group">
-                            <label asp-for="ContactTypeId">
-                                نوع الطلب
-                            </label>
-
-                            <select asp-for="ContactTypeId" required asp-items="@(new SelectList(types, "Value", "Text"))"
-                                    class="form-control" id="ddlContactTypes">
-                            </select>
-                            <span asp-validation-for="ContactTypeId" class="text-danger"></span>
-
-                        </div>
-                    </div>
-                }
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserFullName">
-                        اسم
-                    </label>
-
-
-
-                    <div class="col-sm-8">
-
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserFullName">
-                        <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    
-
-                    <label class="col-sm-3 col-form-label" asp-for="UserEmail">
-                        البريد إلكتروني
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserEmail">
-                        <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="IdentityNumber">
-                       رقم الهوية / الإقامة
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="IdentityNumber">
-                        <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="UserMobile">
-                        رقم الجوال
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="UserMobile">
-                        <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="ContactTitle">
-                        عنوان الشكوى
-                    </label>
-                    <div class="col-sm-8">
-
-                        <input type="text" class="form-control col-8 text-box single-line" asp-for="ContactTitle">
-                        <span asp-validation-for="ContactTitle" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div>
-                @* <div class="form-group row">
-                    <label class="col-sm-3 col-form-label" asp-for="Description">
-                        >ملخص الشكوى
-                    </label>
-                    <div class="col-sm-8">
-
-                       
-                        <textarea  class="form-control col-8" cols="20"  id="Note" maxlength="150" minlength="3" name="Note" asp-for="Description" placeholder="ملخص الشكوى" rows="4"></textarea>
-                        <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
-                    </div>
-                </div> *@
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label">ملخص الشكوى</label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
-                </div>
-
-
-
-
-                @*  <div class="form-group row">
-                    <label for="inputPassword3" class="col-sm-3 col-form-label">تقييم الخدمة</label>
-                    <div class="col-md-6 rating" style="justify-content:flex-end !important">
-                        <input type="radio" name="rating" onclick="handleClick(this);" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="1" id="1"><label for="1">☆</label>
-                    </div>
-                </div> *@
-                <div class="form-group row">
-                    <div class="col-sm-10">
-
-                        <a class="btn btn-dark-green btn-bg" href="/">الى الخلف</a>
-                        <button type="submit" class="btn btn-dark-green text-right">إرسال</button>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </form>
 
 
 

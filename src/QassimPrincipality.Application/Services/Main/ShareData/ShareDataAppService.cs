@@ -1,12 +1,12 @@
-﻿
-using QassimPrincipality.Domain.Interfaces;
+﻿using System.Linq.Expressions;
 using Framework.Core.AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using QassimPrincipality.Application.Services.Main.ShareData;
+using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Services;
+using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using QassimPrincipality.Application.Services.Main.OpenData;
-using System.Linq.Expressions;
+using QassimPrincipality.Application.Services.Main.ShareData;
+using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
 {
@@ -15,7 +15,10 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
         private readonly IRepository<Domain.Entities.Services.Main.ShareDataRequest> _repo;
         private readonly AppSettingsService _appSettingsService;
 
-        public ShareDataAppService(IRepository<Domain.Entities.Services.Main.ShareDataRequest> repo, AppSettingsService appSettingsService)
+        public ShareDataAppService(
+            IRepository<Domain.Entities.Services.Main.ShareDataRequest> repo,
+            AppSettingsService appSettingsService
+        )
         {
             _repo = repo;
             _appSettingsService = appSettingsService;
@@ -33,9 +36,12 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
             return shareDataRequest.MapTo<List<ShareDataDto>>();
         }
 
-        public async Task<Domain.Entities.Services.Main.ShareDataRequest> InsertAsync(ShareDataDto ShareDataDto)
+        public async Task<Domain.Entities.Services.Main.ShareDataRequest> InsertAsync(
+            ShareDataDto ShareDataDto
+        )
         {
-            var shareDataRequest = ShareDataDto.MapTo<Domain.Entities.Services.Main.ShareDataRequest>();
+            var shareDataRequest =
+                ShareDataDto.MapTo<Domain.Entities.Services.Main.ShareDataRequest>();
             var saved = await _repo.InsertAsync(shareDataRequest, true);
             return saved;
         }
@@ -57,11 +63,13 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
 
         public async Task<Guid> UpdateAsync(ShareDataDto ShareDataDto)
         {
-            if (ShareDataDto.Id==Guid.Empty)
+            if (ShareDataDto.Id == Guid.Empty)
             {
                 return Guid.Empty;
             }
-            var oldData = await _repo.TableNoTracking.FirstOrDefaultAsync(s => s.Id == ShareDataDto.Id);
+            var oldData = await _repo.TableNoTracking.FirstOrDefaultAsync(s =>
+                s.Id == ShareDataDto.Id
+            );
             if (oldData == null)
             {
                 return Guid.Empty;
@@ -90,6 +98,7 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
                 throw;
             }
         }
+
         public async Task<ShareDataRequestSearchDto> SearchAsync(
             ShareDataRequestSearchDto shareDataDto
         )
@@ -97,11 +106,11 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
             var filters =
                 new List<Expression<Func<Domain.Entities.Services.Main.ShareDataRequest, bool>>>();
 
-
             if (shareDataDto.IsApproved != null)
                 filters.Add(a => a.IsApproved == shareDataDto.IsApproved);
 
-
+            if (!shareDataDto.CreatedBy.IsNullOrWhiteSpace())
+                filters.Add(a => a.CreatedBy == shareDataDto.CreatedBy);
 
             Func<
                 IQueryable<Domain.Entities.Services.Main.ShareDataRequest>,
@@ -117,7 +126,6 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
                 a => a.MapTo<ShareDataDto>(),
                 filters
             );
-
 
             shareDataDto.Items = new StaticPagedList<ShareDataDto>(
                 result,

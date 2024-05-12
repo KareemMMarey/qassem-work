@@ -19,12 +19,14 @@ namespace QassimPrincipality.Application.Services.Main.ShareData
         public int EntityTypeId { get; set; }
         public string EntityName { get; set; }
         public string PurposeOfRequest { get; set; }
+        public string CreatedBy { get; set; }
         public bool? IsShareAgreementExist { get; set; }
         public bool? IsContainsPersonalData { get; set; }
         public bool? IsRequesterDataOfficePresenter { get; set; }
         public bool? IsLegalJustification { get; set; }
         public bool IsAllowed { get; set; }
         public bool? IsApproved { get; set; }
+        public bool? IsPending { get; set; }
         public int? TotalItemsCount { get; set; }
         public new StaticPagedList<ShareDataDto> Items { get; set; }
     }

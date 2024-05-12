@@ -2,11 +2,18 @@
 @{
     ViewData["Title"] = "إمازة منطقة القصيم | الصفحة الرئيسية";
 }
-
-<h3 class="page-title margin-bottom-lg">
-    الخدمات الإلكترونية لإمارة منطقة القصيم
-</h3>
-
+<div class="margin-bottom-lg">
+    <h3 class="page-title margin-bottom-md">الخدمات الإلكترونية لإمارة منطقة القصيم</h3>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="form-group">
+                    <input class="form-control" id="filterInput" type="search" placeholder="البحث في الخدمات">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="services-list">
         <div class="row">
@@ -15,7 +22,7 @@
                 var categories = (List<EServiceCategoryDto>)ViewData["categories"];
                 foreach (EServiceCategoryDto item in categories)
                 {
-                    <div class="col-xxl-3">
+                    <div class="col-xxl-3 services-card-wrapper">
                         <a class="services-card"  href="@Url.Action("SubCategories", "Home", new
                                              {                                                     // htmlAttributes
                                                  categoryId = item.Id,
@@ -31,6 +38,18 @@
                     </div>
                 }
             }
+        </div>
+        <div class="row justify-content-center margin-top-base service-list-empty" id="serviceEmptyState">
+          <div class="col-6">
+            <div class="services-card service-card--empty">
+              <div class="service-card__icon">
+                <svg>
+                  <use xlink:href="/assets/images/svg-icons.svg#no-search-result"></use>
+                </svg>
+              </div>
+              <div class="service-card__title">عذراً .. لا يوجد خدمات</div>
+            </div>
+          </div>
         </div>
     </div>
 </div>

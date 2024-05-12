@@ -21,5 +21,6 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         public bool? IsApproved { get; set; }
         public int? TotalItemsCount { get; set; }
         public new StaticPagedList<ContactFormDto> Items { get; set; }
+        public string CreatedBy { get; set; }
     }
 }

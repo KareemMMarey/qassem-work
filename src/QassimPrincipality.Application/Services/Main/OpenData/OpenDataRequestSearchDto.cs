@@ -17,9 +17,11 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
         public string UserMobile { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string CreatedBy { get; set; }
         public int RequesterTypeId { get; set; }
         public bool IsAllowed { get; set; }
         public bool? IsApproved { get; set; }
+        public bool? isPending { get; set; }
         public int? TotalItemsCount { get; set; }
         public new StaticPagedList<OpenDataDto> Items { get; set; }
     }

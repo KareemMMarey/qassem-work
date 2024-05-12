@@ -1,11 +1,10 @@
-﻿
-using QassimPrincipality.Domain.Interfaces;
+﻿using System.Linq.Expressions;
 using Framework.Core.AutoMapper;
-using Microsoft.EntityFrameworkCore;
+using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Services;
+using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
-using QassimPrincipality.Application.Services.Main.ShareData;
-using System.Linq.Expressions;
+using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Services.Main.Contact
 {
@@ -14,7 +13,10 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         private readonly IRepository<Domain.Entities.Services.Main.ContactForm> _contactRepository;
         private readonly AppSettingsService _appSettingsService;
 
-        public ContactFormAppService(IRepository<Domain.Entities.Services.Main.ContactForm> eServiceCategoryRepository, AppSettingsService appSettingsService)
+        public ContactFormAppService(
+            IRepository<Domain.Entities.Services.Main.ContactForm> eServiceCategoryRepository,
+            AppSettingsService appSettingsService
+        )
         {
             _contactRepository = eServiceCategoryRepository;
             _appSettingsService = appSettingsService;
@@ -32,9 +34,12 @@ namespace QassimPrincipality.Application.Services.Main.Contact
             return eServiceCategory.MapTo<List<ContactFormDto>>();
         }
 
-        public async Task<Domain.Entities.Services.Main.ContactForm> InsertAsync(ContactFormDto ContactFormDto)
+        public async Task<Domain.Entities.Services.Main.ContactForm> InsertAsync(
+            ContactFormDto ContactFormDto
+        )
         {
-            var eServiceCategory = ContactFormDto.MapTo<Domain.Entities.Services.Main.ContactForm>();
+            var eServiceCategory =
+                ContactFormDto.MapTo<Domain.Entities.Services.Main.ContactForm>();
             var saved = await _contactRepository.InsertAsync(eServiceCategory, true);
             return saved;
         }
@@ -43,9 +48,11 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         {
             try
             {
-                var entity = await _contactRepository.GetByIdAsync(id);
+                var entity = await _contactRepository
+                    .TableNoTracking.Include(c => c.ContactType)
+                    .FirstOrDefaultAsync(c => c.Id == id);
                 var ContactFormDto = entity.MapTo<ContactFormDto>();
-
+                ContactFormDto.ContactTypeName = entity.ContactType.NameAr;
                 return await Task.FromResult(ContactFormDto);
             }
             catch (Exception e)
@@ -56,11 +63,13 @@ namespace QassimPrincipality.Application.Services.Main.Contact
 
         public async Task<Guid> UpdateAsync(ContactFormDto ContactFormDto)
         {
-            if (ContactFormDto.Id==Guid.Empty)
+            if (ContactFormDto.Id == Guid.Empty)
             {
                 return Guid.Empty;
             }
-            var oldData = await _contactRepository.TableNoTracking.FirstOrDefaultAsync(s => s.Id == ContactFormDto.Id);
+            var oldData = await _contactRepository.TableNoTracking.FirstOrDefaultAsync(s =>
+                s.Id == ContactFormDto.Id
+            );
             if (oldData == null)
             {
                 return Guid.Empty;
@@ -74,7 +83,9 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         {
             try
             {
-                var obj = await _contactRepository.TableNoTracking.FirstOrDefaultAsync(m => m.Id == id);
+                var obj = await _contactRepository.TableNoTracking.FirstOrDefaultAsync(m =>
+                    m.Id == id
+                );
                 if (obj != null)
                 {
                     return await _contactRepository.DeleteAsync(m => m.Id == id, true);
@@ -89,18 +100,17 @@ namespace QassimPrincipality.Application.Services.Main.Contact
                 throw;
             }
         }
-        public async Task<ContactDataSearchDto> SearchAsync(
-           ContactDataSearchDto contactSearchDto
-       )
+
+        public async Task<ContactDataSearchDto> SearchAsync(ContactDataSearchDto contactSearchDto)
         {
             var filters =
                 new List<Expression<Func<Domain.Entities.Services.Main.ContactForm, bool>>>();
 
-
             if (contactSearchDto.IsApproved != null)
                 filters.Add(a => a.IsApproved == contactSearchDto.IsApproved);
 
-
+            if (!contactSearchDto.CreatedBy.IsNullOrWhiteSpace())
+                filters.Add(a => a.CreatedBy == contactSearchDto.CreatedBy);
 
             Func<
                 IQueryable<Domain.Entities.Services.Main.ContactForm>,
@@ -116,7 +126,6 @@ namespace QassimPrincipality.Application.Services.Main.Contact
                 a => a.MapTo<ContactFormDto>(),
                 filters
             );
-
 
             contactSearchDto.Items = new StaticPagedList<ContactFormDto>(
                 result,

@@ -44,7 +44,7 @@ namespace QassimPrincipality.Web.Controllers
 
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
-
+        [AllowAnonymous]
         public IActionResult NafathLogin() => View(new NafathLoginVM());
 
         [AllowAnonymous]
@@ -79,8 +79,9 @@ namespace QassimPrincipality.Web.Controllers
             return View(loginVM);
         }
 
-        [HttpPost]
+
         [AllowAnonymous]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> NafathLogin(NafathLoginVM loginVM)
         {
@@ -139,13 +140,14 @@ namespace QassimPrincipality.Web.Controllers
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
-            if (newUserResponse.Succeeded) {
+            if (newUserResponse.Succeeded)
+            {
 
                 //var addedUser = await _roleManager.FindByNameAsync(UserRoles.User);
                 //await _userManager.AddToRoleAsync(newUser, addedUser.Name);
                 await _userServices.AddRoleAsync(newUser.Id, UserRoles.User);
             }
-               
+
 
             return RedirectToAction(
                 "Index",
@@ -199,6 +201,7 @@ namespace QassimPrincipality.Web.Controllers
                     "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}",
                     random
                 );
+                ViewBag.UserName = model.IdentityNumber;
                 ViewBag.TransId = transId;
                 ViewBag.Random = random;
             }
@@ -304,6 +307,60 @@ namespace QassimPrincipality.Web.Controllers
             var users = await _userManager.Users.ToListAsync();
             var userViewModel = users.MapTo<List<UserDto>>();
             return View(userViewModel);
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> CheckNafathRequest(
+    string userName,
+    string random,
+    string transId
+)
+        {
+            try
+            {
+                List<ApiHeaders> headers = new List<ApiHeaders>
+    {
+        new ApiHeaders { Name = "Authorization", Value = _nafathConfiguartion.Value.ApiKey },
+        new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey }
+    };
+
+                _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.id = long.Parse(userName);
+                if (!string.IsNullOrEmpty(random))
+                    _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.random = long.Parse(random);
+                if (!string.IsNullOrEmpty(transId))
+                    _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.transId = transId;
+
+                var result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
+                    _nafathConfiguartion.Value.ApiUrl,
+                    _nafathConfiguartion.Value.NafathCheckRequstBody,
+                    headers.ToArray());
+                var status = result["status"].ToString();
+
+                for (int i = 0; i <= 3; i++)
+                {
+                    Thread.Sleep(7000);
+                    result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
+                   _nafathConfiguartion.Value.ApiUrl,
+                   _nafathConfiguartion.Value.NafathCheckRequstBody,
+                   headers.ToArray());
+                    status = result["status"].ToString();
+                    if (status == NafathStatus.COMPLETED.ToString())
+                    {
+                        var person = result["person"];
+                        TempData["arTwoNames"] = JsonConvert.SerializeObject(person["arTwoNames"]);
+                        TempData["accessToken"] = JsonConvert.SerializeObject(result["accessToken"]);
+                        break;
+
+                    }
+                }
+
+                return Ok(new { status });
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { status = "Exception" });
+            }
+
         }
     }
 }

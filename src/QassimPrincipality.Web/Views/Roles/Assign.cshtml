@@ -1,29 +1,40 @@
 ﻿@using QassimPrincipality.Web.ViewModels.Roles
 @model List<RoleAssignViewModel>
 
-
-
-<h1 class="mb-3">Assign a role to the user - @ViewBag.Username</h1>
-
-@if (0 >= Model.Count)
-{
-    <h3 class="h3">Roles is not found!</h3>
+@{
+    ViewData["Title"] = "تعيين صلاحية";
+    // Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-else
-{
-    <form asp-action="Assign" method="post" class="my-2">
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">تعيين الصلاحية للمستخدم - @ViewBag.Username</h3>
 
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <div class="form-check my-1">
-                <input asp-for="@Model[i].Exist" type="checkbox" class="form-check-input" />
-                <label asp-for="@Model[i].Id" class="form-check-label">@Model[i].Name</label>
+            @if (0 >= Model.Count)
+            {
+                <h3 class="h3">الصلاحيات غير موجودة!</h3>
+            }
+            else
+            {
+                <form asp-action="Assign" method="post" class="form">
 
-                <input asp-for="@Model[i].Name" type="hidden" />
-                <input asp-for="@Model[i].Id" type="hidden" />
-            </div>
-        }
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <div class="align-items-center d-flex gap-2">
+                            <input asp-for="@Model[i].Exist" id="@Model[i].Id" type="checkbox" class="form-check-input" />
+                            <label asp-for="@Model[i].Id" for="@Model[i].Id" class="form-check-label">@Model[i].Name</label>
 
-        <button type="submit" class="btn btn-sm btn-secondary mt-2">Role Assign</button>
-    </form>
-}
+                            <input asp-for="@Model[i].Name" type="hidden" />
+                            <input asp-for="@Model[i].Id" type="hidden" />
+                        </div>
+                    }
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">تعيين صلاحية</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+

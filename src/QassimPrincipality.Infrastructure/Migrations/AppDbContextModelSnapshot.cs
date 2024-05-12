@@ -453,7 +453,7 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<string>("IdentityNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsApproved")
+                    b.Property<bool?>("IsApproved")
                         .HasColumnType("bit");
 
                     b.Property<string>("UpdatedBy")
@@ -499,8 +499,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Property<bool>("IsAllowed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsApproved")
+                    b.Property<bool?>("IsApproved")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RejectReason")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RequesterTypeId")
                         .HasColumnType("int");

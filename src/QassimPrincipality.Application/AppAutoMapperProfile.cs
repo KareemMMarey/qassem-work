@@ -15,6 +15,7 @@ using QassimPrincipality.Application.Services.Lookups.Main.CommonEService;
 using QassimPrincipality.Application.Services.Main.Contact;
 using QassimPrincipality.Application.Services.Main.ShareData;
 using QassimPrincipality.Application.Services.Main.OpenData;
+using QassimPrincipality.Application.Services.Main.Evaluation;
 
 namespace QassimPrincipality.Application
 {
@@ -41,6 +42,7 @@ namespace QassimPrincipality.Application
             this.CreateMap<AttachmentDto, Attachment>()
                 .ForMember(c=>c.AttachmentType,s=>s.MapFrom(x=>x.AttachmentTypeId))
                 .ReverseMap();
+            this.CreateMap<ServiceEvaluation, EvaluationDto>().ReverseMap();
             //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
             //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
             //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();

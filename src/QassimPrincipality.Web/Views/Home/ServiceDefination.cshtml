@@ -3,148 +3,212 @@
 @if (ViewData["service"] != null)
 {
     var service = (CommonEServiceDto)ViewData["service"];
-    <div class="row">
-
-        <div class="col-4 order-12 row pr-5">
-            <div class="text-center">
-
-
-                <div>
-                    @* <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="fa fa-users card-img-top text-secondary"></i>
-                                تقييم الخدمة
-                            </h5>
-
-                            <div class="rating">
-                                <input type="radio" name="rating" onclick="handleClick(this);" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" onclick="handleClick(this);" value="1" id="1"><label for="1">☆</label>
-                            </div>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item RateItem" id="RateItem">(223) </li>
-                            <li class="list-group-item listItem" id="ListItem">3.1 متوسط التقييمات </li>
-                        </ul>
-
-                    </div> *@
-
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                <div class="mt-3">
-                    @Html.ActionLink(
-                             "ابدأ الخدمة",                                               
-                             "Create",                                    
-                             "Request", null
-                             )
-                    @* <a class="btn btn-lg btn-dark-green btn-wide" href="/ServiceForm/Form-ac008-20?service=Form-ac008-20&amp;Category=allservices">
-                        <i class="fas fa-sign-in-alt fa-lg">&nbsp;</i>ابدأ الخدمة
-                    </a> *@
-
-                </div>
-                <div class="mt-3">
-                    <a class="btn btn-lg btn-dark-green btn-wide" target="_blank" href="/Home/InstructionManual"><i class="fa fa-download fa-lg">&nbsp;</i>تحميل دليل الخدمة </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-7">
-            <h2 class="page-title">
-                <span>
-                    @service.NameAr
-                </span>
-            </h2>
-            <div class="form-group col-md-12 mt-4">
-                <h3>وصف الخدمة</h3>
-                <p>
+    <nav aria-label="breadcrumb margin-bottom-lg">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="/">المشاركة المجتمعية</a></li>
+            <li class="breadcrumb-item active">@service.NameAr</li>
+        </ol>
+    </nav>
+    <div class="service-header">
+        <div class="service-header__title">@service.NameAr</div>
+        <div class="service-header__actions"> <a href="/Request/Create" class="btn btn-outline-primary">ابدأ الخدمة</a></div>
+        @*
+            @Html.ActionLink(
+                "ابدأ الخدمة",
+                "Create",
+                "Request", null
+                )
+        *@
+        @* <a class="btn btn-lg btn-dark-green btn-wide" href="/ServiceForm/Form-ac008-20?service=Form-ac008-20&amp;Category=allservices">
+    <i class="fas fa-sign-in-alt fa-lg">&nbsp;</i>ابدأ الخدمة
+    </a> *@
+    </div>
+    <div class="row service-details">
+        <div class="col-xxl-9 service-tabs-wrapper">
+            <ul class="service-tabs nav nav-pills" id="pills-tab" role="tablist">
+                <li class="service-tabs__item nav-item" role="presentation">
+                    <button class="nav-link service-tabs__link active" id="tab1" data-bs-toggle="pill" data-bs-target="#tab1Content" type="button" role="tab" aria-controls="tab1Content" aria-selected="true">وصف الخدمة</button>
+                </li>
+                <li class="service-tabs__item nav-item" role="presentation">
+                    <button class="nav-link service-tabs__link" id="tab2" data-bs-toggle="pill" data-bs-target="#tab2Content" type="button" role="tab" aria-controls="tab2Content" aria-selected="false">متطلبات الخدمة</button>
+                </li>
+                <li class="service-tabs__item nav-item" role="presentation">
+                    <button class="nav-link service-tabs__link" id="tab3" data-bs-toggle="pill" data-bs-target="#tab3Content" type="button" role="tab" aria-controls="tab3Content" aria-selected="false">مخطط سير الخدمة</button>
+                </li>
+            </ul>
+            <div class="tab-content service-tabs-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="tab1Content" role="tabpanel" aria-labelledby="tab1" tabindex="0">
                     @service.DescriptionAr
-                </p>
-                <p class="mt-4">
-                    <span style="color:green">ملاحظة </span>: لاستخدام الخدمات يتوجب عليك الدخول من خلال النفاذ الوطني الموحد
-                </p>
-            </div>
-            <div class="form-group col-12 mt-4">
-                <h4>
-                    متطلبات الخدمة
-                </h4>
-                <ul>
-                    @Html.Raw(service.ServiceRequierment)
-                    
-                    @* <li>لا يقل عمر المتقدم للزواج عن 35 سنة، ولا يزيد عن 70 سنة.</li>
-                    <li>تقرير طبي لطالب الزواج.</li>
-                    <li>تقرير طبي عن الحالة الصحية للزوجة إذا كان متزوج.</li>
-                    <li>تعريف عمل وإذا كان موظفا أهليا يجب تصديق التعريف من الغرفة التجارية أو مشهد مصدق من العمدة والشرطة بعدم وجود عمل.</li>
-                    <li>صورة من بطاقة الأحوال أو كرت العائلة إذا كان متزوج.</li>
-                    <li>صورة من شهادة الوفاة أو صك الطلاق لمن سبق له الزواج.</li>
-                    <li>صورة شخصية للزوج.</li> *@
-                </ul>
-            </div>
-            <div class="col-12 mt-4">
-                <div class="row">
-                    <div class="col-6">
-                        <h4>
-                            الفئة المستفيدة
-                        </h4>
-                        <p>@service.Audience</p>
+                    <div>
+                        <span style="color:green">ملاحظة </span>: لاستخدام الخدمات يتوجب عليك الدخول من خلال النفاذ الوطني الموحد
                     </div>
+                </div>
+                <ol class="tab-pane fade" id="tab2Content" role="tabpanel" aria-labelledby="tab2" tabindex="0">
+                    @Html.Raw(service.ServiceRequierment)
+                </ol>
+                <div class="tab-pane fade" id="tab3Content" role="tabpanel" aria-labelledby="tab3" tabindex="0">
+                    <p>حسب  <a target="_blank" href="/allservices/eservices_SLA">اتفاقية مستوى الخدمة</a></p>
+                    <h4>
+                        قنوات بديلة للحصول على الخدمة
+                    </h4>
+                    <p>موقع الإمارة</p>
                     <div class="col-6">
                         <h4>
                             @service.DurationDays
                         </h4>
-                        <p>حسب  <a target="_blank" href="/allservices/eservices_SLA">اتفاقية مستوى الخدمة</a></p>
+                        <p>حسب  <a target="_blank" href="~/assets/SLA.pdf">اتفاقية مستوى الخدمة</a></p>
 
+                    </div>
+                    <div class="form-group col-md-11">
+                        <label for="companyName" class=" col-form-label-sm" style="font-size:1rem ;font-weight:bold">في حال عدم تنفيذ طلبكم في الوقت المحدد نأمل التواصل معنا &nbsp;</label>
+                        @Html.ActionLink(
+                                 "تقديم شكوى",
+                                 "Create",
+                                 "Contact", null
+                                 )
+                    </div>
+
+                    <div class="form-group col-md-10">
+                        <label class=" col-form-label-sm" style="font-size:1rem">في حال وجود شكوى برجاء الدخول على الرابط التالي&nbsp;</label>
+                        @* <a class="" href="/Complain/beneficiaryVoice"> تقديم شكوى </a> *@
+                        @Html.ActionLink(
+                                 "تقديم شكوى",
+                                 "Create",
+                                 "Contact", null
+                                 )
+                    </div>
+                    <div class="mt-3">
+                        <a class="btn btn-lg btn-dark-green btn-wide" target="_blank" href="~/assets/InstructionManual.pdf"><i class="fa fa-download fa-lg">&nbsp;</i>تحميل دليل الخدمة </a>
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-6">
-                        <h4>
-                            رسوم الخدمة
-                        </h4>
-                        <p>@service.ServiceFees</p>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-8">
-                        <h4>
-                            قنوات بديلة للحصول على الخدمة
-                        </h4>
-                        <p>موقع الإمارة</p>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <div class="form-group col-md-11">
-                <label for="companyName" class=" col-form-label-sm" style="font-size:1rem ;font-weight:bold">في حال عدم تنفيذ طلبكم في الوقت المحدد نأمل التواصل معنا &nbsp;</label>
-                @Html.ActionLink(
-                         "تقديم شكوى",
-                         "Create",
-                         "Contact", null
-                         )
-            </div>
-
-            <div class="form-group col-md-10">
-                <label class=" col-form-label-sm" style="font-size:1rem">في حال وجود شكوى برجاء الدخول على الرابط التالي&nbsp;</label>
-                @* <a class="" href="/Complain/beneficiaryVoice"> تقديم شكوى </a> *@
-                @Html.ActionLink(
-                         "تقديم شكوى",
-                         "Create",
-                         "Contact", null
-                         )
-            </div>
-
-
         </div>
+        <aside class="col-xxl-3">
+            <div class="service-details__meta">
+                <div class="service-details__meta-setions">
+                    <div class="service-details__meta-title">الفئة المستفيدة</div>
+                    <div class="service-details__audience">
+                        @service.Audience
+                    </div>
+                </div>
+                
+                <div class="service-details__meta-setions">
+                    <div class="service-details__meta-title">تقييم الخدمة</div>
+                    <div class="service-details__rating-stars">
+                        <select id="serviceRating">
+                            <option value="0">Select a rating</option>
+                            <option value="5">Fantastic</option>
+                            <option value="4">Great</option>
+                            <option value="3">Good</option>
+                            <option value="2">Poor</option>
+                            <option value="1">Terrible</option>
+                        </select>
+                    </div>
+                    <div class="service-details__rating">
+                        @if (ViewBag.EvaluationAvarege!=null)
+                        {
 
+                            <div class="service-details__rating-row">
+                                <span>متوسط التقييمات:</span> @ViewBag.EvaluationAvarege
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="service-details__rating-row">
+                                <span>متوسط التقييمات:</span> 0
+                            </div>
+                        }
+                        @if (ViewBag.AllEvaluations != null)
+                        {
+                            <div class="service-details__rating-row">
+                                <span>عدد الأصوات:</span> @ViewBag.AllEvaluations
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="service-details__rating-row">
+                                <span>عدد الأصوات:</span> 0
+                            </div>
+                        }
+
+                        <div id="prevevaluted" style="display:none">
+                            <span class="text-danger">تم التقييم مسبقا</span> 
+                        </div>
+
+                    </div>
+                </div>
+                <div class="service-details__meta-setions">
+                    <div class="service-details__meta-title">
+                        رسوم الخدمة
+                    </div>
+                    <div>@service.ServiceFees</div>
+                </div>
+            </div>
+        </aside>
     </div>
+    
 }
+<script type="text/javascript">
+    function SetSerrviceRating() {
+        var element = $(".gl-star-rating--stars");
+        var startsValue = null;
+        if (@ViewBag.EvaluationAvarege && @ViewBag.EvaluationAvarege> 0) {
+            startsValue = @ViewBag.EvaluationAvarege;
+            if (@ViewBag.EvaluationAvarege== 1) {
+                $("#serviceRating").val("1").attr("selected", "selected");
+            }
+            if (@ViewBag.EvaluationAvarege== 2) {
+                // $('.serviceRating option[value=2]').attr('selected', 'selected');
+                $("#serviceRating").val("2").attr("selected", "selected");
+            }
+            if (@ViewBag.EvaluationAvarege== 3) {
+                $("#serviceRating").val("3").attr("selected", "selected");
+            }
+            if (@ViewBag.EvaluationAvarege== 4) {
+                $("#serviceRating").val("4").attr("selected", "selected");
+            }
+            if (@ViewBag.EvaluationAvarege== 5) {
+                $("#serviceRating").val("5").attr("selected", "selected");
+            }
+
+        }
+        else {
+            $('.serviceRating option[value=1]').attr('selected', 'selected');
+        }
+        var starrating = new StarRating('#serviceRating', { tooltip: false });
+    }
+
+    $(document).ready(function () {
+       
+        debugger;
+        SetSerrviceRating();
+        
+
+
+    });
+
+    
+
+    $('#serviceRating').change(function () {
+        debugger;
+        if ('@ViewBag.IsEvaluationDone' == 'False') {
+            var url = "/Home/AddEvaluation";
+            var eveluationValue = $('#serviceRating').val();
+
+            var objData = { userName: '@ViewBag.UserName', serviceId: '@ViewBag.serviceId', eveluationValue: eveluationValue };
+
+            $.get(url, objData, function (data) {
+                console.log(data);
+            });
+            $('#prevevaluted').hide();
+        }
+        else {
+            $('#prevevaluted').show();
+            SetSerrviceRating();
+        }
+        
+
+
+    });
+</script>

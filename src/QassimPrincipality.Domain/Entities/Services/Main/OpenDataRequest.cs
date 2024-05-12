@@ -19,8 +19,9 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public string Description { get; set; }
         public int RequesterTypeId { get; set; }
         public bool IsAllowed { get; set; }
-        public bool IsApproved { get; set; }
+        public bool? IsApproved { get; set; }
         public string IdentityNumber { get; set; }
+        public string RejectReason { get; set; }
         public RequesterType RequesterType { get; set; } // open data
         public List<Attachment> Attachments { get; set; }
 

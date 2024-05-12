@@ -1,0 +1,77 @@
+﻿@using QassimPrincipality.Web.Helpers.TagHelpers
+@using QassimPrincipality.Application.Services.Main.Contact
+
+@model ContactDataSearchDto;
+@{
+    ViewBag.Title = "قائمة الطلبات";
+    Layout = "_Layout";
+}
+
+<br />
+
+
+<div class="list">
+
+
+    @if (Model.TotalItemsCount > 0)
+    {
+        <div class="idm-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:150px" class="text-center">عنوان الطلب</th>
+                        <th style="width:150px" class="text-center">مقدم الطلب</th>
+                        <th style="width:150px" class="text-center">تاريخ الطلب</th>
+                        @*              <th style="width:150px" class="text-center">حالة الطلب</th> *@
+                        <th style="width:150px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model.Items)
+                    {
+                        <tr>
+                            <td class="text-center">@(request.ContactTitle ?? "--")</td>
+                            <td class="text-center">@(request.UserFullName ?? "--")</td>
+                            <td class="text-center">@request.CreatedOn</td>
+                            @*   @switch (request.IsApproved)
+                    {
+                    case true:
+                    <td class="text-center alert alert-success">تمت الموافقة</td>
+                    break;
+                    case false:
+                    <td class="text-center alert alert-danger">مرفوض</td>
+                    break;
+                    default:
+                    <td class="text-center  alert alert-info">الطلب تحت الإجراء</td>
+                    break;
+                    } *@
+
+
+                            <td>
+
+                                <a class="idm-edit" asp-action="Details" asp-route-requestId="@request.Id" asp->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14.548" height="14.549" viewBox="0 0 14.548 14.549">
+                                        <g id="Actions" transform="translate(12.654)">
+                                            <g id="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-11.745)">
+                                                <path id="Path_6" data-name="Path 6" d="M13.451,18.4H4.2A1.948,1.948,0,0,1,2.25,16.451V7.2A1.948,1.948,0,0,1,4.2,5.25H8.823a.624.624,0,0,1,0,1.247H4.2a.7.7,0,0,0-.7.7v9.255a.7.7,0,0,0,.7.7h9.255a.7.7,0,0,0,.7-.7V11.823a.624.624,0,1,1,1.247,0v4.628A1.948,1.948,0,0,1,13.451,18.4Z" transform="translate(-3.159 -3.848)" fill="#393c46" />
+                                                <path id="Path_7" data-name="Path 7" d="M19.807,2.068a2.026,2.026,0,0,1,1.433,3.458l-6.28,6.28a.623.623,0,0,1-.29.164l-2.644.661a.624.624,0,0,1-.756-.756l.661-2.644a.624.624,0,0,1,.164-.29l6.28-6.28A2.013,2.013,0,0,1,19.807,2.068ZM14.2,10.8l6.158-6.158a.779.779,0,1,0-1.1-1.1L13.1,9.7,12.73,11.17Z" transform="translate(-8.193 -2.068)" fill="#393c46" />
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="" style="text-align: center; padding-top: 25px">لا يوجد بيانات</div>
+    }
+    <div class="idm-pager">
+        @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
+    </div>
+</div>
+

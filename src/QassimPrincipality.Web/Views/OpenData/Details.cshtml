@@ -1,7 +1,122 @@
-﻿
+﻿@model QassimPrincipality.Application.Services.Main.OpenData.OpenDataDto
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div>
+    <a asp-action="RequestList">عرض الكل</a>
+    <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>
+</div>
+<h1>تفاصيل الطلب</h1>
 
+<div>
+    <hr />
+    <dl class="row">
+@*         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd> *@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserFullName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserFullName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserEmail)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdentityNumber)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdentityNumber)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserMobile)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserMobile)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RequesterTypeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RequesterTypeName)
+        </dd>
+   @*      <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAllowed)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsAllowed)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsApproved)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd> *@
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+        @switch (Model.IsApproved)
+        {
+            case null:
+                <div class="row">
+                    <div class="form-control">
+                        @* <a class="btn btn-success" asp-action="Accept" asp-route-requestId="@Model.Id" asp->
+                قبول
+                </a> *@
+                        <form asp-controller="OpenData" asp-action="" method="post">
+                            <div class="form-group">
+                                <label class="control-label" for="RequestName">ملاحظات	</label>
+                                <input class="form-control" type="text" data-val="true" required data-val-required="هذا الحقل مطلوب" id="rejectReasons" name="rejectReasons" value="">
+                                <input class="form-control" type="text" value="@Model.Id" id="requestId" name="requestId" hidden>
+                                <span class="text-danger field-validation-valid" data-valmsg-for="rejectReasons" data-valmsg-replace="true"></span>
+                            </div>
+                            <br />
+                            <div class="form-group mt-5">
+                                @* <input type="submit" value="رفض" class="btn btn-danger float-right"> *@
+                                <input class="btn btn-success" type="submit" value="رفض" formaction="Reject" />
+                                <input class="btn btn-danger float-right" type="submit" value="قبول" formaction="Accept" />
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                break;
+            case true:
+                break;
+            case false:
+                <dt class="col-sm-2">
+                    أسباب الرفض
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.RejectReason)
+                </dd>
+                break;
+        }
+
+
+    </dl>
+</div>
