@@ -72,7 +72,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             var user = await _userAppService.GetUserAsync(Guid.Parse(uploadRequest.CreatedBy));
             uploadRequest.CreatedByFullName = user.FullNameAr ?? user.FullName;
 
-            uploadRequest.referralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
+            uploadRequest.ReferralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
             uploadRequest.RequestNameAr = UploadRequestDto.RequestName;
             uploadRequest.RequestNameEn = UploadRequestDto.RequestName;
 
@@ -449,7 +449,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
                 a =>
                     (
                         a
-                            .referralNumber.ToLower()
+                            .ReferralNumber.ToLower()
                             .Trim()
                             .Contains(model.ReferralNumber.ToLower().Trim())
                     )
@@ -498,7 +498,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
 
             if (UploadRequestSearchDto.isPending != null)
                 filters.Add(a => a.IsApproved == null);
-            
+
             if (!UploadRequestSearchDto.CreatedBy.IsNullOrWhiteSpace())
                 filters.Add(a => a.CreatedBy == UploadRequestSearchDto.CreatedBy);
 

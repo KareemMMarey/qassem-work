@@ -1,14 +1,14 @@
-﻿using QassimPrincipality.Domain.Entities.Lookups;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Framework.Core.Data;
 using Framework.Core.Globalization;
-using System.ComponentModel.DataAnnotations.Schema;
+using QassimPrincipality.Domain.Entities.Lookups;
 using QassimPrincipality.Domain.Entities.Lookups.Main;
 
 namespace QassimPrincipality.Domain.Entities.Services.Main
 {
     public class UploadRequest : FullAuditedEntityBase<Guid>
     {
-        public string referralNumber { get; set; }
+        public string ReferralNumber { get; set; }
 
         [NotMapped]
         public string RequestName => CultureHelper.IsArabic ? RequestNameAr : RequestNameEn;

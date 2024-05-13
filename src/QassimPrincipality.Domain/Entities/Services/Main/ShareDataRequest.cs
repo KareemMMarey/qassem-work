@@ -1,16 +1,11 @@
-﻿
-using Framework.Core.Data;
+﻿using Framework.Core.Data;
 using QassimPrincipality.Domain.Entities.Lookups.Main;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QassimPrincipality.Domain.Entities.Services.Main
 {
     public class ShareDataRequest : FullAuditedEntityBase<Guid>
     {
+        public string ReferralNumber { get; set; }
         public string UserFullName { get; set; }
         public string UserEmail { get; set; }
         public string IdentityNumber { get; set; }
