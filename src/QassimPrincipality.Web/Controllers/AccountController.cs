@@ -224,7 +224,7 @@ namespace QassimPrincipality.Web.Controllers
 
             return View();
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> CompleteLogin(
             string username,
             bool rememberLogin,
@@ -256,9 +256,14 @@ namespace QassimPrincipality.Web.Controllers
                             {
                                 Email = $"{username}@Nafath",
                                 UserName = $"{username}@Nafath",
-                                PhoneNumber = phone
+                                FullName = userFullName,
+                                PhoneNumber = phone,
+                                CreatedBy = "Admin",
+                                CreatedOn = DateTime.Now,
+                                EmailConfirmed = true
                             };
-                            await _userManager.CreateAsync(user);
+                            await _userManager.CreateAsync(user, "P@ssw0rd");
+                            await _userServices.AddRoleAsync(user.Id, UserRoles.User);
                         }
                         await _signInManager.SignInAsync(user, rememberLogin);
 
@@ -273,7 +278,7 @@ namespace QassimPrincipality.Web.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
-                catch (Exception)
+                catch (Exception exc)
                 {
                     ModelState.AddModelError("خطأ", "حدث خطأ");
                     return RedirectToAction("Index", "Account");
@@ -290,9 +295,13 @@ namespace QassimPrincipality.Web.Controllers
                     {
                         Email = $"{username}@Nafath",
                         UserName = $"{username}@Nafath",
-                        PhoneNumber = phone
+                        PhoneNumber = phone,
+                        CreatedBy = "Admin",
+                        CreatedOn = DateTime.Now,
+                        EmailConfirmed = true
                     };
-                    await _userManager.CreateAsync(user);
+                    await _userManager.CreateAsync(user, "P@ssw0rd");
+                    await _userServices.AddRoleAsync(user.Id, UserRoles.User);
                 }
 
                 await _signInManager.SignInAsync(user, false);
@@ -338,7 +347,7 @@ namespace QassimPrincipality.Web.Controllers
 
                 for (int i = 0; i <= 3; i++)
                 {
-                    Thread.Sleep(7000);
+                    Thread.Sleep(5000);
                     result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
                    _nafathConfiguartion.Value.ApiUrl,
                    _nafathConfiguartion.Value.NafathCheckRequstBody,

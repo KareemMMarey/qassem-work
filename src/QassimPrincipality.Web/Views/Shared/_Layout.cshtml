@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Framework.Identity.Data.Entities
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="utf-8" />
@@ -36,25 +39,25 @@
 </head>
 <body>
     @* <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QassimPrincipality.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">QassimPrincipality.Web</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </li>
+    <li class="nav-item">
+    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </li>
+    </ul>
+    </div>
+    </div>
+    </nav>
     </header> *@
     <div class="top-bar">
         <div class="container top-bar__container">
@@ -95,65 +98,65 @@
                                             </svg>
                                         </a>
                                     </div>
-                                   @*  <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon2"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    المحافظات والمراكز
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    تعرف على محافظات ومراكز إمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    @*  <div class="col-4">
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon2"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    المحافظات والمراكز
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    تعرف على محافظات ومراكز إمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div>
                                     <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon3"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    الأنظمة واللوائح
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    تعرف على الأنظمة واللوائح
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon3"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    الأنظمة واللوائح
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    تعرف على الأنظمة واللوائح
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div>
                                     <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon4"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    الهيكل التنظيمي
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    الهيكل التنظيمي المعتمد لإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-about-icon4"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    الهيكل التنظيمي
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    الهيكل التنظيمي المعتمد لإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                 </div>
                             </div>
@@ -186,104 +189,104 @@
                                         </a>
                                     </div>
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon2"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    استثمر في القصيم
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon2"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    استثمر في القصيم
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    تابع الفعاليات والمهرجنات الخاصة بمنطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon3"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    استبيانات إلكترونية
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon3"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    استبيانات إلكترونية
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon4"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    تقييم الخدمات
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon4"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    تقييم الخدمات
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon5"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    اقتراحات
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon5"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    اقتراحات
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon6"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    تواصل معنا
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    نموذج للتواصل معنا وايصال ملاحظاتك لنا
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon6"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    تواصل معنا
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    نموذج للتواصل معنا وايصال ملاحظاتك لنا
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                 </div>
                             </div>
@@ -325,7 +328,7 @@
                                                     مشاركة البيانات
                                                 </div>
                                                 <div class="mega-menu__description">
-                                                  طلبات مشاركة البيانات
+                                                    طلبات مشاركة البيانات
                                                 </div>
                                             </div>
                                             <svg class="mega-menu__arrow" width="24" height="24">
@@ -334,84 +337,84 @@
                                         </a>
                                     </div>
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon3"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    المبادرات
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon3"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    المبادرات
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon4"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    انفوجرافيك القصيم
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon4"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    انفوجرافيك القصيم
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon5"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    مكتبة الصور
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon5"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    مكتبة الصور
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                     @* <div class="col-4">
-                                        <a class="mega-menu__item" href="#">
-                                            <div class="mega-menu__icon">
-                                                <svg width="40" height="40">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon6"> </use>
-                                                </svg>
-                                            </div>
-                                            <div class="mega-menu__txt">
-                                                <div class="mega-menu__title">
-                                                    مكتبة الفيديو
-                                                </div>
-                                                <div class="mega-menu__description">
-                                                    مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم
-                                                </div>
-                                            </div>
-                                            <svg class="mega-menu__arrow" width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                            </svg>
-                                        </a>
+                                    <a class="mega-menu__item" href="#">
+                                    <div class="mega-menu__icon">
+                                    <svg width="40" height="40">
+                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon6"> </use>
+                                    </svg>
+                                    </div>
+                                    <div class="mega-menu__txt">
+                                    <div class="mega-menu__title">
+                                    مكتبة الفيديو
+                                    </div>
+                                    <div class="mega-menu__description">
+                                    مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم
+                                    </div>
+                                    </div>
+                                    <svg class="mega-menu__arrow" width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                                    </svg>
+                                    </a>
                                     </div> *@
                                 </div>
                             </div>
@@ -428,13 +431,23 @@
                     }
                     else
                     {
-                        
-                            <div class="d-block" id="userMenu">
+                        var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                        <div class="d-block" id="userMenu">
                             <div class="dropdown header-login__dropdown">
                                 <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <svg width="24" height="24">
                                         <use xlink:href="/assets/images/svg-icons.svg#user-circle"> </use>
-                                    </svg>مرحبا <span>@User.Identity.Name</span>
+                                    </svg>مرحبا
+                                    @if (!string.IsNullOrEmpty(user.FullName))
+                                    {
+                                        <span>@user.FullName</span>
+                                    }
+
+                                    else
+                                    {
+                                        <span>@User.Identity.Name</span>
+                                    }
+
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -444,7 +457,7 @@
                                             </svg> ملفي الشخصي
                                         </a>
                                     </li>
-                                    @if (User.IsInRole("Admin")) 
+                                    @if (User.IsInRole("Admin"))
                                     {
 
                                         <li>
@@ -506,9 +519,9 @@
     </div>
 
     @* <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - QassimPrincipality.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <div class="container">
+    &copy; 2024 - QassimPrincipality.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -521,20 +534,20 @@
                     <h4 class="footer__title">تصفح</h4>
                     <ul class="footer__list">
                         @* <li class="footer__li">
-                            <a class="footer__link" href="#">
-                                خارطة الموقع
-                                <svg>
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                </svg>
-                            </a>
+                        <a class="footer__link" href="#">
+                        خارطة الموقع
+                        <svg>
+                        <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                        </svg>
+                        </a>
                         </li>
                         <li class="footer__li">
-                            <a class="footer__link" href="#">
-                                منصة منقولات
-                                <svg>
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                </svg>
-                            </a>
+                        <a class="footer__link" href="#">
+                        منصة منقولات
+                        <svg>
+                        <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
+                        </svg>
+                        </a>
                         </li> *@
                         <li class="footer__li">
                             <a class="footer__link" target="_blank" href="~/assets/Privacy.pdf">
@@ -558,7 +571,7 @@
                     <h4 class="footer__title">روابط خارجية</h4>
                     <ul class="footer__list">
                         <li class="footer__li">
-                            <a class="footer__link" asp-action="Create" asp-controller="Contact" >
+                            <a class="footer__link" asp-action="Create" asp-controller="Contact">
                                 منصة صوت المواطن
                                 <svg>
                                     <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
@@ -574,12 +587,12 @@
                             </a>
                         </li>
                         @* <li class="footer__li">
-                            <a class="footer__link" href="#">
-                                المكتبة القانونية الرقمية
-                                <svg>
-                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
-                                </svg>
-                            </a>
+                        <a class="footer__link" href="#">
+                        المكتبة القانونية الرقمية
+                        <svg>
+                        <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                        </svg>
+                        </a>
                         </li> *@
                         <li class="footer__li">
                             <a class="footer__link" href="~/Home/About">
@@ -590,12 +603,12 @@
                             </a>
                         </li>
                         @* <li class="footer__li">
-                            <a class="footer__link" href="#">
-                                المكتبة الرقمية
-                                <svg>
-                                    <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
-                                </svg>
-                            </a>
+                        <a class="footer__link" href="#">
+                        المكتبة الرقمية
+                        <svg>
+                        <use xlink:href="/assets/images/svg-icons.svg#external-link"> </use>
+                        </svg>
+                        </a>
                         </li> *@
                     </ul>
                 </div>
@@ -704,7 +717,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script src="/assets/scripts/star-rating.min.js"></script>
     <script src="/assets/scripts/scripts.js"></script>
-    
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
