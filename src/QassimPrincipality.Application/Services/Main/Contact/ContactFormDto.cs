@@ -8,11 +8,14 @@ namespace QassimPrincipality.Application.Services.Main.Contact
 
         [Display(Name = "اسم المستخدم")]
         public string UserFullName { get; set; }
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
 
         [Display(Name = "البريد الالكتروني ")]
         public string UserEmail { get; set; }
 
         [Display(Name = "رقم الجوال")]
+        [MaxLength(14, ErrorMessage = "يجب ادخال 14 رقم كحد اقصى")]
         public string UserMobile { get; set; }
 
         [Display(Name = "عنوان الشكوى")]
@@ -28,6 +31,7 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         public string ContactTypeName { get; set; }
 
         [Display(Name = "رقم الهوية")]
+        [MaxLength(10, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
         public string IdentityNumber { get; set; }
         public bool? IsApproved { get; set; }
 

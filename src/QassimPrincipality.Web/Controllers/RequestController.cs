@@ -118,7 +118,7 @@ namespace QassimPrincipality.Web.Controllers
                 return RedirectToAction(
                     "Index",
                     "Common",
-                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = res.referralNumber }
+                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = res.ReferralNumber }
                 );
             }
             catch

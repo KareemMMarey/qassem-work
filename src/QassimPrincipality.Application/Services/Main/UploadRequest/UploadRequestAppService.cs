@@ -72,7 +72,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             var user = await _userAppService.GetUserAsync(Guid.Parse(uploadRequest.CreatedBy));
             uploadRequest.CreatedByFullName = user.FullNameAr ?? user.FullName;
 
-            uploadRequest.ReferralNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
+            uploadRequest.ReferralNumber = "UR"+DateTime.Now.ToString("yyMMddHHmmss");
             uploadRequest.RequestNameAr = UploadRequestDto.RequestName;
             uploadRequest.RequestNameEn = UploadRequestDto.RequestName;
 
@@ -89,7 +89,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             SaveAttachment(
                 new AttachmentDto[] { photo },
                 uploadRequest.Id,
-                UploadRequestDto.referralNumber,
+                UploadRequestDto.ReferralNumber,
                 AttachmentTypes.PersonalPhoto
             );
 
@@ -107,7 +107,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             SaveAttachment(
                 others.ToArray(),
                 uploadRequest.Id,
-                UploadRequestDto.referralNumber,
+                UploadRequestDto.ReferralNumber,
                 AttachmentTypes.Others
             );
 
@@ -198,32 +198,32 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest
             SaveAttachment(
                 UploadRequestDto.OpenSourceArFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
             SaveAttachment(
                 UploadRequestDto.OpenSourceEnFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
             SaveAttachment(
                 UploadRequestDto.CloseSourceArFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
             SaveAttachment(
                 UploadRequestDto.CloseSourceEnFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
             SaveAttachment(
                 UploadRequestDto.DataFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
             SaveAttachment(
                 UploadRequestDto.SupportingFiles,
                 UploadRequestDto.Id.Value,
-                UploadRequestDto.referralNumber
+                UploadRequestDto.ReferralNumber
             );
 
             //remove attachments

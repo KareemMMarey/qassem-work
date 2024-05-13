@@ -4,6 +4,7 @@ using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Services;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using QassimPrincipality.Domain.Entities.Services.Main;
 using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Services.Main.Contact
@@ -38,8 +39,10 @@ namespace QassimPrincipality.Application.Services.Main.Contact
             ContactFormDto ContactFormDto
         )
         {
+
             var eServiceCategory =
                 ContactFormDto.MapTo<Domain.Entities.Services.Main.ContactForm>();
+            eServiceCategory.ReferralNumber = "CF" + DateTime.Now.ToString("yyMMddHHmmss");
             var saved = await _contactRepository.InsertAsync(eServiceCategory, true);
             return saved;
         }

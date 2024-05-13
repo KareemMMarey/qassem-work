@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace QassimPrincipality.Application.Services.Main.ShareData
     {
         public Guid Id { get; set; }
         public string UserFullName { get; set; }
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
         public string UserEmail { get; set; }
         public string IdentityNumber { get; set; }
         public string RejectReason { get; set; }

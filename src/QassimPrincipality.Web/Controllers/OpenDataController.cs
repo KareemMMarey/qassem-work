@@ -107,12 +107,17 @@ namespace QassimPrincipality.Web.Controllers
             dto.RequesterTypeId = model.RequesterTypeId;
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
-            await _openService.InsertAsync(dto);
+            var req = await _openService.InsertAsync(dto);
+
             return RedirectToAction(
-                   "Index",
-                   "Common",
-                   new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح" }
-               );
+                "Index",
+                "Common",
+                new
+                {
+                    SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
+                    requestNumber = req.ReferralNumber
+                }
+            );
         }
 
         [Authorize(Roles = "OpenDataRequestAdmin,Admin")]
