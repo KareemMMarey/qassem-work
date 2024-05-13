@@ -10,7 +10,7 @@
     <div class="col-xxl-10">
         <div class="page-panel">
             <h3 class="page-title margin-bottom-lg">طلب البيانات المفتوحة</h3>
-            <form id="client-form" class="form" asp-controller="Contact" asp-action="Create" Method="post">
+            <form id="client-form" class="form" asp-controller="OpenData" asp-action="Create" Method="post">
                 <div class="row">
                     <div class="col-xl-6">
                         <div class="form-group">
@@ -63,13 +63,13 @@
                                     </select>
                                     <span asp-validation-for="RequesterTypeId" class="text-danger"></span>
                                 </div>
-                             </div>
+                            </div>
                         </div>
                     }
                     <div class="col-xl-6">
                         <div class="form-group">
                             <label class="form-label" asp-for="Title">
-                                عنوان الشكوى
+                                عنوان الطلب
                             </label>
                             <input type="text" class="form-control" asp-for="Title">
                             <span asp-validation-for="Title" class="field-validation-valid text-danger"> </span>

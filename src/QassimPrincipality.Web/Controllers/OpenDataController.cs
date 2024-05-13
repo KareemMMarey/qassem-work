@@ -77,8 +77,11 @@ namespace QassimPrincipality.Web.Controllers
             AddOpenDataViewModel vM = new AddOpenDataViewModel();
             var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
             vM.UserFullName = user.FullNameAr ?? user.FullName;
-            vM.IdentityNumber = "1234567899";
-            ViewData["requestertypes"] = await _lookUpService.GetRequesterTypes();
+            vM.IdentityNumber = user.UserName.Replace("@nafath", "");
+            //vM.IdentityNumber = vM.IdentityNumber.Replace("@nafath", "");
+            var types = await _lookUpService.GetRequesterTypes();
+            //vM.RequesterTypeId = int.Parse(types.First().Value);
+            ViewData["requestertypes"] = types;
             return View(vM);
         }
 
@@ -89,7 +92,9 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData["requestertypes"] = await _lookUpService.GetRequestType();
+                var types = await _lookUpService.GetRequesterTypes();
+                //model.RequesterTypeId = int.Parse(types.First().Value);
+                ViewData["requestertypes"] = types;
                 return View(model);
             }
             OpenDataDto dto = new OpenDataDto();
@@ -103,10 +108,14 @@ namespace QassimPrincipality.Web.Controllers
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
             await _openService.InsertAsync(dto);
-            return RedirectToAction("Common", "Index");
+            return RedirectToAction(
+                   "Index",
+                   "Common",
+                   new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح" }
+               );
         }
 
-        [Authorize(Roles = "OpenDataRequestAdmin")]
+        [Authorize(Roles = "OpenDataRequestAdmin,Admin")]
         public async Task<IActionResult> RequestList(string type, int page = 1)
         {
             bool? status = null;
@@ -157,7 +166,7 @@ namespace QassimPrincipality.Web.Controllers
             return View(result);
         }
 
-        [Authorize(Roles = "OpenDataRequestAdmin")]
+        [Authorize(Roles = "OpenDataRequestAdmin,Admin")]
         public async Task<IActionResult> Accept(string requestId)
         {
             await _openService.AcceptOrReject(Guid.Parse(requestId), true);
@@ -165,7 +174,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "OpenDataRequestAdmin")]
+        [Authorize(Roles = "OpenDataRequestAdmin,Admin")]
         public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {
             await _openService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);

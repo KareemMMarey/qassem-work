@@ -31,7 +31,7 @@ namespace QassimPrincipality.Web.ViewModels.OpenData
 
         public string Description { get; set; }
 
-        [MaxLength(10, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
+        [MaxLength(20, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
         public string IdentityNumber { get; set; }
 
         [Required, Range(1, int.MaxValue, ErrorMessage = "أدخل وصف مقدم الطلب")]

@@ -7,7 +7,11 @@
                 </svg>
             </div>
             <h3 class="empty-state__title">@ViewBag.SuccessMessage</h3>
-            <div class="empty-state__description">رقم الطلب : @ViewBag.requestNumber</div>
+            @if (ViewBag.requestNumber != null && !string.IsNullOrEmpty(ViewBag.requestNumber))
+            {
+                <div class="empty-state__description">رقم الطلب : @ViewBag.requestNumber</div>
+            }
+
         </div>
     </div>
 </div>

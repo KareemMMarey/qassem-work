@@ -109,7 +109,7 @@
                     @switch (Model.IsApproved)
                     {
                         case null:
-                            if (User.IsInRole("EServicesRequestAdmin"))
+                            if (User.IsInRole("EServicesRequestAdmin") || User.IsInRole("Admin"))
                             {
                                 <form asp-controller="RequestsAdmin" asp-action="" method="post">
                                     <div class="card">
@@ -131,7 +131,7 @@
                                     </div>
                                 </form>
                             }
-                           
+
                             break;
                         case true:
                             break;

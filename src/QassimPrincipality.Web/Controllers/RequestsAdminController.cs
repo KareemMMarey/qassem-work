@@ -27,9 +27,9 @@ namespace QassimPrincipality.Web.Controllers
             _requestTypeAppService = requestTypeAppService;
             _attachmentAppService = attachmentAppService;
         }
-        [Authorize(Roles = "EServicesRequestAdmin")]
+        [Authorize(Roles = "EServicesRequestAdmin,Admin")]
 
-        public async Task<IActionResult> RequestList(string type,int page = 1)
+        public async Task<IActionResult> RequestList(string type, int page = 1)
         {
             bool? status = null;
             bool? isPending = null;
@@ -96,19 +96,19 @@ namespace QassimPrincipality.Web.Controllers
             return File(file.AttachmentContent.FileContent, file.ContentType, file.FileName);
         }
         [HttpPost]
-        [Authorize(Roles = "EServicesRequestAdmin")]
+        [Authorize(Roles = "EServicesRequestAdmin,Admin")]
 
         public async Task<IActionResult> Accept(string requestId)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
-            return RedirectToAction("Details",new { requestId });
+            return RedirectToAction("Details", new { requestId });
         }
         [HttpPost]
-        [Authorize(Roles = "EServicesRequestAdmin")]
-        public async Task<IActionResult> Reject(string requestId,string rejectReasons)
+        [Authorize(Roles = "EServicesRequestAdmin,Admin")]
+        public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
-            return RedirectToAction("Details",new { requestId });
+            return RedirectToAction("Details", new { requestId });
         }
         // [HttpGet]
         //public async Task<IActionResult> Users(int? page, string search)

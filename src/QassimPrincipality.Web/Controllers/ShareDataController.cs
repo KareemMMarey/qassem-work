@@ -125,7 +125,7 @@ namespace QassimPrincipality.Web.Controllers
             );
         }
 
-        [Authorize(Roles = "ShareDataRequestAdmin")]
+        [Authorize(Roles = "ShareDataRequestAdmin,Admin")]
         public async Task<IActionResult> RequestList(string type, int page = 1)
         {
             bool? status = null;
@@ -177,7 +177,7 @@ namespace QassimPrincipality.Web.Controllers
             return View(result);
         }
 
-        [Authorize(Roles = "ShareDataRequestAdmin")]
+        [Authorize(Roles = "ShareDataRequestAdmin,Admin")]
         public async Task<IActionResult> Accept(string requestId)
         {
             await _shareDataService.AcceptOrReject(Guid.Parse(requestId), true);
@@ -185,7 +185,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "ShareDataRequestAdmin")]
+        [Authorize(Roles = "ShareDataRequestAdmin,Admin")]
         public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {
             await _shareDataService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
