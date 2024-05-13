@@ -157,6 +157,7 @@ namespace QassimPrincipality.Web.Controllers
             return View(result);
         }
 
+        [Authorize(Roles = "OpenDataRequestAdmin")]
         public async Task<IActionResult> Accept(string requestId)
         {
             await _openService.AcceptOrReject(Guid.Parse(requestId), true);
@@ -164,6 +165,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "OpenDataRequestAdmin")]
         public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {
             await _openService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);

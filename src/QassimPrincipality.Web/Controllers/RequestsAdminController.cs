@@ -11,7 +11,6 @@ using static OfficeOpenXml.ExcelErrorValue;
 
 namespace QassimPrincipality.Web.Controllers
 {
-    [Authorize(Roles = "EServicesRequestAdmin")]
     public class RequestsAdminController : Controller
     {
         private readonly UploadRequestAppService _uploadRequestService;
@@ -28,6 +27,7 @@ namespace QassimPrincipality.Web.Controllers
             _requestTypeAppService = requestTypeAppService;
             _attachmentAppService = attachmentAppService;
         }
+        [Authorize(Roles = "EServicesRequestAdmin")]
 
         public async Task<IActionResult> RequestList(string type,int page = 1)
         {
@@ -72,6 +72,7 @@ namespace QassimPrincipality.Web.Controllers
             );
             return View(result);
         }
+        [Authorize]
 
         public async Task<IActionResult> Details(string requestId)
         {
@@ -81,6 +82,8 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+
         public async Task<IActionResult> Download(Guid id)
         {
             // Fetch the file information from your data store
@@ -93,12 +96,15 @@ namespace QassimPrincipality.Web.Controllers
             return File(file.AttachmentContent.FileContent, file.ContentType, file.FileName);
         }
         [HttpPost]
+        [Authorize(Roles = "EServicesRequestAdmin")]
+
         public async Task<IActionResult> Accept(string requestId)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details",new { requestId });
         }
         [HttpPost]
+        [Authorize(Roles = "EServicesRequestAdmin")]
         public async Task<IActionResult> Reject(string requestId,string rejectReasons)
         {
             await _uploadRequestService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);

@@ -1,22 +1,14 @@
-﻿using Framework.Core.AutoMapper;
+﻿using Framework.Core.Extensions;
+using Framework.Identity.Data.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.Contact;
-using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
-using QassimPrincipality.Application.Services.Main.UploadRequest;
-using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
 using QassimPrincipality.Web.ViewModels.Contact;
-using QassimPrincipality.Web.ViewModels.Request;
-using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using QassimPrincipality.Application.Services.Main.ShareData;
-using Microsoft.AspNetCore.Authorization;
-using Framework.Core.Extensions;
-using QassimPrincipality.Application.Services.Main.OpenData;
-using Framework.Identity.Data.Services;
 
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class ContactController : Controller
     {
         private readonly ContactFormAppService _contactService;
@@ -24,7 +16,8 @@ namespace QassimPrincipality.Web.Controllers
         private readonly UserAppService _userAppService;
 
         public ContactController(
-            ContactFormAppService contactService, LookupAppService lookUpService,
+            ContactFormAppService contactService,
+            LookupAppService lookUpService,
             UserAppService userAppService
         )
         {
@@ -35,7 +28,6 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<IActionResult> Index(string type, int page = 1)
         {
-
             var result = await _contactService.SearchAsync(
                 new ContactDataSearchDto()
                 {
@@ -56,6 +48,7 @@ namespace QassimPrincipality.Web.Controllers
             ViewData["contacttypes"] = await _lookUpService.GetConatctType();
             return View(vM);
         }
+
         public ActionResult MessageResult()
         {
             return View();
@@ -66,7 +59,8 @@ namespace QassimPrincipality.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(AddContactVM model)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 ViewData["contacttypes"] = await _lookUpService.GetConatctType();
                 return View(model);
             }
@@ -83,19 +77,16 @@ namespace QassimPrincipality.Web.Controllers
             await _contactService.InsertAsync(dto);
             return RedirectToAction("Index", "Common");
         }
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RequestList(string type, int page = 1)
         {
-          
             var result = await _contactService.SearchAsync(
-                new ContactDataSearchDto()
-                {
-                    PageNumber = page,
-                    PageSize = 10
-                }
+                new ContactDataSearchDto() { PageNumber = page, PageSize = 10 }
             );
             return View(result);
         }
+
         public async Task<IActionResult> Details(string requestId)
         {
             var result = await _contactService.GetById(Guid.Parse(requestId));

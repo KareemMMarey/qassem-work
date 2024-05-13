@@ -4,63 +4,52 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>تفاصيل طلب تواصل</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactTitle)
-        </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactTypeName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContactTypeName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedOn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedOn)
-        </dd>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContactTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserFullName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserFullName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserEmail)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserEmail)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserMobile)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserMobile)
-        </dd>
-      
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdentityNumber)
-        </dd>
-       
-     
-    </dl>
+<div class="page-panel">
+    <div class="request-details">
+        <header class="request-details__header">
+            <h2 class="request-details__title">
+                تفاصيل طلب تواصل-  <span> @Html.DisplayFor(model => model.ContactTitle) </span>
+            </h2>
+        @*     <div class="request-details__number">
+                رقم#  <span> @Html.DisplayFor(model => model.referralNumber) </span>
+            </div> *@
+        </header>
+        <div class="row justify-content-xxl-center">
+            <div class="col-xxl-10">
+                <div class="request-details__content">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="request-details__header">
+                                <h3 class="request-details__title">
+                                    بيانات مقدم الطلب
+                                </h3>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-lg-4"><span class="color-primary font-bold">مقدم الطلب </span>@Html.DisplayFor(model => model.UserFullName)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">رقم الهوية </span>@Html.DisplayFor(model => model.IdentityNumber)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">رقم الهاتف </span>@Html.DisplayFor(model => model.UserMobile)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">البريد الإلكتروني </span>@Html.DisplayFor(model => model.UserEmail)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="request-details__header">
+                                <h3 class="request-details__title">
+                                    بيانات الطلب
+                                </h3>
+                            </div>
+                            <div class="row g-3">
+                                <div class="col-lg-4"><span class="color-primary font-bold">@Html.DisplayNameFor(model => model.ContactTitle) </span> @Html.DisplayFor(model => model.ContactTitle)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">@Html.DisplayNameFor(model => model.ContactTypeName) </span> @Html.DisplayFor(model => model.ContactTypeName)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">@Html.DisplayNameFor(model => model.CreatedOn)  </span>@Html.DisplayFor(model => model.CreatedOn)</div>
+                                <div class="col-lg-4"><span class="color-primary font-bold">@Html.DisplayNameFor(model => model.Description)  </span>@Html.DisplayFor(model => model.Description)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
