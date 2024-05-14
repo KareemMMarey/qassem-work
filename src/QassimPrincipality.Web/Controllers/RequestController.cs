@@ -1,14 +1,16 @@
-﻿using Framework.Identity.Data.Entities;
+﻿using Framework.Core.Extensions;
+using Framework.Identity.Data.Entities;
 using Framework.Identity.Data.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
 using QassimPrincipality.Application.Services.Main.UploadRequest;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
+using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Request;
-using Framework.Core.Extensions;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -19,17 +21,21 @@ namespace QassimPrincipality.Web.Controllers
         private readonly RequestTypeAppService _requestTypeAppService;
         private readonly UserAppService _userServices;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ReferralNumberConfiguration _referralNumberConfiguration;
 
         public RequestController(
             UploadRequestAppService uploadRequestAppService,
             RequestTypeAppService requestTypeAppService,
-             UserAppService userServices, UserManager<ApplicationUser> userManager
+            UserAppService userServices,
+            UserManager<ApplicationUser> userManager,
+            IOptions<ReferralNumberConfiguration> referralNumberConfiguration
         )
         {
             _uploadRequestService = uploadRequestAppService;
             _requestTypeAppService = requestTypeAppService;
             _userServices = userServices;
             _userManager = userManager;
+            _referralNumberConfiguration = referralNumberConfiguration.Value;
         }
 
         public async Task<IActionResult> Index(string type, int page = 1)
@@ -56,10 +62,10 @@ namespace QassimPrincipality.Web.Controllers
 
             var lst = new List<object>
             {
-                new {Id = "0",Name="طلبات منتهية بالرفض"},
-                new {Id = "1",Name="طلبات منتهية بالموافقة"},
-                new {Id = "2",Name="طلبات قيد الإجراء"},
-                new {Id = "20",Name="كل الطلبات"},
+                new { Id = "0", Name = "طلبات منتهية بالرفض" },
+                new { Id = "1", Name = "طلبات منتهية بالموافقة" },
+                new { Id = "2", Name = "طلبات قيد الإجراء" },
+                new { Id = "20", Name = "كل الطلبات" },
             };
             ViewBag.items = new SelectList(lst, "Id", "Name", type);
 
@@ -76,7 +82,6 @@ namespace QassimPrincipality.Web.Controllers
             );
             return View(result);
         }
-
 
         // GET: RequestController/Details/5
         public ActionResult Details(int id)
@@ -112,13 +117,20 @@ namespace QassimPrincipality.Web.Controllers
                     RequestName = model.RequestName,
                     Photo = model.Photo,
                     OtherAttachments = model.ListAttachments,
-                    CreatedBy = HttpContext.User.GetId()
+                    CreatedBy = HttpContext.User.GetId(),
+                    ReferralNumber =
+                        _referralNumberConfiguration.UploadRequestStart
+                        + DateTime.Now.ToString("yyMMddHHmmss")
                 };
                 var res = await _uploadRequestService.InsertAsync(dto);
                 return RedirectToAction(
                     "Index",
                     "Common",
-                    new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح", requestNumber = res.referralNumber }
+                    new
+                    {
+                        SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
+                        requestNumber = res.ReferralNumber
+                    }
                 );
             }
             catch
