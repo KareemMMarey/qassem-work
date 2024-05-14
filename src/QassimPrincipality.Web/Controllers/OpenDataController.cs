@@ -3,8 +3,11 @@ using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.OpenData;
+using QassimPrincipality.Domain.Entities.Services.Main;
+using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.OpenData;
 
 namespace QassimPrincipality.Web.Controllers
@@ -15,16 +18,21 @@ namespace QassimPrincipality.Web.Controllers
         private readonly OpenDataAppService _openService;
         private readonly LookupAppService _lookUpService;
         private readonly UserAppService _userAppService;
+        private readonly ReferralNumberConfiguration _referralNumberConfiguration;
 
         public OpenDataController(
             OpenDataAppService openService,
             LookupAppService lookUpService,
-            UserAppService userAppService
+            UserAppService userAppService,
+            IOptions<ReferralNumberConfiguration> referralNumberConfiguration
+
         )
         {
             _openService = openService;
             _lookUpService = lookUpService;
             _userAppService = userAppService;
+            _referralNumberConfiguration = referralNumberConfiguration.Value;
+
         }
 
         public async Task<IActionResult> Index(string type, int page = 1)
@@ -107,7 +115,14 @@ namespace QassimPrincipality.Web.Controllers
             dto.RequesterTypeId = model.RequesterTypeId;
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
-            await _openService.InsertAsync(dto);
+
+
+            dto.ReferralNumber = _referralNumberConfiguration.OpenDataStart
+                        + DateTime.Now.ToString("yyMMddHHmmss");
+
+
+            var req = await _openService.InsertAsync(dto);
+
             return RedirectToAction(
                    "Index",
                    "Common",

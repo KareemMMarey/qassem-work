@@ -3,11 +3,14 @@ using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Options;
 using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.Contact;
 using QassimPrincipality.Application.Services.Main.OpenData;
 using QassimPrincipality.Application.Services.Main.ShareData;
 using QassimPrincipality.Application.Services.Main.ShareDataRequest;
+using QassimPrincipality.Domain.Entities.Services.Main;
+using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Contact;
 using QassimPrincipality.Web.ViewModels.OpenData;
 using QassimPrincipality.Web.ViewModels.ShareData;
@@ -20,16 +23,21 @@ namespace QassimPrincipality.Web.Controllers
         private readonly ShareDataAppService _shareDataService;
         private readonly LookupAppService _lookUpService;
         private readonly UserAppService _userAppService;
+        private readonly ReferralNumberConfiguration _referralNumberConfiguration;
 
         public ShareDataController(
             ShareDataAppService shareDataService,
             LookupAppService lookUpService,
-             UserAppService userAppService
+             UserAppService userAppService,
+            IOptions<ReferralNumberConfiguration> referralNumberConfiguration
+
         )
         {
             _shareDataService = shareDataService;
             _lookUpService = lookUpService;
             _userAppService = userAppService;
+            _referralNumberConfiguration = referralNumberConfiguration.Value;
+
         }
 
 
@@ -117,11 +125,18 @@ namespace QassimPrincipality.Web.Controllers
             dto.IsShareAgreementExist = model.IsShareAgreementExist == "true" ? true : false;
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
-            await _shareDataService.InsertAsync(dto);
+
+            dto.ReferralNumber = _referralNumberConfiguration.ShareDataStart
+                        + DateTime.Now.ToString("yyMMddHHmmss");
+           var req =  await _shareDataService.InsertAsync(dto);
             return RedirectToAction(
                 "Index",
                 "Common",
-                new { SuccessMessage = "تم حفظ طلب مشاركة البيانات" }
+                new
+                {
+                    SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
+                    requestNumber = req.ReferralNumber
+                }
             );
         }
 

@@ -22,7 +22,13 @@ namespace QassimPrincipality.Web.Controllers
         private readonly UserAppService _userServices;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager, IOptions<NafathConfiguration> nafathConfiguartion, UserAppService userAppService)
+        public AccountController(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<ApplicationRole> roleManager,
+            IOptions<NafathConfiguration> nafathConfiguartion,
+            UserAppService userAppService
+        )
             : base(userManager, signInManager, roleManager)
         {
             _userManager = userManager;
@@ -44,6 +50,7 @@ namespace QassimPrincipality.Web.Controllers
 
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
+
         [AllowAnonymous]
         public IActionResult NafathLogin() => View(new NafathLoginVM());
 
@@ -79,7 +86,6 @@ namespace QassimPrincipality.Web.Controllers
             return View(loginVM);
         }
 
-
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -112,9 +118,9 @@ namespace QassimPrincipality.Web.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterVM registerVM)
@@ -142,12 +148,10 @@ namespace QassimPrincipality.Web.Controllers
 
             if (newUserResponse.Succeeded)
             {
-
                 //var addedUser = await _roleManager.FindByNameAsync(UserRoles.User);
                 //await _userManager.AddToRoleAsync(newUser, addedUser.Name);
                 await _userServices.AddRoleAsync(newUser.Id, UserRoles.User);
             }
-
 
             return RedirectToAction(
                 "Index",
@@ -224,6 +228,7 @@ namespace QassimPrincipality.Web.Controllers
 
             return View();
         }
+
         [AllowAnonymous]
         public async Task<IActionResult> CompleteLogin(
             string username,
@@ -317,49 +322,65 @@ namespace QassimPrincipality.Web.Controllers
             var userViewModel = users.MapTo<List<UserDto>>();
             return View(userViewModel);
         }
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> CheckNafathRequest(
-    string userName,
-    string random,
-    string transId
-)
+            string userName,
+            string random,
+            string transId
+        )
         {
             try
             {
                 List<ApiHeaders> headers = new List<ApiHeaders>
-    {
-        new ApiHeaders { Name = "Authorization", Value = _nafathConfiguartion.Value.ApiKey },
-        new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey }
-    };
+                {
+                    new ApiHeaders
+                    {
+                        Name = "Authorization",
+                        Value = _nafathConfiguartion.Value.ApiKey
+                    },
+                    new ApiHeaders
+                    {
+                        Name = "AUD",
+                        Value = _nafathConfiguartion.Value.ApplicationKey
+                    }
+                };
 
-                _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.id = long.Parse(userName);
+                _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.id = long.Parse(
+                    userName
+                );
                 if (!string.IsNullOrEmpty(random))
-                    _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.random = long.Parse(random);
+                    _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.random = long.Parse(
+                        random
+                    );
                 if (!string.IsNullOrEmpty(transId))
                     _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.transId = transId;
 
                 var result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
                     _nafathConfiguartion.Value.ApiUrl,
                     _nafathConfiguartion.Value.NafathCheckRequstBody,
-                    headers.ToArray());
+                    headers.ToArray()
+                );
                 var status = result["status"].ToString();
 
                 for (int i = 0; i <= 3; i++)
                 {
                     Thread.Sleep(5000);
                     result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
-                   _nafathConfiguartion.Value.ApiUrl,
-                   _nafathConfiguartion.Value.NafathCheckRequstBody,
-                   headers.ToArray());
+                        _nafathConfiguartion.Value.ApiUrl,
+                        _nafathConfiguartion.Value.NafathCheckRequstBody,
+                        headers.ToArray()
+                    );
                     status = result["status"].ToString();
                     if (status == NafathStatus.COMPLETED.ToString())
                     {
                         var person = result["person"];
                         TempData["arTwoNames"] = JsonConvert.SerializeObject(person["arTwoNames"]);
-                        TempData["accessToken"] = JsonConvert.SerializeObject(result["accessToken"]);
+                        TempData["accessToken"] = JsonConvert.SerializeObject(
+                            result["accessToken"]
+                        );
                         break;
-
                     }
                 }
 
@@ -369,7 +390,6 @@ namespace QassimPrincipality.Web.Controllers
             {
                 return Ok(new { status = "Exception" });
             }
-
         }
     }
 }

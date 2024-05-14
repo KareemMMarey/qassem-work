@@ -2,8 +2,10 @@
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.Contact;
+using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Contact;
 
 namespace QassimPrincipality.Web.Controllers
@@ -14,16 +16,19 @@ namespace QassimPrincipality.Web.Controllers
         private readonly ContactFormAppService _contactService;
         private readonly LookupAppService _lookUpService;
         private readonly UserAppService _userAppService;
+        private readonly ReferralNumberConfiguration _referralNumberConfiguration;
 
         public ContactController(
             ContactFormAppService contactService,
             LookupAppService lookUpService,
-            UserAppService userAppService
+            UserAppService userAppService,
+            IOptions<ReferralNumberConfiguration> referralNumberConfiguration
         )
         {
             _contactService = contactService;
             _lookUpService = lookUpService;
             _userAppService = userAppService;
+            _referralNumberConfiguration = referralNumberConfiguration.Value;
         }
 
         public async Task<IActionResult> Index(string type, int page = 1)
@@ -74,8 +79,18 @@ namespace QassimPrincipality.Web.Controllers
             dto.ContactTypeId = model.ContactTypeId;
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
-            await _contactService.InsertAsync(dto);
-            return RedirectToAction("Index", "Common");
+
+
+            dto.ReferralNumber = _referralNumberConfiguration.ContactFormStart
+                        + DateTime.Now.ToString("yyMMddHHmmss");
+
+            var req = await _contactService.InsertAsync(dto);
+            return RedirectToAction("Index", "Common",
+                new
+                {
+                    SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
+                    requestNumber = req.ReferralNumber
+                });
         }
 
         [Authorize(Roles = "Admin")]

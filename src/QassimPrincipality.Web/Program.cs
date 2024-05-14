@@ -25,6 +25,10 @@ namespace QassimPrincipality.Web
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
             var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
             builder.Services.Configure<NafathConfiguration>(mailConfiguration);
+
+            var referralNumberConfiguration = builder.Configuration.GetSection("ReferralNumberConfiguration");
+            builder.Services.Configure<ReferralNumberConfiguration>(referralNumberConfiguration);
+
             // Add services to the container.
             builder.Services.ConfigureSharedApplicationServices(connectionString);
             builder.Services.ConfigureApplicationServices();
