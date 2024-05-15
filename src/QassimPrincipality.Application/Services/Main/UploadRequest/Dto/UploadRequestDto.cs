@@ -41,5 +41,9 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         public bool? IsApproved { get; set; }
         public string CreatedByFullName { get; set; }
         public string RejectReason { get; set; }
+
+
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
     }
 }
