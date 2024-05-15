@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,5 +28,8 @@ namespace QassimPrincipality.Application.Services.Main.ShareData
         public bool? IsApproved { get; set; }
         public DateTime CreatedOn { get; set; }
         public string LegalJustificationDescription { get; set; }
+
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
     }
 }
