@@ -8,7 +8,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
     public class UploadRequestDto
     {
         public Guid? Id { get; set; }
-        public string ReferralNumber { get; set; }
+        //public string ReferralNumber { get; set; }
         public string RequestTypeName { get; set; }
 
         [MaxLength(50)]

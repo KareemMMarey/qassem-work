@@ -48,7 +48,7 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
         public DateTime CreatedOn { get; set; }
 
 
-        [Display(Name = "رقم الطلب")]
-        public string ReferralNumber { get; set; }
+        //[Display(Name = "رقم الطلب")]
+        //public string ReferralNumber { get; set; }
     }
 }

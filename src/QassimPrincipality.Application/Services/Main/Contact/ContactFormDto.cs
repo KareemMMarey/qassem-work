@@ -39,7 +39,7 @@ namespace QassimPrincipality.Application.Services.Main.Contact
         public DateTime CreatedOn { get; set; }
         public string CreatedBy { get; set; }
 
-        [Display(Name = "رقم الطلب")]
-        public string ReferralNumber { get; set; }
+        //[Display(Name = "رقم الطلب")]
+        //public string ReferralNumber { get; set; }
     }
 }

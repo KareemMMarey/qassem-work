@@ -31,7 +31,7 @@ namespace QassimPrincipality.Application.Services.Main.ShareData
         public DateTime CreatedOn { get; set; }
         public string LegalJustificationDescription { get; set; }
 
-        [Display(Name = "رقم الطلب")]
-        public string ReferralNumber { get; set; }
+        //[Display(Name = "رقم الطلب")]
+        //public string ReferralNumber { get; set; }
     }
 }
