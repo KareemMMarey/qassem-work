@@ -8,7 +8,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
     public class UploadRequestDto
     {
         public Guid? Id { get; set; }
-        public string referralNumber { get; set; }
+        public string ReferralNumber { get; set; }
         public string RequestTypeName { get; set; }
 
         [MaxLength(50)]
@@ -26,7 +26,7 @@ namespace QassimPrincipality.Application.Services.Main.UploadRequest.Dto
         public List<IFormFile> OtherAttachments { get; set; }
         public List<Guid>? OtherAttachmentIds { get; set; }
 
-        [MaxLength(14, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
+        [MaxLength(14, ErrorMessage = "يجب ادخال 14 رقم كحد اقصى")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "يجب ادخال ارقام فقط")]
         [Required(ErrorMessage ="هذا الحقل مطلوب")]
         public string NafathNumber { get; set; }

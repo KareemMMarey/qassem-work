@@ -11,6 +11,8 @@ namespace QassimPrincipality.Application.Services.Main.ShareData
     {
         public Guid Id { get; set; }
         public string UserFullName { get; set; }
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
         public string UserEmail { get; set; }
         public string IdentityNumber { get; set; }
         public string RejectReason { get; set; }

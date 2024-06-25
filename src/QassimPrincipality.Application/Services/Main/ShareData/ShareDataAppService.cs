@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using QassimPrincipality.Application.Services.Main.OpenData;
 using QassimPrincipality.Application.Services.Main.ShareData;
+using QassimPrincipality.Domain.Entities.Services.Main;
 using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
@@ -42,6 +43,8 @@ namespace QassimPrincipality.Application.Services.Main.ShareDataRequest
         {
             var shareDataRequest =
                 ShareDataDto.MapTo<Domain.Entities.Services.Main.ShareDataRequest>();
+            shareDataRequest.ReferralNumber = "SD" + DateTime.Now.ToString("yyMMddHHmmss");
+
             var saved = await _repo.InsertAsync(shareDataRequest, true);
             return saved;
         }

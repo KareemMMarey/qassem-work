@@ -11,9 +11,9 @@
             <h2 class="request-details__title">
                 تفاصيل طلب تواصل-  <span> @Html.DisplayFor(model => model.ContactTitle) </span>
             </h2>
-        @*     <div class="request-details__number">
-                رقم#  <span> @Html.DisplayFor(model => model.referralNumber) </span>
-            </div> *@
+            <div class="request-details__number">
+                رقم#  <span> @Html.DisplayFor(model => model.ReferralNumber) </span>
+            </div>
         </header>
         <div>
             <button class="btn btn-danger float-right" onclick="window.print()" formaction="Accept">طباعه</button>

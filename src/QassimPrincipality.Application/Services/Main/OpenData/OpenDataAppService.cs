@@ -5,6 +5,7 @@ using Framework.Core.SharedServices.Services;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using QassimPrincipality.Application.Services.Main.UploadRequest.Dto;
+using QassimPrincipality.Domain.Entities.Lookups.Main;
 using QassimPrincipality.Domain.Interfaces;
 
 namespace QassimPrincipality.Application.Services.Main.OpenData
@@ -41,6 +42,8 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
         {
             var openDataRequest =
                 openDataDto.MapTo<Domain.Entities.Services.Main.OpenDataRequest>();
+            openDataRequest.ReferralNumber = "OD" + DateTime.Now.ToString("yyMMddHHmmss");
+
             var saved = await _openDataRepository.InsertAsync(openDataRequest, true);
             return saved;
         }

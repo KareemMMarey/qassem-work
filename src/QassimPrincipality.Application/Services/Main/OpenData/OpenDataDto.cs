@@ -5,6 +5,9 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
 {
     public class OpenDataDto
     {
+        [Display(Name = "رقم الطلب")]
+        public string ReferralNumber { get; set; }
+
         public Guid Id { get; set; }
 
         [Display(Name = "اسم المستخدم")]
@@ -17,9 +20,12 @@ namespace QassimPrincipality.Application.Services.Main.OpenData
         public string UserEmail { get; set; }
 
         [Display(Name = "رقم الهوية")]
+
+        [MaxLength(10, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
         public string IdentityNumber { get; set; }
 
         [Display(Name = "رقم الجوال")]
+        [MaxLength(14, ErrorMessage = "يجب ادخال 14 رقم كحد اقصى")]
         public string UserMobile { get; set; }
 
         [Display(Name = "عنوان الشكوى")]

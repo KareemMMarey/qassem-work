@@ -124,10 +124,14 @@ namespace QassimPrincipality.Web.Controllers
             var req = await _openService.InsertAsync(dto);
 
             return RedirectToAction(
-                   "Index",
-                   "Common",
-                   new { SuccessMessage = "تم حفظ بيانات الطلب بنجاح" }
-               );
+                "Index",
+                "Common",
+                new
+                {
+                    SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
+                    requestNumber = req.ReferralNumber
+                }
+            );
         }
 
         [Authorize(Roles = "OpenDataRequestAdmin,Admin")]
