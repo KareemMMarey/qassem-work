@@ -1,7 +1,9 @@
-﻿using Framework.Core.Data.Repositories;
+﻿using Framework.Core.AutoMapper;
+using Framework.Core.Data.Repositories;
 using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Dto;
 using Framework.Core.SharedServices.Entities;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Database;
 using PagedList.Core;
 using System;
 using System.Collections.Generic;
@@ -92,6 +94,12 @@ namespace Framework.Core.SharedServices.Services
         public async Task DeleteLogOlderThan5Days()
         {
             await _logRepository.DeleteAsync(l => l.Date <= DateTime.Now.AddDays(-5));
+        }
+        public async Task<Log> InsertAsync(LogDto dto)
+        {
+            var eServiceCategory = dto.MapTo<Log>();
+            var saved = await _logRepository.InsertAsync(eServiceCategory, true);
+            return saved;
         }
     }
 }
