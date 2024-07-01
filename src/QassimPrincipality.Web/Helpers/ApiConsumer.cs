@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using Framework.Core;
+using Framework.Core.SharedServices.Services;
+using Newtonsoft.Json;
+using QassimPrincipality.Web.Controllers;
 using System.Net;
 using System.Text;
 
@@ -64,8 +67,7 @@ namespace QassimPrincipality.Web.Helpers
         public static async Task<T> ServiceConsumerAsync<T>(string Url, params ApiHeaders[] headers)
         {
             var dataToSee = "";
-            try
-            {
+            
 
                 using (var httpClient = new HttpClient())
                 {
@@ -87,21 +89,19 @@ namespace QassimPrincipality.Web.Helpers
                         return JsonConvert.DeserializeObject<T>(apiResponse);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-
-                throw new Exception(dataToSee);
-            }
+           
 
         }
 
         public static async Task<T> ServicePostConsumerAsync<T>(
+            ILogger<AccountController> logger,
+            LogAppService _logservice,
             string Url,
             T postObject,
             params ApiHeaders[] headers
         )
         {
+            logger.LogInformation("Hello-Hell");
             HttpClient httpClient = new HttpClient();
 
             using (httpClient)
@@ -122,18 +122,14 @@ namespace QassimPrincipality.Web.Helpers
                     Encoding.UTF8,
                     "application/json"
                 );
-                try
-                {
+                
                     using (var response = await httpClient.PostAsync(Url, requestContent))
                     {
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        return JsonConvert.DeserializeObject<T>(apiResponse);
+                   
+                    return JsonConvert.DeserializeObject<T>(apiResponse);
                     }
-                }
-                catch (JsonReaderException e)
-                {
-                    return default(T);
-                }
+                
             }
         }
 

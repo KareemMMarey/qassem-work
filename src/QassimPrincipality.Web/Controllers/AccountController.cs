@@ -1,4 +1,5 @@
-﻿using Framework.Core.AutoMapper;
+﻿using Framework.Core;
+using Framework.Core.AutoMapper;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
 using Framework.Identity.Data.Services;
@@ -12,7 +13,10 @@ using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.Identity.Configuration;
 using QassimPrincipality.Web.Identity.Helpers.Localization;
 using QassimPrincipality.Web.ViewModels.Account;
-
+using Microsoft.Extensions.Logging;
+using Framework.Core.SharedServices.Services;
+using System.DirectoryServices.Protocols;
+using System.Collections.Generic;
 namespace QassimPrincipality.Web.Controllers
 {
     public class AccountController : BaseController
@@ -20,6 +24,8 @@ namespace QassimPrincipality.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserAppService _userServices;
+        private readonly LogAppService _logservice;
+        private readonly ILogger<AccountController> _logger;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
 
         public AccountController(
@@ -27,7 +33,9 @@ namespace QassimPrincipality.Web.Controllers
             SignInManager<ApplicationUser> signInManager,
             RoleManager<ApplicationRole> roleManager,
             IOptions<NafathConfiguration> nafathConfiguartion,
-            UserAppService userAppService
+            UserAppService userAppService,
+            ILogger<AccountController> logger,
+            LogAppService logservice
         )
             : base(userManager, signInManager, roleManager)
         {
@@ -35,6 +43,8 @@ namespace QassimPrincipality.Web.Controllers
             _signInManager = signInManager;
             _nafathConfiguartion = nafathConfiguartion;
             _userServices = userAppService;
+            _logger = logger;
+            _logservice = logservice;
         }
 
         [AllowAnonymous]
@@ -93,6 +103,23 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return View(loginVM);
+
+            await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+            {
+                CallSite = "",
+                Date = DateTime.Now,
+                Exception = "After validate model",
+                Host = "myhost",
+                Logger = "my logger",
+                LogLevel = "Info",
+                MachineName = "manual",
+                Message = "my message",
+                Thread = "No thread",
+                Url = "api",
+                UserAgent = "agent",
+                UserName = "my name",
+                Id = Guid.NewGuid(),
+            });
             return await ProcessNafathUser(loginVM);
             //var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
             //if (user != null)
@@ -179,6 +206,22 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<IActionResult> ProcessNafathUser(NafathLoginVM model)
         {
+            //await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+            //{
+            //    CallSite = "",
+            //    Date = DateTime.Now,
+            //    Exception = "Inside Call",
+            //    Host = "myhost",
+            //    Logger = "my logger",
+            //    LogLevel = "Info",
+            //    MachineName = "manual",
+            //    Message = "my message",
+            //    Thread = "No thread",
+            //    Url = "api",
+            //    UserAgent = "agent",
+            //    UserName = "my name",
+            //    Id = Guid.NewGuid(),
+            //});
             List<ApiHeaders> headers = new List<ApiHeaders>
             {
                 new ApiHeaders
@@ -190,41 +233,115 @@ namespace QassimPrincipality.Web.Controllers
             };
 
             _nafathConfiguartion.Value.NafathBody.Parameters.id = long.Parse(model.IdentityNumber);
-
-            var token = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
-                _nafathConfiguartion.Value.ApiUrl,
-                _nafathConfiguartion.Value.NafathBody,
-                headers.ToArray()
-            );
-
+            await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+            {
+                CallSite = "",
+                Date = DateTime.Now,
+                Exception = "Nafath Body data " + JsonConvert.SerializeObject(_nafathConfiguartion.Value.NafathBody, Formatting.Indented),
+                Host = "myhost",
+                Logger = "my logger",
+                LogLevel = "Info",
+                MachineName = "manual",
+                Message = "my message",
+                Thread = "No thread",
+                Url = "api",
+                UserAgent = "agent",
+                UserName = "my name",
+                Id = Guid.NewGuid(),
+            });
             try
             {
-                var random = token["random"].ToString();
-                var transId = token["transId"].ToString();
-                ViewBag.Message = string.Format(
-                    "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}",
-                    random
-                );
-                ViewBag.UserName = model.IdentityNumber;
-                ViewBag.TransId = transId;
-                ViewBag.Random = random;
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "Header data "+ JsonConvert.SerializeObject(headers, Formatting.Indented) ,
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "url data " + _nafathConfiguartion.Value.ApiUrl,
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+
+                _logger.LogInformation("before call" + "Hello Hell");
+                var token = await ApiConsumer.ServicePostConsumerAsync<dynamic>(_logger, _logservice,
+               _nafathConfiguartion.Value.ApiUrl,
+               _nafathConfiguartion.Value.NafathBody,
+               headers.ToArray()
+           );
+                
+                try
+                {
+                    var random = token["random"].ToString();
+                    var transId = token["transId"].ToString();
+                    ViewBag.Message = string.Format(
+                        "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}",
+                        random
+                    );
+                    ViewBag.UserName = model.IdentityNumber;
+                    ViewBag.TransId = transId;
+                    ViewBag.Random = random;
+                }
+                catch (Exception exce)
+                {
+                    if (token == null)
+                        ModelState.AddModelError("token", "null");
+                    else
+                        ModelState.AddModelError("token", token.ToString());
+                    ModelState.AddModelError(
+                        "_nafathConfiguartion.Value.ApiUrl",
+                        _nafathConfiguartion.Value.ApiUrl
+                    );
+                    ModelState.AddModelError(
+                        "_nafathConfiguartion.Value.ApiKey",
+                        _nafathConfiguartion.Value.ApiKey
+                    );
+                    return View(model);
+                }
             }
-            catch (Exception exce)
+            catch (Exception ex)
             {
-                if (token == null)
-                    ModelState.AddModelError("token", "null");
-                else
-                    ModelState.AddModelError("token", token.ToString());
-                ModelState.AddModelError(
-                    "_nafathConfiguartion.Value.ApiUrl",
-                    _nafathConfiguartion.Value.ApiUrl
-                );
-                ModelState.AddModelError(
-                    "_nafathConfiguartion.Value.ApiKey",
-                    _nafathConfiguartion.Value.ApiKey
-                );
-                return View(model);
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "in catch" + ex.ToString(),
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+                _logger.LogError(ex, "An error occurred while processing your request.");
             }
+
+           
 
             return View();
         }
@@ -357,7 +474,7 @@ namespace QassimPrincipality.Web.Controllers
                 if (!string.IsNullOrEmpty(transId))
                     _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.transId = transId;
 
-                var result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
+                var result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(_logger, _logservice,
                     _nafathConfiguartion.Value.ApiUrl,
                     _nafathConfiguartion.Value.NafathCheckRequstBody,
                     headers.ToArray()
@@ -367,7 +484,7 @@ namespace QassimPrincipality.Web.Controllers
                 for (int i = 0; i <= 3; i++)
                 {
                     Thread.Sleep(5000);
-                    result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(
+                    result = await ApiConsumer.ServicePostConsumerAsync<dynamic>(_logger, _logservice,
                         _nafathConfiguartion.Value.ApiUrl,
                         _nafathConfiguartion.Value.NafathCheckRequstBody,
                         headers.ToArray()
