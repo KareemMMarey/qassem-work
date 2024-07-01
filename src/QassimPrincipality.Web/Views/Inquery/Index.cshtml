@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Localization;
+﻿ @using Microsoft.AspNetCore.Localization;
 @using QassimPrincipality.Web.ViewModels.Inquery
 @model InqueryVM
 @{
@@ -8,64 +8,51 @@
     <div class="col-xxl-10">
         <div class="page-panel">
             <h3 class="page-title margin-bottom-lg">استعلام عن معاملة</h3>
-            <form asp-action="InqueryRequest" class="form" enctype="multipart/form-data" method="get">
+
+            
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="alert alert-danger">
+                    
+                    <span> @ViewBag.ErrorMessage </span>
+                </div>
+            }
+            <form asp-action="InqueryRequest" class="form" enctype="multipart/form-data">
                 <div class="row">
                    
                     <div class="col-xl-6">
                         <div class="form-group">
-                            <label asp-for="RequestName" class="form-label">عنوان الطلب	</label>
-                            <input asp-for="RequestName" class="form-control" placeholder="عنوان الطلب" />
-                            <span asp-validation-for="RequestName" class="text-danger"></span>
+                            <label asp-for="RecordNo" class="form-label">رقم وارد المعاملة	</label>
+                            <input asp-for="RecordNo" class="form-control" placeholder="رقم وارد المعاملة" />
+                            <span asp-validation-for="RecordNo" class="text-danger"></span>
                         </div>
                     </div>
+                   
                     <div class="col-xl-6">
                         <div class="form-group">
-                            <label asp-for="PhoneNumber" class="form-label">رقم الهاتف</label>
-                            <input asp-for="PhoneNumber" class="form-control" placeholder="رقم الهاتف" />
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <label asp-for="NationalNo" class="form-label">رقم الهوية</label>
+                            <input asp-for="NationalNo" class="form-control" placeholder="رقم الهوية" />
+                            <span asp-validation-for="NationalNo" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label asp-for="NafathNumber" class="form-label">رقم الهوية</label>
-                            <input asp-for="NafathNumber" class="form-control" placeholder="رقم الهوية" />
-                            <span asp-validation-for="NafathNumber" class="text-danger"></span>
-                        </div>
-                    </div>@*
-                    <div class="form-group">
-                    <label class="form-label">اسم المستخدم</label>
-                    @{
-                    string userName = "Guest";
-                    if (Context.User != null)
-                    {
-                    userName = Context.User.Identity.Name;
-                    }
-                    }
-                    <label class="form-label">@userName</label>
-                    </div> *@
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label asp-for="Photo" class="form-label">الصورة الشخصية</label>
-                            <input asp-for="Photo" class="form-control" accept=".png,.jpg,.jpeg" />
-                            <span asp-validation-for="Photo" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label asp-for="ListAttachments" class="form-label">مرفقات اخرى</label>
-                            <input class="form-control" asp-for="ListAttachments" accept=".png,.jpg,.jpeg,.pdf" />
-                            <span asp-validation-for="ListAttachments" class="text-danger"></span>
-                        </div>
-                    </div>
+                    
                     <div class="col-xl-12">
 
                         <div class="form-group">
-                            <input type="submit" value="تقديم طلب" class="btn btn-primary" />
-                            @*  <a class="btn btn-outline-secondary" asp-action="Index">عرض الكل</a> *@
+                            <input type="submit" value="استعلام" class="btn btn-primary" />
+                           
                         </div>
                     </div>
                 </div>
             </form>
+
+            @if (ViewBag.RequestStatus != null)
+            {
+                <div class="alert alert-success">
+                    <span>حالة الطلب</span>
+                    <span> @ViewBag.RequestStatus </span>
+                </div>
+            }
         </div>
     </div>
 </div>
@@ -74,7 +61,7 @@
 @section Scripts {
 }
 
-
+@*
 
 <div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
 
@@ -214,7 +201,7 @@
                 </div>
             </div>
         </div>
-    </form>
+    </form> *@
 
 
     <script type="text/javascript">

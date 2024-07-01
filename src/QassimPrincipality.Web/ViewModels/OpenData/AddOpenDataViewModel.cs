@@ -8,6 +8,9 @@ namespace QassimPrincipality.Web.ViewModels.OpenData
         [Required]
         public string UserFullName { get; set; }
 
+        [MaxLength(20, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
+        public string IdentityNumber { get; set; }
+
         [Required(ErrorMessage = "أدخل البريد الإلكتروني")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "البريد غير صحيح")]
@@ -31,8 +34,7 @@ namespace QassimPrincipality.Web.ViewModels.OpenData
 
         public string Description { get; set; }
 
-        [MaxLength(20, ErrorMessage = "يجب ادخال 10 ارقام كحد اقصى")]
-        public string IdentityNumber { get; set; }
+        
 
         [Required, Range(1, int.MaxValue, ErrorMessage = "أدخل وصف مقدم الطلب")]
         public int RequesterTypeId { get; set; }
