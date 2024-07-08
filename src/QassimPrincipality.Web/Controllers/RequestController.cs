@@ -83,10 +83,12 @@ namespace QassimPrincipality.Web.Controllers
             return View(result);
         }
 
-        // GET: RequestController/Details/5
-        public ActionResult Details(int id)
+
+        public async Task<IActionResult> Details(string requestId)
         {
-            return View();
+            var result = await _uploadRequestService.GetById(Guid.Parse(requestId));
+
+            return View(result);
         }
 
         // GET: RequestController/Create
