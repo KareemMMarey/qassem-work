@@ -20,5 +20,6 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
         public string ServiceRequierment { get; set; }
         public decimal ServiceFees { get; set; }
         public string Audience { get; set; }
+        public bool IsActive { get; set; } 
     }
 }

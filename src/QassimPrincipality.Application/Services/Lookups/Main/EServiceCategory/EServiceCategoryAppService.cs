@@ -27,7 +27,7 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
             return eServiceCategory.MapTo<List<EServiceCategoryDto>>();
         }
 
-        public async Task<Domain.Entities.Lookups.Main.EServiceCategory> InsertAsync(EServiceCategoryDto EServiceCategoryDto)
+        public async Task<Domain.Entities.Lookups.Main.EServiceCategory> InsertAsync(CommonEServiceDto EServiceCategoryDto)
         {
             var eServiceCategory = EServiceCategoryDto.MapTo<Domain.Entities.Lookups.Main.EServiceCategory>();
             var saved = await _eServiceCategoryRepository.InsertAsync(eServiceCategory, true);
@@ -77,6 +77,27 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
                 else
                 {
                     return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<int> ChangeActiveStatus(int id, bool status)
+        {
+            try
+            {
+                var obj = await _eServiceCategoryRepository.TableNoTracking.FirstOrDefaultAsync(m => m.Id == id);
+                if (obj != null)
+                {
+                    obj.IsActive= status;
+                    var updatedItem = await _eServiceCategoryRepository.UpdateAsync(obj, true);
+                    return updatedItem.Id;
+                }
+                else
+                {
+                    return 0;
                 }
             }
             catch (Exception)

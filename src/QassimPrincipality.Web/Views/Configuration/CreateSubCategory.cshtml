@@ -1,0 +1,108 @@
+﻿@using Microsoft.AspNetCore.Localization;
+@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Application.Services.Lookups.Main.CommonEService
+@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+@using QassimPrincipality.Web.ViewModels.SubCategory
+@model ServiceSubCategoryVM
+@{
+    ViewData["Title"] = "إضافة خدمة فرعية";
+}
+
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">خدمة فرعية</h3>
+            <form id="client-form" class="form" asp-controller="Configuration" asp-action="CreateSubCategory" Method="post">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="NameAr">
+                                الخدمة الرئيسية
+                            </label>
+                            @if (ViewData["category"] != null)
+                            {
+                                var category = (CommonEServiceDto)ViewData["category"];
+                                Model.CategoryId = category.Id;
+                                
+                                @Html.HiddenFor(m => m.CategoryId, new { Value = category.Id })
+                                <label class="form-label" asp-for="NameAr">
+                                    (@category.NameAr)
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="NameAr">
+                                اسم
+                            </label>
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="NameAr">
+                            <span asp-validation-for="NameAr" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="ServiceFees">
+                                رسوم الخدمة
+                            </label>
+                            <input type="number" class="form-control col-8 text-box single-line" asp-for="ServiceFees"><span>ريال </span>
+                            <span asp-validation-for="ServiceFees" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="DurationDays">
+                                مدة الخدمة
+                            </label>
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="DurationDays"><span>يوم </span>
+                            <span asp-validation-for="DurationDays" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div id="RequestType" class="form-group">
+                            <label asp-for="Audience" class="form-label">
+                               الجمهور
+                            </label>
+                            @{
+                                List<CustomSelectListItem> customItems = ViewBag.CustomItems;
+                             }
+                            <select asp-for="Audience" required asp-items="@(new SelectList(customItems, "Value", "Text",customItems.First().Value))"
+                                    class="form-control" id="ddlAudience">
+                            </select>
+                            @* <span asp-validation-for="RequestTypeId" class="text-danger"></span>
+                            *@
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label asp-for="DescriptionAr" class="control-label"> وصف الخدمة</label>
+                            <textarea asp-for="DescriptionAr" class="form-control"></textarea>
+                            <span asp-validation-for="DescriptionAr" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label asp-for="ServiceRequierment" class="control-label"> متطلبات الخدمة</label>
+                            <textarea asp-for="ServiceRequierment" class="form-control"></textarea>
+                            <span asp-validation-for="ServiceRequierment" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">إرسال</button>
+                            <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Localization;
+@using QassimPrincipality.Web.ViewModels.Category
+@model ServiceCategoryVM
+@{
+    ViewData["Title"] = "إضافة خدمة رئيسية";
+}
+
+<div class="row justify-content-xxl-center">
+    <div class="col-xxl-10">
+        <div class="page-panel">
+            <h3 class="page-title margin-bottom-lg">خدمة جديدة</h3>
+            <form id="client-form" class="form" asp-controller="Configuration" asp-action="CreateCategory" Method="post">
+                <div class="row">
+                   
+
+                    <div class="col-xl-6">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="NameAr">
+                                اسم
+                            </label>
+                            <input type="text" class="form-control col-8 text-box single-line" asp-for="NameAr">
+                            <span asp-validation-for="NameAr" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+                  
+                    <div class="col-xl-12">
+                        <div class="form-group">
+                            <label asp-for="DescriptionAr" class="control-label"> وصف الخدمة</label>
+                            <textarea asp-for="DescriptionAr" class="form-control"></textarea>
+                            <span asp-validation-for="DescriptionAr" class="field-validation-valid text-danger"> </span>
+                        </div>
+                    </div>
+
+
+
+
+                    
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary">إرسال</button>
+                            <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

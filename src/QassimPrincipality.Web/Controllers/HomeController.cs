@@ -38,7 +38,7 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            ViewData["categories"] = await _categoriesService.GetAllEServiceCategories();
+            ViewData["categories"] = await _categoriesService.GetActiveEServiceCategories();
             
             
             return View();

@@ -30,7 +30,7 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCatego
             return eServiceCategory.MapTo<List<EServiceSubCategoryDto>>();
         }
 
-        public async Task<Domain.Entities.Lookups.Main.EServiceSubCategory> InsertAsync(EServiceSubCategoryDto EServiceSubCategoryDto)
+        public async Task<Domain.Entities.Lookups.Main.EServiceSubCategory> InsertAsync(CommonEServiceDto EServiceSubCategoryDto)
         {
             var eServiceCategory = EServiceSubCategoryDto.MapTo<Domain.Entities.Lookups.Main.EServiceSubCategory>();
             var saved = await _eServiceSubCategoryRepository.InsertAsync(eServiceCategory, true);
