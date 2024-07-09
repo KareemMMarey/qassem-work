@@ -55,7 +55,7 @@ namespace QassimPrincipality.Web.Controllers
         }
         public async Task<ActionResult> SubCategories(int? categoryId)
         {
-            ViewData["subcategories"] = await _subCategoriesService.GetAllEServiceSubCategories(categoryId);
+            ViewData["subcategories"] = await _subCategoriesService.GetActiveEServiceSubCategories(categoryId);
             return View();
         }
         [Authorize]

@@ -24,9 +24,9 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCatego
             return eServiceCategory.MapTo<List<EServiceSubCategoryDto>>();
         }
 
-        public async Task<List<EServiceSubCategoryDto>> GetActiveEServiceSubCategories()
+        public async Task<List<EServiceSubCategoryDto>> GetActiveEServiceSubCategories(int? category)
         {
-            var eServiceCategory = await _eServiceSubCategoryRepository.TableNoTracking.Where(s => s.IsActive).ToListAsync();
+            var eServiceCategory = await _eServiceSubCategoryRepository.TableNoTracking.Where(s => s.IsActive&& s.CategoryId == category).ToListAsync();
             return eServiceCategory.MapTo<List<EServiceSubCategoryDto>>();
         }
 
@@ -51,11 +51,25 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCatego
                 throw;
             }
         }
-        public async Task<EServiceSubCategoryDto> GetByCategoryId(int id)
+        public async Task<List<CommonEServiceDto>> GetByCategoryId(int id)
         {
             try
             {
                 var entity = await _eServiceSubCategoryRepository.TableNoTracking.Where(s => s.CategoryId==id).FirstOrDefaultAsync();
+                var EServiceSubCategoryDto = entity.MapTo<List<CommonEServiceDto>>();
+
+                return await Task.FromResult(EServiceSubCategoryDto);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+        public async Task<EServiceSubCategoryDto> GetActiveByCategoryId(int id)
+        {
+            try
+            {
+                var entity = await _eServiceSubCategoryRepository.TableNoTracking.Where(s => s.CategoryId == id&&s.IsActive).FirstOrDefaultAsync();
                 var EServiceSubCategoryDto = entity.MapTo<EServiceSubCategoryDto>();
 
                 return await Task.FromResult(EServiceSubCategoryDto);
@@ -94,6 +108,27 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCatego
                 else
                 {
                     return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public async Task<int> ChangeActiveStatus(int id, bool status)
+        {
+            try
+            {
+                var obj = await _eServiceSubCategoryRepository.TableNoTracking.FirstOrDefaultAsync(m => m.Id == id);
+                if (obj != null)
+                {
+                    obj.IsActive = status;
+                    var updatedItem = await _eServiceSubCategoryRepository.UpdateAsync(obj, true);
+                    return updatedItem.Id;
+                }
+                else
+                {
+                    return 0;
                 }
             }
             catch (Exception)

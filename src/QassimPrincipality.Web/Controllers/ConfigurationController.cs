@@ -45,6 +45,12 @@ namespace QassimPrincipality.Web.Controllers
             ViewData["categories"] = await _categoriesService.GetAllEServiceCategories();
             return View();
         }
+        public async Task<ActionResult> ServiceSubCategoryList(int categoryId)
+        {
+            ViewData["category"] = await _categoriesService.GetById(categoryId);
+            ViewData["subcategories"] = await _subCategoriesService.GetAllEServiceSubCategories(categoryId);
+            return View();
+        }
         public ActionResult CreateCategory()
         {
             return View();
@@ -67,6 +73,18 @@ namespace QassimPrincipality.Web.Controllers
             {
                
                 var res = await _categoriesService.ChangeActiveStatus(serviceId,!status);
+                return RedirectToAction("ServiceList");
+            }
+            catch
+            {
+                return RedirectToAction("ServiceList");
+            }
+        }
+        public async Task<ActionResult> ActivateSubcategory(int serviceId, bool status)
+        {
+            try
+            {
+                var res = await _subCategoriesService.ChangeActiveStatus(serviceId, !status);
                 return RedirectToAction("ServiceList");
             }
             catch
