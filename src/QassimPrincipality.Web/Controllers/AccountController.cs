@@ -296,9 +296,9 @@ namespace QassimPrincipality.Web.Controllers
                     var random = token["random"].ToString();
                     var transId = token["transId"].ToString();
                     ViewBag.Message = string.Format(
-                        "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ {0}",
-                        random
-                    );
+                     "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ <h1>{0}</h1>",
+                     random
+                 );
                     ViewBag.UserName = model.IdentityNumber;
                     ViewBag.TransId = transId;
                     ViewBag.Random = random;
