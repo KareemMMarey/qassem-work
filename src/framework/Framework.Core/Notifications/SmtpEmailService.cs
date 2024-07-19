@@ -15,6 +15,7 @@ namespace Framework.Core.Notifications
     using MimeKit;
     using SmtpClient = System.Net.Mail.SmtpClient;
     using System.Linq;
+    using System.Diagnostics;
     #endregion usings
 
     /// <summary>
@@ -119,28 +120,7 @@ namespace Framework.Core.Notifications
                 throw;
             }
 
-            using (
-                SmtpClient smtp = new SmtpClient(
-                    _smtpConfiguration.SmtpServer,
-                    _smtpConfiguration.Port
-                )
-            )
-            {
-                smtp.EnableSsl = false;
-                smtp.Credentials = new System.Net.NetworkCredential(
-                    _smtpConfiguration.UserName,
-                    _smtpConfiguration.Password
-                );
-                var mail = emailMessage.ToMailMessage();
-
-                try
-                {
-                    smtp.Send(mail);
-                }
-                catch (Exception ex) 
-                {
-                }
-            }
+             
         }
 
 
