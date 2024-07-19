@@ -26,7 +26,7 @@ namespace Framework.Core.Notifications
         {
             _notificationTemplateService = notificationTemplateService;
             _appSettingsService = appSettingsService;
-            ;
+            
             this._notificationSettings = this.LoadNotificationsSettings();
         }
 
