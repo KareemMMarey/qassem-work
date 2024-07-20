@@ -77,6 +77,13 @@ namespace Framework.Core.Notifications
         /// The notification Settings.
         /// </param>
         void SendEmail(EmailMessage emailMessage, NotificationSettings notificationSettings);
+        /// <summary>
+        /// The send email.
+        /// </summary>
+        /// <param name="emailMessage">
+        /// The email message.
+        /// </param>
+        void SendEmail(EmailMessage emailMessage);
     }
 
     /// <summary>

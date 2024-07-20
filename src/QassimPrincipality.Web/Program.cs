@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Web;
+using Framework.Core.Notifications;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -36,16 +37,20 @@ namespace QassimPrincipality.Web
                 var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
                 builder.Services.Configure<NafathConfiguration>(mailConfiguration);
 
-                var referralNumberConfiguration = builder.Configuration.GetSection("ReferralNumberConfiguration");
-                builder.Services.Configure<ReferralNumberConfiguration>(referralNumberConfiguration);
+            var emailConfiguration = builder.Configuration.GetSection("EmailConfiguration");
+            builder.Services.Configure<SmtpConfiguration>(emailConfiguration);
 
-                // Add services to the container.
-                builder.Services.ConfigureSharedApplicationServices(connectionString);
-                builder.Services.ConfigureApplicationServices();
-                builder.Services.ConfigureInfrastructureServices(connectionString);
-                builder.Services.IdentityConfigureServices(connectionString);
-                //builder.Services.AddDataProtection(connectionString);
-                //builder.Services.AddControllers().AddNewtonsoftJson();
+            var referralNumberConfiguration = builder.Configuration.GetSection("ReferralNumberConfiguration");
+            builder.Services.Configure<ReferralNumberConfiguration>(referralNumberConfiguration);
+
+            // Add services to the container.
+            builder.Services.ConfigureSharedApplicationServices(connectionString);
+            builder.Services.ConfigureApplicationServices();
+            builder.Services.ConfigureInfrastructureServices(connectionString);
+            builder.Services.IdentityConfigureServices(connectionString);
+            builder.Services.ConfigureSharedApplicationServices(connectionString);
+            //builder.Services.AddDataProtection(connectionString);
+            //builder.Services.AddControllers().AddNewtonsoftJson();
 
 
                 builder.Services.AddMemoryCache();
