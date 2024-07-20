@@ -16,6 +16,7 @@ namespace Framework.Core.Notifications
     using SmtpClient = System.Net.Mail.SmtpClient;
     using System.Linq;
     using System.Diagnostics;
+    using Microsoft.Extensions.Logging;
     #endregion usings
 
     /// <summary>
@@ -24,12 +25,15 @@ namespace Framework.Core.Notifications
     public class SmtpEmailService : IEmailService
     {
         //private readonly IEmailService emailService;
+
+        private readonly ILogger<SmtpEmailService> _logger;
         private readonly SmtpConfiguration _smtpConfiguration;
 
-        public SmtpEmailService(IOptions<SmtpConfiguration> smtpConfiguration)
+        public SmtpEmailService(IOptions<SmtpConfiguration> smtpConfiguration, ILogger<SmtpEmailService> logger)
         {
             //this.emailService = emailService;
             _smtpConfiguration = smtpConfiguration.Value;
+            _logger = logger;   
         }
 
         /// <summary>
@@ -98,10 +102,11 @@ namespace Framework.Core.Notifications
 
             using var client = new MailKit.Net.Smtp.SmtpClient();
 
-
+            _logger.LogInformation(_smtpConfiguration.UserName);
             var mailMessage = new MimeMessage();
             mailMessage.To.AddRange(emailMessage.To.Select(x => new MailboxAddress(x, x))) ;
-            mailMessage.From.Add( new MailboxAddress(emailMessage.From, emailMessage.From)) ;
+            mailMessage.From.Add(new MailboxAddress("No Reply", "NoReplay@notify.alqassim.gov.sa"));
+            //mailMessage.From.Add( new MailboxAddress(_smtpConfiguration.From)) ;
             var bodyBuilder = new BodyBuilder();
             bodyBuilder.TextBody = emailMessage.Body;
             mailMessage.Body = bodyBuilder.ToMessageBody();
@@ -114,9 +119,9 @@ namespace Framework.Core.Notifications
                 client.Authenticate(_smtpConfiguration.UserName, _smtpConfiguration.Password);
                 client.Send(mailMessage);
             }
-            catch (Exception ee)
+            catch (Exception ex)
             {
-
+                _logger.LogError(ex, "SendEmail=> Error");
                 throw;
             }
 

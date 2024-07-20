@@ -144,10 +144,11 @@ namespace QassimPrincipality.Web.Controllers
                         //);
                         return View("VerifyOtp", loginVM);
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
 
                         TempData["Error"] = "بيانات المستخدم غير صحيحة";
+                        _logger.LogError(ex, "An unhandled exception occurred while processing the request.");
                         return View(loginVM);
                     }
                 }

@@ -59,6 +59,15 @@ namespace QassimPrincipality.Web
                 {
                     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 });
+                builder.Services.ConfigureApplicationCookie(options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set the session expiry time
+
+                    options.LoginPath = "/Account/Login";
+                    //options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.SlidingExpiration = true; // Refresh the cookie expiry on each request
+                });
 
                 builder.Services.AddControllersWithViews().AddViewLocalization()
         .AddDataAnnotationsLocalization(); ;
