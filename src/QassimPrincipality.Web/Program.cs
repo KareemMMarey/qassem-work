@@ -10,6 +10,13 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using QassimPrincipality.Web.Helpers;
 using Framework.Core.Globalization;
 using System.Configuration;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using NLog;
+using NLog.Web;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -18,99 +25,129 @@ namespace QassimPrincipality.Web
         //dotnet ef database update -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-            //builder.Services.AddControllersWithViews();
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
-            var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
-            builder.Services.Configure<NafathConfiguration>(mailConfiguration);
-
-            var referralNumberConfiguration = builder.Configuration.GetSection("ReferralNumberConfiguration");
-            builder.Services.Configure<ReferralNumberConfiguration>(referralNumberConfiguration);
-
-            // Add services to the container.
-            builder.Services.ConfigureSharedApplicationServices(connectionString);
-            builder.Services.ConfigureApplicationServices();
-            builder.Services.ConfigureInfrastructureServices(connectionString);
-            builder.Services.IdentityConfigureServices(connectionString);
-            //builder.Services.AddDataProtection(connectionString);
-            //builder.Services.AddControllers().AddNewtonsoftJson();
-
-
-            builder.Services.AddMemoryCache();
-            builder.Services.AddSession();
-            builder.Services.AddAuthentication(options =>
+            var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+            try
             {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            });
+                var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllersWithViews();
+                // Add services to the container.
+                //builder.Services.AddControllersWithViews();
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+                var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
+                builder.Services.Configure<NafathConfiguration>(mailConfiguration);
+
+                var referralNumberConfiguration = builder.Configuration.GetSection("ReferralNumberConfiguration");
+                builder.Services.Configure<ReferralNumberConfiguration>(referralNumberConfiguration);
+
+                // Add services to the container.
+                builder.Services.ConfigureSharedApplicationServices(connectionString);
+                builder.Services.ConfigureApplicationServices();
+                builder.Services.ConfigureInfrastructureServices(connectionString);
+                builder.Services.IdentityConfigureServices(connectionString);
+                //builder.Services.AddDataProtection(connectionString);
+                //builder.Services.AddControllers().AddNewtonsoftJson();
 
 
-            // Localization 
+                builder.Services.AddMemoryCache();
+                builder.Services.AddSession();
+                builder.Services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                });
+
+                builder.Services.AddControllersWithViews().AddViewLocalization()
+        .AddDataAnnotationsLocalization(); ;
 
 
-            #region Nlog
+                // Localization 
+                builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-            builder.Logging.ClearProviders();
-            builder.Host.UseNLog();
+                #region Nlog
 
-            #endregion Nlog
+                builder.Logging.ClearProviders();
+                builder.Host.UseNLog();
+               
 
-            var app = builder.Build();
+                #endregion Nlog
 
-            // Configure the HTTP request pipeline.
-            //if (!app.Environment.IsDevelopment())
-            //{
-            //    app.UseExceptionHandler("/Home/Error");
-            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
+                var app = builder.Build();
+                // Configure the middleware
+                //app.UseMiddleware<RequestLoggingMiddleware>();
+                app.UseMiddleware<ExceptionHandlingMiddleware>();
+                // Configure the HTTP request pipeline.
+                //if (!app.Environment.IsDevelopment())
+                //{
+                //    app.UseExceptionHandler("/Home/Error");
+                //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                //    app.UseHsts();
+                //}
+                // Configure the localization middleware
+                var supportedCultures = new[]
+                        {
+                        new CultureInfo("en-US"),
+                        new CultureInfo("fr-FR"),
+                        new CultureInfo("ar-SA")
+                    };
 
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+                if (app.Environment.IsDevelopment())
+                {
+                    //app.UseDeveloperExceptionPage();
+                }
+                else
+                {
+                    app.UseExceptionHandler("/Home/Error");
+                    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                    app.UseHsts();
+                }
+                app.UseRequestLocalization(new RequestLocalizationOptions
+                {
+                    DefaultRequestCulture = new RequestCulture("ar-SA"),
+                    SupportedCultures = supportedCultures,
+                    SupportedUICultures = supportedCultures
+                });
+                app.UseStaticFiles();
+
+                app.UseRouting();
+                app.UseSession();
+                app.UseAuthentication();
+                app.UseAuthorization();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllerRoute(
+                        name: "default",
+                        pattern: "{controller=Home}/{action=Index}/{id?}");
+                });
+                //app.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                //app.UseCors();
+                //app.UseHttpsRedirection();
+                //app.MapControllers();
+                // create AutoMapper configuration
+                var config = new MapperConfiguration(cfg =>
+                {
+                    cfg.AddProfile(typeof(AppAutoMapperProfile));
+                });
+                AutoMapperConfiguration.Init(config);
+
+                app.UseApplicationDBMigration();
+                app.UseSharedApplicationDBMigration();
+                app.UseIdentityDBMigration();
+                AppDbInitializer.Seed(builder.Services, builder);
+                //app.UseMiddleware<GlobalizationMiddleware>();
+
+                app.Run();
             }
-            else
+            catch (Exception exception)
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                logger.Error(exception, "Stopped program because of exception");
+                throw;
             }
-
-            app.UseStaticFiles();
-
-            app.UseRouting();
-            app.UseSession();
-            app.UseAuthentication();
-            app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
+            finally
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
-            //app.MapControllerRoute(
-            //    name: "default",
-            //    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            //app.UseCors();
-            //app.UseHttpsRedirection();
-            //app.MapControllers();
-            // create AutoMapper configuration
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(typeof(AppAutoMapperProfile));
-            });
-            AutoMapperConfiguration.Init(config);
-
-            app.UseApplicationDBMigration();
-            app.UseSharedApplicationDBMigration();
-            app.UseIdentityDBMigration();
-            AppDbInitializer.Seed(builder.Services,builder);
-            app.UseMiddleware<GlobalizationMiddleware>();
-            app.Run();
+                LogManager.Shutdown();
+            }
         }
     }
 }

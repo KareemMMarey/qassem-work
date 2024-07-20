@@ -10,7 +10,7 @@ using QassimPrincipality.Application.Services.Main.Evaluation;
 using QassimPrincipality.Web.Models;
 using System.Diagnostics;
 using System.Linq;
-
+using Microsoft.Extensions.Logging;
 namespace QassimPrincipality.Web.Controllers
 {
     public class HomeController : Controller
@@ -39,8 +39,8 @@ namespace QassimPrincipality.Web.Controllers
         public async Task<ActionResult> Index()
         {
             ViewData["categories"] = await _categoriesService.GetActiveEServiceCategories();
-            
-            
+            _logger.LogInformation("Executing Index action.");
+            //throw new Exception("Test exception");
             return View();
         }
         public ActionResult About()

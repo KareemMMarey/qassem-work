@@ -1,14 +1,17 @@
-﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "إمازة منطقة القصيم | الصفحة الرئيسية";
+    ViewData["Title"] = Localizer["Title"];
 }
 <div class="margin-bottom-lg">
-    <h3 class="page-title margin-bottom-md">الخدمات الإلكترونية لإمارة منطقة القصيم</h3>
+    <h3 class="page-title margin-bottom-md">@Localizer["HeadTitle"]</h3>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-4">
                 <div class="form-group">
-                    <input class="form-control" id="filterInput" type="search" placeholder="البحث في الخدمات">
+                    <input class="form-control" id="filterInput" type="search" placeholder="@Localizer["PlaceHolderSearch"]">
                 </div>
             </div>
         </div>
@@ -47,7 +50,7 @@
                   <use xlink:href="/assets/images/svg-icons.svg#no-search-result"></use>
                 </svg>
               </div>
-              <div class="service-card__title">عذراً .. لا يوجد خدمات</div>
+                    <div class="service-card__title">@Localizer["NoDataExist"];</div>
             </div>
           </div>
         </div>
