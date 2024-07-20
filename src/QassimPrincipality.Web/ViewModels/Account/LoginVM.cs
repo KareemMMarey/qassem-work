@@ -8,6 +8,8 @@ namespace QassimPrincipality.Web.ViewModels.Account
         public  string EmailAddress { get; set; }
         [Required,DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public string OTP { get; set; }=string.Empty;
     }
     
 }

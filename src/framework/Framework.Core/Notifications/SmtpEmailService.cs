@@ -10,8 +10,12 @@ namespace Framework.Core.Notifications
 
     #region usings
 
-    using System.Net.Mail;
-
+    // using System.Net.Mail;
+    using Microsoft.Extensions.Options;
+    using MimeKit;
+    using SmtpClient = System.Net.Mail.SmtpClient;
+    using System.Linq;
+    using System.Diagnostics;
     #endregion usings
 
     /// <summary>
@@ -20,10 +24,12 @@ namespace Framework.Core.Notifications
     public class SmtpEmailService : IEmailService
     {
         //private readonly IEmailService emailService;
+        private readonly SmtpConfiguration _smtpConfiguration;
 
-        public SmtpEmailService()
+        public SmtpEmailService(IOptions<SmtpConfiguration> smtpConfiguration)
         {
             //this.emailService = emailService;
+            _smtpConfiguration = smtpConfiguration.Value;
         }
 
         /// <summary>
@@ -63,21 +69,61 @@ namespace Framework.Core.Notifications
 
         public void SendEmail(EmailMessage emailMessage, NotificationSettings notificationSettings)
         {
-            using (SmtpClient smtp = new SmtpClient(notificationSettings.SmtpServer, notificationSettings.SmtpPort))
+            using (
+                SmtpClient smtp = new SmtpClient(
+                    notificationSettings.SmtpServer,
+                    notificationSettings.SmtpPort
+                )
+            )
             {
                 smtp.EnableSsl = false;
                 smtp.UseDefaultCredentials = notificationSettings.IsSmtpAuthenticated;
-                smtp.Credentials = new System.Net.NetworkCredential(notificationSettings.SmtpUserName, notificationSettings.SmtpPassword);
+                smtp.Credentials = new System.Net.NetworkCredential(
+                    notificationSettings.SmtpUserName,
+                    notificationSettings.SmtpPassword
+                );
                 var mail = emailMessage.ToMailMessage();
 
                 try
                 {
                     smtp.Send(mail);
                 }
-                catch (Exception ex)
-                {
-                }
+                catch (Exception ex) { }
             }
         }
+
+        public void SendEmail(EmailMessage emailMessage)
+        {
+            emailMessage.From = _smtpConfiguration.UserName;
+
+            using var client = new MailKit.Net.Smtp.SmtpClient();
+
+
+            var mailMessage = new MimeMessage();
+            mailMessage.To.AddRange(emailMessage.To.Select(x => new MailboxAddress(x, x))) ;
+            mailMessage.From.Add( new MailboxAddress(emailMessage.From, emailMessage.From)) ;
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = emailMessage.Body;
+            mailMessage.Body = bodyBuilder.ToMessageBody();
+            mailMessage.Subject = "emailMessage.Subject";
+
+            try
+            {
+
+                client.Connect(_smtpConfiguration.SmtpServer, _smtpConfiguration.Port, false);
+                client.Authenticate(_smtpConfiguration.UserName, _smtpConfiguration.Password);
+                client.Send(mailMessage);
+            }
+            catch (Exception ee)
+            {
+
+                throw;
+            }
+
+             
+        }
+
+
+
     }
 }
