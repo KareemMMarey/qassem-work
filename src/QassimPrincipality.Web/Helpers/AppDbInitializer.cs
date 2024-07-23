@@ -414,7 +414,7 @@ namespace QassimPrincipality.Web.Helpers
                                 },
                                 new RequestType()
                                 {
-                                    NameAr = " خدمة الاستعلام عن معاملة",
+                                    NameAr = " خدمة الاستعلام عن استدعاء",
                                     NameEn = "Transaction inquiry service",
                                     IsActive = true,
                                     CreatedBy = "admin",
