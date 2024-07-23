@@ -1,5 +1,6 @@
 ﻿@using Framework.Identity.Data.Entities
 @using Microsoft.AspNetCore.Identity
+@using System.Globalization
 @inject UserManager<ApplicationUser> _userManager
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -64,7 +65,12 @@
             <div class="top-bar__date">
                 <svg width="24" height="24">
                     <use xlink:href="/assets/images/svg-icons.svg#date"> </use>
-                </svg> @DateTime.Now.ToLongDateString() @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
+                    @{
+
+                        CultureInfo CurrentCulture = CultureInfo.GetCultureInfo("ar-SA");
+                        string text = DateTime.Now.ToString("dddd dd MMMM yyyy", CurrentCulture) + " هـ ";
+                    }
+                </svg> @text @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
             </div>
             <div class="top-bar__lang"> @* <a class="btn btn-sm" href="/index-en.html">English</a> *@</div>
         </div>
