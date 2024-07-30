@@ -49,8 +49,8 @@ namespace QassimPrincipality.Web.Controllers
             _emailservice = emailService;
         }
 
-        [AllowAnonymous]
-        public IActionResult Index() => View();
+        //[AllowAnonymous]
+        //public IActionResult Index() => View();
 
         [HttpGet]
         public IActionResult Profile()

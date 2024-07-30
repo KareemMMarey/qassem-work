@@ -1,5 +1,6 @@
 ﻿@using Framework.Identity.Data.Entities
 @using Microsoft.AspNetCore.Identity
+@using System.Globalization
 @inject UserManager<ApplicationUser> _userManager
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -64,14 +65,19 @@
             <div class="top-bar__date">
                 <svg width="24" height="24">
                     <use xlink:href="/assets/images/svg-icons.svg#date"> </use>
-                </svg> @DateTime.Now.ToLongDateString() @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
+                    @{
+
+                        CultureInfo CurrentCulture = CultureInfo.GetCultureInfo("ar-SA");
+                        string text = DateTime.Now.ToString("dddd dd MMMM yyyy", CurrentCulture) + " هـ ";
+                    }
+                </svg> @text @* 22 جمادى الثاني 1445 هـ -  4  يناير  2023 م *@
             </div>
             <div class="top-bar__lang"> @* <a class="btn btn-sm" href="/index-en.html">English</a> *@</div>
         </div>
     </div>
     <header class="header">
         <div class="container header__container">
-            <a class="header__logo" href="/"><img src="/assets/images/qassim-logo.svg" alt="إمارة منطقة القصيم"></a>
+            <a class="header__logo" href="/"><img src="/assets/images/qassim-logo.svg" hidden alt="إمارة منطقة القصيم"></a>
             <div class="header__nav-bar">
                 <nav class="nav-bar">
                     <div class="nav-bar__item">
@@ -160,15 +166,16 @@
                                     </div> *@
                                 </div>
                             </div>
-                        </div><span class="nav-bar__menu">عن الإمارة</span>
+                        </div><span hidden class="nav-bar__menu">عن الإمارة</span>
                     </div>
                     <div class="nav-bar__item"><a class="nav-bar__menu" href="/">الخدمات الإلكترونية</a></div>
+                    <div class="nav-bar__item"><a class="nav-bar__menu" href="https://www.alqassim.gov.sa/EParticipation/"> المشاركة الالكترونية</a></div>
                     <div class="nav-bar__item">
                         <div class="mega-menu">
                             <div class="container mega-menu__container">
                                 <div class="row">
                                     <div class="col-4">
-                                        <a class="mega-menu__item" href="~/OpenData">
+                                        <a class="mega-menu__item" href="~/OpenData/Create">
                                             <div class="mega-menu__icon">
                                                 <svg width="40" height="40">
                                                     <use xlink:href="/assets/images/svg-icons.svg#mega-media-icon1"> </use>
@@ -336,90 +343,13 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    @* <div class="col-4">
-                                    <a class="mega-menu__item" href="#">
-                                    <div class="mega-menu__icon">
-                                    <svg width="40" height="40">
-                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon3"> </use>
-                                    </svg>
-                                    </div>
-                                    <div class="mega-menu__txt">
-                                    <div class="mega-menu__title">
-                                    المبادرات
-                                    </div>
-                                    <div class="mega-menu__description">
-                                    تعرف على المبادرات التمكينية لإمارة منطقة القصيم
-                                    </div>
-                                    </div>
-                                    <svg class="mega-menu__arrow" width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                    </svg>
-                                    </a>
-                                    </div> *@
-                                    @* <div class="col-4">
-                                    <a class="mega-menu__item" href="#">
-                                    <div class="mega-menu__icon">
-                                    <svg width="40" height="40">
-                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon4"> </use>
-                                    </svg>
-                                    </div>
-                                    <div class="mega-menu__txt">
-                                    <div class="mega-menu__title">
-                                    انفوجرافيك القصيم
-                                    </div>
-                                    <div class="mega-menu__description">
-                                    معلومات عن منطقة القصيم ملخصة في تصاميم ابداعية
-                                    </div>
-                                    </div>
-                                    <svg class="mega-menu__arrow" width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                    </svg>
-                                    </a>
-                                    </div> *@
-                                    @* <div class="col-4">
-                                    <a class="mega-menu__item" href="#">
-                                    <div class="mega-menu__icon">
-                                    <svg width="40" height="40">
-                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon5"> </use>
-                                    </svg>
-                                    </div>
-                                    <div class="mega-menu__txt">
-                                    <div class="mega-menu__title">
-                                    مكتبة الصور
-                                    </div>
-                                    <div class="mega-menu__description">
-                                    مكتبة متكاملة من الصور الخاصة بإمارة منطقة القصيم
-                                    </div>
-                                    </div>
-                                    <svg class="mega-menu__arrow" width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                    </svg>
-                                    </a>
-                                    </div> *@
-                                    @* <div class="col-4">
-                                    <a class="mega-menu__item" href="#">
-                                    <div class="mega-menu__icon">
-                                    <svg width="40" height="40">
-                                    <use xlink:href="/assets/images/svg-icons.svg#mega-social-icon6"> </use>
-                                    </svg>
-                                    </div>
-                                    <div class="mega-menu__txt">
-                                    <div class="mega-menu__title">
-                                    مكتبة الفيديو
-                                    </div>
-                                    <div class="mega-menu__description">
-                                    مكتبة متكاملة من الفيديوهات الخاصة بإمارة منطقة القصيم
-                                    </div>
-                                    </div>
-                                    <svg class="mega-menu__arrow" width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#left-arrow"> </use>
-                                    </svg>
-                                    </a>
-                                    </div> *@
+                                   
                                 </div>
                             </div>
-                        </div><span class="nav-bar__menu">المشاركة المجتمعية</span>
+                        </div><span hidden class="nav-bar__menu">المشاركة المجتمعية</span>
                     </div>
+                    <div class="nav-bar__item"><a class="nav-bar__menu" href="~/ShareData/Create"> مشاركة البيانات</a></div>
+
                 </nav>
             </div>
             <div class="header__login">
@@ -427,7 +357,7 @@
                     @if (!User.Identity.IsAuthenticated)
                     {
 
-                        <a class="btn btn-outline-primary" href="~/Account">تسجيل الدخول</a>
+                        <a class="btn btn-outline-primary" href="~/Account/NafathLogin">تسجيل الدخول</a>
                     }
                     else
                     {
@@ -698,7 +628,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-auto"><a class="btn btn-outline-light" href="#">البريد الإلكتروني للموظفين</a></div>
+                <div class="col-auto"><a class="btn btn-outline-light" href="https://mail.alqassim.gov.sa/my.policy">البريد الإلكتروني للموظفين</a></div>
             </div>
             <div class="row footer__registration">
                 <div class="col-auto"><img src="/assets/images/DGA.png" alt="هيئة الحكومة الرقمية" width="300"></div>
@@ -713,7 +643,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row align-items-center justify-content-between">
-                <div class="col-auto"><img src="/assets/images/qassim-emblem.svg" alt="إمارة منطقة القصيم" width="65"></div>
+                <div class="col-auto"><img src="/assets/images/qassim-emblem.svg"hidden alt="إمارة منطقة القصيم" width="65"></div>
                 <div class="col-auto">جميع الحقوق محفوظة - إمارة منطقة القصيم © 2024</div>
             </div>
         </div>
