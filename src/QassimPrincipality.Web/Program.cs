@@ -22,9 +22,10 @@ namespace QassimPrincipality.Web
 {
     public class Program
     {
-        //dotnet ef migrations add AdjustAddRequest -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
-        //dotnet ef database update -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
-        public static void Main(string[] args)
+		//dotnet ef migrations add AdjustAddRequest -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
+		//dotnet ef database update -c AppDbContext  -p src/QassimPrincipality.Infrastructure -s src/QassimPrincipality.Web
+		//dotnet ef migrations add updateusertable -c AppIdentityDbContext  -p src/framework/Framework.Identity -s src/QassimPrincipality.Web
+		public static void Main(string[] args)
         {
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try

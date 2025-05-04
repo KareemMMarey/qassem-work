@@ -38,6 +38,11 @@ namespace Framework.Identity.Data.Entities
         public string Extension { get; set; }
         public string EmployeeNumber { get; set; }
         public Guid? ProfilePhotoId { get; set; }
-        
-    }
+		public string Nationality { get; set; }
+		public string Country { get; set; }
+		public string City { get; set; }
+		public string Neighborhood { get; set; }
+		public string IdentityNumber { get; set; }
+
+	}
 }
