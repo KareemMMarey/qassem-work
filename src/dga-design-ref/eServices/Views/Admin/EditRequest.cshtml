@@ -1,0 +1,467 @@
+﻿@{
+    ViewData["Title"] = "تفاصيل الطلب - ";
+}
+
+<div class="pc-service-steps-page">
+    <div class="pc-service-form pc-basic-container">
+        <div class="pc-service-form-heading">
+            <h3>تفاصيل الطلب</h3>
+
+            <div>
+                <div class="request-details-heading">
+                    <h4>اسم الخدمة</h4>
+
+                    <div>
+                        <h4>RR-RI241029001</h4>
+                        <p>2024-11-12</p>
+                        <p>اسم مقدم الطلب</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-form-line"></div>
+
+        <div class="request-status-container" id="requestStatusContainer">
+            <div class="request-status-heading-container">
+                <div class="request-status-heading">
+                    <h5>حالة الطلب</h5>
+                    @* if request status = يتطلب إكماله *@
+                    <p class="pc-orange-status" id="requestStatusTag">يتطلب إكماله</p>
+                    @* if request status = معتمد *@
+                    @* <p class="pc-green-status" id="requestStatusTag">معتمد</p> *@
+                    @* if request status = مرفوض *@
+                    @* <p class="pc-red-status" id="requestStatusTag">مرفوض</p> *@
+                    @* if request status = غير مختص *@
+                    @* <p class="pc-grey-status" id="requestStatusTag">غير مختص</p> *@
+                </div>
+
+                <div class="complete-request-actions">
+                    <button class="pc-primary-btn" id="editRequestBtn">تعديل حالة الطلب</button>
+                </div>
+            </div>
+
+            <div class="request-status-body">
+                <div class="request-status">
+                    <img src="~/icons/progressIndicator.svg" alt="Progress Indicator" width="32" height="128" />
+
+                    <div>
+                        <p class="request-progress-data">تم انشاء طلب جديد برقم RR-RI241029001</p>
+                        <p class="request-progress-date">2024-1-5 12:40</p>
+                    </div>
+                </div>
+
+                <div class="request-status">
+                    <img src="~/icons/progressIndicator.svg" alt="Progress Indicator" width="32" height="128" />
+
+                    <div>
+                        <p class="request-progress-data">تم تحديث حالة الطلب إلى ”تحت المراجعة“</p>
+                        <p class="request-progress-date">2024-1-5 12:40</p>
+                    </div>
+                </div>
+
+                <div class="request-status">
+                    <img src="~/icons/progressIndicator.svg" alt="Progress Indicator" width="32" height="128" />
+
+                    <div>
+                        <p class="request-progress-data">تم تحديث حالة الطلب إلى ”يتطلب إكماله“</p>
+                        <p class="request-progress-date">2024-1-5 12:40</p>
+                    </div>
+                </div>
+
+                @* if request status = يتطلب إكماله *@
+                <div class="request-notes-container">
+                    <div class="request-notes">
+                        <p class="request-notes-title">المستندات المطلوبة لإكمال الطلب</p>
+
+                        <ul>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M11.0339 6.33852C11.2205 6.13496 11.2068 5.81867 11.0032 5.63208C10.7997 5.44548 10.4834 5.45923 10.2968 5.66279L6.98299 9.27784L5.68559 7.98043C5.49032 7.78517 5.17374 7.78517 4.97848 7.98043C4.78322 8.1757 4.78322 8.49228 4.97848 8.68754L6.64514 10.3542C6.74158 10.4506 6.87322 10.5035 7.00956 10.5005C7.1459 10.4976 7.27512 10.439 7.36728 10.3385L11.0339 6.33852Z" fill="#175CD3" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.9987 15.1673C4.04066 15.1673 0.832031 11.9587 0.832031 8.00065C0.832031 4.04261 4.04066 0.833984 7.9987 0.833984C11.9567 0.833984 15.1654 4.04261 15.1654 8.00065C15.1654 11.9587 11.9567 15.1673 7.9987 15.1673ZM1.83203 8.00065C1.83203 11.4064 4.59294 14.1673 7.9987 14.1673C11.4045 14.1673 14.1654 11.4064 14.1654 8.00065C14.1654 4.5949 11.4045 1.83398 7.9987 1.83398C4.59294 1.83398 1.83203 4.5949 1.83203 8.00065Z" fill="#175CD3" />
+                                </svg>
+                                صورة الهوية لمقدم الطلب.
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M11.0339 6.33852C11.2205 6.13496 11.2068 5.81867 11.0032 5.63208C10.7997 5.44548 10.4834 5.45923 10.2968 5.66279L6.98299 9.27784L5.68559 7.98043C5.49032 7.78517 5.17374 7.78517 4.97848 7.98043C4.78322 8.1757 4.78322 8.49228 4.97848 8.68754L6.64514 10.3542C6.74158 10.4506 6.87322 10.5035 7.00956 10.5005C7.1459 10.4976 7.27512 10.439 7.36728 10.3385L11.0339 6.33852Z" fill="#175CD3" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.9987 15.1673C4.04066 15.1673 0.832031 11.9587 0.832031 8.00065C0.832031 4.04261 4.04066 0.833984 7.9987 0.833984C11.9567 0.833984 15.1654 4.04261 15.1654 8.00065C15.1654 11.9587 11.9567 15.1673 7.9987 15.1673ZM1.83203 8.00065C1.83203 11.4064 4.59294 14.1673 7.9987 14.1673C11.4045 14.1673 14.1654 11.4064 14.1654 8.00065C14.1654 4.5949 11.4045 1.83398 7.9987 1.83398C4.59294 1.83398 1.83203 4.5949 1.83203 8.00065Z" fill="#175CD3" />
+                                </svg>
+                                نسخة من صك الحكم.
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M11.0339 6.33852C11.2205 6.13496 11.2068 5.81867 11.0032 5.63208C10.7997 5.44548 10.4834 5.45923 10.2968 5.66279L6.98299 9.27784L5.68559 7.98043C5.49032 7.78517 5.17374 7.78517 4.97848 7.98043C4.78322 8.1757 4.78322 8.49228 4.97848 8.68754L6.64514 10.3542C6.74158 10.4506 6.87322 10.5035 7.00956 10.5005C7.1459 10.4976 7.27512 10.439 7.36728 10.3385L11.0339 6.33852Z" fill="#175CD3" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.9987 15.1673C4.04066 15.1673 0.832031 11.9587 0.832031 8.00065C0.832031 4.04261 4.04066 0.833984 7.9987 0.833984C11.9567 0.833984 15.1654 4.04261 15.1654 8.00065C15.1654 11.9587 11.9567 15.1673 7.9987 15.1673ZM1.83203 8.00065C1.83203 11.4064 4.59294 14.1673 7.9987 14.1673C11.4045 14.1673 14.1654 11.4064 14.1654 8.00065C14.1654 4.5949 11.4045 1.83398 7.9987 1.83398C4.59294 1.83398 1.83203 4.5949 1.83203 8.00065Z" fill="#175CD3" />
+                                </svg>
+                                صورة من الوكالة, في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                @* if request status = معتمد *@
+                @* <div class="request-notes-container">
+                <div class="request-notes">
+                <p class="request-notes-title">تم إصدار معاملة جديدة</p>
+
+                <div>
+                <p>رقم المعاملة <span id="transactionNum">75612</span></p>
+                <button id="copyTransactionNumBtn">
+                <img src="~/icons/copy.svg" alt="copy" aria-label="copy" width="20" height="20" />
+                </button>
+                </div>
+                </div>
+                </div> *@
+
+                @* if request status = مرفوض *@
+                @* <div class="request-notes-container">
+                <div class="request-notes">
+                <p class="request-notes-title">سبب الرفض</p>
+
+                <p>عدم توافق الطلب مع شروط الخدمة</p>
+                </div>
+                </div> *@
+
+                @* if request status = غير مختص *@
+                @* <div class="request-notes-container">
+                <div class="request-notes">
+                <p class="request-notes-title">جهة الاختصاص المقترحة</p>
+
+                <p>الرجاء توجيه الطلب إلى محكمة العدل</p>
+                </div>
+                </div> *@
+            </div>
+        </div>
+
+        <div class="request-status-container" id="editRequestContainer">
+            <div class="request-status-heading-container">
+                <div class="request-status-heading">
+                    <h5>تعديل حالة الطلب</h5>
+                    <p class="pc-warning-text">* المعلومات المطلوبة</p>
+                </div>
+
+                <div class="complete-request-actions">
+                    <button class="pc-primary-btn" id="saveEditedRequestBtn">حفظ التعديلات</button>
+                    <button class="pc-outline-btn" id="cancelEditingRequestBtn">إلغاء</button>
+                </div>
+            </div>
+
+            <div class="request-status-body">
+                <div class="custom-select pc-full-width-input mb-3">
+                    <div class="pc-input-label"> <span class="required">*</span> حالة الطلب</div>
+
+                    <button id="dropdown-button" class="select-button" role="combobox" aria-label="select button"
+                            aria-haspopup="listbox" aria-expanded="false" aria-controls="select-dropdown">
+                        <span class="selected-value">اختر...</span>
+                        <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                    </button>
+
+                    <ul class="select-dropdown hidden" role="listbox" id="select-dropdown" aria-labelledby="dropdown-button">
+                        <li role="option">معتمد</li>
+                        <li role="option">مرفوض</li>
+                        <li role="option">يتطلب إكماله</li>
+                        <li role="option">غير مختص</li>
+                    </ul>
+
+                    <div class="error"></div>
+                </div>
+
+                <div class="pc-input pc-full-width-input mb-3">
+                    <label for="details" class="pc-input-label" id="requestStatusNotes"><span class="required">*</span> </label>
+                    <textarea name="details" id="details" placeholder=""></textarea>
+
+                    <div class="error"></div>
+                </div>
+
+                <div>
+                    <h6><span class="required">*</span> المستندات المطلوبة لإكمال الطلب:</h6>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label" for="requiredDocument">
+                            <input type="checkbox" id="requiredDocument" name="requiredDocuments[]" value="applicant-id" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صورة الهوية لمقدم الطلب.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="applicant-id" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صورة الهوية للمعني بالطلب.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="divorce-certificate" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صك الطلاق.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="wife-death-certificate" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            إرفاق ما يثبت أن الزوجة متوفاه.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="medical-report-disability" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            تقرير طبي من مستشفى حكومي يثبت المرض.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="wife-medical-report" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            إرفاق تقرير طبي من مستشفى حكومي يثبت عجز الزوجة عن الحمل أو عدم قدرتها على القيام بالواجبات الزوجية أو الأعباء المنزلية.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="final-judgment" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            نسخة من صك الحكم النهائي.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="proxy-document" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صورة من الوكالة في حال كان مقدم الطلب من ينوب عن المعني بالطلب.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="burial-permit" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            تصريح الدفن.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="death-certificate" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            شهادة الوفاة (اشتراط أن يكون من الدرجة الأولى وهم الوالدين والأبناء).
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="wedding-invite" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صورة من كرت دعوة الزواج، على أن يوضح فيها المكان والزمان.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="temporary-exit-docs" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            المستندات التي تثبت صحة سبب طلب الخروج المؤقت.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="judgment-copy" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            نسخة من صك الحكم.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="passport-copy" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            صورة جواز السفر لمقدم الطلب.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="no-drug-crime" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            إرفاق ما يثبت عدم ثبوت الإدانة في أحد جرائم المخدرات.
+                        </label>
+                    </div>
+
+                    <div class="pc-checkbox-container">
+                        <label class="pc-checkbox-sm-label">
+                            <input type="checkbox" name="requiredDocuments[]" value="sponsor-approval" class="checkbox-input">
+                            <span class="pc-checkbox-sm"></span>
+                            موافقة خطية من الكفيل بعدم الإبعاد.
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-form-line"></div>
+
+        @* بيانات مقدم الطلب *@
+        <div class="pc-service-form-heading">
+            <h4>بيانات مقدم الطلب</h4>
+        </div>
+
+        <table class="pc-basic-table request-data-table">
+            <tr>
+                <td class="td-bold">الاسم الرباعي</td>
+                <td>عبدالله أحمد محمد الأحمد</td>
+                <td class="td-bold">الجنسية</td>
+                <td>المملكة العربية السعودية</td>
+            </tr>
+            <tr>
+                <td class="td-bold">رقم الهوية</td>
+                <td>1109882374</td>
+                <td class="td-bold">تاريخ الميلاد</td>
+                <td>1998-05-19</td>
+            </tr>
+            <tr>
+                <td class="td-bold">رقم الجوال</td>
+                <td>0505124590</td>
+                <td class="td-bold">البريد الإلكتروني</td>
+                <td>abdullah.ahmed@gmail.com</td>
+            </tr>
+            <tr>
+                <td class="td-bold">المدينة</td>
+                <td>بريدة</td>
+                <td class="td-bold">الحي</td>
+                <td>حي الخضراء</td>
+            </tr>
+            <tr>
+                <td class="td-bold">صفة مقدم الطلب</td>
+                <td>وكيل</td>
+            </tr>
+        </table>
+
+        <div class="pc-form-line"></div>
+
+        @* بيانات المعني بالطلب *@
+        <div class="pc-service-form-heading">
+            <h4>بيانات المعني بالطلب</h4>
+        </div>
+
+        <table class="pc-basic-table request-data-table">
+            <tr>
+                <td class="td-bold">الاسم الرباعي</td>
+                <td>عبدالله أحمد محمد الأحمد</td>
+                <td class="td-bold">الجنسية</td>
+                <td>المملكة العربية السعودية</td>
+            </tr>
+            <tr>
+                <td class="td-bold">رقم الهوية</td>
+                <td>1109882374</td>
+                <td class="td-bold">تاريخ الميلاد</td>
+                <td>1998-05-19</td>
+            </tr>
+            <tr>
+                <td class="td-bold">رقم الجوال</td>
+                <td>0505124590</td>
+                <td class="td-bold">البريد الإلكتروني</td>
+                <td>abdullah.ahmed@gmail.com</td>
+            </tr>
+            <tr>
+                <td class="td-bold">المدينة</td>
+                <td>بريدة</td>
+                <td class="td-bold">الحي</td>
+                <td>حي الخضراء</td>
+            </tr>
+            <tr>
+                <td class="td-bold">تفاصيل الطلب</td>
+                <td class="td-request-details" colspan="3">
+                    إلى صاحب السمو الكريم
+                    السلام عليكم ورحمة الله وبركاته
+
+                    أتقدم إلى سموكم بهذه البرقية راجياً الله أن تكونوا سبباً في رفع الظلم عني وحل مشكلتي بعد توفيق الله سبحانه.
+
+                    هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم. هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم.
+
+                    هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم.
+
+                    هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم. هذا النص عبارة عن مثال خيالي لتجربة التصميم.
+
+                    هذا النص عبارة عن مثال خيالي لتجربة التصميم
+
+                    هذا النص عبارة عن مثال خيالي لتجربة التصميم، هذا النص عبارة عن مثال خيالي لتجربة التصميم. هذا النص عبارة عن مثال خيالي لتجربة التصميم.
+
+                    وفقكم الله وسدد خطاكم. (هذا النص عبارة عن مثال خيالي لتجربة التصميم)
+                </td>
+            </tr>
+        </table>
+
+        <div class="pc-form-line"></div>
+
+        @* المرفقات *@
+        <div class="pc-service-form-heading">
+            <h4>المرفقات</h4>
+        </div>
+
+        <table class="pc-table pc-striped-table attachments-table">
+            <thead>
+                <tr>
+                    <th>اسم الملف</th>
+                    <th class="td-hide-on-mobile">صيغة الملف</th>
+                    <th class="td-hide-on-mobile">حجم الملف</th>
+                    <th>معاينة الملف</th>
+                    <th>تنزيل الملف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>National ID</td>
+                    <td class="td-hide-on-mobile">jpg</td>
+                    <td class="td-hide-on-mobile">212 KB</td>
+                    <td>
+                        <button class="pc-outline-btn">
+                            <img src="~/icons/view.svg" alt="view" aria-label="view" width="20" height="20" />
+                            معاينة
+                        </button>
+                    </td>
+                    <td>
+                        <button class="pc-outline-btn">
+                            <img src="~/icons/download.svg" alt="download" aria-label="download" width="20" height="20" />
+                            تنزيل
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>صك الحكم</td>
+                    <td class="td-hide-on-mobile">png</td>
+                    <td class="td-hide-on-mobile">212 KB</td>
+                    <td>
+                        <button class="pc-outline-btn">
+                            <img src="~/icons/view.svg" alt="view" aria-label="view" width="20" height="20" />
+                            معاينة
+                        </button>
+                    </td>
+                    <td>
+                        <button class="pc-outline-btn">
+                            <img src="~/icons/download.svg" alt="download" aria-label="download" width="20" height="20" />
+                            تنزيل
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="pc-form-buttons">
+            <button class="pc-primary-btn" id="printButton"><img src="~/icons/print.svg" alt="print" width="21.5" height="21.5" /> طباعة</button>
+        </div>
+    </div>
+
+    <div class="pc-back-btn-container">
+        <a asp-controller="Admin" asp-action="AllRequests" class="pc-outline-btn">الرجوع</a>
+    </div>
+</div>

@@ -1,0 +1,277 @@
+﻿@{
+	ViewData["Title"] = "";
+}
+
+<div class="pc-home">
+	<div class="pc-home-hero-section">
+		@* <h1>إمارة منطقة القصيم</h1> *@
+	</div>
+
+	<div class="pc-body">
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>آخر الأخبار</h2>
+				</div>
+
+				@* <a class="pc-outline-btn" asp-controller="Home" asp-action="News">عرض الكل</a> *@
+			</div>
+
+			<div class="pc-cards">
+				<div class="pc-card">
+					<div class="pc-card-img">
+						<img src="~/images/citizenVoice.png" alt="news image" aria-label="news image" />
+					</div>
+
+					<div class="pc-card-content">
+						<p>هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر </p>
+					</div>
+
+					<div class="pc-card-date">
+						<img src="~/icons/calender.svg" alt="calender" aria-label="calender" />
+						<p>1-3-2025</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Home" asp-action="News" asp-route-id="1" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-img">
+						<img src="~/images/citizenVoice.png" alt="news image" aria-label="news image" />
+					</div>
+
+					<div class="pc-card-content">
+						<p>هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر </p>
+					</div>
+
+					<div class="pc-card-date">
+						<img src="~/icons/calender.svg" alt="calender" aria-label="calender" />
+						<p>1-3-2025</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Home" asp-action="News" asp-route-id="2" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-img">
+						<img src="~/images/citizenVoice.png" alt="news image" aria-label="news image" />
+					</div>
+
+					<div class="pc-card-content">
+						<p>هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر هنا نص الخبر </p>
+					</div>
+
+					<div class="pc-card-date">
+						<img src="~/icons/calender.svg" alt="calender" aria-label="calender" />
+						<p>1-3-2025</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Home" asp-action="News" asp-route-id="3" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>الخدمات الإلكترونية</h2>
+				</div>
+
+				<a class="pc-outline-btn" asp-controller="Services" asp-action="Index">عرض الكل</a>
+			</div>
+
+			<div class="pc-cards">
+				<div class="pc-card" data-category="خدمات أساسية">
+					<div class="pc-card-icon">
+						<img src="~/icons/paper.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>الاستدعاء الإلكتروني</h6>
+						<p>تتيح هذه الخدمة إمكانية التقدم بطلب أو شكوى أو اقتراح للإمارة دون الحاجة إلى زيارة مبنى الإمارة.</p>
+					</div>
+
+					<div class="pc-card-tags">
+						<p class="pc-grey-tag">خدمات أساسية</p>
+
+						<p class="pc-green-tag">المواطنون والمقيمون</p>
+					</div>
+
+					<div class="pc-card-rating">
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Services" asp-action="AboutTheService" asp-route-id="ES" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+					</div>
+
+				</div>
+
+				<div class="pc-card" data-category="خدمات أساسية">
+					<div class="pc-card-icon">
+						<img src="~/icons/searchFilled.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>الاستعلام عن معاملة</h6>
+						<p>خدمة تتيح الاستعلام عن معاملة وما تم فيها من إجراء دون الحاجة إلى زيارة مبنى الإمارة.</p>
+					</div>
+
+					<div class="pc-card-tags">
+						<p class="pc-grey-tag">خدمات أساسية</p>
+
+						<p class="pc-green-tag">المواطنون والمقيمون</p>
+					</div>
+
+					<div class="pc-card-rating">
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Services" asp-action="AboutTheService" asp-route-id="TQ" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+					</div>
+
+				</div>
+
+				<div class="pc-card" data-category="خدمات السجناء">
+					<div class="pc-card-icon">
+						<img src="~/icons/service.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>طلب محو سابقة - رد اعتبار</h6>
+						<p>طلب يتقدم به السجين السابق لمحو سابقة ورد اعتباره بعد فترة من خروجه من السجن.</p>
+					</div>
+
+					<div class="pc-card-tags">
+						<p class="pc-grey-tag">خدمات السجناء</p>
+
+						<p class="pc-green-tag">المواطنون والمقيمون</p>
+					</div>
+
+					<div class="pc-card-rating">
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+						<img src="~/icons/star.svg" />
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="Services" asp-action="AboutTheService" asp-route-id="PRRI" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="pc-body-statistics">
+			<h2>القصيم في أرقام</h2>
+
+			<div class="pc-statistics-cards">
+				<div class="pc-statistics-card">
+					<img src="~/icons/user-group.svg" width="64" height="64" />
+					<h5>إجمالي عدد السكان</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>1,336,179</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/house.svg" width="64" height="64" />
+					<h5>إجمالي عدد الأسر</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>313,247</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/backpack.svg" width="64" height="64" />
+					<h5>المنشآت التعليمية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>4200</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/hospital.svg" width="64" height="64" />
+					<h5>المنشآت الصحية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>300</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/gym.svg" width="64" height="64" />
+					<h5>المنشآت الرياضية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>172</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>المنصات الإلكترونية</h2>
+				</div>
+
+				@* <a class="pc-outline-btn">عرض الكل</a> *@
+			</div>
+
+			<div class="pc-cards">
+				<a href="https://sm.alqassim.gov.sa/Arabic/Pages/default.aspx" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/citizenVoice.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/message-user.svg" />
+						<h3>صوت المواطن</h3>
+					</div>
+				</a>
+
+				<a href="https://www.alqassim.gov.sa/TAWAZON" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/tawazon.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/building.svg" />
+						<h3>التوازن التنموي</h3>
+					</div>
+				</a>
+
+				<a href="https://award.alqassim.gov.sa/" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/tatweej.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/tatweej.png" />
+						<h3>تتويج</h3>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="pc-page-feedback">
+		<div>
+			<div class="pc-page-feedback-section">
+				<p>هل كانت هذه الصفحة مفيدة؟</p>
+				<div class="pc-page-feedback-btns">
+					<button class="pc-primary-btn">نعم</button>
+					<button class="pc-primary-btn">لا</button>
+				</div>
+			</div>
+			@* <div class="pc-page-feedback-response">
+			<img src="~/icons/checkmarkCircle.svg"/>
+			<p>تم إرسال ردك بنجاح</p>
+			</div> *@
+		</div>
+		<div class="pc-page-feedback-section">
+			<p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+		</div>
+	</div>
+</div>

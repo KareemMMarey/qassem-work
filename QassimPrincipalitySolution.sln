@@ -21,11 +21,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QassimPrincipality.Applicat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sharedbusiness", "sharedbusiness", "{2FEB46B2-7F4E-49B4-89F9-2C386A97C5E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic.Shared", "src\sharedbusiness\BusinessLogic.Shared\BusinessLogic.Shared.csproj", "{3E5D9707-34C9-4EE5-BDB7-B2136A1EE4B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic.Shared", "src\sharedbusiness\BusinessLogic.Shared\BusinessLogic.Shared.csproj", "{3E5D9707-34C9-4EE5-BDB7-B2136A1EE4B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "src\sharedbusiness\BusinessLogic\BusinessLogic.csproj", "{12597626-D1F4-43EA-BE10-2FC9EDACC0C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "src\sharedbusiness\BusinessLogic\BusinessLogic.csproj", "{12597626-D1F4-43EA-BE10-2FC9EDACC0C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QassimPrincipality.Web", "src\QassimPrincipality.Web\QassimPrincipality.Web.csproj", "{ED9A6950-5633-4EB6-9D53-352144ED1FF6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dga-design-ref", "dga-design-ref", "{D45766CF-4DB9-4949-972B-610A9BDF5714}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eServices", "src\dga-design-ref\eServices\eServices.csproj", "{894C60DD-8700-4254-9C95-F6A7A7BC845C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +73,10 @@ Global
 		{ED9A6950-5633-4EB6-9D53-352144ED1FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED9A6950-5633-4EB6-9D53-352144ED1FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED9A6950-5633-4EB6-9D53-352144ED1FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{894C60DD-8700-4254-9C95-F6A7A7BC845C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{894C60DD-8700-4254-9C95-F6A7A7BC845C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{894C60DD-8700-4254-9C95-F6A7A7BC845C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{894C60DD-8700-4254-9C95-F6A7A7BC845C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,8 @@ Global
 		{3E5D9707-34C9-4EE5-BDB7-B2136A1EE4B0} = {2FEB46B2-7F4E-49B4-89F9-2C386A97C5E1}
 		{12597626-D1F4-43EA-BE10-2FC9EDACC0C6} = {2FEB46B2-7F4E-49B4-89F9-2C386A97C5E1}
 		{ED9A6950-5633-4EB6-9D53-352144ED1FF6} = {08EC9A95-DFFE-4490-B108-AD16841AEEF1}
+		{D45766CF-4DB9-4949-972B-610A9BDF5714} = {08EC9A95-DFFE-4490-B108-AD16841AEEF1}
+		{894C60DD-8700-4254-9C95-F6A7A7BC845C} = {D45766CF-4DB9-4949-972B-610A9BDF5714}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64781D42-5FB9-41E6-AF04-29144C6A3956}

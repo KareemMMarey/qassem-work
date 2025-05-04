@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "إرفاق المستندات - ";
+}
+
+<div class="pc-service-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index"> الخدمات</a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">اسم الخدمة</li>
+        </ul>
+    </div>
+
+    <div class="pc-service-steps-container">
+        <div class="pc-service-steps-progress">
+            <div class="pc-step active">
+                <div class="pc-step-completed">
+                    <img src="~/icons/tick.svg" alt="tick" />
+                </div>
+                <div class="label">
+                    <h6>الخطوة الأولى</h6>
+                    <p>بيانات مقدم الطلب</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step active">
+                <div class="pc-step-completed">
+                    <img src="~/icons/tick.svg" alt="tick" />
+                </div>
+                <div class="label">
+                    <h6>الخطوة الثانية</h6>
+                    <p>بيانات المعني بالطلب</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step active">
+                <div class="pc-step-circle">3</div>
+                <div class="label">
+                    <h6>الخطوة الثالثة</h6>
+                    <p>إرفاق المستندات</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">4</div>
+                <div class="label">
+                    <h6>الخطوة الرابعة</h6>
+                    <p>مراجعة الطلب</p>
+                </div>
+            </div>
+        </div>
+
+        @* Mobile progress bar *@
+        <div class="pc-service-steps-progress-mobile">
+            <div class="progress-circle">
+                <img src="~/icons/step3of4.svg" alt="progress" />
+            </div>
+            <div class="text-section">
+                <h5>الخطوة الثالثة</h5>
+                <p>إرفاق المستندات</p>
+                <p class="next-step">التالي: مراجعة الطلب</p>
+            </div>
+        </div>
+
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>اسم الخدمة</h3>
+                <p>وصف الخدمة</p>
+
+                <div class="pc-form-line"></div>
+
+                <h4>إرفاق المستندات</h4>
+                <p class="pc-docs-requirements-heading">- المستندات المطلوبة:</p>
+
+                @* طلب عدم الإبعاد من المملكة العربية السعودية *@
+                <ul class="pc-docs-requirements-list">
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة الهوية لمقدم الطلب.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        نسخة من صك الحكم.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة جواز السفر لمقدم الطلب.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        إرفاق مايثبت عدم ثبوت الإدانة في أحد جرائم المخدارت.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        موافقة خطية من الكفيل بعدم إبعاده.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة من الوكالة في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.
+                    </li>
+                </ul>
+
+                @* طلب السماح له بالسفر ورفع اسمه من القائمة *@
+                @* <ul class="pc-docs-requirements-list">
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة الهوية لمقدم الطلب.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        نسخة من صك الحكم.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        إذا كان من أسباب السفر طلب العلاج إرفاق تقرير طبي من مستشفى حكومي.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        إذا كان من أسباب السفر للدراسة إرفاق الوثائق التي تفيد بذلك.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        إذا كان من أسباب السفر السماح له بالزواج من الخارج إرفاق مايثبت ذلك.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        في حال كانت أسباب أخرى إرفاق الوثائق التي تفيد بذلك​​​​​​.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة من الوكالة في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.
+                    </li>
+                </ul> *@
+
+                @* طلب محو سابقة - رد اعتبار *@
+                @* <ul class="pc-docs-requirements-list">
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة الهوية لمقدم الطلب.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        نسخة من صك الحكم.
+                    </li>
+                    <li>
+                        <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                        صورة من الوكالة في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.
+                    </li>
+                </ul> *@
+            </div>
+
+            <div class="pc-file-uploader">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9998 0.25C14.1608 0.25 15.903 0.25 17.23 1.185C17.611 1.453 17.95 1.773 18.24 2.136C19.251 3.407 19.251 5.034 19.251 8.273V10.818C19.251 13.873 19.251 15.406 18.729 16.722C17.895 18.827 16.139 20.484 13.911 21.266C12.7097 21.6868 11.3248 21.741 8.85332 21.748C8.841 21.749 8.82868 21.75 8.81633 21.751C8.80186 21.7521 8.78781 21.751 8.77406 21.7482C8.43151 21.749 8.0683 21.749 7.68208 21.749C5.80016 21.749 4.85498 21.749 4.01699 21.455C2.65599 20.977 1.582 19.963 1.071 18.674C0.75 17.865 0.75 16.968 0.75 15.1821V10.6694C0.75 10.2554 1.086 9.91942 1.5 9.91942C1.914 9.91942 2.25 10.2554 2.25 10.6694V15.182C2.25 16.7779 2.25 17.579 2.46499 18.122C2.81599 19.007 3.56301 19.707 4.51301 20.041C5.11001 20.251 5.96899 20.251 7.68096 20.251C8.0634 20.251 8.42207 20.251 8.75907 20.2502C10.0619 20.1198 11.083 19.0167 11.083 17.6801C11.083 17.5202 11.075 17.3479 11.0666 17.1657L11.0647 17.1252C11.0398 16.5806 11.0115 15.964 11.165 15.3881C11.388 14.5561 12.043 13.9011 12.875 13.6781C13.4506 13.5248 14.0659 13.5529 14.6112 13.5778L14.6511 13.5797C14.8339 13.5881 15.0067 13.5961 15.167 13.5961C16.5666 13.5961 17.7102 12.4765 17.749 11.086C17.749 10.9985 17.749 10.9095 17.749 10.8192V8.274C17.749 5.383 17.749 3.932 17.064 3.071C16.864 2.82 16.629 2.598 16.364 2.413C15.465 1.78 13.9868 1.752 10.9978 1.752C10.5838 1.752 10.2478 1.416 10.2478 1.002C10.2478 0.588001 10.5838 0.252001 10.9978 0.252001L10.9998 0.25ZM17.6944 14.2175C16.9986 14.7675 16.1204 15.0961 15.167 15.0961C14.9762 15.0961 14.7811 15.0875 14.5905 15.079C14.5763 15.0784 14.5621 15.0777 14.548 15.0771L14.5321 15.0764C14.0781 15.0556 13.6109 15.0342 13.263 15.1281C12.948 15.2121 12.699 15.4611 12.615 15.7761C12.5212 16.1283 12.5429 16.6009 12.5638 17.0578L12.564 17.0611C12.574 17.2651 12.583 17.4751 12.583 17.6801C12.583 18.6161 12.2663 19.4796 11.7344 20.1691C12.4126 20.1122 12.9462 20.0157 13.413 19.852C15.23 19.214 16.659 17.872 17.333 16.171C17.5375 15.6548 17.6415 15.0447 17.6944 14.2175Z" fill="#161616" />
+                    <path d="M3.58933 3.35931C3.39711 3.60404 3.19487 3.86115 3.03781 4.02274C2.74911 4.31977 2.27428 4.32651 1.97726 4.03781C1.68023 3.74911 1.67349 3.27428 1.96219 2.97726C2.05089 2.886 2.19651 2.70419 2.40971 2.43276L2.45675 2.37284C2.64683 2.13069 2.8698 1.84663 3.09954 1.57551C3.34574 1.28495 3.62131 0.983158 3.89679 0.748536C4.03484 0.630961 4.19043 0.514992 4.35782 0.425414C4.51926 0.33902 4.74172 0.25 5 0.25C5.25829 0.25 5.48074 0.33902 5.64218 0.425414C5.80957 0.514992 5.96517 0.630961 6.10321 0.748536C6.37869 0.983158 6.65426 1.28495 6.90047 1.57551C7.1302 1.84663 7.35317 2.13068 7.54324 2.37282L7.59029 2.43276C7.80349 2.70419 7.94911 2.886 8.03781 2.97726C8.32651 3.27428 8.31977 3.74911 8.02274 4.03781C7.72572 4.32651 7.25089 4.31977 6.96219 4.02274C6.80513 3.86115 6.6029 3.60404 6.41067 3.3593L6.36595 3.30235C6.17304 3.05663 5.96675 2.79386 5.75606 2.54522L5.75 2.53807V9C5.75 9.41421 5.41421 9.75 5 9.75C4.58579 9.75 4.25 9.41421 4.25 9V2.53807L4.24394 2.54522C4.03326 2.79385 3.82698 3.05661 3.63408 3.30232L3.58933 3.35931Z" fill="#161616" />
+                </svg>
+
+                <div>
+                    <h4>اسحب وأفلت الملفات هنا للإرفاق</h4>
+                    <p>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</p>
+                </div>
+                <button class="pc-secondary-btn">تصفح الملفات</button>
+                <input type="file" hidden/>
+            </div>
+
+            <div class="pc-uploaded-files">
+            </div>
+
+            <div class="pc-form-buttons">
+                <a asp-controller="SharedPR" asp-action="StepTwo" class="pc-outline-btn">رجوع</a>
+                <button type="submit" class="pc-primary-btn" id="sendFilesandNextBtn">التالي</button>
+            </div>
+        </div>
+    </div>
+</div>

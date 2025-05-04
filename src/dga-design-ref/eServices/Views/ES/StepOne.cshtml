@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "نوع الاستدعاء - ";
+}
+
+<div class="pc-ES-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index"> الخدمات </a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">الاستدعاء الإلكتروني</li>
+        </ul>
+    </div>
+
+    <div class="pc-service-steps-container">
+        <div class="pc-service-steps-progress">
+            <div class="pc-step active">
+                <div class="pc-step-circle">1</div>
+                <div class="label">
+                    <h6>الخطوة الأولى</h6>
+                    <p>نوع الاستدعاء</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">2</div>
+                <div class="label">
+                    <h6>الخطوة الثانية</h6>
+                    <p>بيانات الطلب</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">3</div>
+                <div class="label">
+                    <h6>الخطوة الثالثة</h6>
+                    <p>إرفاق المستندات</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">4</div>
+                <div class="label">
+                    <h6>الخطوة الرابعة</h6>
+                    <p>مراجعة الطلب</p>
+                </div>
+            </div>
+        </div>
+
+        @* Mobile progress bar *@
+        <div class="pc-service-steps-progress-mobile">
+            <div class="progress-circle">
+                <img src="~/icons/step1of4.svg" alt="progress" />
+            </div>
+            <div class="text-section">
+                <h5>الخطوة الأولى</h5>
+                <p>نوع الاستدعاء</p>
+                <p class="next-step">التالي: بيانات الطلب</p>
+            </div>
+        </div>
+
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>الاستدعاء الإلكتروني</h3>
+                <p>تتيح هذه الخدمة إمكانية التقدم بطلب أو شكوى أو مقترح للإمارة</p>
+
+                <div class="pc-form-line"></div>
+
+                <h4>بيانات مقدم الطلب</h4>
+                <p class="pc-warning-text">* المعلومات المطلوبة</p>
+            </div>
+
+            <form action="" method="POST" id="ES-step1-form" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="custom-select pc-full-width-input">
+                        <div class="pc-input-label"> <span class="required">*</span>نوع الاستدعاء</div>
+
+                        <button id="dropdown-button" class="select-button" role="combobox" aria-label="select button"
+                                aria-haspopup="listbox" aria-expanded="false" aria-controls="select-dropdown">
+                            <span class="selected-value">اختر...</span>
+                            <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                        </button>
+
+                        <ul class="select-dropdown hidden" role="listbox" id="select-dropdown" aria-labelledby="dropdown-button">
+                            <li role="option">طلب</li>
+                            <li role="option">شكوى</li>
+                            <li role="option">مقترح</li>
+                            <li role="option">آخر</li>
+                        </ul>
+
+                        <div class="error"></div>
+                    </div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="ES" class="pc-outline-btn">إلغاء</a>
+                    <button type="submit" class="pc-primary-btn">التالي</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

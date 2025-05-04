@@ -1,0 +1,307 @@
+﻿@{
+    ViewData["Title"] = "بيانات الطلب - ";
+}
+
+<div class="pc-service-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index"> الخدمات</a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">الاستدعاء الإلكتروني</li>
+        </ul>
+    </div>
+
+    <div class="pc-service-steps-container">
+        <div class="pc-service-steps-progress">
+            <div class="pc-step active">
+                <div class="pc-step-completed">
+                    <img src="~/icons/tick.svg" alt="tick" />
+                </div>
+                <div class="label">
+                    <h6>الخطوة الأولى</h6>
+                    <p>نوع الاستدعاء</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step active">
+                <div class="pc-step-circle">2</div>
+                <div class="label">
+                    <h6>الخطوة الثانية</h6>
+                    <p>بيانات الطلب</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">3</div>
+                <div class="label">
+                    <h6>الخطوة الثالثة</h6>
+                    <p>إرفاق المستندات</p>
+                </div>
+            </div>
+
+            <div class="pc-step-line"></div>
+
+            <div class="pc-step">
+                <div class="pc-step-circle">4</div>
+                <div class="label">
+                    <h6>الخطوة الرابعة</h6>
+                    <p>مراجعة الطلب</p>
+                </div>
+            </div>
+        </div>
+
+        @* Mobile progress bar *@
+        <div class="pc-service-steps-progress-mobile">
+            <div class="progress-circle">
+                <img src="~/icons/step2of4.svg" alt="progress" />
+            </div>
+            <div class="text-section">
+                <h5>الخطوة الثانية</h5>
+                <p>بيانات الطلب</p>
+                <p class="next-step">التالي: إرفاق المستندات</p>
+            </div>
+        </div>
+
+        @* if ESType == شكوى *@
+        @* <div class="pc-service-form pc-basic-container">
+        <div class="pc-service-form-heading">
+        <h3>الاستدعاء الإلكتروني</h3>
+        <p>تتيح هذه الخدمة إمكانية التقدم بطلب أو شكوى أو مقترح للإمارة</p>
+
+        <div class="pc-form-line"></div>
+
+        <p class="pc-warning-text">* المعلومات المطلوبة</p>
+        <h4>بيانات المدعي</h4>
+        </div>
+
+        <form action="" method="" id="ES-step2-form-a" class="pc-form">
+        <div class="pc-form-grid-2col">
+        <div class="pc-input">
+        <label for="name1" class="pc-input-label">الاسم الرباعي</label>
+        <input type="text" id="name1" name1="name1" class="pc-auto-filled-input" value="عبدالله احمد محمد الأحمد" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+        </div>
+
+        <div class="pc-input">
+        <label for="nationality1" class="pc-input-label">الجنسية</label>
+        <input type="text" id="nationality1" name="nationality1" class="pc-auto-filled-input" value="المملكة العربية السعودية" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+        </div>
+
+        <div class="pc-input">
+        <label for="idNumber1" class="pc-input-label">رقم الهوية</label>
+        <input type="text" id="idNumber1" name="idNumber1" class="pc-auto-filled-input" value="1109882374" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+        </div>
+
+        <div class="pc-input">
+        <label for="birthdate1" class="pc-input-label">تاريخ الميلاد</label>
+        <input type="text" id="birthdate1" name="birthdate1" class="pc-auto-filled-input" value="1998-05-19" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+        </div>
+
+        <div class="pc-input">
+        <label for="phone1" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+        <input type="text" id="phone1" name="phone1" placeholder="05xxxxxxxx">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="email1" class="pc-input-label">البريد الإلكتروني</label>
+        <input type="text" id="email1" name="email1" placeholder="example@mail.com">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="city1" class="pc-input-label">المدينة</label>
+        <input type="text" id="city1" name="city1" class="pc-auto-filled-input" value="بريدة" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+        </div>
+
+        <div class="pc-input">
+        <label for="district1" class="pc-input-label">الحي</label>
+        <input type="text" id="district1" name="district1" class="pc-auto-filled-input" value="حي الصفراء" readonly>
+        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+        </div>
+
+        <div class="pc-service-form-heading pc-full-width-input">
+        <div class="pc-form-line"></div>
+
+        <h4>بيانات المدعى عليه</h4>
+        </div>
+
+        <div class="pc-input">
+        <label for="name" class="pc-input-label"><span class="required">*</span> الاسم الرباعي</label>
+        <input type="text" id="name" name="name" placeholder="اكتب الاسم الرباعي">
+        <div class="error"></div>
+        </div>
+
+        @{
+        var countries = new List<string>
+        {
+        "أفغانستان", "ألبانيا", "الجزائر", "أندورا", "أنغولا", "الأرجنتين", "أرمينيا", "أستراليا", "النمسا", "أذربيجان",
+        "البحرين", "بنغلاديش", "بربادوس", "بيلاروسيا", "بلجيكا", "بليز", "بنين", "بوتان", "البرازيل", "بلغاريا",
+        "كندا", "الصين", "كولومبيا", "كوبا", "التشيك", "مصر", "فرنسا", "ألمانيا", "اليونان", "الهند", "إندونيسيا",
+        "إيران", "العراق", "إيطاليا", "اليابان", "الأردن", "الكويت", "لبنان", "ليبيا", "ماليزيا", "المكسيك",
+        "المغرب", "هولندا", "نيوزيلندا", "نيجيريا", "النرويج", "عمان", "باكستان", "فلسطين", "الفلبين", "بولندا",
+        "البرتغال", "قطر", "رومانيا", "روسيا", "المملكة العربية السعودية", "السنغال", "صربيا", "سنغافورة", "جنوب إفريقيا", "كوريا الجنوبية",
+        "إسبانيا", "السويد", "سويسرا", "سوريا", "تايلاند", "تونس", "تركيا", "الإمارات العربية المتحدة", "المملكة المتحدة", "الولايات المتحدة"
+        };
+        }
+        <div class="custom-select">
+        <div class="pc-input-label"> <span class="required">*</span>الجنسية</div>
+
+        <button id="nationality-dropdown-button" class="select-button" role="combobox" aria-label="select button"
+        aria-haspopup="listbox" aria-expanded="false" aria-controls="select-dropdown">
+        <span class="selected-value">اختر...</span>
+        <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+        </button>
+
+        <ul class="select-dropdown hidden" role="listbox" id="nationality-select-dropdown" aria-labelledby="dropdown-button">
+        @foreach (var country in countries)
+        {
+        <li role="option">@country</li>
+        }
+        </ul>
+
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="idNumber" class="pc-input-label"><span class="required">*</span> رقم الهوية</label>
+        <input type="text" id="idNumber" name="idNumber" placeholder="اكتب رقم الهوية">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="birthdate" class="pc-input-label"><span class="required">*</span> تاريخ الميلاد</label>
+        <input type="date" id="birthdate" name="birthdate" placeholder="YYYY-MM-DD">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="phone" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+        <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="email" class="pc-input-label">البريد الإلكتروني</label>
+        <input type="text" id="email" name="email" placeholder="example@mail.com">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="city" class="pc-input-label"><span class="required">*</span> المدينة</label>
+        <input type="text" id="city" name="city" placeholder="اكتب المدينة">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+        <label for="district" class="pc-input-label"><span class="required">*</span> الحي</label>
+        <input type="text" id="district" name="district" placeholder="اكتب الحي">
+        <div class="error"></div>
+        </div>
+
+        <div class="pc-input pc-full-width-input">
+        <label for="details" class="pc-input-label"> <span class="required">*</span> تفاصيل الطلب</label>
+        <textarea name="details" id="details" placeholder="الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف  "></textarea>
+
+        <div class="error"></div>
+        </div>
+        </div>
+
+        <div class="pc-form-buttons">
+        <button type="submit" class="pc-outline-btn" id="back">رجوع</button>
+        <button type="submit" class="pc-primary-btn">التالي</button>
+        </div>
+        </form>
+        </div> *@
+
+        @* if ESType != شكوى *@
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>الاستدعاء الإلكتروني</h3>
+                <p>تتيح هذه الخدمة إمكانية التقدم بطلب أو شكوى أو مقترح للإمارة</p>
+
+                <div class="pc-form-line"></div>
+
+                <p class="pc-warning-text">* المعلومات المطلوبة</p>
+            </div>
+
+            <form action="" method="" id="ES-step2-form" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="pc-input">
+                        <label for="name" class="pc-input-label">الاسم الرباعي</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="عبدالله احمد محمد الأحمد" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="nationality" class="pc-input-label">الجنسية</label>
+                        <input type="text" id="nationality" name="nationality" class="pc-auto-filled-input" value="المملكة العربية السعودية" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="idNumber" class="pc-input-label">رقم الهوية</label>
+                        <input type="text" id="idNumber" name="idNumber" class="pc-auto-filled-input" value="1109882374" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="birthdate" class="pc-input-label">تاريخ الميلاد</label>
+                        <input type="text" id="birthdate" name="birthdate" class="pc-auto-filled-input" value="1998-05-19" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="phone" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+                        <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+                        <div class="error"></div>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="email" class="pc-input-label">البريد الإلكتروني</label>
+                        <input type="text" id="email" name="email" placeholder="example@mail.com">
+                        <div class="error"></div>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="city" class="pc-input-label">المدينة</label>
+                        <input type="text" id="city" name="city" class="pc-auto-filled-input" value="بريدة" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="district" class="pc-input-label">الحي</label>
+                        <input type="text" id="district" name="district" class="pc-auto-filled-input" value="حي الصفراء" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+                    </div>
+
+                    <div class="pc-input pc-full-width-input">
+                        <label for="details" class="pc-input-label"> <span class="required">*</span> تفاصيل الطلب</label>
+                        <textarea name="details" id="details" placeholder="الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف  "></textarea>
+
+                        <div class="error"></div>
+                    </div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    <a asp-controller="ES" asp-action="StepOne" class="pc-outline-btn">رجوع</a>
+                    <button type="submit" class="pc-primary-btn">التالي</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

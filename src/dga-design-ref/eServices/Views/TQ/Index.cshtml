@@ -1,0 +1,187 @@
+﻿@{
+    ViewData["Title"] = "الاستعلام عن معاملة - ";
+}
+
+<div class="pc-service-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index"> الخدمات</a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">الاستعلام عن معاملة</li>
+        </ul>
+    </div>
+
+    <div class="pc-service-steps-container">
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>الاستعلام عن معاملة</h3>
+                <p>خدمة تتيح الاستعلام عن معاملة وما تم فيها من إجراء دون الحاجة إلى زيارة مبنى الإمارة</p>
+
+                <div class="pc-form-line"></div>
+
+                <p class="pc-warning-text">* المعلومات المطلوبة</p>
+            </div>
+
+            <form action="" method="" id="transactionQueryForm" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="pc-input">
+                        <label for="transactionNumber" class="pc-input-label"><span class="required">*</span> رقم المعاملة</label>
+                        <input type="text" id="transactionNumber" name="transactionNumber" placeholder="353327">
+                        <div class="error"></div>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="idNumber" class="pc-input-label"><span class="required">*</span> رقم هوية صاحب المعاملة</label>
+                        <input type="text" id="idNumber" name="idNumber" placeholder="1109882374">
+                        <div class="error"></div>
+                    </div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    <button type="reset" class="pc-outline-btn">محو النموذج</button>
+                    <button type="submit" class="pc-primary-btn">بحث</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="transaction-query-result">
+
+            @{
+                var transactionStatus = "issued";
+            }
+
+            <table class="pc-table transaction-query-result-table1a">
+                <thead>
+                    <tr>
+                        <th>رقم القيد الوارد للإمارة</th>
+                        <th>تاريخ المعاملة</th>
+                        <th>موضوع المعاملة</th>
+                        <th>الإدارة المحالة إليها</th>
+                        <th> صاحب المعاملة</th>
+                        <th>حالة العاملة</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>75612</td>
+                        <td>2024-1-5 12:40:49</td>
+                        <td>طلب الخروج المؤقت للسجين</td>
+                        <td>وكالة الإمارة المساعدة للحقوق</td>
+                        <td>محمد أحمد محمد الأحمد</td>
+                        <td class="pc-request-status">
+                            @{
+                                if (transactionStatus == "issued")
+                                {
+                                    <p class="pc-green-status">صدرت</p>
+                                }
+                                else if (transactionStatus == "under review")
+                                {
+                                    <p class="pc-grey-status">تحت المعالجة</p>
+                                }
+                                else if (transactionStatus == "saved")
+                                {
+                                    <p class="pc-orange-status">حفظت</p>
+                                }
+                            }
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="pc-table transaction-query-result-table2a">
+                <tbody>
+                    <tr>
+                        <th>رقم القيد الوارد للإمارة</th>
+                        <td>75612</td>
+                    </tr>
+                    <tr>
+                        <th>تاريخ المعاملة</th>
+                        <td>2024-1-5 12:40:49</td>
+                    </tr>
+                    <tr>
+                        <th>موضوع المعاملة</th>
+                        <td>طلب الخروج المؤقت للسجين</td>
+                    </tr>
+                    <tr>
+                        <th>الإدارة المحالة إليها</th>
+                        <td>وكالة الإمارة المساعدة للحقوق</td>
+                    </tr>
+                    <tr>
+                        <th>صاحب المعاملة</th>
+                        <td>محمد أحمد محمد الأحمد</td>
+                    </tr>
+                    <tr>
+                        <th>حالة المعاملة</th>
+                        <td class="pc-request-status">
+                            <p class="pc-green-status">صدرت</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @{
+                if (transactionStatus == "issued")
+                {
+                    <table class="pc-table transaction-query-result-table1b">
+                        <thead>
+                            <tr>
+                                <th>رقم الصادر</th>
+                                <th>تاريخ الصادر</th>
+                                <th>وجهة الصادر</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>5585</td>
+                                <td>2024-1-12 12:40:49</td>
+                                <td>المديرية العامة للسجون</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="pc-table transaction-query-result-table2b">
+                        <tbody>
+                            <tr>
+                                <th>رقم الصادر</th>
+                                <td>5585</td>
+                            </tr>
+                            <tr>
+                                <th>تاريخ الصادر</th>
+                                <td>2024-1-12 12:40:49</td>
+                            </tr>
+                            <tr>
+                                <th>وجهة الصادر</th>
+                                <td>المديرية العامة للسجون</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            }
+
+            <div class="pc-form-buttons">
+                <button class="pc-primary-btn" id="printButton"><img src="~/icons/print.svg" alt="print" width="21.5" height="21.5" /> طباعة</button>
+            </div>
+
+            <div class="pc-empty-state">
+                <div class="pc-empty-state-message">
+                    <h2>لاتوجد نتائج</h2>
+                    <p>لا توجد طلبات مطابقة للرقم المدخل، يرجى التحقق من الرقم والمحاولة مرة أخرى. </p>
+                    <button class="pc-outline-btn" id="clear-search-field-btn">محو حقل البحث</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-back-btn-container">
+            <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="TQ" class="pc-outline-btn">الرجوع</a>
+        </div>
+    </div>
+</div>

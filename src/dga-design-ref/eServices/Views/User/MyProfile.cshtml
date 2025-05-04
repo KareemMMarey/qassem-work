@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "ملفي الشخصي - ";
+}
+<div class="pc-profile">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                </li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">ملفي الشخصي</li>
+            </ul>
+        </div>
+
+        <h1 class="pc-profile-title">ملفي الشخصي</h1>
+    </div>
+
+    <div class="pc-profile-container">
+        <div class="pc-personal-info-card">
+            <div>
+                <h2 class="pc-personal-info-card-title">المعلومات الشخصية</h2>
+            </div>
+
+            <div class="grid-container">
+                <div class="grid-item"> <h3>الاسم الرباعي</h3></div>
+                <div class="grid-item"><p> عبدالله أحمد محمد الأحمد</p></div>
+
+                <div class="grid-item"> <h3>رقم الهوية</h3></div>
+                <div class="grid-item"><p>1109882374</p></div>
+
+                <div class="grid-item"> <h3>الجنسية</h3></div>
+                <div class="grid-item"><p>المملكة العربية السعودية</p></div>
+
+                <div class="grid-item last-item"> <h3>تاريخ الميلاد</h3></div>
+                <div class="grid-item last-item"><p>1998-05-19</p></div>
+            </div>
+        </div>
+
+        <div class="contact-address">
+            <div class="pc-personal-info-card">
+                <div class="contact-edit">
+                    <h2 class="pc-personal-info-card-title">معلومات التواصل</h2>
+
+                    <button class="pc-outline-btn" id="editContactInfobtn">
+                        <img src="/icons/edit.svg" alt="edit" width="20" height="20">
+                        تعديل المعلومات
+                    </button>
+                </div>
+
+                <div class="grid-container" id="contactInfoContainer">
+                    <div class="grid-item"> <h3>رقم الجوال</h3></div>
+                    <div class="grid-item"><p>0505124590</p></div>
+                    <div class="grid-item last-item"> <h3>البريد الإلكتروني</h3></div>
+                    <div class="grid-item last-item"><p>abdullah.ahmed@gmail.com</p></div>
+                </div>
+
+                <form method="post" class="pc-form" id="editContactInfoForm">
+                    <div class="pc-form-grid-2col">
+                        <div class="pc-input">
+                            <label for="phone" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+                            <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+                            <div class="error"></div>
+                        </div>
+                        <div class="pc-input">
+                            <label for="email" class="pc-input-label">البريد الإلكتروني</label>
+                            <input type="text" id="email" name="email" placeholder="example@mail.com">
+                            <div class="error"></div>
+                        </div>
+                    </div>
+
+                    <div class="btns-container">
+                        <button class="pc-outline-btn" id="cancel">إلغاء</button>
+                        <button type="submit" class="pc-primary-btn">حفظ التعديلات</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="pc-personal-info-card">
+                <h2 class="pc-personal-info-card-title">العنوان الوطني</h2>
+
+                <div class="grid-container">
+                    <div class="grid-item"> <h3>المدينة</h3></div>
+                    <div class="grid-item"><p>بريدة</p></div>
+                    <div class="grid-item last-item"><h3>الحي</h3></div>
+                    <div class="grid-item last-item"><p>الصفراء</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index" class="pc-outline-btn">الرجوع</a>
+</div>

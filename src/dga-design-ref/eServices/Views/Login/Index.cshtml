@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "تسجيل الدخول - ";
+}
+
+<div class="pc-img-bg">
+    <div class="pc-basic-container pc-sm-container pc-centered-text">
+        <div class="pc-basic-container-heading pc-centered-text">
+            <h3>تسجيل الدخول لحسابك</h3>
+            <p>للدخول إلى بوابة الخدمات الإلكترونية لإمارة منطقة القصيم، يرجى استخدام حسابك في النفاذ الوطني الموحد</p>
+        </div>
+        <img src="~/images/nic.svg" alt="national information center logo" width="291.856px" height="115.96px">
+        <form action="" id="loginForm" class="pc-form">
+            <div class="pc-input">
+                <label for="idNumber" class="pc-input-label">رقم بطاقة الأحوال / الإقامة</label>
+                <input type="text"
+                       id="idNumber"
+                       name="idNumber"
+                       placeholder="xxxxxxxxxx">
+                <div class="error"></div>
+            </div>
+            <button type="submit" class="pc-primary-btn pc-long-btn">
+                تسجيل الدخول عبر النفاذ الوطني
+            </button>
+        </form>
+    </div>
+</div>

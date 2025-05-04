@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "تسجيل الدخول - ";
+}
+
+<div class="pc-img-bg">
+    <div class="pc-basic-container pc-sm-container pc-centered-text">
+        <div class="pc-basic-container-heading pc-centered-text">
+            <h3>تسجيل الدخول لحسابك</h3>
+            <p>للدخول إلى بوابة مدير النظام ، يرجى ادخال اسم المستخدم وكلمة المرور</p>
+        </div>
+        <form action="" id="AdminLoginForm" class="pc-form">
+            <div class="pc-input">
+                <label for="username" class="pc-input-label"><span class="required">*</span> اسم المستخدم</label>
+                <input type="text"
+                       id="username"
+                       name="username"
+                       placeholder="أدخل اسم المستخدم">
+                <div class="error"></div>
+            </div>
+            
+            <div class="pc-input">
+                <label for="password" class="pc-input-label"><span class="required">*</span> كلمة المرور</label>
+                <input type="text"
+                       id="password"
+                       name="password"
+                       placeholder="**********">
+                <div class="error"></div>
+            </div>
+            <button type="submit" class="pc-primary-btn pc-long-btn">
+                تسجيل الدخول 
+            </button>
+        </form>
+    </div>
+</div>

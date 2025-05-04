@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "المعلومات الشخصية - ";
+}
+
+<div class="pc-img-bg">
+    <div class="pc-basic-container">
+        <div class="pc-basic-container-heading pc-right-text">
+            <h3>إكمال المعلومات الشخصية</h3>
+            <p>يرجى إدخال البيانات اللازمة لاستكمال عملية الدخول والاستفادة من الخدمات الإلكترونية.</p>
+            <p class="pc-warning-text">* المعلومات المطلوبة</p>
+        </div>
+        <form action="" method="" id="accountSetupForm" class="pc-form">
+            <div class="pc-form-grid-2col">
+                <div class="pc-input">
+                    <label for="name" class="pc-input-label">الاسم الرباعي</label>
+                    <input type="text" id="name" name="name" class="pc-auto-filled-input" value="عبدالله احمد محمد الأحمد" readonly>
+                    <span class="pc-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                </div>
+                <div class="pc-input">
+                    <label for="name" class="pc-input-label">الجنسية</label>
+                    <input type="text" id="nationality" name="nationality" class="pc-auto-filled-input" value="المملكة العربية السعودية" readonly>
+                    <span class="pc-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                </div>
+                <div class="pc-input">
+                    <label for="idNumber" class="pc-input-label">رقم الهوية</label>
+                    <input type="text" id="idNumber" name="idNumber" class="pc-auto-filled-input" value="1109882374" readonly>
+                    <span class="pc-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                </div>
+                <div class="pc-input">
+                    <label for="birthdate" class="pc-input-label">تاريخ الميلاد</label>
+                    <input type="text" id="birthdate" name="birthdate" class="pc-auto-filled-input" value="1998-05-19" readonly>
+                    <span class="pc-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                </div>
+                <div class="pc-input">
+                    <label for="phone" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+                    <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+                    <div class="error"></div>
+                </div>
+                <div class="pc-input">
+                    <label for="email" class="pc-input-label">البريد الإلكتروني</label>
+                    <input type="text" id="email" name="email" placeholder="example@mail.com">
+                    <div class="error"></div>
+                </div>
+            </div>
+            <div class="pc-checkbox-container">
+                <label class="pc-accept-terms" for="acceptTerms">
+                    <input type="checkbox" id="acceptTerms" name="acceptTerms" class="checkbox-input">
+                    <span class="pc-checkbox"></span>
+                    أؤكد قراءة وفهم <a asp-controller="Home" asp-action="TermsAndConditions">الشروط والأحكام</a> والموافقة عليها.
+                </label>
+                <div class="error"></div>
+            </div>
+            <button type="submit" class="pc-primary-btn">دخول</button>
+        </form>
+    </div>
+</div>

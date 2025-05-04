@@ -1,0 +1,392 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+
+<div class="pc-home">
+    <div class="pc-hero-section">
+        <h1>الخدمات الإلكترونية لإمارة منطقة القصيم</h1>
+        <p class="pc-hero-p2">خدمة_المواطن_أولًا#</p>
+    </div>
+
+    <div class="pc-body">
+        <div class="pc-tabs-search">
+            <div class="pc-tabs-container">
+                <button class="pc-tab" data-filter="خدمات السجناء">خدمات السجناء</button>
+                <button class="pc-tab" data-filter="خدمات الزواج">خدمات الزواج</button>
+                <button class="pc-tab" data-filter="خدمات أساسية">خدمات أساسية</button>
+                <button class="pc-tab" data-filter="all">الكل</button>
+            </div>
+
+            <div class="pc-search-container">
+                <button type="button" class="pc-clear-search-btn">
+                    <img src="~/icons/xIcon.svg" alt="clear search" width="15" height="15" />
+                </button>
+                <input type="text"
+                       class="pc-search-input"
+                       placeholder="ابحث عن خدمة"
+                       aria-label="Search">
+                <button type="submit" class="pc-search-btn">
+                    <img src="~/icons/search.svg" alt="search" width="20" height="20" />
+                </button>
+            </div>
+        </div>
+
+        <div class="pc-cards">
+            <div class="pc-card" data-category="خدمات أساسية">
+                <div class="pc-card-icon">
+                    <img src="~/icons/paper.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>الاستدعاء الإلكتروني</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقدم بطلب أو شكوى أو اقتراح للإمارة دون الحاجة إلى زيارة مبنى الإمارة.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات أساسية</p>
+
+                    <p class="pc-green-tag">المواطنون والمقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="ES" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات أساسية">
+                <div class="pc-card-icon">
+                    <img src="~/icons/searchFilled.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>الاستعلام عن معاملة</h6>
+                    <p>خدمة تتيح الاستعلام عن معاملة وما تم فيها من إجراء دون الحاجة إلى زيارة مبنى الإمارة.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات أساسية</p>
+
+                    <p class="pc-green-tag">المواطنون والمقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="TQ" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات الزواج">
+                <div class="pc-card-icon">
+                    <img src="~/icons/userLove.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>زواج سعودي من غير سعودية بالخارج</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقديم على طلب زواج سعودي من غير سعودية بالخارج إلكترونياً.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات الزواج</p>
+
+                    <p class="pc-green-tag">المواطنون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="MSNA" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات الزواج">
+                <div class="pc-card-icon">
+                    <img src="~/icons/userLove.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>زواج سعودي من غير سعودية مقيمة</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقديم على طلب زواج سعودي من غير سعودية مقيمة إلكترونياً.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات الزواج</p>
+
+                    <p class="pc-green-tag">المواطنون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="MSNR" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات الزواج">
+                <div class="pc-card-icon">
+                    <img src="~/icons/userLove.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>زواج سعودي من غير سعودية مولودة بالسعودية</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقديم على طلب زواج سعودي من غير سعودية مولودة بالسعودية إلكترونياً.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات الزواج</p>
+
+                    <p class="pc-green-tag">المواطنون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="MSNB" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات الزواج">
+                <div class="pc-card-icon">
+                    <img src="~/icons/userLove.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>زواج سعودية من غير سعودي</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقديم على طلب زواج سعودية من غير سعودي مقيمة إلكترونياً.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات الزواج</p>
+
+                    <p class="pc-green-tag">المواطنون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="MFNS" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات السجناء">
+                <div class="pc-card-icon">
+                    <img src="~/icons/service.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>طلب محو سابقة - رد اعتبار</h6>
+                    <p>طلب يتقدم به السجين السابق لمحو سابقة ورد اعتباره بعد فترة من خروجه من السجن.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات السجناء</p>
+
+                    <p class="pc-green-tag">المواطنون والمقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="PRRI" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات السجناء">
+                <div class="pc-card-icon">
+                    <img src="~/icons/clockBg.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>طلب الخروج المؤقت للسجين</h6>
+                    <p>طلب يتقدم به قريب السجين يلتمس فيه خروج السجين اضطرارياً.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات السجناء</p>
+
+                    <p class="pc-green-tag">المواطنون والمقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="PRTR" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات السجناء">
+                <div class="pc-card-icon">
+                    <img src="~/icons/prison.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>طلب نقل سجين من سجن لآخر</h6>
+                    <p>طلب يتقدم به قريب السجين يلتمس فيه نقل السجين من سجنه الحالي إلى سجن آخر.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات السجناء</p>
+
+                    <p class="pc-green-tag">المواطنون والمقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="PRTF" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات السجناء">
+                <div class="pc-card-icon">
+                    <img src="~/icons/userRemove.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>طلب عدم الإبعاد من المملكة العربية السعودية</h6>
+                    <p>تتيح هذه الخدمة إمكانية التقدم بطلب الإعفاء من الإبعاد من المملكة العربية السعودية لغير السعودي.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات السجناء</p>
+
+                    <p class="pc-green-tag">المقيمون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="NDNS" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+
+            </div>
+
+            <div class="pc-card" data-category="خدمات السجناء">
+                <div class="pc-card-icon">
+                    <img src="~/icons/passport.svg" alt="icon" />
+                </div>
+
+                <div class="pc-card-content">
+                    <h6>طلب السماح له بالسفر ورفع اسمه من القائمة</h6>
+                    <p>طلب يتقدم به المواطن للسماح له بالسفر لمرة واحدة خلال مدة المنع من السفر.</p>
+                </div>
+
+                <div class="pc-card-tags">
+                    <p class="pc-grey-tag">خدمات السجناء</p>
+
+                    <p class="pc-green-tag">المواطنون</p>
+                </div>
+
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                    <img src="~/icons/star.svg" />
+                </div>
+
+                <div class="pc-card-btn">
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="TRLR" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-empty-state">
+            <div class="pc-empty-state-message">
+                <h2>لاتوجد نتائج</h2>
+                <p>لا توجد نتائج مطابقة للبحث، يرجى التحقق من اسم الخدمة والمحاولة مرة أخرى. </p>
+                <button class="pc-outline-btn" id="clear-search-field-btn">محو حقل البحث</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-page-feedback">
+        <div>
+            <div class="pc-page-feedback-section">
+                <p>هل كانت هذه الصفحة مفيدة؟</p>
+                <div class="pc-page-feedback-btns">
+                    <button class="pc-primary-btn">نعم</button>
+                    <button class="pc-primary-btn">لا</button>
+                </div>
+            </div>
+            @* <div class="pc-page-feedback-response">
+            <img src="~/icons/checkmarkCircle.svg"/>
+            <p>تم إرسال ردك بنجاح</p>
+            </div> *@
+        </div>
+        <div class="pc-page-feedback-section">
+            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+        </div>
+    </div>
+</div>

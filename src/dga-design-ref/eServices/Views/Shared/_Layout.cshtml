@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] إمارة منطقة القصيم</title>
+    <link rel="shortcut icon" type="x-icon" href="~/images/emarahCircleLogoWhite.png" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/eServices.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="pc-header">
+        <div class="pc-header-date-time">
+            <div>
+                <img src="~/icons/date.svg" alt="date" width="20.5" height="21.5">
+                <p id="current-date"></p>
+            </div>
+            <div>
+                <img src="~/icons/time.svg" alt="time" width="21.5" height="21.5">
+                <p id="current-time"></p>
+            </div>
+        </div>
+
+        @* desktop nav*@
+        <nav class="pc-nav-header">
+            <a asp-controller="Home" asp-action="Index"> <img src="~/images/emarahColoredLogo.svg" alt="logo" width="149" height="74"></a>
+
+            <div class="pc-nav-bar">
+                <div class="pc-nav-bar-group">
+                    <div class="pc-nav-tab">
+                        <a class="pc-nav-link" asp-controller="Home" asp-action="About">عن الإمارة</a>
+                    </div>
+
+                    <div class="pc-nav-tab">
+                        <a class="pc-nav-link" asp-controller="Services" asp-action="Index">الخدمات الإلكترونية</a>
+                    </div>
+
+                    <div class="pc-nav-tab">
+                        <a class="pc-nav-link" asp-controller="EParticipation" asp-action="Index">المشاركة الإلكترونية</a>
+                    </div>
+                </div>
+
+                <div class="pc-nav-bar-group">
+                    @* later versions *@
+                    @* <div class="pc-nav-tab">
+                    <img src="~/icons/translation.svg" alt="translation" width="24" height="24">
+                    <a class="pc-nav-link" href="#">English</a>
+                    </div> *@
+
+                    @* logged in *@
+                    <div class="pc-nav-dropdown-container">
+                        <div class="pc-nav-tab pc-nav-dropdown-tab">
+                            <img src="~/icons/user.svg" alt="login" width="24" height="24">
+                            <p class="pc-nav-link">عبدالله أحمد محمد الأحمد</p>
+                            <div class="pc-arrow-toggle">
+                                <img src="~/icons/arrowDown.svg" alt="down arrow" class="pc-down-arrow" width="14" height="8">
+                                <img src="~/icons/arrowUp.svg" alt="up arrow" class="pc-up-arrow" width="16" height="16">
+                            </div>
+                        </div>
+
+                        <div class="pc-nav-dropdown">
+                            <div class="pc-nav-header-menu-item">
+                                <img src="~/icons/userCircle.svg" alt="profile" width="24" height="24">
+                                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">ملفي الشخصي</a>
+                            </div>
+
+                            <div class="pc-nav-header-menu-item">
+                                <img src="~/icons/papers.svg" alt="profile" width="24" height="24">
+                                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">طلباتي</a>
+                            </div>
+
+                            <div class="pc-nav-header-menu-item">
+                                <img src="~/icons/logout.svg" alt="log out" width="24" height="24">
+                                <a class="pc-warning-text pc-nav-link">تسجيل الخروج</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    @* loggedout *@
+                    @* <div class="pc-nav-tab">
+                    <img src="~/icons/login.svg" alt="login" width="24" height="24">
+                    <a class="pc-nav-link" asp-controller="Login" asp-action="Index">تسجيل الدخول</a>
+                    </div> *@
+                </div>
+            </div>
+        </nav>
+
+        @* mobile nav *@
+        <nav class="pc-nav-header-sm">
+                <div>
+                    <a class="pc-mune-btn" href="#" id="menu-toggle">
+                        <img src="~/icons/menu.svg" alt="menu" width="24" height="24">
+                    </a>
+                    <a class="pc-close-mune-btn" href="#" id="close-menu-toggle">
+                        <img src="~/icons/xIcon.svg" alt="menu" width="20" height="20">
+                    </a>
+                </div>
+
+                <a class="" asp-controller="Home" asp-action="Index"> <img src="~/images/emarahCircleLogoColored.svg" alt="logo" width="50" height="50"> </a>
+
+             <div>
+                @* <a class="pc-nav-link" href="#">English</a>
+                <img src="~/icons/translation.svg" alt="translation" width="24" height="24"> *@
+                
+                @* or *@
+
+                @* <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link"><img src="~/icons/userCircle.svg" alt="profile" width="24" height="24"></a> *@
+                
+                @* or *@
+                @* loggedout *@
+                <div>
+                <a class="pc-nav-link" asp-controller="Login" asp-action="Index">
+                <img src="~/icons/login.svg" alt="login" width="24" height="24">
+                </a>
+                </div>
+                @* logged in *@
+                @* <a class="pc-warning-text pc-nav-link"><img src="~/icons/logout.svg" alt="log out" width="24" height="24"></a> *@
+            </div> 
+        </nav>
+
+        <div class="pc-nav-drawer" id="nav-menu">
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="Home" asp-action="About" class="pc-nav-link">عن الإمارة</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="Services" asp-action="Index" class="pc-nav-link">الخدمات الإلكترونية</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="EParticipation" asp-action="Index" class="pc-nav-link">المشاركة الإلكترونية</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">ملفي الشخصي</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">طلباتي</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            @* <div class="pc-nav-header-menu-item">
+                <a class="pc-warning-text pc-nav-link">تسجيل الخروج</a>
+            </div> *@
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+
+    <footer class="pc-footer">
+        <div class="pc-footer-links">
+            <div class="pc-footer-link">
+                <p>تصفح</p>
+                <a asp-Controller="Home" asp-action="PrivacyPolicy">سياسة الخصوصية</a>
+                <a asp-Controller="Home" asp-action="TermsAndConditions">الشروط والأحكام</a>
+                <a asp-Controller="Home" asp-action="ServiceLevelAgreement">اتفاقية مستوى الخدمة</a>
+                @* <a asp-controller="Home" asp-action="Index">خريطة الموقع</a> *@
+            </div>
+
+            <div class="pc-footer-link">
+                <p>روابط مهمة</p>
+                <div>
+                    <a href="https://www.moi.gov.sa">وزارة الداخلية</a>
+                    <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
+                </div>
+                <div>
+                    <a href="https://www.absher.sa/portal/landing.html">أبشر</a>
+                    <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
+                </div>
+                <div>
+                    <a href="https://my.gov.sa/ar">المنصة الوطنية الموحدة</a>
+                    <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
+                </div>
+                <div>
+                    <a href="https://dr-faisal-library.pub.sa/">المكتبة الرقمية  للدكتور فيصل بن مشعل بن سعود بن عبدالعزيز</a>
+                    <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
+                </div>
+                <div>
+                    <a href="https://www.alqassim.gov.sa/lawlibrary/Arabic/pages/default.aspx">المكتبة القانونية الإلكترونية</a>
+                    <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
+                </div>
+            </div>
+
+            <div class="pc-footer-link">
+                <p>الاتصال والدعم</p>
+                <div>
+                    <a asp-controller="EParticipation" asp-action="ContactUs">تواصل معنا</a>
+                </div>
+                <div>
+                    <img src="~/icons/mailWhite.svg" width="16" height="16" alt="icon">
+                    <a href="mailto:INFO@alqassim.gov.sa">INFO@alqassim.gov.sa</a>
+                </div>     
+                <div>
+                    <img src="~/icons/callWhite.svg" width="16" height="16" alt="icon">
+                    <a>0163231818</a>
+                </div>
+            </div>
+
+            <div class="pc-footer-link">
+                <p>تابعنا على</p>
+                <div class="pc-footer-social-media">
+                    <a href="https://www.instagram.com/EmarahAlQassim">
+                        <img alt="instagram"
+                             src="~/icons/instagram.svg" width="32" height="32" alt="instagram">
+                    </a>
+                    <a href="https://www.snapchat.com/add/emarahalqassim">
+                        <img alt="snapchat"
+                             src="~/icons/snapchat.svg" width="32" height="32" alt="snapchat">
+                    </a>
+                    <a href="https://x.com/EmarahAlQassim">
+                        <img alt="x" src="~/icons/x.svg" width="32 alt="x"
+                             height="32">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-footer-legal">
+            <div class="pc-copyrights">
+                <p>جميع الحقوق محفوظة لإمارة منطقة القصيم © @DateTime.Now.Year</p>
+            </div>
+
+            <div class="pc-footer-logos">
+                <div class="pc-platform-license">
+                    <a href=https://raqmi.dga.gov.sa/platforms/platforms/1cf664f0-d7c3-40d6-d293-08dcd6126718/platform-license>
+                        <img src="https://raqmi.dga.gov.sa/PlatformsApi/api/Attachments/9b964200-6505-4ad3-b71e-b1ee0159fed6" width="210" height="70" alt="license">
+                    </a>
+                </div>
+                <a asp-controller="Home" asp-action="Index"><img class="pc-footer-logo" src="~/images/emarahLogoWhite.svg" alt="logo"></a>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+

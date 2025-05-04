@@ -124,13 +124,13 @@ namespace QassimPrincipality.Web.Controllers
                     {
                         var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
 
-                        _emailservice.SendEmail(new EmailMessage
-                        {
-                            From="",
-                            Body = token,
-                            To = new List<string> { user.Email, "mqassem.c@nec.gov.sa" },
-                            TemplateName = "LoginOTP"
-                        });
+                        //_emailservice.SendEmail(new EmailMessage
+                        //{
+                        //    From="",
+                        //    Body = token,
+                        //    To = new List<string> { user.Email, "mqassem.c@nec.gov.sa" },
+                        //    TemplateName = "LoginOTP"
+                        //});
 
 
 
