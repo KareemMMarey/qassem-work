@@ -154,5 +154,30 @@
         Admin
     }
 
-    #endregion App
+	#endregion App
+
+	public enum ServiceRequestStatus
+	{
+		Draft = 0,
+		Submitted = 1,
+		UnderReview = 2,
+		Approved = 3,
+		Rejected = 4,
+		Cancelled = 5
+	}
+	public enum ServiceRequesterRelation
+	{
+		MySelf = 1,
+		Delegated = 2,
+		Lawyer = 3,
+		FristClassRelative = 4
+	}
+    public enum LookupOptionType {
+		Prison = 1,
+	}
+	public enum ContactMessageType
+	{
+		Request = 1,   // طلب
+		Inquiry = 2    // تواصل
+	}
 }

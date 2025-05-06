@@ -18,6 +18,8 @@ using QassimPrincipality.Application.Services.Main.OpenData;
 using QassimPrincipality.Application.Services.Main.Evaluation;
 using Framework.Core.SharedServices.Entities;
 using Framework.Core.SharedServices.Dto;
+using QassimPrincipality.Application.Dtos.Content;
+using QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content;
 
 namespace QassimPrincipality.Application
 {
@@ -46,29 +48,14 @@ namespace QassimPrincipality.Application
                 .ReverseMap();
             this.CreateMap<ServiceEvaluation, EvaluationDto>().ReverseMap();
             this.CreateMap<LogDto, Log>().ReverseMap();
-            //this.CreateMap<ApplicationUserRoles, UserRolesDto>().ReverseMap();
-            //this.CreateMap<IdentityUserToken<Guid>, UserTokensDto>().ReverseMap();
-            //this.CreateMap<RequestClassificationDto, Classification>().ReverseMap();
-            //this.CreateMap<RequestTypeDto, RequestType>().ReverseMap();
 
-            //this.CreateMap<ApplicationRole, RoleDto>().ReverseMap();
+			CreateMap<News, NewsDto>();
+			CreateMap<CreateNewsRequest, News>();
 
-            //this.CreateMap<UploadRequestDtoEdit, UploadRequest>()
-            //    .ForMember(s => s.Attachments, opt => opt.Ignore())
-            //    .ReverseMap()
-            //    .ForMember(s => s.ExistAttachments, opt => opt.MapFrom(s => s.Attachments));
+			CreateMap<Statistic, StatisticDto>();
+			CreateMap<CreateStatisticRequest, Statistic>();
 
-
-            //this.CreateMap<Attachment, AttachmentDto>().ReverseMap();
-
-
-            //this.CreateMap<UploadRequestDtoView, UploadRequest>()
-            //    .ReverseMap();
-
-            //this.CreateMap<UploadRequestDtoAdd, UploadRequest>()
-            //    .ReverseMap();
-
-        }
+		}
 
         public int Order { get; set; }
     }
