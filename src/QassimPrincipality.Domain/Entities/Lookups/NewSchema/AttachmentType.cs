@@ -13,7 +13,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
 		public bool IsMandatory { get; set; }
 		public int MaxSizeMB { get; set; }
 		public string AllowedExtensions { get; set; }
-		public long? ServiceId { get; set; }
+		public int? ServiceId { get; set; }
 
 		public virtual EService EService { get; set; }
 		public virtual ICollection<RequestAttachment> Attachments { get; set; }

@@ -10,9 +10,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content
 {
     public class Governorate : LookupEntityBase
     {
-        [Required]
-        [MaxLength(100)]
-        public string Name { get; set; }
+        
 
         [MaxLength(300)]
         public string ImageUrl { get; set; }

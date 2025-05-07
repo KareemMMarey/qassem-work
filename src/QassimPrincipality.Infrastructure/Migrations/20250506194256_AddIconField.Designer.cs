@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QassimPrincipality.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using QassimPrincipality.Infrastructure.Data;
 namespace QassimPrincipality.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250506194256_AddIconField")]
+    partial class AddIconField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,10 +80,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AboutSectionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -102,6 +100,11 @@ namespace QassimPrincipality.Infrastructure.Migrations
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -399,51 +402,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("EServiceDetails", "lookup");
-                });
-
-            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EServiceFlow", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DescriptionAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DescriptionEn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NameAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NameEn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ServiceId");
-
-                    b.ToTable("EServiceFlow", "lookup");
                 });
 
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EServiceForm", b =>
@@ -1151,17 +1109,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Navigation("EService");
                 });
 
-            modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EServiceFlow", b =>
-                {
-                    b.HasOne("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EService", "EService")
-                        .WithMany("EServiceFlows")
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("EService");
-                });
-
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EServiceRequirement", b =>
                 {
                     b.HasOne("QassimPrincipality.Domain.Entities.Lookups.NewSchema.EService", "EService")
@@ -1306,8 +1253,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.Navigation("AttachmentTypes");
 
                     b.Navigation("EServiceDetails");
-
-                    b.Navigation("EServiceFlows");
 
                     b.Navigation("EServiceRequirements");
 

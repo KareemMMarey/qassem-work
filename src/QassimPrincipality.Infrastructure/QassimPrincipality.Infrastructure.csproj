@@ -7,6 +7,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Mapping\Lookups\**" />
+	  <Compile Remove="Mapping\Services\**" />
+	  <EmbeddedResource Remove="Mapping\Lookups\**" />
+	  <EmbeddedResource Remove="Mapping\Services\**" />
+	  <None Remove="Mapping\Lookups\**" />
+	  <None Remove="Mapping\Services\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\QassimPrincipality.Domain\QassimPrincipality.Domain.csproj" />
 	</ItemGroup>
 

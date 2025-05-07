@@ -180,4 +180,17 @@
 		Request = 1,   // طلب
 		Inquiry = 2    // تواصل
 	}
+	public enum TabType
+	{
+		Requirements = 1,   // طلب
+		FAQ = 2    // تواصل
+	}
+    public enum AboutSectionType {
+		About = 1,   
+		Tasks = 2,
+		Goals = 3,
+		Policies = 4,
+		Population = 5,
+		General =6,
+	}
 }

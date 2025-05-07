@@ -14,12 +14,12 @@ namespace QassimPrincipality.Domain.Entities.Services.NewSchema
         public int ServiceId { get; set; }
         public string UserId { get; set; }
         public ServiceRequestStatus Status { get; set; }
-        public ServiceRequesterRelation serviceRequesterRelation { get; set; }
+        public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
 
         public virtual EService EService { get; set; }
         public virtual RequestBasicData BasicData { get; set; }
         public virtual RequestAdditionalData AdditionalData { get; set; }
-        public virtual ICollection<RequestAttachment> Attachments { get; set; }
+        public virtual ICollection<RequestAttachment>? Attachments { get; set; }
         public virtual ICollection<RequestAction> Actions { get; set; }
     }
 }

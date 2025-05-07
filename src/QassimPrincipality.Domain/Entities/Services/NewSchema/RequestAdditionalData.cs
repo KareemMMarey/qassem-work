@@ -10,7 +10,7 @@ namespace QassimPrincipality.Domain.Entities.Services.NewSchema
 {
 	public class RequestAdditionalData : LookupEntityBase
 	{
-		public int RequestId { get; set; }
+		public Guid RequestId { get; set; }
 
 		public string NationalId { get; set; }
 		public string FullName { get; set; }

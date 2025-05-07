@@ -1,4 +1,5 @@
 ﻿using Framework.Core.Data;
+using QassimPrincipality.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,9 +11,8 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content
 {
     public class AboutPageSection : LookupEntityBase
     {
-        [Required]
-        [MaxLength(200)]
-        public string Title { get; set; }
+        
+        public AboutSectionType AboutSectionType { get; set; }
 
         public string Description { get; set; }
 

@@ -11,11 +11,13 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
 {
     public class EService : LookupEntityBase
     {
-        public string Description { get; set; }
-        public int EServiceFormId { get; set; }
+        public string DescriptionEn { get; set; }
+		public string DescriptionAr { get; set; }
+		public string ServiceCode { get; set; }
+		public int EServiceFormId { get; set; }
         public int CategoryId { get; set; }
-
-        public virtual EServiceForm EServiceForm { get; set; }
+		public string IconUrl { get; set; }
+		public virtual EServiceForm EServiceForm { get; set; }
         public virtual ServicesCategory ServicesCategory { get; set; }
         public virtual EServiceDetails EServiceDetails { get; set; }
         public virtual ICollection<ServiceRequest> Requests { get; set; }
@@ -24,5 +26,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
         public virtual ICollection<ServiceFAQ> FAQs { get; set; }
         public virtual ICollection<ServiceRating> Ratings { get; set; }
         public virtual ICollection<AttachmentType> AttachmentTypes { get; set; }
-    }
+		public virtual ICollection<EServiceRequirement> EServiceRequirements { get; set; }
+		public virtual ICollection<EServiceFlow> EServiceFlows { get; set; }
+	}
 }

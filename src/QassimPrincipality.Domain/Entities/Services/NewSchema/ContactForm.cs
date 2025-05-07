@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace QassimPrincipality.Domain.Entities.Services.NewSchema
 {
-	public class ContactForm : LookupEntityBase
+	public class SharedContactForm : LookupEntityBase
 	{
 		[Required]
 		[MaxLength(100)]
