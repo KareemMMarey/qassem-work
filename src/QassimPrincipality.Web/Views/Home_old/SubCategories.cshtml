@@ -1,0 +1,66 @@
+﻿@using QassimPrincipality.Application.Services.Lookups.Main.EServicesSubCategory
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
+        <li class="breadcrumb-item active">المشاركة المجتمعية</li>
+    </ol>
+</nav>
+
+<div class="margin-bottom-lg">
+    <h3 class="page-title margin-bottom-md">الخدمات الإلكترونية لإمارة منطقة القصيم</h3>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="form-group">
+                    <input class="form-control" id="filterInput" type="search" placeholder="البحث في الخدمات">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="services-list">
+        <div class="row">
+            @if (ViewData["subcategories"] != null)
+            {
+                var subcategories = (List<EServiceSubCategoryDto>)ViewData["subcategories"];
+                foreach (EServiceSubCategoryDto item in subcategories)
+                {
+                    <div class="col-xxl-3 services-card-wrapper">
+                       @*  <a class="services-card" href="#"> *@
+                        <div class="services-card services-card--subcategory">
+                            <div class="service-card__icon">
+                                <svg width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#logo"> </use>
+                                </svg>
+                            </div>
+                            <div class="service-card__title"> @item.NameAr</div>
+                            <div class="service-card__actions">
+                                <a class="btn btn-outline-primary" href="@Url.Action("ServiceDefination", "Home",
+                                    new
+                                    {                                                     // htmlAttributes
+                                        id = item.Id,
+                                        isCategory=false
+                                    })">
+                                    تصفح البيانات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row justify-content-center margin-top-base service-list-empty" id="serviceEmptyState">
+          <div class="col-6">
+            <div class="services-card service-card--empty">
+              <div class="service-card__icon">
+                <svg>
+                  <use xlink:href="/assets/images/svg-icons.svg#no-search-result"></use>
+                </svg>
+              </div>
+              <div class="service-card__title">عذراً .. لا يوجد خدمات</div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

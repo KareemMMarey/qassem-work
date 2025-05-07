@@ -18,6 +18,8 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Web;
 using Framework.Core.Notifications;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 namespace QassimPrincipality.Web
 {
     public class Program
@@ -32,9 +34,26 @@ namespace QassimPrincipality.Web
             {
                 var builder = WebApplication.CreateBuilder(args);
 
-                // Add services to the container.
-                //builder.Services.AddControllersWithViews();
-                var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+				builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+				builder.Services.Configure<RequestLocalizationOptions>(options =>
+				{
+					var supportedCultures = new[]
+					{
+				new CultureInfo("ar-SA"),
+				new CultureInfo("en-US"),
+			};
+
+					options.DefaultRequestCulture = new RequestCulture("ar-SA");
+					options.SupportedCultures = supportedCultures;
+					options.SupportedUICultures = supportedCultures;
+				});
+
+				builder.Services.AddControllersWithViews().AddViewLocalization().AddDataAnnotationsLocalization(); ;
+
+				// Add services to the container.
+				//builder.Services.AddControllersWithViews();
+				var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
                 var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
                 builder.Services.Configure<NafathConfiguration>(mailConfiguration);
 
@@ -49,7 +68,7 @@ namespace QassimPrincipality.Web
             builder.Services.ConfigureApplicationServices();
             builder.Services.ConfigureInfrastructureServices(connectionString);
             builder.Services.IdentityConfigureServices(connectionString);
-            builder.Services.ConfigureSharedApplicationServices(connectionString);
+            //builder.Services.ConfigureSharedApplicationServices(connectionString);
             //builder.Services.AddDataProtection(connectionString);
             //builder.Services.AddControllers().AddNewtonsoftJson();
 
@@ -70,12 +89,10 @@ namespace QassimPrincipality.Web
                     options.SlidingExpiration = true; // Refresh the cookie expiry on each request
                 });
 
-                builder.Services.AddControllersWithViews().AddViewLocalization()
-        .AddDataAnnotationsLocalization(); ;
+                
 
 
-                // Localization 
-                builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+                
 
                 #region Nlog
 
@@ -96,13 +113,7 @@ namespace QassimPrincipality.Web
                 //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //    app.UseHsts();
                 //}
-                // Configure the localization middleware
-                var supportedCultures = new[]
-                        {
-                        new CultureInfo("en-US"),
-                        new CultureInfo("fr-FR"),
-                        new CultureInfo("ar-SA")
-                    };
+               
 
                 if (app.Environment.IsDevelopment())
                 {
@@ -114,13 +125,11 @@ namespace QassimPrincipality.Web
                     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                     app.UseHsts();
                 }
-                app.UseRequestLocalization(new RequestLocalizationOptions
-                {
-                    DefaultRequestCulture = new RequestCulture("ar-SA"),
-                    SupportedCultures = supportedCultures,
-                    SupportedUICultures = supportedCultures
-                });
-                app.UseStaticFiles();
+
+				
+
+				app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+				app.UseStaticFiles();
 
                 app.UseRouting();
                 app.UseSession();
@@ -132,14 +141,7 @@ namespace QassimPrincipality.Web
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
                 });
-                //app.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                //app.UseCors();
-                //app.UseHttpsRedirection();
-                //app.MapControllers();
-                // create AutoMapper configuration
+               
                 var config = new MapperConfiguration(cfg =>
                 {
                     cfg.AddProfile(typeof(AppAutoMapperProfile));

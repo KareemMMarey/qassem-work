@@ -21,7 +21,7 @@ namespace Framework.Core.SharedServices.Services
 
             services.AddDbContext<CommonsDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddLocalization();
+            //services.AddLocalization();
             services.TryAddScoped(typeof(IUnitOfWorkBase<>), typeof(UnitOfWorkBase<>));
             services.TryAddScoped(typeof(IRepositoryBase<,>), typeof(RepositoryBase<,>));
             services.TryAddScoped<ICommonsDbContext, CommonsDbContext>();

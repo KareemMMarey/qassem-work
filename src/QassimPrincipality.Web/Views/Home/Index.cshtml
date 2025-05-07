@@ -1,59 +1,257 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
-
-@inject IViewLocalizer Localizer
+﻿@using QassimPrincipality.Application.Dtos.Content
+@inject IViewLocalizer localizer
 @{
-    ViewData["Title"] = Localizer["Title"];
+	ViewData["Title"] = "";
+	var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
 }
-<div class="margin-bottom-lg">
-    <h3 class="page-title margin-bottom-md">@Localizer["HeadTitle"]</h3>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-4">
-                <div class="form-group">
-                    <input class="form-control" id="filterInput" type="search" placeholder="@Localizer["PlaceHolderSearch"]">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="services-list">
-        <div class="row">
-            @if (ViewData["categories"] != null)
-            {
-                var categories = (List<EServiceCategoryDto>)ViewData["categories"];
-                foreach (EServiceCategoryDto item in categories)
-                {
-                    <div class="col-xxl-3 services-card-wrapper">
-                        <a class="services-card"  href="@Url.Action("SubCategories", "Home", new
-                                             {                                                     // htmlAttributes
-                                                 categoryId = item.Id,
-                                             })">
-                       @*  <a class="services-card" href="#"> *@
-                            <div class="service-card__icon">
-                                <svg width="24" height="24">
-                                    <use xlink:href="/assets/images/svg-icons.svg#logo"> </use>
-                                </svg>
-                            </div>
-                            <div class="service-card__title"> @item.NameAr</div>
-                        </a>
-                    </div>
-                }
-            }
-        </div>
-        <div class="row justify-content-center margin-top-base service-list-empty" id="serviceEmptyState">
-          <div class="col-6">
-            <div class="services-card service-card--empty">
-              <div class="service-card__icon">
-                <svg>
-                  <use xlink:href="/assets/images/svg-icons.svg#no-search-result"></use>
-                </svg>
-              </div>
-                    <div class="service-card__title">@Localizer["NoDataExist"];</div>
-            </div>
-          </div>
-        </div>
-    </div>
+
+<div class="pc-home">
+	<div class="pc-home-hero-section">
+		@* <h1>إمارة منطقة القصيم</h1> *@
+		@* @localizer["HeadTitle"] *@
+	</div>
+
+	<div class="pc-body">
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>  @localizer["News"]</h2>
+				</div>
+
+				@* <a class="pc-outline-btn" asp-controller="Home" asp-action="News">عرض الكل</a> *@
+			</div>
+			@{
+				var newsList = ViewData["newsList"] as List<NewsDto>;
+
+			}
+			<div class="pc-cards">
+				@if (newsList != null && newsList.Any())
+				{
+					@foreach (var newsItem in newsList)
+					{
+						var newsTitle = currentCulture == "ar-SA" ? newsItem.NameAr : newsItem.NameEn;
+						var description = currentCulture == "ar-SA" ? newsItem.ShortDescriptionAr : newsItem.ShortDescriptionEn;
+						var imageUrl = newsItem.ImageUrl;
+						var publishDate = newsItem.PublishDate;
+
+						<div class="pc-card">
+							<div class="pc-card-img">
+								<img src="@Url.Content($"~{imageUrl}")" alt="news image" aria-label="news image" />
+							</div>
+
+							<div class="pc-card-content">
+								<p>@description </p>
+							</div>
+
+							<div class="pc-card-date">
+								<img src="~/icons/calender.svg" alt="calender" aria-label="calender" />
+								<p>@publishDate.ToString("d-M-yyyy")</p>
+							</div>
+
+							<div class="pc-card-btn">
+								<a asp-controller="Home" asp-action="News" asp-route-id="1" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+							</div>
+						</div>
+					
+					}
+
+				}
+				
+
+				
+			</div>
+		</div>
+
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>@localizer["HeadTitle"]</h2>
+				</div>
+
+				<a class="pc-outline-btn" asp-controller="Services" asp-action="Index">عرض الكل</a>
+			</div>
+
+			@{
+				var serviceSimpleList = ViewData["services"] as List<GetEServiceListHome>;
+				
+			}
+
+			<div class="pc-cards">
+				@if (serviceSimpleList != null && serviceSimpleList.Any())
+				{
+					@foreach (var service in serviceSimpleList)
+					{
+						// Determine the correct language for Name, Description, CategoryName, and AudienceType
+						var name = currentCulture == "ar-SA" ? service.NameAr : service.NameEn;
+						var description = currentCulture == "ar-SA" ? service.DescriptionAr : service.DescriptionEn;
+						var categoryName = currentCulture == "ar-SA" ? service.CategoryNameAr : service.CategoryNameEn;
+						var audienceType = currentCulture == "ar-SA" ? service.AudienceTypeAr : service.AudienceTypeEn;
+
+						// Generate rating stars
+						int rating = int.TryParse(service.RateValue, out var rate) ? rate : 0;
+						var fullStarCount = Math.Min(rating, 5);
+						var emptyStarCount = 5 - fullStarCount;
+
+						<div class="pc-card" data-category="@categoryName">
+							<div class="pc-card-icon">
+								<img src="@Url.Content($"~/{service.IconUrl}")" alt="icon" />
+							</div>
+
+							<div class="pc-card-content">
+								<h6>@name</h6>
+								<p>@description</p>
+							</div>
+
+							<div class="pc-card-tags">
+								<p class="pc-grey-tag">@categoryName</p>
+								<p class="pc-green-tag">@audienceType</p>
+							</div>
+
+							<div class="pc-card-rating">
+								@for (int i = 0; i < fullStarCount; i++)
+								{
+									<img src="~/icons/star-filled.svg" alt="star" />
+								}
+								@for (int i = 0; i < emptyStarCount; i++)
+								{
+									<img src="~/icons/star.svg" alt="empty star" />
+								}
+							</div>
+
+							<div class="pc-card-btn">
+								<a asp-controller="Services" asp-action="AboutTheService" asp-route-id="@service.ServiceCode" class="pc-primary-btn">
+									<img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل
+								</a>
+							</div>
+						</div>
+					}
+				}
+				else
+				{
+					<div class="pc-card empty-card">
+						<div class="pc-card-icon">
+							<img src="~/icons/no-services.svg" alt="No Services" />
+						</div>
+						<div class="pc-card-content">
+							<h6>@(currentCulture == "ar-SA" ? "لا توجد خدمات متاحة حالياً" : "No Services Available")</h6>
+							<p>@(currentCulture == "ar-SA" ? "يرجى التحقق لاحقاً." : "Please check back later.")</p>
+						</div>
+					</div>
+				}
+
 </div>
 
+		</div>
+
+		<div class="pc-body-statistics">
+			<h2>@localizer["QaseemInNumbers"] </h2>
+			@{
+				var statsList = ViewData["statsList"] as List<StatisticDto>;
+
+			}
+			<div class="pc-statistics-cards">
+
+				@if (statsList != null && statsList.Any())
+				{
+					@foreach (var statItem in statsList)
+					{
+						var title = currentCulture == "ar-SA" ? statItem.NameAr : statItem.NameEn;
+						var value = statItem.Value;
+						var imageUrl = statItem.IconClass;
+						<div class="pc-statistics-card">
+							<img src="@Url.Content($"~/{imageUrl}")"  width="64" height="64" />
+							<h5>@title</h5>
+							<img src="~/icons/arrowDownFilled.svg" />
+							<p>@value</p>
+						</div>
+					}
+
+
+				}
+				
+				@* <div class="pc-statistics-card">
+					<img src="~/icons/house.svg" width="64" height="64" />
+					<h5>إجمالي عدد الأسر</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>313,247</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/backpack.svg" width="64" height="64" />
+					<h5>المنشآت التعليمية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>4200</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/hospital.svg" width="64" height="64" />
+					<h5>المنشآت الصحية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>300</p>
+				</div>
+				<div class="pc-statistics-card">
+					<img src="~/icons/gym.svg" width="64" height="64" />
+					<h5>المنشآت الرياضية</h5>
+					<img src="~/icons/arrowDownFilled.svg" />
+					<p>172</p>
+				</div> *@
+			</div>
+		</div>
+
+		<div class="pc-body-section">
+			<div class="pc-cards-header">
+				<div class="pc-cards-header-title">
+					<img src="~/icons/palm.svg" alt="palm" aria-label="palm" width="18.897" height="28.416" />
+					<h2>@localizer["E-Platform"]</h2>
+				</div>
+
+				@* <a class="pc-outline-btn">عرض الكل</a> *@
+			</div>
+
+			<div class="pc-cards">
+				<a href="https://sm.alqassim.gov.sa/Arabic/Pages/default.aspx" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/citizenVoice.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/message-user.svg" />
+						<h3>@localizer["YourVoice"]</h3>
+					</div>
+				</a>
+
+				<a href="https://www.alqassim.gov.sa/TAWAZON" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/tawazon.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/building.svg" />
+						<h3> @localizer["BalanceProgress"]</h3>
+					</div>
+				</a>
+
+				<a href="https://award.alqassim.gov.sa/" target="_blank" class="pc-bg-img-card">
+					<img src="~/images/tatweej.png" />
+					<div class="pc-bg-img-card-content">
+						<img src="~/icons/tatweej.png" />
+						<h3> @localizer["Winning"]</h3>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="pc-page-feedback">
+		<div>
+			<div class="pc-page-feedback-section">
+				<p> @localizer["PageEval"] </p>
+				<div class="pc-page-feedback-btns">
+					<button class="pc-primary-btn">@localizer["Yes"]</button>
+					<button class="pc-primary-btn">@localizer["No"]</button>
+				</div>
+			</div>
+			@* <div class="pc-page-feedback-response">
+			<img src="~/icons/checkmarkCircle.svg"/>
+			<p>تم إرسال ردك بنجاح</p>
+			</div> *@
+		</div>
+		<div class="pc-page-feedback-section">
+			<p class="pc-page-feedback-result"> @localizer["EvalResult"] </p>
+		</div>
+	</div>
+</div>

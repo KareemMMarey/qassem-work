@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
+
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Title"];
+}
+<div class="margin-bottom-lg">
+    <h3 class="page-title margin-bottom-md">@Localizer["HeadTitle"]</h3>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-4">
+                <div class="form-group">
+                    <input class="form-control" id="filterInput" type="search" placeholder="@Localizer["PlaceHolderSearch"]">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="services-list">
+        <div class="row">
+            @if (ViewData["categories"] != null)
+            {
+                var categories = (List<EServiceCategoryDto>)ViewData["categories"];
+                foreach (EServiceCategoryDto item in categories)
+                {
+                    <div class="col-xxl-3 services-card-wrapper">
+                        <a class="services-card"  href="@Url.Action("SubCategories", "Home", new
+                                             {                                                     // htmlAttributes
+                                                 categoryId = item.Id,
+                                             })">
+                       @*  <a class="services-card" href="#"> *@
+                            <div class="service-card__icon">
+                                <svg width="24" height="24">
+                                    <use xlink:href="/assets/images/svg-icons.svg#logo"> </use>
+                                </svg>
+                            </div>
+                            <div class="service-card__title"> @item.NameAr</div>
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row justify-content-center margin-top-base service-list-empty" id="serviceEmptyState">
+          <div class="col-6">
+            <div class="services-card service-card--empty">
+              <div class="service-card__icon">
+                <svg>
+                  <use xlink:href="/assets/images/svg-icons.svg#no-search-result"></use>
+                </svg>
+              </div>
+                    <div class="service-card__title">@Localizer["NoDataExist"];</div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
