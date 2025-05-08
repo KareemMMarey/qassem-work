@@ -120,6 +120,9 @@
   <data name="BalanceProgress" xml:space="preserve">
     <value>التوازن التنموي</value>
   </data>
+  <data name="Details" xml:space="preserve">
+    <value>تفاصيل</value>
+  </data>
   <data name="E-Platform" xml:space="preserve">
     <value>المنصات الإلكترونية</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="ManageProfile" xml:space="preserve">
     <value>Min profil</value>
   </data>
+  <data name="More" xml:space="preserve">
+    <value>المزيد</value>
+  </data>
   <data name="News" xml:space="preserve">
     <value>آخر الأخبار</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="QaseemInNumbers" xml:space="preserve">
     <value>القصيم في أرقام</value>
+  </data>
+  <data name="ShowAll" xml:space="preserve">
+    <value>عرض الكل</value>
   </data>
   <data name="SubTitle" xml:space="preserve">
     <value>Velkommen til {0}</value>

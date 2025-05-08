@@ -120,17 +120,62 @@
   <data name="2FA" xml:space="preserve">
     <value>Two-factor authentication</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>عن الامارة</value>
+  </data>
+  <data name="AboutEmirate" xml:space="preserve">
+    <value>عن الإمارة</value>
+  </data>
+  <data name="Absher" xml:space="preserve">
+    <value>أبشر</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>تصفح</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change password</value>
   </data>
+  <data name="ContactSupport" xml:space="preserve">
+    <value>الاتصال والدعم</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>تواصل معنا</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>جميع الحقوق محفوظة لإمارة منطقة القصيم ©</value>
+  </data>
+  <data name="DigitalLibrary" xml:space="preserve">
+    <value>المكتبة الرقمية للدكتور فيصل بن مشعل بن سعود بن عبدالعزيز</value>
+  </data>
+  <data name="ElectronicServices" xml:space="preserve">
+    <value>الخدمات الإلكترونية</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="EParticipation" xml:space="preserve">
+    <value>المشاركة الإلكترونية</value>
+  </data>
+  <data name="EService" xml:space="preserve">
+    <value>الخدمات الإلكترونية</value>
+  </data>
   <data name="ExternalLogins" xml:space="preserve">
     <value>My external logins</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>تابعنا على</value>
   </data>
   <data name="FooterCopyright" xml:space="preserve">
     <value>©</value>
   </data>
   <data name="Grants" xml:space="preserve">
     <value>Grants</value>
+  </data>
+  <data name="ImportantLinks" xml:space="preserve">
+    <value>روابط مهمة</value>
+  </data>
+  <data name="LawLibrary" xml:space="preserve">
+    <value>المكتبة القانونية الإلكترونية</value>
   </data>
   <data name="ManagePersonalData" xml:space="preserve">
     <value>My personal data</value>
@@ -141,10 +186,34 @@
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
   </data>
+  <data name="MinistryOfInterior" xml:space="preserve">
+    <value>وزارة الداخلية</value>
+  </data>
+  <data name="MyProfile" xml:space="preserve">
+    <value>ملفي الشخصي</value>
+  </data>
+  <data name="MyRequests" xml:space="preserve">
+    <value>طلباتي</value>
+  </data>
+  <data name="NationalPlatform" xml:space="preserve">
+    <value>المنصة الوطنية الموحدة</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>الهاتف</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>سياسة الخصوصية</value>
+  </data>
+  <data name="ServiceLevelAgreement" xml:space="preserve">
+    <value>اتفاقية مستوى الخدمة</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
   <data name="Signout" xml:space="preserve">
-    <value>logout</value>
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>الشروط والأحكام</value>
   </data>
 </root>

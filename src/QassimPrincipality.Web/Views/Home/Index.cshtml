@@ -50,7 +50,7 @@
 							</div>
 
 							<div class="pc-card-btn">
-								<a asp-controller="Home" asp-action="News" asp-route-id="1" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+								<a asp-controller="Home" asp-action="News" asp-route-id="1" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> @localizer["More"]</a>
 							</div>
 						</div>
 					
@@ -70,7 +70,7 @@
 					<h2>@localizer["HeadTitle"]</h2>
 				</div>
 
-				<a class="pc-outline-btn" asp-controller="Services" asp-action="Index">عرض الكل</a>
+				<a class="pc-outline-btn" asp-controller="Services" asp-action="Index">@localizer["ShowAll"]</a>
 			</div>
 
 			@{
@@ -122,7 +122,7 @@
 
 							<div class="pc-card-btn">
 								<a asp-controller="Services" asp-action="AboutTheService" asp-route-id="@service.ServiceCode" class="pc-primary-btn">
-									<img src="~/icons/arrowRight.svg" width="24" height="24"> تفاصيل
+									<img src="~/icons/arrowRight.svg" width="24" height="24"> @localizer["Details"]
 								</a>
 							</div>
 						</div>
@@ -237,21 +237,7 @@
 	</div>
 
 	<div class="pc-page-feedback">
-		<div>
-			<div class="pc-page-feedback-section">
-				<p> @localizer["PageEval"] </p>
-				<div class="pc-page-feedback-btns">
-					<button class="pc-primary-btn">@localizer["Yes"]</button>
-					<button class="pc-primary-btn">@localizer["No"]</button>
-				</div>
-			</div>
-			@* <div class="pc-page-feedback-response">
-			<img src="~/icons/checkmarkCircle.svg"/>
-			<p>تم إرسال ردك بنجاح</p>
-			</div> *@
-		</div>
-		<div class="pc-page-feedback-section">
-			<p class="pc-page-feedback-result"> @localizer["EvalResult"] </p>
-		</div>
+		@* @Html.Partial("_PageFeedbackPartial") *@
+		<partial name="_PageFeedback" />
 	</div>
 </div>

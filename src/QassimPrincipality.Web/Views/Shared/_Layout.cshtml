@@ -442,9 +442,15 @@
 </body>
 </html>
  *@
+ @inject IViewLocalizer localizer
+ @using System.Globalization
+ @{
+    // Determine the page direction based on the current culture
+    var direction = CultureInfo.CurrentUICulture.Name.StartsWith("ar") ? "rtl" : "ltr";
+}
 
 <!DOCTYPE html>
-<html>
+<html lang="@CultureInfo.CurrentUICulture.Name" dir="@direction">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -477,15 +483,15 @@
             <div class="pc-nav-bar">
                 <div class="pc-nav-bar-group">
                     <div class="pc-nav-tab">
-                        <a class="pc-nav-link" asp-controller="Home" asp-action="About">عن الإمارة</a>
+                        <a class="pc-nav-link" asp-controller="Home" asp-action="About"> @localizer["About"] </a>
                     </div>
 
                     <div class="pc-nav-tab">
-                        <a class="pc-nav-link" asp-controller="Services" asp-action="Index">الخدمات الإلكترونية</a>
+                        <a class="pc-nav-link" asp-controller="Services" asp-action="Index"> @localizer["EService"] </a>
                     </div>
 
                     <div class="pc-nav-tab">
-                        <a class="pc-nav-link" asp-controller="EParticipation" asp-action="Index">المشاركة الإلكترونية</a>
+                        <a class="pc-nav-link" asp-controller="EParticipation" asp-action="Index"> @localizer["EParticipation"] </a>
                     </div>
                 </div>
 
@@ -510,17 +516,17 @@
                         <div class="pc-nav-dropdown">
                             <div class="pc-nav-header-menu-item">
                                 <img src="~/icons/userCircle.svg" alt="profile" width="24" height="24">
-                                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">ملفي الشخصي</a>
+                                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link"> @localizer["MyProfile"]</a>
                             </div>
 
                             <div class="pc-nav-header-menu-item">
                                 <img src="~/icons/papers.svg" alt="profile" width="24" height="24">
-                                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">طلباتي</a>
+                                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link"> @localizer["MyRequests"]</a>
                             </div>
 
                             <div class="pc-nav-header-menu-item">
                                 <img src="~/icons/logout.svg" alt="log out" width="24" height="24">
-                                <a class="pc-warning-text pc-nav-link">تسجيل الخروج</a>
+                                <a class="pc-warning-text pc-nav-link">@localizer["Signout"] </a>
                             </div>
                         </div>
                     </div>
@@ -589,8 +595,53 @@
                 @* <a class="pc-warning-text pc-nav-link"><img src="~/icons/logout.svg" alt="log out" width="24" height="24"></a> *@
             </div>
         </nav>
-
         <div class="pc-nav-drawer" id="nav-menu">
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="Home" asp-action="About" class="pc-nav-link">@localizer["AboutEmirate"]</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="Services" asp-action="Index" class="pc-nav-link">@localizer["ElectronicServices"]</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="EParticipation" asp-action="Index" class="pc-nav-link">@localizer["EParticipation"]</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">@localizer["MyProfile"]</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">@localizer["MyRequests"]</a>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-nav-header-menu-item">
+                <a class="pc-warning-text pc-nav-link">@localizer["Signout"]</a>
+            </div>
+        </div>
+
+        @* <div class="pc-nav-drawer" id="nav-menu">
             <div class="pc-nav-header-menu-item">
                 <a asp-controller="Home" asp-action="About" class="pc-nav-link">عن الإمارة</a>
             </div>
@@ -632,10 +683,8 @@
                 <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
             </svg>
 
-            @* <div class="pc-nav-header-menu-item">
-            <a class="pc-warning-text pc-nav-link">تسجيل الخروج</a>
-            </div> *@
-        </div>
+           
+        </div> *@
     </header>
     <div>
         @RenderBody()
@@ -644,41 +693,40 @@
     <footer class="pc-footer">
         <div class="pc-footer-links">
             <div class="pc-footer-link">
-                <p>تصفح</p>
-                <a asp-Controller="Home" asp-action="PrivacyPolicy">سياسة الخصوصية</a>
-                <a asp-Controller="Home" asp-action="TermsAndConditions">الشروط والأحكام</a>
-                <a asp-Controller="Home" asp-action="ServiceLevelAgreement">اتفاقية مستوى الخدمة</a>
-                @* <a asp-controller="Home" asp-action="Index">خريطة الموقع</a> *@
+                <p>@localizer["Browse"]</p>
+                <a asp-Controller="Home" asp-action="PrivacyPolicy">@localizer["PrivacyPolicy"]</a>
+                <a asp-Controller="Home" asp-action="TermsAndConditions">@localizer["TermsAndConditions"]</a>
+                <a asp-Controller="Home" asp-action="ServiceLevelAgreement">@localizer["ServiceLevelAgreement"]</a>
             </div>
 
             <div class="pc-footer-link">
-                <p>روابط مهمة</p>
+                <p>@localizer["ImportantLinks"]</p>
                 <div>
-                    <a href="https://www.moi.gov.sa">وزارة الداخلية</a>
+                    <a href="https://www.moi.gov.sa">@localizer["MinistryOfInterior"]</a>
                     <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
                 </div>
                 <div>
-                    <a href="https://www.absher.sa/portal/landing.html">أبشر</a>
+                    <a href="https://www.absher.sa/portal/landing.html">@localizer["Absher"]</a>
                     <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
                 </div>
                 <div>
-                    <a href="https://my.gov.sa/ar">المنصة الوطنية الموحدة</a>
+                    <a href="https://my.gov.sa/ar">@localizer["NationalPlatform"]</a>
                     <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
                 </div>
                 <div>
-                    <a href="https://dr-faisal-library.pub.sa/">المكتبة الرقمية  للدكتور فيصل بن مشعل بن سعود بن عبدالعزيز</a>
+                    <a href="https://dr-faisal-library.pub.sa/">@localizer["DigitalLibrary"]</a>
                     <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
                 </div>
                 <div>
-                    <a href="https://www.alqassim.gov.sa/lawlibrary/Arabic/pages/default.aspx">المكتبة القانونية الإلكترونية</a>
+                    <a href="https://www.alqassim.gov.sa/lawlibrary/Arabic/pages/default.aspx">@localizer["LawLibrary"]</a>
                     <img src="~/icons/arrowUpLeft.svg" width="11" height="11" alt="icon">
                 </div>
             </div>
 
             <div class="pc-footer-link">
-                <p>الاتصال والدعم</p>
+                <p>@localizer["ContactSupport"]</p>
                 <div>
-                    <a asp-controller="EParticipation" asp-action="ContactUs">تواصل معنا</a>
+                    <a asp-controller="EParticipation" asp-action="ContactUs">@localizer["ContactUs"]</a>
                 </div>
                 <div>
                     <img src="~/icons/mailWhite.svg" width="16" height="16" alt="icon">
@@ -686,24 +734,21 @@
                 </div>
                 <div>
                     <img src="~/icons/callWhite.svg" width="16" height="16" alt="icon">
-                    <a>0163231818</a>
+                    <a>@localizer["Phone"]</a>
                 </div>
             </div>
 
             <div class="pc-footer-link">
-                <p>تابعنا على</p>
+                <p>@localizer["FollowUs"]</p>
                 <div class="pc-footer-social-media">
                     <a href="https://www.instagram.com/EmarahAlQassim">
-                        <img alt="instagram"
-                             src="~/icons/instagram.svg" width="32" height="32" alt="instagram">
+                        <img alt="instagram" src="~/icons/instagram.svg" width="32" height="32">
                     </a>
                     <a href="https://www.snapchat.com/add/emarahalqassim">
-                        <img alt="snapchat"
-                             src="~/icons/snapchat.svg" width="32" height="32" alt="snapchat">
+                        <img alt="snapchat" src="~/icons/snapchat.svg" width="32" height="32">
                     </a>
                     <a href="https://x.com/EmarahAlQassim">
-                        <img alt="x" src="~/icons/x.svg" width="32 alt="x"
-                             height="32">
+                        <img alt="x" src="~/icons/x.svg" width="32" height="32">
                     </a>
                 </div>
             </div>
@@ -711,12 +756,12 @@
 
         <div class="pc-footer-legal">
             <div class="pc-copyrights">
-                <p>جميع الحقوق محفوظة لإمارة منطقة القصيم © @DateTime.Now.Year</p>
+                <p>@localizer["Copyright"] @DateTime.Now.Year</p>
             </div>
 
             <div class="pc-footer-logos">
                 <div class="pc-platform-license">
-                    <a href=https://raqmi.dga.gov.sa/platforms/platforms/1cf664f0-d7c3-40d6-d293-08dcd6126718/platform-license>
+                    <a href="https://raqmi.dga.gov.sa/platforms/platforms/1cf664f0-d7c3-40d6-d293-08dcd6126718/platform-license">
                         <img src="https://raqmi.dga.gov.sa/PlatformsApi/api/Attachments/9b964200-6505-4ad3-b71e-b1ee0159fed6" width="210" height="70" alt="license">
                     </a>
                 </div>
@@ -724,6 +769,7 @@
             </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

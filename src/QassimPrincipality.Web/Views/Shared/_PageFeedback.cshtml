@@ -1,0 +1,68 @@
+﻿@inject IViewLocalizer localizer
+@{
+    var me = localizer["PageEval"];
+    
+}
+<div>
+    <div id="feedback-section" data-url="@Context.Request.Path" class="pc-page-feedback-section">
+		<p> @localizer["PageEval"] </p>
+		<div class="pc-page-feedback-btns">
+			<button class="pc-primary-btn" onclick="submitFeedback(true)">@localizer["Yes"]</button>
+			<button class="pc-primary-btn" onclick="submitFeedback(false)">@localizer["No"]</button>
+		</div>
+	</div>
+	@* <div class="pc-page-feedback-response">
+	<img src="~/icons/checkmarkCircle.svg"/>
+	<p>تم إرسال ردك بنجاح</p>
+	</div> *@
+</div>
+<div class="pc-page-feedback-section">
+    <p id="feedback-stats" class="pc-page-feedback-result"> @localizer["EvalResult"] </p>
+</div>
+
+
+<script>
+    const localizedMessages = {
+       
+        evalution: "@localizer["evalution"]",
+        message: "@localizer["message"]"
+    };
+    document.addEventListener("DOMContentLoaded", function () {
+        const pageUrl = document.getElementById("feedback-section").dataset.url;
+        fetch(`/PageFeedback/SearchFeedbacks?PageUrl=${encodeURIComponent(pageUrl)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.items && data.items.length > 0) {
+                    const feedback = data.items[0];
+                    const positivePercentage = feedback.positivePercentage || 0;
+                    const totalUsers = feedback.totalUsers || 0;
+                    document.getElementById("feedback-stats").innerText =
+                        `${positivePercentage}% ${localizedMessages.message} ${totalUsers} ${localizedMessages.evalution}`;
+                } else {
+                    document.getElementById("feedback-stats").innerText = "@localizer["NoEvalutionsYet"]";
+                }
+            });
+    });
+
+    function submitFeedback(isPositive) {
+        const feedbackSection = document.getElementById("feedback-section");
+        var pageUrl = feedbackSection.getAttribute("data-url");
+        console.log(pageUrl);
+        if (pageUrl=="/") {
+            pageUrl = "/";
+        }
+        console.log(JSON.stringify({ pageUrl, isPositive }));
+        fetch('/PageFeedback/SubmitFeedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pageUrl, isPositive })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("شكرا لتقييمك!");
+                    location.reload(); // Reload to update stats
+                }
+            });
+    }
+</script>

@@ -117,34 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2FA" xml:space="preserve">
-    <value>Two-factor authentication</value>
+  <data name="BalanceProgress" xml:space="preserve">
+    <value>Balance Progress</value>
   </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
+  <data name="E-Platform" xml:space="preserve">
+    <value>E-Platform</value>
   </data>
-  <data name="ExternalLogins" xml:space="preserve">
-    <value>My external logins</value>
+  <data name="EvalResult" xml:space="preserve">
+    <value>Eval  Result</value>
   </data>
-  <data name="FooterCopyright" xml:space="preserve">
-    <value>©</value>
+  <data name="evalution" xml:space="preserve">
+    <value>evalution</value>
   </data>
-  <data name="Grants" xml:space="preserve">
-    <value>Grants</value>
+  <data name="HeadTitle" xml:space="preserve">
+    <value>Qassem EServices</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Log ind</value>
   </data>
   <data name="ManagePersonalData" xml:space="preserve">
-    <value>My personal data</value>
+    <value>Mine personlige data</value>
   </data>
   <data name="ManageProfile" xml:space="preserve">
-    <value>My profile</value>
+    <value>Min profil</value>
   </data>
-  <data name="Menu" xml:space="preserve">
-    <value>Menu</value>
+  <data name="message" xml:space="preserve">
+    <value>From users say yes from</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+  <data name="News" xml:space="preserve">
+    <value>Latest news</value>
   </data>
-  <data name="Signout" xml:space="preserve">
-    <value>logout</value>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoDataExist" xml:space="preserve">
+    <value>No Data Exist</value>
+  </data>
+  <data name="NoEvalutionsYet" xml:space="preserve">
+    <value>No Evalutions Yet</value>
+  </data>
+  <data name="PageEval" xml:space="preserve">
+    <value>Was Page useful ?</value>
+  </data>
+  <data name="PlaceHolderSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="PositivePercentage" xml:space="preserve">
+    <value />
+  </data>
+  <data name="QaseemInNumbers" xml:space="preserve">
+    <value>Qaseem In Numbers</value>
+  </data>
+  <data name="SubTitle" xml:space="preserve">
+    <value>Velkommen til {0}</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Qassem Emmarti</value>
+  </data>
+  <data name="TotalUsers" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Winning" xml:space="preserve">
+    <value>Winning</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YourVoice" xml:space="preserve">
+    <value>Your Voice</value>
   </data>
 </root>

@@ -86,7 +86,11 @@ namespace QassimPrincipality.Application
 			CreateMap<Statistic, StatisticDto>();
 			CreateMap<CreateStatisticRequest, Statistic>();
 
-		}
+            CreateMap<PageFeedback, PageFeedbackDto>();
+            
+
+
+        }
 
         public int Order { get; set; }
     }
