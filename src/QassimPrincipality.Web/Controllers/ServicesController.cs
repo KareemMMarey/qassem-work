@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCategory;
 using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
