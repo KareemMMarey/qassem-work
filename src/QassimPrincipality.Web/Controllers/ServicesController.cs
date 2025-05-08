@@ -13,12 +13,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using QassimPrincipality.Application.Services.NewShema.Content;
+using QassimPrincipality.Application.Services.NewShema;
 namespace QassimPrincipality.Web.Controllers
 {
     public class ServicesController : Controller
     {
        
         private readonly EServiceAppService _eService;
+        private readonly LookupAppService _lookups;
         private readonly NewsAppService _news;
 		private readonly IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
@@ -28,17 +30,20 @@ namespace QassimPrincipality.Web.Controllers
             IHtmlLocalizer<HomeController> localizer,
             EServiceAppService eService,
 			NewsAppService news,
-			StatisticAppService stats
-			)
+            LookupAppService lookups
+            )
         {
             _logger = logger;
             _eService = eService;
             _localizer = localizer;
             _news = news;
+            _lookups = lookups;
         }
 
         public async Task<ActionResult> Index()
         {
+            var categories = await _lookups.GetCategories();
+            ViewData["categories"] = categories;
             var services = await _eService.GetAll();
             ViewData["services"] = services;
 			return View();
@@ -52,7 +57,7 @@ namespace QassimPrincipality.Web.Controllers
         {
            // ViewData["NewsId"] = Id;
 
-            var newsItem = await _news.GetByIdAsync(Id);
+            var newsItem = await _eService.GetById(Id);
             ViewData["newsItem"] = newsItem;
 
             return View();
