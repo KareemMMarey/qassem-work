@@ -3,8 +3,8 @@ using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using QassimPrincipality.Application.Lookups.Services;
 using QassimPrincipality.Application.Services.Main.Contact;
+using QassimPrincipality.Application.Services.NewShema;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Contact;
 

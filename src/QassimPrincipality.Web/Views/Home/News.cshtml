@@ -1,6 +1,9 @@
-﻿@{
-    ViewData["Title"] = "الأخبار - ";
-    var NewsId = ViewData["NewsId"] as int?;
+﻿@using QassimPrincipality.Application.Dtos.Content
+@inject IViewLocalizer localizer
+@{
+    ViewData["Title"] = @localizer["NewsPageTitle"]; 
+    var newsItem = ViewData["newsItem"] as NewsDto;
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
 }
 
 <div class="pc-content-page">
@@ -8,71 +11,39 @@
         <div class="pc-breadcrumbs">
             <ul>
                 <li>
-                    <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                    <a asp-controller="Home" asp-action="Index"> @localizer["HomePage"]  </a>
                 </li>
                 <li>></li>
-                <li class="pc-breadcrumbs-current">تفاصيل الخبر</li>
+                <li class="pc-breadcrumbs-current"> @localizer["NewsDetails"]</li>
             </ul>
         </div>
 
         <div class="pc-content-title">
             <img src="~/icons/palm.svg" alt="palm icon" />
-            <h2> عنوان الخبر  عنوان الخبر  عنوان الخبر  عنوان الخبر عنوان الخبر  </h2>
+            <h2>@(currentCulture == "ar-SA" ? newsItem.NameAr : newsItem.NameEn) </h2>
         </div>
     </div>
 
     <div class="pc-content-body">
         <div class="pc-content-img">
             @{
-                if (NewsId == 1)
-                {
-                    <img src="~/images/Background.png" />
-                }
-                else if (NewsId == 2)
-                {
-                    <img src="~/images/citizenVoice.png" />
-                }
-                else if (NewsId == 3)
-                {
-                    <img src="~/images/tawazon.png" />
-                }
+                <img src="@Url.Content($"~{newsItem.ImageUrl}")" />
+                
             }
         </div>
 
         @{
-            if(NewsId == 1){
-                <p class="pc-content-text">1 نص الخبر  نص الخبر  نص الخبر  نص الخبر نص الخبر نص الخبر </p>
-            }
-            else if (NewsId == 2)
-            {
-                <p class="pc-content-text">2 نص الخبر  نص الخبر  نص الخبر  نص الخبر نص الخبر نص الخبر </p>
-            } else if (NewsId == 3)
-            {
-                <p class="pc-content-text">3 نص الخبر  نص الخبر  نص الخبر  نص الخبر نص الخبر نص الخبر </p>
-            }
-        }
+
+            <p class="pc-content-text">@(currentCulture == "ar-SA" ? newsItem.ShortDescriptionAr : newsItem.ShortDescriptionEn) </p>
+           
+         }
 
         <div class="pc-content-actions">
-            <a asp-controller="Home" asp-action="Index" class="pc-outline-btn"> رجوع </a>
+            <a asp-controller="Home" asp-action="Index" class="pc-outline-btn"> @localizer["Back"]  </a>
         </div>
     </div>
 
     <div class="pc-page-feedback">
-        <div>
-            <div class="pc-page-feedback-section">
-                <p>هل كانت هذه الصفحة مفيدة؟</p>
-                <div class="pc-page-feedback-btns">
-                    <button class="pc-primary-btn">نعم</button>
-                    <button class="pc-primary-btn">لا</button>
-                </div>
-            </div>
-            @* <div class="pc-page-feedback-response">
-            <img src="~/icons/checkmarkCircle.svg"/>
-            <p>تم إرسال ردك بنجاح</p>
-            </div> *@
-        </div>
-        <div class="pc-page-feedback-section">
-            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
-        </div>
+        <partial name="_PageFeedback" />
     </div>
 </div>

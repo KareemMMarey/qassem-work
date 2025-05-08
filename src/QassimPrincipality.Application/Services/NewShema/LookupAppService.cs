@@ -5,7 +5,7 @@ using Framework.Core.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace QassimPrincipality.Application.Lookups.Services
+namespace QassimPrincipality.Application.Services.NewShema
 {
     public class LookupAppService
     {

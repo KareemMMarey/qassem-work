@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+
+<div class="pc-success-request-page">
+    <div class="pc-success-request-container">
+        <div class="pc-success-request">
+            <img src="~/icons/checkmarkDoubled.svg" alt="checkmark" width="48" height="48px" />
+
+            <div class="pc-success-request-head">
+                <h3>تم إرسال الطلب بنجاح</h3>
+                <p>رقم الطلب PR-TR241029001</p>
+            </div>
+
+            <div class="pc-success-request-body">
+                <h4>ماذا سيحدث بعد ذلك؟</h4>
+                <p>سيراجع فريق إمارة منطقة القصيم طلبك، وستتمكن من رؤية التحديثات عبر صفحة ”طلباتي“. يجب عليك استخدام رقم الطلب أعلاه في أي مراسلات مع إمارة منطقة القصيم حول طلبك.</p>
+            </div>
+
+            <div class="pc-form-buttons">
+                <a asp-controller="Home" asp-action="Index" class="pc-outline-btn">الرجوع للرئيسية</a>
+                <a asp-controller="User" asp-action="MyRequests" class="pc-primary-btn">الذهاب لطلباتي</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-page-feedback">
+        <div>
+            <div class="pc-page-feedback-section">
+                <p>هل كانت هذه الصفحة مفيدة؟</p>
+                <div class="pc-page-feedback-btns">
+                    <button class="pc-primary-btn">نعم</button>
+                    <button class="pc-primary-btn">لا</button>
+                </div>
+            </div>
+            @* <div class="pc-page-feedback-response">
+            <img src="~/icons/checkmarkCircle.svg"/>
+            <p>تم إرسال ردك بنجاح</p>
+            </div> *@
+        </div>
+        <div class="pc-page-feedback-section">
+            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+        </div>
+    </div>
+</div>

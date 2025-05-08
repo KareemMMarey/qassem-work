@@ -17,10 +17,10 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
             _eServiceRepository = eServiceRepository;
         }
 
-        public async Task<List<EServiceCategoryDto>> GetAllEServiceCategories()
+        public async Task<List<GetEServiceListHome>> GetAll()
         {
             var eServiceCategory = await _eServiceRepository.TableNoTracking.ToListAsync();
-            return eServiceCategory.MapTo<List<EServiceCategoryDto>>();
+            return eServiceCategory.MapTo<List<GetEServiceListHome>>();
         }
         /// <summary>
         /// Returns only three items from EService Table

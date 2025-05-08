@@ -19,7 +19,7 @@
 					<h2>  @localizer["News"]</h2>
 				</div>
 
-				@* <a class="pc-outline-btn" asp-controller="Home" asp-action="News">عرض الكل</a> *@
+				@* <a class="pc-outline-btn" asp-controller="Home" asp-action="News">@localizer["ShowAll"]</a> *@
 			</div>
 			@{
 				var newsList = ViewData["newsList"] as List<NewsDto>;
@@ -50,7 +50,7 @@
 							</div>
 
 							<div class="pc-card-btn">
-								<a asp-controller="Home" asp-action="News" asp-route-id="1" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> @localizer["More"]</a>
+								<a asp-controller="Home" asp-action="News" asp-route-id="@newsItem.Id" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> @localizer["More"]</a>
 							</div>
 						</div>
 					

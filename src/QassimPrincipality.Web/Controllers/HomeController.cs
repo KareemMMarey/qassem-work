@@ -55,9 +55,13 @@ namespace QassimPrincipality.Web.Controllers
         {
             return View();
         }
-        public IActionResult News(int Id)
+        public async Task<ActionResult> News(int Id)
         {
-            ViewData["NewsId"] = Id;
+           // ViewData["NewsId"] = Id;
+
+            var newsItem = await _news.GetByIdAsync(Id);
+            ViewData["newsItem"] = newsItem;
+
             return View();
         }
 

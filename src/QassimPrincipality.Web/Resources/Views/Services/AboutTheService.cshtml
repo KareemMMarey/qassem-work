@@ -1,0 +1,267 @@
+﻿@{
+    var selectedId = ViewData["SelectedId"] as string;
+}
+
+<div class="pc-service-page" id="pcServicePage">
+    <div class="pc-service-page-container">
+        <div class="pc-service-info">
+            <div class="pc-service-info-heading">
+                <div class="pc-breadcrumbs">
+                    <ul>
+                        <li>
+                            <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                        </li>
+                        <li>></li>
+                        <li>
+                            <a asp-controller="Services" asp-action="Index"> الخدمات</a>
+                        </li>
+                        <li>></li>
+                        <li class="pc-breadcrumbs-current">عنوان الخدمة</li>
+                    </ul>
+                </div>
+                <div class="pc-service-page-title">
+                    <h3>عنوان الخدمة</h3>
+                    @{
+                        if (selectedId == "ES")
+                        {
+                            ViewData["Title"] = "الاستدعاء الإلكتروني - ";
+                            <a asp-controller="ES" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "TQ")
+                        {
+                            ViewData["Title"] = "الاستعلام عن معاملة - ";
+                            <a asp-controller="TQ" asp-action="Index" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "MSNA")
+                        {
+                            ViewData["Title"] = "زواج سعودي من غير سعودية بالخارج - ";
+                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "MSNR")
+                        {
+                            ViewData["Title"] = "زواج سعودي من غير سعودية مقيمة - ";
+                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "MSNB")
+                        {
+                            ViewData["Title"] = "زواج سعودي من غير سعودية مولودة بالسعودية - ";
+                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "MFNS")
+                        {
+                            ViewData["Title"] = "زواج سعودية من غير سعودي - ";
+                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "PRRI")
+                        {
+                            ViewData["Title"] = "طلب محو سابقة - رد اعتبار - ";
+                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "PRTR")
+                        {
+                            ViewData["Title"] = "طلب الخروج المؤقت للسجين - ";
+                            <a asp-controller="PRTR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "PRTF")
+                        {
+                            ViewData["Title"] = "طلب نقل سجين من سجن لآخر - ";
+                            <a asp-controller="PRTF" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "NDNS")
+                        {
+                            ViewData["Title"] = "طلب عدم الإبعاد من المملكة العربية السعودية - ";
+                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                        else if (selectedId == "TRLR")
+                        {
+                            ViewData["Title"] = "طلب السماح له بالسفر ورفع اسمه من القائمة - ";
+                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
+                        }
+                    }
+                </div>
+                <p class="pc-grey-tag">فئة الخدمة</p>
+                <p>وصف الخدمة</p>
+                <div>
+                    <a asp-controller="Home" asp-action="ServiceLevelAgreement" class="pc-link">
+                        اتفاقية مستوى الخدمة
+                        <img src="~/icons/linkSquare.svg" alt="icon" width="20" height="20" />
+                    </a>
+                </div>
+            </div>
+
+            <div class="pc-service-info-body">
+                <div class="pc-service-info-divisions">
+                    <button class="pc-service-info-divisions-btn" id="pc-service-requirements-btn">متطلبات الخدمة</button>
+                    <button class="pc-service-info-divisions-btn" id="pc-service-steps-btn">مسار الخدمة</button>
+                    <button class="pc-service-info-divisions-btn" id="pc-service-FAQ-btn">الأسئلة الشائعة عن الخدمة</button>
+                </div>
+
+                <div class="pc-service-requirements">
+                    <ol>
+                        <li>صورة الهوية لمقدم الطلب.</li>
+                        <li>اذا كان الخروج لحضور دفن أو عزاء إرفاق شهادة الوفاة وتصريح الدفن، (اشتراط أن يكون من الدرجة الأولى وهم الوالدين والأبناء).</li>
+                        <li>إذا كان الخروج لحضور زواج إرفاق كرت الدعوة، وتوضيح مكانه وزمانه.</li>
+                        <li>إذا كان الخروج لزيارة الوالدين والأقارب، أو زيارة المرضى في المستشفيات، أو خروج للتسجيل في الجامعة، أو غيره، يجب إرفاق المستندات المثبتة لصحة ذلك.</li>
+                        <li>صفة مقدم الطلب.</li>
+                        <li>صورة من الوكالة, في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.</li>
+                    </ol>
+                </div>
+
+                <div class="pc-service-steps">
+                    <ol>
+                        <li>قم بتسجيل الدخول إلى خدمات إمارة منطقة القصيم عبر البوابة الوطنية (نفاذ).</li>
+                        <li> اختر خدمة "طلب الخروج المؤقت للسجين" من قائمة الخدمات الإلكترونية.</li>
+                        <li> اضغط على "بدء الخدمة" وقم بتعبئة البيانات المطلوبة وإرفاق المستندات اللازمة.</li>
+                        <li> بعد التأكد من صحة المعلومات والمرفقات، اضغط على "إرسال الطلب"</li>
+                        <li>سيتم إشعارك برقم الطلب بعد إرساله.</li>
+                        <li>يمكنك متابعة حالة طلبك من خلال صفحة "طلباتي".</li>
+                        <li>عند اعتماد الطلب، سيتم تحويله إلى معاملة وستتلقى إشعارًا برقم المعاملة.</li>
+                    </ol>
+                </div>
+
+                <div class="pc-service-FAQ">
+                    <div class="pc-accordion">
+                        <div class="pc-accordion-head">
+                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                            <img src="~/icons/arrowDown.svg" alt="money icon" />
+                        </div>
+                        <div class="pc-accordion-body">
+                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                        </div>
+                    </div>
+                    <div class="pc-accordion">
+                        <div class="pc-accordion-head">
+                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                            <img src="~/icons/arrowDown.svg" alt="money icon" />
+                        </div>
+                        <div class="pc-accordion-body">
+                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                        </div>
+                    </div>
+                    <div class="pc-accordion">
+                        <div class="pc-accordion-head">
+                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                            <img src="~/icons/arrowDown.svg" alt="money icon" />
+                        </div>
+                        <div class="pc-accordion-body">
+                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                        </div>
+                    </div>
+                    <div class="pc-accordion">
+                        <div class="pc-accordion-head">
+                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                            <img src="~/icons/arrowDown.svg" alt="money icon" />
+                        </div>
+                        <div class="pc-accordion-body">
+                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-info-card">
+            <div>
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/userGreen.svg" alt="user icon" />
+                        <h6>المواطنون والمقيمون</h6>
+                    </div>
+                    <p>الجمهور المستهدف</p>
+                </div>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/clock.svg" alt="clock icon" />
+                        <h6>فوري</h6>
+                    </div>
+                    <p>مدة تنفيذ الخدمة</p>
+                </div>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/money.svg" alt="money icon" />
+                        <h6>مجاناً</h6>
+                    </div>
+                    <p>تكلفة الخدمة</p>
+                </div>
+
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div>
+                <h5>تقييم الخدمة</h5>
+                <div class="pc-card-rating">
+                    <img src="~/icons/star.svg" alt="star" />
+                    <img src="~/icons/star.svg" alt="star" />
+                    <img src="~/icons/star.svg" alt="star" />
+                    <img src="~/icons/star.svg" alt="star" />
+                    <img src="~/icons/star.svg" alt="star" />
+                </div>
+                <p> تقييم x</p>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div class="pc-info-card-section">
+                <div>
+                    <h5>الأنظمة واللوائح</h5>
+                    <div>
+                        <a class="pc-link" href="https://www.alqassim.gov.sa/Ar/Regulations/Pages/default.aspx">
+                            Regulation-Page
+                            <img src="~/icons/linkSquare.svg" alt="link icon" />
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5>الأسئلة الشائعة</h5>
+                    <div>
+                        <a asp-controller="Home" asp-action="Index" class="pc-link">
+                            FAQ's-Page
+                            <img src="~/icons/linkSquare.svg" alt="link icon" />
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5>تواصل معنا</h5>
+                    <div>
+                        <a class="pc-link" href="https://www.alqassim.gov.sa/EParticipation/contact-us.html">
+                            Contact-Us-Page
+                            <img src="~/icons/linkSquare.svg" alt="link icon" />
+                        </a>
+                    </div>
+                </div>
+
+                @* change based on the service *@
+                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn">دليل استخدام الخدمة</a>
+                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn">دليل الخدمات الإلكترونية</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-page-feedback">
+        <div>
+            <div class="pc-page-feedback-section">
+                <p>هل كانت هذه الصفحة مفيدة؟</p>
+                <div class="pc-page-feedback-btns">
+                    <button class="pc-primary-btn">نعم</button>
+                    <button class="pc-primary-btn">لا</button>
+                </div>
+            </div>
+            @* <div class="pc-page-feedback-response">
+            <img src="~/icons/checkmarkCircle.svg"/>
+            <p>تم إرسال ردك بنجاح</p>
+            </div> *@
+        </div>
+        <div class="pc-page-feedback-section">
+            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+        </div>
+    </div>
+</div>

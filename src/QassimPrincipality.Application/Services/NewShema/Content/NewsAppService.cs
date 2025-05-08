@@ -36,7 +36,7 @@ namespace QassimPrincipality.Application.Services.NewShema.Content
 			return newsList.MapTo<List<NewsDto>>();
 		}
 
-		public async Task<NewsDto> GetByIdAsync(long id)
+		public async Task<NewsDto> GetByIdAsync(int id)
         {
             var entity = await _newsRepository.GetByIdAsync(id);
             return entity?.MapTo<NewsDto>();
