@@ -1,0 +1,120 @@
+﻿@using QassimPrincipality.Application.Dtos.Content
+@inject IViewLocalizer localizer
+@{
+    ViewData["Title"] = localizer["ServicesPageTitle"];
+    var categories = ViewData["categories"] as List<SelectListItem>;
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    var serviceSimpleList = ViewData["services"] as List<GetEServiceListHome>;
+
+}
+
+<div class="pc-home">
+    <div class="pc-hero-section">
+        <h1>@localizer["HeadTitle"]</h1>
+        <p class="pc-hero-p2">@localizer["CitizinFirst"] </p>
+    </div>
+
+    <div class="pc-body">
+        <div class="pc-tabs-search">
+            <div class="pc-tabs-container">
+                @foreach (var item in categories)
+                {
+                    <button class="pc-tab" data-filter="@item.Text">@item.Text</button>
+                }
+                <button class="pc-tab active" data-filter="all">@localizer["All"]</button>
+                @* <button class="pc-tab" data-filter="خدمات السجناء">خدمات السجناء</button>
+                <button class="pc-tab" data-filter="خدمات الزواج">خدمات الزواج</button>
+                <button class="pc-tab" data-filter="خدمات أساسية">خدمات أساسية</button>
+                <button class="pc-tab" data-filter="all">الكل</button> *@
+            </div>
+
+            <div class="pc-search-container">
+                <button type="button" class="pc-clear-search-btn" id="clear-search-btn">
+                    <img src="~/icons/xIcon.svg" alt="clear search" width="15" height="15" />
+                </button>
+                <input type="text"
+                       class="pc-search-input" id="service-search"
+                       placeholder="ابحث عن خدمة"
+                       aria-label="Search">
+                <button type="submit" class="pc-search-btn">
+                    <img src="~/icons/search.svg" alt="search" width="20" height="20" />
+                </button>
+            </div>
+        </div>
+
+        <div class="pc-cards" id="services-container">
+            @if (serviceSimpleList != null && serviceSimpleList.Any())
+            {
+                @foreach (var service in serviceSimpleList)
+                {
+                    var name = currentCulture == "ar-SA" ? service.NameAr : service.NameEn;
+                    var description = currentCulture == "ar-SA" ? service.DescriptionAr : service.DescriptionEn;
+                    var categoryName = currentCulture == "ar-SA" ? service.CategoryNameAr : service.CategoryNameEn;
+                    var audienceType = currentCulture == "ar-SA" ? service.AudienceTypeAr : service.AudienceTypeEn;
+
+
+                    // Generate rating stars
+                    int rating = int.TryParse(service.RateValue, out var rate) ? rate : 0;
+                    var fullStarCount = Math.Min(rating, 5);
+                    var emptyStarCount = 5 - fullStarCount;
+
+                    <div class="pc-card" data-name="@name" data-category="@categoryName">
+                        <div class="pc-card-icon">
+                            <img src="@Url.Content($"~/{service.IconUrl}")" alt="icon" />
+                        </div>
+
+                        <div class="pc-card-content">
+                            <h6>@name</h6>
+                            <p>@description</p>
+                        </div>
+
+                        <div class="pc-card-tags">
+                            <p class="pc-grey-tag">@categoryName</p>
+                            <p class="pc-green-tag">@audienceType</p>
+                        </div>
+
+                        <div class="pc-card-rating">
+
+                            @for (int i = 0; i < fullStarCount; i++)
+                            {
+                                <img src="~/icons/star-filled.svg" alt="star" />
+                            }
+                            @for (int i = 0; i < emptyStarCount; i++)
+                            {
+                                <img src="~/icons/star.svg" alt="empty star" />
+                            }
+                        </div>
+
+                        <div class="pc-card-btn">
+                            <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="@service.Id" class="pc-primary-btn">
+                                <img src="~/icons/arrowRight.svg" width="24" height="24"> @localizer["Details"]
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+           
+        </div>
+
+        <div class="pc-empty-state" id="no-results" style="display: none;">
+            <div class="pc-empty-state-message">
+                <h2>  @localizer["NoData"]</h2>
+                <p> @localizer["NoDataMessage"]</p>
+                <button class="pc-outline-btn" id="clear-search-field-btn"> @localizer["ClearData"]</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-page-feedback">
+        <partial name="_PageFeedback" />
+    </div>
+    
+</div>
+
+
+
+    
+        
+
+    
+

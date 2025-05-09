@@ -38,7 +38,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     PageNumber = page,
                     PageSize = 10,
-                    CreatedBy = HttpContext.User.GetId()
+                    //CreatedBy = HttpContext.User.GetId()
                 }
             );
             return View(result);
@@ -50,7 +50,7 @@ namespace QassimPrincipality.Web.Controllers
             var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = "1234567899";
-            ViewData["contacttypes"] = await _lookUpService.GetConatctType();
+            ViewData["contacttypes"] = null;//await _lookUpService.GetConatctType();
             return View(vM);
         }
 
@@ -66,7 +66,7 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData["contacttypes"] = await _lookUpService.GetConatctType();
+                ViewData["contacttypes"] = null;// await _lookUpService.GetConatctType();
                 return View(model);
             }
             ContactFormDto dto = new ContactFormDto();
@@ -77,20 +77,20 @@ namespace QassimPrincipality.Web.Controllers
             dto.Description = model.Description;
             dto.IdentityNumber = model.IdentityNumber;
             dto.ContactTypeId = model.ContactTypeId;
-            dto.IsApproved = null;
-            dto.CreatedBy = HttpContext.User.GetId();
+            //dto.IsApproved = null;
+            //dto.CreatedBy = HttpContext.User.GetId();
 
 
-            dto.ReferralNumber = _referralNumberConfiguration.ContactFormStart
-                        + DateTime.Now.ToString("yyMMddHHmmss");
+           // dto.ReferralNumber = _referralNumberConfiguration.ContactFormStart
+                        //+ DateTime.Now.ToString("yyMMddHHmmss");
 
             var req = await _contactService.InsertAsync(dto);
             return RedirectToAction("Index", "Common",
                 new
                 {
                     SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
-                    requestNumber = req.ReferralNumber
-                });
+                    requestNumber = "" //req.ReferralNumber
+                }) ;
         }
 
         [Authorize(Roles = "Admin")]

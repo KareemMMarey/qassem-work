@@ -76,11 +76,11 @@ namespace QassimPrincipality.Web.Controllers
             var result = await _shareDataService.SearchAsync(
                 new ShareDataRequestSearchDto()
                 {
-                    IsPending = isPending,
+                   // IsPending = isPending,
                     IsApproved = status,
                     PageNumber = page,
                     PageSize = 10,
-                    CreatedBy = HttpContext.User.GetId()
+                   // CreatedBy = HttpContext.User.GetId()
                 }
             );
             return View(result);
@@ -94,7 +94,7 @@ namespace QassimPrincipality.Web.Controllers
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = "1234567899";
             vM.LegalJustificationDescription = "وصف المسوغ القانوني";
-            ViewData["entities"] = await _lookUpService.GetEntities();
+            ViewData["entities"] = null; // await _lookUpService.GetEntities();
             return View(vM);
         }
 
@@ -105,7 +105,7 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData["entities"] = await _lookUpService.GetEntities();
+                ViewData["entities"] = null;// await _lookUpService.GetEntities();
                 return View(model);
             }
             ShareDataDto dto = new ShareDataDto();
@@ -123,11 +123,11 @@ namespace QassimPrincipality.Web.Controllers
             ;
             dto.IsContainsPersonalData = model.IsContainsPersonalData == "true" ? true : false;
             dto.IsShareAgreementExist = model.IsShareAgreementExist == "true" ? true : false;
-            dto.IsApproved = null;
-            dto.CreatedBy = HttpContext.User.GetId();
+           // dto.IsApproved = null;
+            //dto.CreatedBy = HttpContext.User.GetId();
 
-            dto.ReferralNumber = _referralNumberConfiguration.ShareDataStart
-                        + DateTime.Now.ToString("yyMMddHHmmss");
+           // dto.ReferralNumber = _referralNumberConfiguration.ShareDataStart
+                       // + DateTime.Now.ToString("yyMMddHHmmss");
            var req =  await _shareDataService.InsertAsync(dto);
             return RedirectToAction(
                 "Index",
@@ -135,7 +135,7 @@ namespace QassimPrincipality.Web.Controllers
                 new
                 {
                     SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
-                    requestNumber = req.ReferralNumber
+                   // requestNumber = req.ReferralNumber
                 }
             );
         }
@@ -179,7 +179,7 @@ namespace QassimPrincipality.Web.Controllers
                     IsApproved = status,
                     PageNumber = page,
                     PageSize = 10,
-                    IsPending = isPending
+                    //IsPending = isPending
                 }
             );
             return View(result);
@@ -195,7 +195,7 @@ namespace QassimPrincipality.Web.Controllers
         [Authorize(Roles = "ShareDataRequestAdmin,Admin")]
         public async Task<IActionResult> Accept(string requestId)
         {
-            await _shareDataService.AcceptOrReject(Guid.Parse(requestId), true);
+            //await _shareDataService.AcceptOrReject(Guid.Parse(requestId), true);
             return RedirectToAction("Details", new { requestId });
         }
 
@@ -203,7 +203,7 @@ namespace QassimPrincipality.Web.Controllers
         [Authorize(Roles = "ShareDataRequestAdmin,Admin")]
         public async Task<IActionResult> Reject(string requestId, string rejectReasons)
         {
-            await _shareDataService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
+            //await _shareDataService.AcceptOrReject(Guid.Parse(requestId), false, rejectReasons);
             return RedirectToAction("Details", new { requestId });
         }
     }

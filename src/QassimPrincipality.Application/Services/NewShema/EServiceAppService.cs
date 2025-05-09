@@ -19,7 +19,11 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
 
         public async Task<List<GetEServiceListHome>> GetAll()
         {
-            var eServiceCategory = await _eServiceRepository.TableNoTracking.ToListAsync();
+            var eServiceCategory = await _eServiceRepository.TableNoTracking.
+                Include(c => c.ServicesCategory).
+                Include(c => c.EServiceDetails).
+                Include(c => c.Ratings).
+                ToListAsync();
             return eServiceCategory.MapTo<List<GetEServiceListHome>>();
         }
         /// <summary>

@@ -87,9 +87,9 @@ namespace QassimPrincipality.Web.Controllers
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = user.UserName.Replace("@nafath", "");
             //vM.IdentityNumber = vM.IdentityNumber.Replace("@nafath", "");
-            var types = await _lookUpService.GetRequesterTypes();
+            //var types = await _lookUpService.GetRequesterTypes();
             //vM.RequesterTypeId = int.Parse(types.First().Value);
-            ViewData["requestertypes"] = types;
+            ViewData["requestertypes"] = null; // types;
             return View(vM);
         }
 
@@ -100,9 +100,9 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var types = await _lookUpService.GetRequesterTypes();
+                //var types = await _lookUpService.GetRequesterTypes();
                 //model.RequesterTypeId = int.Parse(types.First().Value);
-                ViewData["requestertypes"] = types;
+                ViewData["requestertypes"] = null;// types;
                 return View(model);
             }
             OpenDataDto dto = new OpenDataDto();
@@ -117,8 +117,8 @@ namespace QassimPrincipality.Web.Controllers
             dto.CreatedBy = HttpContext.User.GetId();
 
 
-            dto.ReferralNumber = _referralNumberConfiguration.OpenDataStart
-                        + DateTime.Now.ToString("yyMMddHHmmss");
+            //dto.ReferralNumber = _referralNumberConfiguration.OpenDataStart
+            //            + DateTime.Now.ToString("yyMMddHHmmss");
 
 
             var req = await _openService.InsertAsync(dto);
@@ -129,7 +129,7 @@ namespace QassimPrincipality.Web.Controllers
                 new
                 {
                     SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
-                    requestNumber = req.ReferralNumber
+                    //requestNumber = req.ReferralNumber
                 }
             );
         }
