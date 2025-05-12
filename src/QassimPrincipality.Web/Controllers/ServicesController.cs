@@ -53,12 +53,12 @@ namespace QassimPrincipality.Web.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> Service(int Id)
+        public async Task<ActionResult> AboutTheService(int Id)
         {
            // ViewData["NewsId"] = Id;
 
-            var newsItem = await _eService.GetById(Id);
-            ViewData["newsItem"] = newsItem;
+            var serviceItem = await _eService.GetServiceDetailsById(Id);
+            ViewData["serviceItem"] = serviceItem;
 
             return View();
         }

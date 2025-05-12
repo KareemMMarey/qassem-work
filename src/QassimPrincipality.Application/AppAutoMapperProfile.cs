@@ -21,6 +21,7 @@ using Framework.Core.SharedServices.Dto;
 using QassimPrincipality.Application.Dtos.Content;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
+using System.Globalization;
 
 namespace QassimPrincipality.Application
 {
@@ -77,6 +78,70 @@ namespace QassimPrincipality.Application
             .ForMember(dest => dest.RateValue, opt => opt.MapFrom(src =>
                 src.Ratings != null && src.Ratings.Any()
                 ? (src.Ratings.Average(r => r.RatingValue)).ToString("0.0")
+                : "0.0"
+            ));
+
+
+            CreateMap<EService, GetEServiceDetailsDto>()
+            // Basic Property Mappings
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.NameAr))
+            .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.NameEn))
+            .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr))
+            .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn))
+            .ForMember(dest => dest.ServiceCode, opt => opt.MapFrom(src => src.ServiceCode))
+            .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl))
+            .ForMember(dest => dest.ServiceController, opt => opt.MapFrom(src => src.ServiceController))
+            .ForMember(dest => dest.ServiceActionMethos, opt => opt.MapFrom(src => src.ServiceActionMethos))
+
+            // Category Name Mapping
+            .ForMember(dest => dest.CategoryNameAr, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameAr : string.Empty))
+            .ForMember(dest => dest.CategoryNameEn, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameEn : string.Empty))
+
+            // EServiceDetails Mapping
+            .ForMember(dest => dest.AudienceTypeAr, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.AudienceTypeAr : string.Empty))
+            .ForMember(dest => dest.AudienceTypeEn, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.AudienceTypeEn : string.Empty))
+            .ForMember(dest => dest.ExecutionTimeAr, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.ExecutionTimeAr : string.Empty))
+            .ForMember(dest => dest.ExecutionTimeEn, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.ExecutionTimeEn : string.Empty))
+            .ForMember(dest => dest.CostAr, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.CostAr : string.Empty))
+            .ForMember(dest => dest.CostEn, opt => opt.MapFrom(src => src.EServiceDetails != null ? src.EServiceDetails.CostEn : string.Empty))
+
+            // Service Requirements Mapping (Based on Current Culture)
+            .ForMember(dest => dest.ServiceRequirement, opt => opt.MapFrom(src =>
+                src.EServiceRequirements != null
+                ? src.EServiceRequirements.Where(req=>!req.IsPaper.Value).Select(req =>
+                    CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? req.DescriptionAr : req.DescriptionEn).ToList()
+                : new List<string>()))
+
+            // Service Flow Mapping (Based on Current Culture)
+            .ForMember(dest => dest.ServiceFlow, opt => opt.MapFrom(src =>
+                src.EServiceFlows != null
+                ? src.EServiceFlows.Select(flow =>
+                    CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? flow.DescriptionAr : flow.DescriptionEn).ToList()
+                : new List<string>()))
+
+            // Service FAQs Mapping (Based on Current Culture)
+            .ForMember(dest => dest.ServiceFAQs, opt => opt.MapFrom(src =>
+    src.FAQs != null
+    ? src.FAQs
+        .Where(faq =>
+            (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? faq.NameAr : faq.NameEn) != null &&
+            (CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? faq.AnswerAr : faq.AnswerEn) != null)
+        .Select(faq => new ServiceFAQDto
+        {
+            NameAr = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? faq.NameAr : null,
+            NameEn = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? null : faq.NameEn,
+            AnswerAr = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? faq.AnswerAr : null,
+            AnswerEn = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? null : faq.AnswerEn
+        })
+        .ToList()
+    : new List<ServiceFAQDto>()
+))
+
+            // Rating Mapping (Average Rating)
+            .ForMember(dest => dest.RateValue, opt => opt.MapFrom(src =>
+                src.Ratings != null && src.Ratings.Any()
+                ? src.Ratings.Average(r => r.RatingValue).ToString("0.0")
                 : "0.0"
             ));
 

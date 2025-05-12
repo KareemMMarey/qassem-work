@@ -1,5 +1,13 @@
-﻿@{
-    var selectedId = ViewData["SelectedId"] as string;
+﻿@using QassimPrincipality.Application.Dtos.Content
+@inject IViewLocalizer localizer
+@{
+    ViewData["Title"] = @localizer["ServiceDetailsPageTitle"];
+    var serviceItem = ViewData["serviceItem"] as GetEServiceDetailsDto;
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    // Generate rating stars
+    int rating = int.TryParse(serviceItem.RateValue, out var rate) ? rate : 0;
+    var fullStarCount = Math.Min(rating, 5);
+    var emptyStarCount = 5 - fullStarCount;
 }
 
 <div class="pc-service-page" id="pcServicePage">
@@ -9,81 +17,30 @@
                 <div class="pc-breadcrumbs">
                     <ul>
                         <li>
-                            <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                            <a asp-controller="Home" asp-action="Index"> @localizer["HomePage"]  </a>
                         </li>
                         <li>></li>
                         <li>
-                            <a asp-controller="Services" asp-action="Index"> الخدمات</a>
+                            <a asp-controller="Services" asp-action="Index">  @localizer["Services"]</a>
                         </li>
                         <li>></li>
-                        <li class="pc-breadcrumbs-current">عنوان الخدمة</li>
+                        <li class="pc-breadcrumbs-current"> @(currentCulture == "ar-SA" ? serviceItem.NameAr : serviceItem.NameEn)</li>
                     </ul>
                 </div>
                 <div class="pc-service-page-title">
-                    <h3>عنوان الخدمة</h3>
+                    <h3> @(currentCulture == "ar-SA" ? serviceItem.NameAr : serviceItem.NameEn)</h3>
                     @{
-                        if (selectedId == "ES")
-                        {
-                            ViewData["Title"] = "الاستدعاء الإلكتروني - ";
-                            <a asp-controller="ES" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "TQ")
-                        {
-                            ViewData["Title"] = "الاستعلام عن معاملة - ";
-                            <a asp-controller="TQ" asp-action="Index" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "MSNA")
-                        {
-                            ViewData["Title"] = "زواج سعودي من غير سعودية بالخارج - ";
-                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "MSNR")
-                        {
-                            ViewData["Title"] = "زواج سعودي من غير سعودية مقيمة - ";
-                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "MSNB")
-                        {
-                            ViewData["Title"] = "زواج سعودي من غير سعودية مولودة بالسعودية - ";
-                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "MFNS")
-                        {
-                            ViewData["Title"] = "زواج سعودية من غير سعودي - ";
-                            <a asp-controller="MS" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "PRRI")
-                        {
-                            ViewData["Title"] = "طلب محو سابقة - رد اعتبار - ";
-                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "PRTR")
-                        {
-                            ViewData["Title"] = "طلب الخروج المؤقت للسجين - ";
-                            <a asp-controller="PRTR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "PRTF")
-                        {
-                            ViewData["Title"] = "طلب نقل سجين من سجن لآخر - ";
-                            <a asp-controller="PRTF" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "NDNS")
-                        {
-                            ViewData["Title"] = "طلب عدم الإبعاد من المملكة العربية السعودية - ";
-                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
-                        else if (selectedId == "TRLR")
-                        {
-                            ViewData["Title"] = "طلب السماح له بالسفر ورفع اسمه من القائمة - ";
-                            <a asp-controller="SharedPR" asp-action="StepOne" class="pc-primary-btn">بدء الخدمة</a>
-                        }
+
+                        <a asp-controller="@serviceItem.ServiceController" asp-action="StepOne" class="pc-primary-btn">@localizer["StartServices"] </a>
+                        
+                        
                     }
                 </div>
-                <p class="pc-grey-tag">فئة الخدمة</p>
-                <p>وصف الخدمة</p>
+                <p class="pc-grey-tag"> @(currentCulture == "ar-SA" ? serviceItem.CategoryNameAr : serviceItem.CategoryNameEn) </p>
+                <p>@(currentCulture == "ar-SA" ? serviceItem.DescriptionAr : serviceItem.DescriptionEn) </p>
                 <div>
                     <a asp-controller="Home" asp-action="ServiceLevelAgreement" class="pc-link">
-                        اتفاقية مستوى الخدمة
+                        @localizer["ServicesSLA"] 
                         <img src="~/icons/linkSquare.svg" alt="icon" width="20" height="20" />
                     </a>
                 </div>
@@ -91,36 +48,56 @@
 
             <div class="pc-service-info-body">
                 <div class="pc-service-info-divisions">
-                    <button class="pc-service-info-divisions-btn" id="pc-service-requirements-btn">متطلبات الخدمة</button>
-                    <button class="pc-service-info-divisions-btn" id="pc-service-steps-btn">مسار الخدمة</button>
-                    <button class="pc-service-info-divisions-btn" id="pc-service-FAQ-btn">الأسئلة الشائعة عن الخدمة</button>
+                    <button class="pc-service-info-divisions-btn" id="pc-service-requirements-btn"> @localizer["ServicesRequirements"] </button>
+                    <button class="pc-service-info-divisions-btn" id="pc-service-steps-btn"> @localizer["ServicesFlow"]</button>
+                    <button class="pc-service-info-divisions-btn" id="pc-service-FAQ-btn"> @localizer["ServicesFAQs"] </button>
                 </div>
 
                 <div class="pc-service-requirements">
                     <ol>
-                        <li>صورة الهوية لمقدم الطلب.</li>
-                        <li>اذا كان الخروج لحضور دفن أو عزاء إرفاق شهادة الوفاة وتصريح الدفن، (اشتراط أن يكون من الدرجة الأولى وهم الوالدين والأبناء).</li>
-                        <li>إذا كان الخروج لحضور زواج إرفاق كرت الدعوة، وتوضيح مكانه وزمانه.</li>
-                        <li>إذا كان الخروج لزيارة الوالدين والأقارب، أو زيارة المرضى في المستشفيات، أو خروج للتسجيل في الجامعة، أو غيره، يجب إرفاق المستندات المثبتة لصحة ذلك.</li>
-                        <li>صفة مقدم الطلب.</li>
-                        <li>صورة من الوكالة, في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.</li>
+                        @foreach (var itemRequirement in serviceItem.ServiceRequirement)
+                        {
+                            <li>@itemRequirement</li>
+                        }
+                        
                     </ol>
                 </div>
 
                 <div class="pc-service-steps">
                     <ol>
-                        <li>قم بتسجيل الدخول إلى خدمات إمارة منطقة القصيم عبر البوابة الوطنية (نفاذ).</li>
+                        @foreach (var itemFlow in serviceItem.ServiceFlow)
+                        {
+                            <li>@itemFlow</li>
+                        }
+                        @* <li>قم بتسجيل الدخول إلى خدمات إمارة منطقة القصيم عبر البوابة الوطنية (نفاذ).</li>
                         <li> اختر خدمة "طلب الخروج المؤقت للسجين" من قائمة الخدمات الإلكترونية.</li>
                         <li> اضغط على "بدء الخدمة" وقم بتعبئة البيانات المطلوبة وإرفاق المستندات اللازمة.</li>
                         <li> بعد التأكد من صحة المعلومات والمرفقات، اضغط على "إرسال الطلب"</li>
                         <li>سيتم إشعارك برقم الطلب بعد إرساله.</li>
                         <li>يمكنك متابعة حالة طلبك من خلال صفحة "طلباتي".</li>
-                        <li>عند اعتماد الطلب، سيتم تحويله إلى معاملة وستتلقى إشعارًا برقم المعاملة.</li>
+                        <li>عند اعتماد الطلب، سيتم تحويله إلى معاملة وستتلقى إشعارًا برقم المعاملة.</li> *@
                     </ol>
                 </div>
 
                 <div class="pc-service-FAQ">
-                    <div class="pc-accordion">
+
+                    @foreach (var itemFAQ in serviceItem.ServiceFAQs)
+                    {
+
+                        <div class="pc-accordion">
+                            <div class="pc-accordion-head">
+                                <p class=pc-accordion-question>@(currentCulture == "ar-SA" ? itemFAQ.NameAr : itemFAQ.NameEn)</p>
+                                <img src="~/icons/arrowDown.svg" alt="money icon" />
+                            </div>
+                            <div class="pc-accordion-body">
+                                <p class="pc-accordion-answer">@(currentCulture == "ar-SA" ? itemFAQ.AnswerAr : itemFAQ.AnswerEn)</p>
+                            </div>
+                        </div>
+                    //Console.WriteLine($"{requirement.Key}: {requirement.Value}");
+                    }
+
+                   
+                   @*  <div class="pc-accordion">
                         <div class="pc-accordion-head">
                             <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
                             <img src="~/icons/arrowDown.svg" alt="money icon" />
@@ -146,16 +123,7 @@
                         <div class="pc-accordion-body">
                             <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
                         </div>
-                    </div>
-                    <div class="pc-accordion">
-                        <div class="pc-accordion-head">
-                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
-                            <img src="~/icons/arrowDown.svg" alt="money icon" />
-                        </div>
-                        <div class="pc-accordion-body">
-                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
-                        </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>
@@ -165,25 +133,25 @@
                 <div>
                     <div class="pc-text-icon-combo">
                         <img src="~/icons/userGreen.svg" alt="user icon" />
-                        <h6>المواطنون والمقيمون</h6>
+                        <h6>@(currentCulture == "ar-SA" ? serviceItem.AudienceTypeAr : serviceItem.AudienceTypeEn) </h6>
                     </div>
-                    <p>الجمهور المستهدف</p>
+                    <p> @localizer["AudienceType"] </p>
                 </div>
 
                 <div>
                     <div class="pc-text-icon-combo">
                         <img src="~/icons/clock.svg" alt="clock icon" />
-                        <h6>فوري</h6>
+                        <h6>@(currentCulture == "ar-SA" ? serviceItem.ExecutionTimeAr : serviceItem.ExecutionTimeEn)</h6>
                     </div>
-                    <p>مدة تنفيذ الخدمة</p>
+                    <p>@localizer["ExecutionTime"] </p>
                 </div>
 
                 <div>
                     <div class="pc-text-icon-combo">
                         <img src="~/icons/money.svg" alt="money icon" />
-                        <h6>مجاناً</h6>
+                        <h6>@(currentCulture == "ar-SA" ? serviceItem.CostAr : serviceItem.CostEn)</h6>
                     </div>
-                    <p>تكلفة الخدمة</p>
+                    <p> @localizer["Cost"]</p>
                 </div>
 
             </div>
@@ -193,15 +161,25 @@
             </svg>
 
             <div>
-                <h5>تقييم الخدمة</h5>
+                <h5>@localizer["ServiceRating"] </h5>
                 <div class="pc-card-rating">
+                    @for (int i = 0; i < fullStarCount; i++)
+                    {
+                        <img src="~/icons/star-filled.svg" alt="star" />
+                    }
+                    @for (int i = 0; i < emptyStarCount; i++)
+                    {
+                        <img src="~/icons/star.svg" alt="empty star" />
+                    }
+                </div>
+                @* <div class="pc-card-rating">
                     <img src="~/icons/star.svg" alt="star" />
                     <img src="~/icons/star.svg" alt="star" />
                     <img src="~/icons/star.svg" alt="star" />
                     <img src="~/icons/star.svg" alt="star" />
                     <img src="~/icons/star.svg" alt="star" />
                 </div>
-                <p> تقييم x</p>
+                <p> تقييم x</p> *@
             </div>
 
             <svg width="100%" height="1">
@@ -210,7 +188,7 @@
 
             <div class="pc-info-card-section">
                 <div>
-                    <h5>الأنظمة واللوائح</h5>
+                    <h5> @localizer["Regulations"] </h5>
                     <div>
                         <a class="pc-link" href="https://www.alqassim.gov.sa/Ar/Regulations/Pages/default.aspx">
                             Regulation-Page
@@ -220,7 +198,7 @@
                 </div>
 
                 <div>
-                    <h5>الأسئلة الشائعة</h5>
+                    <h5> @localizer["FAQs"]</h5>
                     <div>
                         <a asp-controller="Home" asp-action="Index" class="pc-link">
                             FAQ's-Page
@@ -230,7 +208,7 @@
                 </div>
 
                 <div>
-                    <h5>تواصل معنا</h5>
+                    <h5>@localizer["ContactUs"] </h5>
                     <div>
                         <a class="pc-link" href="https://www.alqassim.gov.sa/EParticipation/contact-us.html">
                             Contact-Us-Page
@@ -240,28 +218,13 @@
                 </div>
 
                 @* change based on the service *@
-                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn">دليل استخدام الخدمة</a>
-                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn">دليل الخدمات الإلكترونية</a>
+                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn"> @localizer["UserManuals"] </a>
+                <a href="~/userManuals/TR-LR.pdf" target="_blank" class="pc-outline-btn"> @localizer["EServicesManuals"] </a>
             </div>
         </div>
     </div>
 
     <div class="pc-page-feedback">
-        <div>
-            <div class="pc-page-feedback-section">
-                <p>هل كانت هذه الصفحة مفيدة؟</p>
-                <div class="pc-page-feedback-btns">
-                    <button class="pc-primary-btn">نعم</button>
-                    <button class="pc-primary-btn">لا</button>
-                </div>
-            </div>
-            @* <div class="pc-page-feedback-response">
-            <img src="~/icons/checkmarkCircle.svg"/>
-            <p>تم إرسال ردك بنجاح</p>
-            </div> *@
-        </div>
-        <div class="pc-page-feedback-section">
-            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
-        </div>
+        <partial name="_PageFeedback" />
     </div>
 </div>
