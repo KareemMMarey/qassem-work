@@ -27,7 +27,9 @@ namespace QassimPrincipality.Web.Helpers
 				SeedEServiceRequirement(context);
 				SeedEServiceFlow(context);
 				SeedFAQs(context);
-			}
+				SeedServiceSteps(context);
+
+            }
 		}
 
 
@@ -1640,8 +1642,197 @@ namespace QassimPrincipality.Web.Helpers
 
 		}
 
+        private static void SeedServiceSteps(AppDbContext context)
+        {
+            // Service Steps
+            if (!context.Set<ServiceStep>().Any())
+            {
+                var steps = new List<ServiceStep>();
+
+                // Services 1 to 11, each with 4 steps
+                for (int serviceId = 1; serviceId <= 11; serviceId++)
+                {
+					if (serviceId <= 3) {
+						steps.AddRange(new List<ServiceStep>
+					{
+							new ServiceStep()
+							{
+								ServiceId = serviceId,
+								StepNumber = 1,
+								StepNameAr = "بيانات الطلب",
+								StepNameEn = "Request Data",
+								DescriptionAr = "إدخال   بيانات الطلب",
+								DescriptionEn = "Enter the applicant information",
+								IsRequired = true,
+								Order = 1,
+								IsActive = true,
+								CreatedBy = "admin",
+								CreatedOn = DateTime.Now,
+							},
+							new ServiceStep()
+							{
+								ServiceId = serviceId,
+								StepNumber = 2,
+								StepNameAr = "إرفاق المستندات",
+								StepNameEn = "Attach Documents",
+								DescriptionAr = "إرفاق المستندات المطلوبة",
+								DescriptionEn = "Attach the required documents",
+								IsRequired = true,
+								Order = 2,
+								IsActive = true,
+								CreatedBy = "admin",
+								CreatedOn = DateTime.Now,
+							},
+							new ServiceStep()
+							{
+								ServiceId = serviceId,
+								StepNumber = 3,
+								StepNameAr = "مراجعة الطلب",
+								StepNameEn = "Review Request",
+								DescriptionAr = "مراجعة وتأكيد البيانات",
+								DescriptionEn = "Review and confirm the information",
+								IsRequired = true,
+								Order = 3,
+								IsActive = true,
+								CreatedBy = "admin",
+								CreatedOn = DateTime.Now,
+							}
+					});
+					}
+					else if (serviceId <= 9) {
+                        steps.AddRange(new List<ServiceStep>
+                    {
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 1,
+                                StepNameAr = "بيانات مقدم الطلب",
+                                StepNameEn = "Applicant Information",
+                                DescriptionAr = "إدخال بيانات مقدم الطلب",
+                                DescriptionEn = "Enter the applicant information",
+                                IsRequired = true,
+                                Order = 1,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 2,
+                                StepNameAr = "بيانات المعني بالطلب",
+                                StepNameEn = "Request Subject Information",
+                                DescriptionAr = "إدخال بيانات المعني بالطلب",
+                                DescriptionEn = "Enter the request subject information",
+                                IsRequired = true,
+                                Order = 2,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 3,
+                                StepNameAr = "إرفاق المستندات",
+                                StepNameEn = "Attach Documents",
+                                DescriptionAr = "إرفاق المستندات المطلوبة",
+                                DescriptionEn = "Attach the required documents",
+                                IsRequired = true,
+                                Order = 3,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 4,
+                                StepNameAr = "مراجعة الطلب",
+                                StepNameEn = "Review Request",
+                                DescriptionAr = "مراجعة وتأكيد البيانات",
+                                DescriptionEn = "Review and confirm the information",
+                                IsRequired = true,
+                                Order = 4,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            }
+                    });
+                    }
+                    else 
+                    {
+                        steps.AddRange(new List<ServiceStep>
+                    {
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 1,
+                                StepNameAr = "نوع الاستدعاء",
+                                StepNameEn = "Summon Type",
+                                DescriptionAr = "نوع الاستدعاء",
+                                DescriptionEn = "Summon Type",
+                                IsRequired = true,
+                                Order = 1,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 2,
+                                StepNameAr = "بيانات بالطلب",
+                                StepNameEn = "Request Data",
+                                DescriptionAr = "إدخال بيانات بالطلب",
+                                DescriptionEn = "Request Data",
+                                IsRequired = true,
+                                Order = 2,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 3,
+                                StepNameAr = "إرفاق المستندات",
+                                StepNameEn = "Attach Documents",
+                                DescriptionAr = "إرفاق المستندات المطلوبة",
+                                DescriptionEn = "Attach the required documents",
+                                IsRequired = true,
+                                Order = 3,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            },
+                            new ServiceStep()
+                            {
+                                ServiceId = serviceId,
+                                StepNumber = 4,
+                                StepNameAr = "مراجعة الطلب",
+                                StepNameEn = "Review Request",
+                                DescriptionAr = "مراجعة وتأكيد البيانات",
+                                DescriptionEn = "Review and confirm the information",
+                                IsRequired = true,
+                                Order = 4,
+                                IsActive = true,
+                                CreatedBy = "admin",
+                                CreatedOn = DateTime.Now,
+                            }
+                    });
+                    }
+
+                }
+
+                context.Set<ServiceStep>().AddRange(steps);
+                context.SaveChanges();
+            }
+        }
 
 
 
-	}
+
+
+    }
 }

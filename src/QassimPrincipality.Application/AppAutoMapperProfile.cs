@@ -145,6 +145,30 @@ namespace QassimPrincipality.Application
                 : "0.0"
             ));
 
+
+
+            CreateMap<EService, GetEServiceStepsDto>()
+            
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            
+
+           
+            .ForMember(dest => dest.ServiceSteps, opt => opt.MapFrom(src =>
+    src.ServiceSteps != null
+    ? src.ServiceSteps
+        .Select(step => new ServiceStepsDto
+        {
+            StepNameAr = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.StepNameAr : null,
+            StepNameEn = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? null : step.StepNameEn,
+            StepNumber = step.StepNumber,
+            IsRequired = step.IsRequired,
+            Order = step.Order
+        })
+        .ToList()
+    : new List<ServiceStepsDto>()
+));
+
+
             CreateMap<News, NewsDto>();
 			CreateMap<CreateNewsRequest, News>();
 

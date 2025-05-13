@@ -30,5 +30,6 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
         public virtual ICollection<AttachmentType> AttachmentTypes { get; set; }
 		public virtual ICollection<EServiceRequirement> EServiceRequirements { get; set; }
 		public virtual ICollection<EServiceFlow> EServiceFlows { get; set; }
-	}
+        public virtual ICollection<ServiceStep> ServiceSteps { get; set; }
+    }
 }

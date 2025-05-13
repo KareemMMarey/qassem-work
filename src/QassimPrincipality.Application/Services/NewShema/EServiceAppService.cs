@@ -82,6 +82,22 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
                 throw;
             }
         }
+        public async Task<GetEServiceStepsDto> GetServiceStepsById(int id)
+        {
+            try
+            {
+                var entity = await _eServiceRepository.TableNoTracking.
+                    Include(c => c.ServiceSteps).
+                    FirstOrDefaultAsync(c => c.Id == id);
+                var EServiceCategoryDto = entity.MapTo<GetEServiceStepsDto>();
+
+                return await Task.FromResult(EServiceCategoryDto);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
 
         public async Task<int> UpdateAsync(EServiceCategoryDto EServiceCategoryDto)
         {

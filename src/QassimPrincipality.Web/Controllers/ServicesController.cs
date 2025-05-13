@@ -62,7 +62,39 @@ namespace QassimPrincipality.Web.Controllers
 
             return View();
         }
+        public async Task<ActionResult> Steps(int serviceId)
+        {
+            // جلب الخطوات من قاعدة البيانات
+            var service = await _eService.GetServiceStepsById(serviceId);
+            ViewBag.TotalSteps = service.ServiceSteps.Count;
+            ViewBag.ServiceId = serviceId;
+            return View(service.ServiceSteps);
+        }
 
-       
+        [HttpGet]
+        public async Task<IActionResult> LoadStep(int serviceId, int stepNumber)
+        {
+            var service = await _eService.GetServiceStepsById(serviceId);
+            var step = service.ServiceSteps.FirstOrDefault(step=>step.StepNumber== stepNumber);
+            if (step == null)
+                return NotFound("الخطوة غير موجودة");
+
+            // اختر الـ Partial View بناءً على رقم الخطوة
+            switch (step.StepNumber)
+            {
+                case 1:
+                    return PartialView("_BasicInfoPartial");
+                case 2:
+                    return PartialView("_ContactInfoPartial");
+                case 3:
+                    return PartialView("_AttachmentPartial");
+                case 4:
+                    return PartialView("_ReviewPartial");
+                default:
+                    return PartialView("_NotFoundPartial");
+            }
+        }
+
+
     }
 }

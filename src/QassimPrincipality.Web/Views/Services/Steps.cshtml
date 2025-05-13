@@ -1,0 +1,59 @@
+﻿@{
+    int totalSteps = ViewBag.TotalSteps;
+    int serviceId = ViewBag.ServiceId;
+}
+
+<div class="container mt-5">
+    <div class="step-progress">
+        <ul class="progressbar">
+            @for (int i = 1; i <= totalSteps; i++)
+            {
+                <li id="step-@i" class="step-item @(i == 1 ? "active" : "")" data-step="@i">
+                    <span>الخطوة @i</span>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div id="step-content">
+        <div>جاري تحميل البيانات...</div>
+    </div>
+
+    <button id="next-btn" class="btn btn-primary mt-4">التالي</button>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            let currentStep = 1;
+            const totalSteps = @totalSteps;
+            const serviceId = @serviceId;
+
+            // تحميل أول خطوة عند فتح الصفحة
+            loadStep(serviceId, currentStep);
+
+            // الانتقال إلى الخطوة التالية
+            $("#next-btn").click(function () {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    loadStep(serviceId, currentStep);
+                }
+            });
+
+            function loadStep(serviceId, stepNumber) {
+                $.get(`/Service/LoadStep?serviceId=${serviceId}&stepNumber=${stepNumber}`, function (data) {
+                    $("#step-content").html(data);
+                    updateProgressBar(stepNumber);
+                });
+            }
+
+            function updateProgressBar(stepNumber) {
+                $(".step-item").removeClass("active");
+                for (let i = 1; i <= stepNumber; i++) {
+                    $("#step-" + i).addClass("active");
+                }
+            }
+        });
+    </script>
+}
+
