@@ -31,7 +31,7 @@
                     <h3> @(currentCulture == "ar-SA" ? serviceItem.NameAr : serviceItem.NameEn)</h3>
                     @{
 
-                        <a asp-controller="@serviceItem.ServiceController" asp-action="StepOne" class="pc-primary-btn">@localizer["StartServices"] </a>
+                        <a asp-controller="Request" asp-action="Index" asp-route-serviceId="@serviceItem.Id" class="pc-primary-btn">@localizer["StartServices"] </a>
                         
                         
                     }

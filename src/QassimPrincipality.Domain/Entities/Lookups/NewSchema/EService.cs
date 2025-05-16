@@ -19,6 +19,8 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
 		public string IconUrl { get; set; }
         public string ServiceController { get; set; }
         public string ServiceActionMethos { get; set; }
+        public bool HasApplicantStatus { get; set; } // صفة مقدم الطلب
+        public bool HasTypeOfSummons { get; set; }
         public virtual EServiceForm EServiceForm { get; set; }
         public virtual ServicesCategory ServicesCategory { get; set; }
         public virtual EServiceDetails EServiceDetails { get; set; }

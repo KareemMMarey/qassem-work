@@ -14,6 +14,8 @@ namespace QassimPrincipality.Application.Dtos.Content
         public string NameEn { get; set; }
         public string DescriptionEn { get; set; }
         public string DescriptionAr { get; set; }
+        public bool HasApplicantStatus { get; set; } // صفة مقدم الطلب
+        public bool HasTypeOfSummons { get; set; }
         public string ServiceCode { get; set; }
         public string IconUrl { get; set; }
         public string CategoryNameAr { get; set; }

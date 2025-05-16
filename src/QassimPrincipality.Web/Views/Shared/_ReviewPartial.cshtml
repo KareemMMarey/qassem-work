@@ -1,0 +1,23 @@
+﻿<div class="card p-4">
+    <h5>Review Your Request</h5>
+    <div id="review-content">
+        <ul id="review-data"></ul>
+        <h6>Attachments:</h6>
+        <ul id="review-attachments"></ul>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const requestData = JSON.parse(localStorage.getItem("requestData") || "{}");
+        const attachments = JSON.parse(localStorage.getItem("attachments") || "[]");
+
+        for (const [key, value] of Object.entries(requestData)) {
+            $("#review-data").append(`<li><strong>${key}:</strong> ${value}</li>`);
+        }
+
+        attachments.forEach(file => {
+            $("#review-attachments").append(`<li>${file}</li>`);
+        });
+    });
+</script>

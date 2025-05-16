@@ -1,0 +1,85 @@
+﻿@* @inject IViewLocalizer localizer
+@using System.Globalization
+@{
+    int index = 0;
+    int count = Model.Count;
+}
+<div class="step-progress">
+    <ul class="progressbar">
+        @foreach (var step in Model)
+        {
+           
+            <div class="pc-step active">
+                <div class="pc-step-circle">1</div>
+                <div class="label">
+                    <h6> @(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.NameAr : step.NameEn)</h6>
+                    <p>@(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.StepNameAr : step.StepNameEn)</p>
+                </div>
+            </div>
+            if (index < count - 1)
+            {
+                <div class="pc-step-line"></div>
+            }
+            index++;
+        }
+    </ul>
+</div>
+ *@
+
+ @inject IViewLocalizer localizer
+@using System.Globalization
+
+@{
+    int index = 0;
+    int count = Model.Count;
+    string culture = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+}
+
+<div class="pc-service-steps-progress">
+    @foreach (var step in Model)
+    {
+        var stepNumber = step.StepNumber;
+        var stepName = culture == "ar" ? step.NameAr : step.NameEn;
+        var stepDescription = culture == "ar" ? step.StepNameAr : step.StepNameEn;
+        var isActive = index == 0 ? "active" : "";
+
+        <div class="pc-step @isActive">
+            <div class="pc-step-circle">@stepNumber</div>
+            <div class="label">
+                <h6>@stepName</h6>
+                <p>@stepDescription</p>
+            </div>
+        </div>
+
+        @if (index < count - 1)
+        {
+            <div class="pc-step-line"></div>
+        }
+
+        index++;
+    }
+</div>
+
+@* Mobile Progress Bar *@
+<div class="pc-service-steps-progress-mobile">
+    @if (Model.Count > 0)
+    {
+        var currentStep = Model[0];
+        var nextStep = Model.Count > 1 ? Model[1] : null;
+        var currentStepName = culture == "ar" ? currentStep.NameAr : currentStep.NameEn;
+        var currentStepDescription = culture == "ar" ? currentStep.StepNameAr : currentStep.StepNameEn;
+        var nextStepDescription = nextStep != null ? (culture == "ar" ? nextStep.StepNameAr : nextStep.StepNameEn) : "";
+
+        <div class="progress-circle">
+            <img src="~/icons/step1of@count.svg" alt="progress" />
+        </div>
+        <div class="text-section">
+            <h5>@currentStepName</h5>
+            <p>@currentStepDescription</p>
+            @if (nextStep != null)
+            {
+                <p class="next-step"> @localizer["Next"] التالي: @nextStepDescription</p>
+            }
+        </div>
+    }
+</div>

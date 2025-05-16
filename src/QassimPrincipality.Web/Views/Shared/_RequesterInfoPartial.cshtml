@@ -1,0 +1,59 @@
+﻿<div class="card p-4">
+    <h5>Requester Info</h5>
+    <div class="form-group">
+        <label>Relation to Subject</label>
+        <select id="relation" class="form-control">
+            <option value="myself">Myself</option>
+            <option value="agent">Agent</option>
+            <option value="lawyer">Lawyer</option>
+            <option value="relative">Relative</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullName" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Nationality</label>
+        <input type="text" id="nationality" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Birth Date</label>
+        <input type="date" id="birthDate" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>ID Number</label>
+        <input type="text" id="idNumber" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="email" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <input type="text" id="phone" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <input type="text" id="city" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label>District</label>
+        <input type="text" id="district" class="form-control" readonly />
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.get("/Integration/GetUserData", function (data) {
+            $("#fullName").val(data.fullName);
+            $("#nationality").val(data.nationality);
+            $("#birthDate").val(data.birthDate);
+            $("#idNumber").val(data.idNumber);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#city").val(data.city);
+            $("#district").val(data.district);
+        });
+    });
+</script>

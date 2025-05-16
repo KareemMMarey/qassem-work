@@ -87,6 +87,8 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
             try
             {
                 var entity = await _eServiceRepository.TableNoTracking.
+                    Include(c => c.ServicesCategory).
+                    Include(c => c.EServiceDetails).
                     Include(c => c.ServiceSteps).
                     FirstOrDefaultAsync(c => c.Id == id);
                 var EServiceCategoryDto = entity.MapTo<GetEServiceStepsDto>();

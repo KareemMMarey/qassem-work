@@ -1,0 +1,235 @@
+﻿@inject IViewLocalizer localizer
+
+<form id="step-form" class="pc-form">
+    <div class="pc-form-grid-2col">
+
+        @if (ViewBag.HasApplicantStatus == true)
+        {
+            <div class="custom-select pc-full-width-input">
+                <div class="pc-input-label">
+                    <span class="required">*</span> @localizer["ServiceRequesterRelation"]
+                </div>
+
+                <button id="custom-dropdown-button" class="select-button" role="combobox" aria-label="select button"
+                        aria-haspopup="listbox" aria-expanded="false" aria-controls="custom-select-dropdown">
+                    <span class="custom-selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+
+                <ul class="select-dropdown hidden" role="listbox" id="custom-select-dropdown" aria-labelledby="custom-dropdown-button">
+                    <li role="option" data-value="1">@localizer["MySelf"]</li>
+                    <li role="option" data-value="2">@localizer["Delegated"]</li>
+                    <li role="option" data-value="3">@localizer["Lawyer"]</li>
+                    <li role="option" data-value="4">@localizer["FristClassRelative"]</li>
+                </ul>
+
+                <input type="hidden" id="customrequesterRelation" name="customrequesterRelation">
+                <div class="error"></div>
+            </div>
+        }
+        @if (ViewBag.HasTypeOfSummons == true)
+        {
+            <div class="custom-select pc-full-width-input">
+                <div class="pc-input-label">
+                    <span class="required">*</span> @localizer["TypeOfSummons"]
+                </div>
+
+                <button id="custom-dropdown-button-summons" class="select-button" role="combobox" aria-label="select button"
+                        aria-haspopup="listbox" aria-expanded="false" aria-controls="custom-select-dropdown-summons">
+                    <span class="custom-selected-value-summons">@localizer["SelectSummonsType"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+
+                <ul class="select-dropdown hidden" role="listbox" id="custom-select-dropdown-summons" aria-labelledby="custom-dropdown-button-summons">
+                    <li role="option" data-value="1">@localizer["JudicialSummons"]</li>
+                    <li role="option" data-value="2">@localizer["AdministrativeSummons"]</li>
+                    <li role="option" data-value="3">@localizer["PersonalSummons"]</li>
+                    <li role="option" data-value="4">@localizer["CriminalSummons"]</li>
+                </ul>
+
+                <input type="hidden" id="customTypeOfSummons-summons" name="customTypeOfSummons-summons">
+                <div class="error"></div>
+            </div>
+        }
+
+        <div class="pc-input">
+            <label for="fullName" class="pc-input-label">
+                @localizer["FullName"]
+            </label>
+            <input type="text" id="fullName" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["FullNameTootip"]</span>
+        </div>
+
+        <div class="pc-input">
+            <label for="nationality" class="pc-input-label">
+                @localizer["Nationality"]
+            </label>
+            <input type="text" id="nationality" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["NationalityTootip"]</span>
+        </div>
+
+        <div class="pc-input">
+            <label for="birthDate" class="pc-input-label">
+                @localizer["BirthDate"]
+            </label>
+            <input type="text" id="birthDate" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["BirthDateTootip"]</span>
+        </div>
+
+        <div class="pc-input">
+            <label for="idNumber" class="pc-input-label">
+                @localizer["IDNumber"]
+            </label>
+            <input type="text" id="idNumber" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["IDNumberTootip"]</span>
+        </div>
+
+        <div class="pc-input">
+            <label for="phone" class="pc-input-label">
+                <span class="required">*</span> @localizer["Phone"]
+            </label>
+            <input type="text" id="phone" placeholder="05xxxxxxxx">
+            <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+            <label for="email" class="pc-input-label">
+                @localizer["Email"]
+            </label>
+            <input type="email" id="email" placeholder="example@mail.com">
+            <div class="error"></div>
+        </div>
+
+        <div class="pc-input">
+            <label for="city" class="pc-input-label">
+                @localizer["City"]
+            </label>
+            <input type="text" id="city" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["SaudiPostCity"]</span>
+        </div>
+
+        <div class="pc-input">
+            <label for="district" class="pc-input-label">
+                @localizer["District"]
+            </label>
+            <input type="text" id="district" class="pc-auto-filled-input"  readonly>
+            <span class="pc-service-form-tooltip">@localizer["SaudiPostDistrict"]</span>
+        </div>
+    </div>
+
+    <div class="pc-input pc-full-width-input">
+        <label for="requestDetails" class="pc-input-label">
+            <span class="required">*</span> @localizer["RequestDetails"]
+        </label>
+        <textarea id="requestDetails" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
+        <div class="error"></div>
+    </div>
+
+    @* <div class="pc-form-buttons">
+        <a href="/Services/AboutTheService/MSNA" class="pc-outline-btn">
+            @localizer["Cancel"]
+        </a>
+        <button type="submit" class="pc-primary-btn">
+            @localizer["Next"]
+        </button>
+    </div> *@
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $.get("/Request/GetUserData", function (data) {
+            $("#fullName").val(data.fullName);
+            $("#nationality").val(data.nationality);
+            $("#birthDate").val(data.birthDate);
+            $("#idNumber").val(data.idNumber);
+            $("#email").val(data.email);
+            $("#phone").val(data.phone);
+            $("#city").val(data.city);
+            $("#district").val(data.district);
+
+            // Set the default requester relation if the dropdown is present
+            if ($("#customrequesterRelation").length) {
+                $("#customrequesterRelation").val("1"); // Default to "MySelf"
+            }
+        }).fail(function (xhr) {
+            alert("Failed to fetch user data: " + xhr.responseText);
+        });
+
+
+        const dropdownButton = $("#custom-dropdown-button");
+        const dropdownList = $("#custom-select-dropdown");
+        const hiddenInput = $("#customrequesterRelation");
+        const selectedValue = $(".custom-selected-value");
+
+        // Toggle dropdown visibility
+        dropdownButton.on("click", function (event) {
+            event.preventDefault();
+            const isExpanded = dropdownButton.attr("aria-expanded") === "true";
+            dropdownButton.attr("aria-expanded", !isExpanded);
+            dropdownList.toggleClass("hidden");
+        });
+
+        // Handle option selection
+        dropdownList.on("click", "li", function () {
+            const selectedText = $(this).text();
+            const selectedValueAttr = $(this).data("value");
+
+            selectedValue.text(selectedText);
+            hiddenInput.val(selectedValueAttr);
+
+            // Close the dropdown
+            dropdownButton.attr("aria-expanded", "false");
+            dropdownList.addClass("hidden");
+
+            console.log("Selected Value:", selectedValueAttr);
+        });
+
+        // Close dropdown on outside click
+        $(document).on("click", function (event) {
+            if (!$(event.target).closest(".custom-select").length) {
+                dropdownButton.attr("aria-expanded", "false");
+                dropdownList.addClass("hidden");
+            }
+        });
+
+
+
+
+        // ----other dropdown 
+        const dropdownButton = $("#custom-dropdown-button-summons");
+        const dropdownList = $("#custom-select-dropdown-summons");
+        const hiddenInput = $("#customTypeOfSummons-summons");
+        const selectedValue = $(".custom-selected-value-summons");
+
+        // Toggle dropdown visibility
+        dropdownButton.on("click", function (event) {
+            event.preventDefault();
+            const isExpanded = dropdownButton.attr("aria-expanded") === "true";
+            dropdownButton.attr("aria-expanded", !isExpanded);
+            dropdownList.toggleClass("hidden");
+        });
+
+        // Handle option selection
+        dropdownList.on("click", "li", function () {
+            const selectedText = $(this).text();
+            const selectedValueAttr = $(this).data("value");
+
+            selectedValue.text(selectedText);
+            hiddenInput.val(selectedValueAttr);
+
+            // Close the dropdown
+            dropdownButton.attr("aria-expanded", "false");
+            dropdownList.addClass("hidden");
+
+            console.log("Selected Summons Type:", selectedValueAttr);
+        });
+        $(document).on("click", function (event) {
+            if (!$(event.target).closest(".custom-select").length) {
+                dropdownButton.attr("aria-expanded", "false");
+                dropdownList.addClass("hidden");
+            }
+        });
+    });
+</script>
+

@@ -61,7 +61,8 @@ namespace QassimPrincipality.Application
             .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr))
             .ForMember(dest => dest.ServiceCode, opt => opt.MapFrom(src => src.ServiceCode))
             .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl))
-
+            .ForMember(dest => dest.HasApplicantStatus, opt => opt.MapFrom(src => src.HasApplicantStatus))
+            .ForMember(dest => dest.HasTypeOfSummons, opt => opt.MapFrom(src => src.HasTypeOfSummons))
             // Map Category details
             .ForMember(dest => dest.CategoryNameAr, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameAr : string.Empty))
             .ForMember(dest => dest.CategoryNameEn, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameEn : string.Empty))
@@ -93,7 +94,8 @@ namespace QassimPrincipality.Application
             .ForMember(dest => dest.IconUrl, opt => opt.MapFrom(src => src.IconUrl))
             .ForMember(dest => dest.ServiceController, opt => opt.MapFrom(src => src.ServiceController))
             .ForMember(dest => dest.ServiceActionMethos, opt => opt.MapFrom(src => src.ServiceActionMethos))
-
+            .ForMember(dest => dest.HasApplicantStatus, opt => opt.MapFrom(src => src.HasApplicantStatus))
+            .ForMember(dest => dest.HasTypeOfSummons, opt => opt.MapFrom(src => src.HasTypeOfSummons))
             // Category Name Mapping
             .ForMember(dest => dest.CategoryNameAr, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameAr : string.Empty))
             .ForMember(dest => dest.CategoryNameEn, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameEn : string.Empty))
@@ -148,18 +150,31 @@ namespace QassimPrincipality.Application
 
 
             CreateMap<EService, GetEServiceStepsDto>()
-            
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-            
+            .ForMember(dest => dest.NameAr, opt => opt.MapFrom(src => src.NameAr))
+            .ForMember(dest => dest.NameEn, opt => opt.MapFrom(src => src.NameEn))
+            .ForMember(dest => dest.DescriptionAr, opt => opt.MapFrom(src => src.DescriptionAr))
+            .ForMember(dest => dest.DescriptionEn, opt => opt.MapFrom(src => src.DescriptionEn))
+            .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId))
+            .ForMember(dest => dest.HasApplicantStatus, opt => opt.MapFrom(src => src.HasApplicantStatus))
+            .ForMember(dest => dest.HasTypeOfSummons, opt => opt.MapFrom(src => src.HasTypeOfSummons))
 
-           
+            // Category Name Mapping
+            .ForMember(dest => dest.CategoryNameAr, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameAr : string.Empty))
+            .ForMember(dest => dest.CategoryNameEn, opt => opt.MapFrom(src => src.ServicesCategory != null ? src.ServicesCategory.NameEn : string.Empty))
+
+
+
             .ForMember(dest => dest.ServiceSteps, opt => opt.MapFrom(src =>
     src.ServiceSteps != null
     ? src.ServiceSteps
         .Select(step => new ServiceStepsDto
         {
-            StepNameAr = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.StepNameAr : null,
-            StepNameEn = CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? null : step.StepNameEn,
+            StepNameAr = step.StepNameAr ,
+            StepNameEn = step.StepNameEn,
+            NameAr = step.NameAr,
+            NameEn = step.NameEn,
+            Id=step.Id,
             StepNumber = step.StepNumber,
             IsRequired = step.IsRequired,
             Order = step.Order

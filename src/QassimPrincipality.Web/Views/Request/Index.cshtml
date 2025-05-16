@@ -1,90 +1,400 @@
-﻿@using QassimPrincipality.Application.Services.Main.UploadRequest.Dto
-@using QassimPrincipality.Web.Helpers.TagHelpers
+﻿@using QassimPrincipality.Application.Dtos.Content
+@model GetEServiceStepsDto
+@inject IViewLocalizer localizer
 
-@model UploadRequestSearchDto;
 @{
-    ViewBag.Title = "طلباتي";
-    Layout = "_Layout";
+    
+    ViewData["Title"] = @localizer["FillRequestForm"];/*  "تعبئة نموذج الطلب - " */
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
 }
 
-<div class="row justify-content-xxl-center">
-    <div class="col-xxl-12">
-        <div class="page-panel" id="elementToToggle">
-            <h3 class="page-title margin-bottom-lg"> @ViewBag.Title </h3>
-            <div class="idm-search">
-                <form asp-controller="Request" asp-action="Index" method="get">
-                    @*  <div class="form-group">
-                    <div class="col-12 mb-3">
-                    <select id="type" name="type">
-                    <option value="1" >طلبات منتهية بالموافقة</option>
-                    <option value="0" >طلبات منتهية بالرفض</option>
-                    <option value="2" >طلبات قيد الإجراء</option>
-                    <option value="3" > كل الطلبات </option>
-                    </select>
-                    </div>
-                    </div> *@
-                    <div class="row g-3 align-items-center margin-bottom-lg">
-                        <div class="col-auto"><label class="col-form-label">أنواع الطلبات</label></div>
-                        <div class="col-auto">
-                            <select id="type" name="type" onchange="this.form.submit()" asp-items="@ViewBag.items"
-                                    class="form-control">
-                            </select>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            @if (Model.TotalItemsCount > 0)
-            {
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>عنوان الطلب</th>
-                                <th>مقدم الطلب</th>
-                                <th>تاريخ الطلب</th>
-                                <th>حالة الطلب</th>
-                                <th style="width:80px"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var request in Model.Items)
-                            {
-                                <tr>
-                                    <td>@(request.RequestName ?? "--")</td>
-                                    <td>@(request.CreatedByFullName ?? "--")</td>
-                                    <td>@request.RequestDate</td>
-                                    @switch (request.IsApproved)
-                                    {
-                                        case true:
-                                    <td><span class="badge text-bg-success">تمت الموافقة</span></td>
-                                            break;
-                                        case false:
-                                    <td><span class="badge text-bg-danger">مرفوض</span></td>
-                                            break;
-                                        default:
-                                        <td><span class="badge" style="background-color:yellow; color:black">الطلب تحت الإجراء</span></td>
-                                            break;
-                                    }
-                                    <td>
+<div class="pc-service-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> @localizer["HomePage"] </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index">  @localizer["Services"] الخدمات</a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">@(currentCulture == "ar-SA" ? Model.NameAr : Model.NameEn)</li>
+        </ul>
+    </div>
 
-                                        <a class="btn bt-sm" asp-action="Details" asp-route-requestId="@request.Id" asp->
-                                            <svg width="24" height="24">
-                                                <use xlink:href="/assets/images/svg-icons.svg#view"></use>
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-            }
-            else
-            {
-                <div class="" style="text-align: center; padding-top: 25px">لا يوجد بيانات</div>
-            }
-            <div class="idm-pager">
-                @await Html.PartialAsync("Common/Pager", new Pager { Action = "Index", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
+    <div class="pc-service-steps-container">
+        
+         @Html.Partial("_StepProgressBar", Model.ServiceSteps)
+        
+
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>@(currentCulture == "ar-SA" ? Model.NameAr : Model.NameEn)</h3>
+                <p>@(currentCulture == "ar-SA" ? Model.DescriptionAr : Model.DescriptionEn)</p>
+
+                <div class="pc-form-line"></div>
+
+                <p class="pc-warning-text">* المعلومات المطلوبة @localizer["RequiredInfo"] </p>
             </div>
+
+            @* <form action="" method="" id="MS-step1-form" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="pc-input">
+                        <label for="name" class="pc-input-label">الاسم الرباعي</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="عبدالله احمد محمد الأحمد" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="nationality" class="pc-input-label">الجنسية</label>
+                        <input type="text" id="nationality" name="nationality" class="pc-auto-filled-input" value="المملكة العربية السعودية" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="idNumber" class="pc-input-label">رقم الهوية</label>
+                        <input type="text" id="idNumber" name="idNumber" class="pc-auto-filled-input" value="1109882374" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="birthdate" class="pc-input-label">تاريخ الميلاد</label>
+                        <input type="text" id="birthdate" name="birthdate" class="pc-auto-filled-input" value="1998-05-19" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من مركز المعلومات الوطني</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="phone" class="pc-input-label"> <span class="required">*</span> رقم الجوال</label>
+                        <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+                        <div class="error"></div>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="email" class="pc-input-label">البريد الإلكتروني</label>
+                        <input type="text" id="email" name="email" placeholder="example@mail.com">
+                        <div class="error"></div>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="city" class="pc-input-label">المدينة</label>
+                        <input type="text" id="city" name="city" class="pc-auto-filled-input" value="بريدة" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label for="district" class="pc-input-label">الحي</label>
+                        <input type="text" id="district" name="district" class="pc-auto-filled-input" value="حي الصفراء" readonly>
+                        <span class="pc-service-form-tooltip">تم استرداد المعلومات من البريد السعودي</span>
+                    </div>
+                </div>
+
+                <div class="pc-input pc-full-width-input">
+                    <label for="details" class="pc-input-label"> <span class="required">*</span> تفاصيل الطلب</label>
+                    <textarea name="details" id="details" placeholder="الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف  "></textarea>
+                    <div class="error"></div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    
+                    <a asp-controller="Services" asp-action="AboutTheService" asp-route-id="MSNA" class="pc-outline-btn">إلغاء</a>
+                    <button type="submit" class="pc-primary-btn">التالي</button>
+                </div>
+            </form> *@
+            <div id="step-content">
+                <div>Loading...</div>
+            </div>
+            @* <button id="next-btn" class="btn btn-primary mt-4">Next</button> *@
+            <button id="next-btn" class="pc-primary-btn">
+                @localizer["Next"]
+            </button>
+            <button id="submit-btn" class="btn btn-success mt-4" style="display:none;">Submit</button>
+            <div id="error-message" class="alert alert-danger mt-4" style="display:none;"></div>
+            <div id="loading-indicator" style="display:none;">Loading...</div>
         </div>
     </div>
 </div>
 
+<
+
+@section Scripts {
+    @* <script>
+        $(document).ready(function () {
+            let currentStep = 1;
+            const categoryId = @Model.CategoryId;
+            const serviceId  = @Model.Id;
+            const totalSteps = @Model.ServiceSteps.Count;
+            let requestData = {};
+            let attachments = [];
+
+            // Load the first step on page load
+            loadStep(serviceId, currentStep);
+
+            // Next button click event
+            $("#next-btn").click(function () {
+                if ($("#step-form").valid()) {
+                    saveCurrentStepData();
+                    currentStep++;
+                    loadStep(serviceId, currentStep);
+
+                    if (currentStep === totalSteps) {
+                        $("#next-btn").hide();
+                        $("#submit-btn").show();
+                    }
+                }
+            });
+
+            // Submit button click event
+            $("#submit-btn").click(function () {
+                if ($("#step-form").valid()) {
+                    submitRequest();
+                }
+            });
+
+            // Load step content via AJAX
+            function loadStep(serviceId, stepNumber) {
+                $("#loading-indicator").show();
+                $.get(`/Request/LoadStep?serviceId=${serviceId}&stepNumber=${stepNumber}`, function (data) {
+                    $("#step-content").html(data);
+                    $("#loading-indicator").hide();
+
+                    // Initialize form validation for the loaded step
+                    $("#step-form").validate({
+                        errorClass: "text-danger",
+                        errorElement: "div",
+                        highlight: function (element) {
+                            $(element).closest(".form-group").addClass("has-error");
+                        },
+                        unhighlight: function (element) {
+                            $(element).closest(".form-group").removeClass("has-error");
+                        }
+                    });
+
+                    // Attach file upload event if on attachments step
+                    if (stepNumber === totalSteps - 1) {
+                        $("#attachments").on("change", function () {
+                            uploadAttachments();
+                        });
+                    }
+                }).fail(function (xhr) {
+                    showError("Failed to load step: " + xhr.responseText);
+                });
+            }
+
+            // Save data for the current step
+            function saveCurrentStepData() {
+                const stepContent = $("#step-content").find("input, textarea, select");
+
+                stepContent.each(function () {
+                    const id = $(this).attr("id");
+                    const value = $(this).val();
+                    if (id) {
+                        requestData[id] = value;
+                    }
+                });
+
+                console.log("Current Step Data:", requestData);
+            }
+
+            // Submit full request
+            function submitRequest() {
+                const requestDetails = JSON.stringify(requestData);
+
+                $.post("/Request/SubmitRequest", { serviceId: serviceId, requestDetails: requestDetails }, function (response) {
+                    if (response.success) {
+                        alert("Request submitted successfully");
+                        window.location.href = "/Request/Success";
+                    } else {
+                        showError("Failed to submit request. Please try again.");
+                    }
+                }).fail(function (xhr) {
+                    showError("Failed to submit request: " + xhr.responseText);
+                });
+            }
+
+            // Handle file uploads
+            function uploadAttachments() {
+                const files = $("#attachments").prop("files");
+                const formData = new FormData();
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append("file", files[i]);
+                }
+
+                $.ajax({
+                    url: "/Request/UploadAttachment",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        attachments.push(response.fileName);
+                        $("#uploaded-files").append(`<li>${response.fileName}</li>`);
+                        console.log("Attachments:", attachments);
+                    },
+                    error: function (xhr) {
+                        showError("Failed to upload file: " + xhr.responseText);
+                    }
+                });
+            }
+
+            // Show error messages
+            function showError(message) {
+                $("#error-message").text(message).show();
+            }
+        });
+    </script> *@
+
+    <script>
+        $(document).ready(function () {
+            let currentStep = 1;
+            const serviceId = @Model.Id;
+            const totalSteps = @Model.ServiceSteps.Count;
+            let requestData = {};
+            let attachments = [];
+
+            // Load the first step on page load
+            loadStep(serviceId, currentStep);
+
+            // Next button click event
+            $("#next-btn").click(function () {
+                if ($("#step-form").valid()) {
+                    saveCurrentStepData(currentStep);
+                    currentStep++;
+                    loadStep(serviceId, currentStep);
+
+                    if (currentStep === totalSteps) {
+                        $("#next-btn").hide();
+                        $("#submit-btn").show();
+                    }
+                }
+            });
+
+            // Submit button click event
+            $("#submit-btn").click(function () {
+                if ($("#step-form").valid()) {
+                    submitRequest();
+                }
+            });
+
+            // Load step content via AJAX
+            function loadStep(serviceId, stepNumber) {
+                $("#loading-indicator").show();
+
+                $.get(`/Request/LoadStep?serviceId=${serviceId}&stepNumber=${stepNumber}`)
+                    .done(function (data) {
+                        $("#step-content").html(data);
+                        $("#loading-indicator").hide();
+
+                        // Initialize form validation for the loaded step
+                        $("#step-form").validate({
+                            errorClass: "text-danger",
+                            errorElement: "div",
+                            highlight: function (element) {
+                                $(element).closest(".form-group").addClass("has-error");
+                            },
+                            unhighlight: function (element) {
+                                $(element).closest(".form-group").removeClass("has-error");
+                            }
+                        });
+
+                        // Attach file upload event if on attachments step
+                        if (stepNumber === totalSteps - 1) {
+                            $("#attachments").on("change", function () {
+                                uploadAttachments();
+                            });
+                        }
+                    })
+                    .fail(function (xhr) {
+                        showError("@localizer["FailedToLoadStep"]" + " " + xhr.responseText);
+                    });
+            }
+
+            // Save data for the current step
+            function saveCurrentStepData(stepNumber) {
+
+                const relationValue = hiddenInput.val();
+            if (!relationValue) {
+                alert("@localizer["PleaseSelectRelation"]");
+                return false;
+            }
+            console.log("Submitting Requester Relation:", relationValue);
+
+                const stepContent = $("#step-content").find("input, textarea, select");
+                let stepData = {};
+
+                stepContent.each(function () {
+                    const id = $(this).attr("id");
+                    const value = $(this).val();
+                    if (id) {
+                        stepData[id] = value;
+                    }
+                });
+
+                requestData[`Step${stepNumber}`] = stepData;
+                console.log("Current Step Data:", requestData);
+
+                // Save to server
+                $.post("/Request/SaveStepData", {
+                    serviceId: serviceId,
+                    stepNumber: stepNumber,
+                    stepData: JSON.stringify(stepData)
+                }).fail(function (xhr) {
+                    showError("@localizer["FailedToSaveStepData"]" + " " + xhr.responseText);
+                });
+            }
+
+            // Submit full request
+            function submitRequest() {
+                const requestDetails = JSON.stringify(requestData);
+
+                $.post("/Request/SubmitRequest", {
+                    serviceId: serviceId,
+                    requestDetails: requestDetails,
+                    attachments: JSON.stringify(attachments)
+                }).done(function (response) {
+                    if (response.success) {
+                        alert("@localizer["RequestSubmittedSuccessfully"]");
+                        window.location.href = "/Request/Success";
+                    } else {
+                        showError("@localizer["FailedToSubmitRequest"]");
+                    }
+                }).fail(function (xhr) {
+                    showError("@localizer["FailedToSubmitRequest"]" + " " + xhr.responseText);
+                });
+            }
+
+            // Handle file uploads
+            function uploadAttachments() {
+                const files = $("#attachments").prop("files");
+                const formData = new FormData();
+
+                for (let i = 0; i < files.length; i++) {
+                    formData.append("file", files[i]);
+                }
+
+                $.ajax({
+                    url: "/Request/UploadAttachment",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        attachments.push(response.fileName);
+                        $("#uploaded-files").append(`<li>${response.fileName}</li>`);
+                        console.log("Attachments:", attachments);
+                    },
+                    error: function (xhr) {
+                        showError("@localizer["FailedToUploadFile"]" + " " + xhr.responseText);
+                    }
+                });
+            }
+
+            // Show error messages
+            function showError(message) {
+                $("#error-message").text(message).show();
+            }
+        });
+    </script>
+
+}

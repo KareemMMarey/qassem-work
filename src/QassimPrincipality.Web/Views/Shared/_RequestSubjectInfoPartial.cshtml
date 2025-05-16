@@ -1,0 +1,110 @@
+﻿@inject IViewLocalizer localizer
+
+<form id="request-subject-form">
+    <div class="card p-4">
+        <h5>@localizer["RequestDetailsLabel"]</h5>
+
+        <div class="form-group">
+            <label>@localizer["FullNameLabel"]</label>
+            <input type="text" id="subjectFullName" name="subjectFullName" class="form-control" required />
+            <div class="text-danger" id="subjectFullName-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["NationalityLabel"]</label>
+            <input type="text" id="subjectNationality" name="subjectNationality" class="form-control" required />
+            <div class="text-danger" id="subjectNationality-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["BirthDateLabel"]</label>
+            <input type="date" id="subjectBirthDate" name="subjectBirthDate" class="form-control" required />
+            <div class="text-danger" id="subjectBirthDate-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["IdNumberLabel"]</label>
+            <input type="text" id="subjectIdNumber" name="subjectIdNumber" class="form-control" required />
+            <div class="text-danger" id="subjectIdNumber-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["EmailLabel"]</label>
+            <input type="email" id="subjectEmail" name="subjectEmail" class="form-control" required />
+            <div class="text-danger" id="subjectEmail-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["PhoneLabel"]</label>
+            <input type="text" id="subjectPhone" name="subjectPhone" class="form-control" required />
+            <div class="text-danger" id="subjectPhone-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["CityLabel"]</label>
+            <input type="text" id="subjectCity" name="subjectCity" class="form-control" required />
+            <div class="text-danger" id="subjectCity-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["DistrictLabel"]</label>
+            <input type="text" id="subjectDistrict" name="subjectDistrict" class="form-control" required />
+            <div class="text-danger" id="subjectDistrict-error"></div>
+        </div>
+
+        <div class="form-group">
+            <label>@localizer["RequestDetailsLabel"]</label>
+            <textarea id="subjectDetails" name="subjectDetails" class="form-control" rows="4" required></textarea>
+            <div class="text-danger" id="subjectDetails-error"></div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Custom validation for Saudi phone numbers
+        $.validator.addMethod("saudiphone", function (value, element) {
+            return this.optional(element) || /^05[0-9]{8}$/.test(value);
+        }, "@localizer["PhoneInvalid"]");
+
+        // Initialize form validation
+        $("#request-subject-form").validate({
+            errorClass: "text-danger",
+            errorElement: "div",
+            rules: {
+                subjectIdNumber: {
+                    required: true,
+                    digits: true,
+                    minlength: 10,
+                    maxlength: 10
+                },
+                subjectPhone: {
+                    required: true,
+                    saudiphone: true
+                }
+            },
+            messages: {
+                subjectFullName: "@localizer["FullNameRequired"]",
+                subjectNationality: "@localizer["NationalityRequired"]",
+                subjectBirthDate: "@localizer["BirthDateRequired"]",
+                subjectIdNumber: {
+                    required: "@localizer["IdNumberRequired"]",
+                    digits: "@localizer["IdNumberInvalid"]",
+                    minlength: "@localizer["IdNumberInvalid"]",
+                    maxlength: "@localizer["IdNumberInvalid"]"
+                },
+                subjectEmail: {
+                    required: "@localizer["EmailRequired"]",
+                    email: "@localizer["EmailInvalid"]"
+                },
+                subjectPhone: {
+                    required: "@localizer["PhoneRequired"]",
+                    saudiphone: "@localizer["PhoneInvalid"]"
+                },
+                subjectCity: "@localizer["CityRequired"]",
+                subjectDistrict: "@localizer["DistrictRequired"]",
+                subjectDetails: "@localizer["RequestDetailsRequired"]"
+            }
+        });
+    });
+</script>
