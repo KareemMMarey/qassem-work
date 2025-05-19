@@ -117,31 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AttachmentInfo" xml:space="preserve">
-    <value>Max Size: {0} MB, Allowed: {1}</value>
+  <data name="ReviewAdditionalData" xml:space="preserve">
+    <value>مراجعة البيانات الاضافية</value>
   </data>
-  <data name="Attachments" xml:space="preserve">
-    <value>Attachments</value>
+  <data name="ReviewAttachments" xml:space="preserve">
+    <value>مراجعة الملفات</value>
   </data>
-  <data name="ChooseFiles" xml:space="preserve">
-    <value>Choose Files</value>
-  </data>
-  <data name="FileSizeExceeded" xml:space="preserve">
-    <value>File {0} exceeds the maximum size of {1} MB.</value>
-  </data>
-  <data name="Noattachmentsrequired" xml:space="preserve">
-    <value>No attachments required</value>
-  </data>
-  <data name="NoFileChosen" xml:space="preserve">
-    <value>No file chosen</value>
-  </data>
-  <data name="SuccessUploadMessage" xml:space="preserve">
-    <value>Files uploaded successfully!</value>
-  </data>
-  <data name="UnsupportedExtension" xml:space="preserve">
-    <value>has an unsupported extension. Allowed:</value>
-  </data>
-  <data name="UploadFailed" xml:space="preserve">
-    <value>Failed to upload files. Please try again.</value>
+  <data name="ReviewRequestData" xml:space="preserve">
+    <value>مراجعة بيانات الطلب</value>
   </data>
 </root>

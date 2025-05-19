@@ -117,20 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AttachmentInfo" xml:space="preserve">
+    <value>الحجم الأقصى: {0} ميغابايت، المسموح به: {1}</value>
+  </data>
   <data name="Attachments" xml:space="preserve">
     <value>المرفقات</value>
   </data>
+  <data name="ChooseFiles" xml:space="preserve">
+    <value>اختر الملفات</value>
+  </data>
   <data name="FileSizeExceeded" xml:space="preserve">
-    <value>الملف \"{0}\" يتجاوز الحجم الأقصى {1} ميغابايت.</value>
+    <value>الملف {0} يتجاوز الحجم الأقصى {1} ميغابايت.</value>
   </data>
   <data name="Noattachmentsrequired" xml:space="preserve">
     <value>لا يوجد ملفات مطلوبة لهذه الخدمة</value>
+  </data>
+  <data name="NoFileChosen" xml:space="preserve">
+    <value>لم يتم اختيار ملف</value>
   </data>
   <data name="SuccessUploadMessage" xml:space="preserve">
     <value>تم رفع الملف بنجاح</value>
   </data>
   <data name="UnsupportedExtension" xml:space="preserve">
-    <value>الملف \"{0}\" يحتوي على امتداد غير مدعوم. المسموح به: {1}.</value>
+    <value>الملف {0} يحتوي على امتداد غير مدعوم. المسموح به: {1}.</value>
   </data>
   <data name="UploadFailed" xml:space="preserve">
     <value>فشل في تحميل الملفات. يرجى المحاولة مرة أخرى.</value>

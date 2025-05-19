@@ -120,6 +120,9 @@
   <data name="DetailsMessagePlease" xml:space="preserve">
     <value>يرجى تعبئة تفاصيل الطلب بما لا يقل عن 30 حرفا</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطأ</value>
+  </data>
   <data name="FillRequestForm" xml:space="preserve">
     <value>تعبئة نموذج الطلب -</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="PleaseAttachRequiredFiles" xml:space="preserve">
     <value>الرجاء ارفاق كل الملفات المطلوبة</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>السابق</value>
   </data>
   <data name="RequiredInfo" xml:space="preserve">
     <value>* المعلومات المطلوبة</value>

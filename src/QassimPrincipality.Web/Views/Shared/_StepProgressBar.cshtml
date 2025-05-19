@@ -11,14 +11,14 @@
     @foreach (var step in Model)
     {
         var stepNumber = step.StepNumber;
-        var stepName = culture == "ar" ? step.NameAr : step.NameEn;
-        var stepDescription = culture == "ar" ? step.StepNameAr : step.StepNameEn;
+        var stepName = culture == "ar" ? step.StepNameAr : step.StepNameAr;
+        var stepDescription = culture == "ar" ? step.DescriptionAr : step.DescriptionEn;
         var isActive = index == 0 ? "active" : "";
 
         <div class="pc-step @isActive">
             <div class="pc-step-circle">@stepNumber</div>
             <div class="label">
-                <h6>@stepName</h6>
+                <h6 id="step-title" data-step-name="@step.NameEn">@stepName</h6>
                 <p>@stepDescription</p>
             </div>
         </div>
