@@ -24,6 +24,7 @@ namespace QassimPrincipality.Application.Dtos.Content
         public string CategoryNameEn { get; set; }
         // steps
         public List<ServiceStepsDto> ServiceSteps { get; set; }
+        public List<ServiceAttachmentDto> AttachmentTypes { get; set; }
     }
     public class ServiceStepsDto
     {
@@ -37,6 +38,17 @@ namespace QassimPrincipality.Application.Dtos.Content
         public int StepNumber { get; set; }
         public bool IsRequired { get; set; }
         public int Order { get; set; }
+    }
+    public class ServiceAttachmentDto
+    {
+        public int Id { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
+        public string DescriptionAr { get; set; }
+        public string DescriptionEn { get; set; }
+        public bool IsMandatory { get; set; }
+        public int MaxSizeMB { get; set; }
+        public string AllowedExtensions { get; set; }
     }
 
 }

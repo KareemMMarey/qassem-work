@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 using QassimPrincipality.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 namespace QassimPrincipality.Application.Dtos
 {
     
     public class CreateServiceRequestDto
     {
+        public Guid Id { get; set; }
         public int ServiceId { get; set; }
         public string UserId { get; set; }
         public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
-        public RequestBasicDataDto BasicData { get; set; }
-        public RequestAdditionalDataDto AdditionalData { get; set; }
-        public List<AttachmentDto> Attachments { get; set; }
+        //public RequestBasicDataDto BasicData { get; set; }
+        //public RequestAdditionalDataDto AdditionalData { get; set; }
+        //public List<AttachmentDto> Attachments { get; set; }
     }
 
     public class UpdateServiceRequestDto
@@ -53,17 +55,36 @@ namespace QassimPrincipality.Application.Dtos
         public DateTime? UpdatedAt { get; set; }
     }
 
-    public class RequestBasicDataDto
+
+
+public class RequestBasicDataDto
     {
-        public string NationalId { get; set; }
+        [JsonPropertyName("fullName")]
         public string FullName { get; set; }
-        public string Email { get; set; }
+
+        [JsonPropertyName("nationality")]
+        public string Nationality { get; set; }
+
+        [JsonPropertyName("idNumber")]
+        public string IdNumber { get; set; }
+
+        [JsonPropertyName("birthDate")]
+        public DateTime BirthDate { get; set; }
+
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
+
+        [JsonPropertyName("email")]
+        public string Email { get; set; }
+
+        [JsonPropertyName("city")]
         public string City { get; set; }
+
+        [JsonPropertyName("district")]
         public string District { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public bool SourceFromNafath { get; set; }
-        public bool SourceFromSpl { get; set; }
+
+        [JsonPropertyName("requestDetails")]
+        public string RequestDetails { get; set; }
     }
 
     public class RequestAdditionalDataDto

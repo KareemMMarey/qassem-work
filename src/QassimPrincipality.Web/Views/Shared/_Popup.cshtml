@@ -1,0 +1,83 @@
+﻿@inject IViewLocalizer localizer
+
+<!-- Views/Shared/_Popup.cshtml -->
+<div id="global-popup" class="popup-overlay" style="display:none;">
+    <div class="popup-content">
+        <div id="popup-icon" class="popup-icon"></div>
+        <h5 id="popup-title" class="popup-title"></h5>
+        <p id="popup-message" class="popup-message"></p>
+        <button id="popup-close-btn" class="popup-close-btn">@localizer["Close"]</button>
+    </div>
+</div>
+
+<style>
+    .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-content {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .popup-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+
+    .popup-title {
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    .popup-message {
+        margin-bottom: 20px;
+        font-size: 16px;
+    }
+
+    .popup-close-btn {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .popup-close-btn:hover {
+            background-color: #0056b3;
+        }
+
+    .popup-success {
+        color: #28a745;
+    }
+
+    .popup-error {
+        color: #dc3545;
+    }
+
+    .popup-warning {
+        color: #ffc107;
+    }
+
+    .popup-info {
+        color: #17a2b8;
+    }
+</style>
+
+

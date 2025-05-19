@@ -120,7 +120,7 @@
   <data name="AdministrativeSummons" xml:space="preserve">
     <value>استدعاء إداري</value>
   </data>
-  <data name="Birth Date" xml:space="preserve">
+  <data name="BirthDate" xml:space="preserve">
     <value>تاريخ الميلاد</value>
   </data>
   <data name="BirthDateTootip" xml:space="preserve">
@@ -135,17 +135,11 @@
   <data name="CriminalSummons" xml:space="preserve">
     <value>استدعاء جنائي</value>
   </data>
-  <data name="Data retrieved from National Information Center" xml:space="preserve">
-    <value>تم استرداد المعلومات من مركز المعلومات الوطني</value>
-  </data>
-  <data name="Data retrieved from Saudi Post" xml:space="preserve">
-    <value>تم استرداد المعلومات من البريد السعودي</value>
-  </data>
   <data name="Delegated" xml:space="preserve">
     <value>وكيل</value>
   </data>
   <data name="DetailsMessagePlease" xml:space="preserve">
-    <value>تفاصيل الطلب يجي ان تكون 30 حرفا بحد أدنى</value>
+    <value>الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف</value>
   </data>
   <data name="District" xml:space="preserve">
     <value>الحي</value>
@@ -162,13 +156,13 @@
   <data name="FristClassRelative" xml:space="preserve">
     <value>قريب من الدرجة الأولى</value>
   </data>
-  <data name="Full Name" xml:space="preserve">
+  <data name="FullName" xml:space="preserve">
     <value>الاسم الرباعي</value>
   </data>
   <data name="FullNameTootip" xml:space="preserve">
     <value>بيانات من نفاذ</value>
   </data>
-  <data name="ID Number" xml:space="preserve">
+  <data name="IDNumber" xml:space="preserve">
     <value>رقم الهوية</value>
   </data>
   <data name="IDNumberTootip" xml:space="preserve">
@@ -201,11 +195,17 @@
   <data name="Phone" xml:space="preserve">
     <value>رقم الجوال</value>
   </data>
-  <data name="Please provide the request details, at least 30 characters" xml:space="preserve">
-    <value>الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف</value>
-  </data>
   <data name="Request Details" xml:space="preserve">
     <value>تفاصيل الطلب</value>
+  </data>
+  <data name="RequestDetails" xml:space="preserve">
+    <value>تفاصيل الطلب</value>
+  </data>
+  <data name="SaudiPostCity" xml:space="preserve">
+    <value>بيانات من سبل</value>
+  </data>
+  <data name="SaudiPostDistrict" xml:space="preserve">
+    <value>بيانات من سبل</value>
   </data>
   <data name="SelectOption" xml:space="preserve">
     <value>اختر...</value>

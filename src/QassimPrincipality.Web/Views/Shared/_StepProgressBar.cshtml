@@ -1,32 +1,4 @@
-﻿@* @inject IViewLocalizer localizer
-@using System.Globalization
-@{
-    int index = 0;
-    int count = Model.Count;
-}
-<div class="step-progress">
-    <ul class="progressbar">
-        @foreach (var step in Model)
-        {
-           
-            <div class="pc-step active">
-                <div class="pc-step-circle">1</div>
-                <div class="label">
-                    <h6> @(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.NameAr : step.NameEn)</h6>
-                    <p>@(CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "ar" ? step.StepNameAr : step.StepNameEn)</p>
-                </div>
-            </div>
-            if (index < count - 1)
-            {
-                <div class="pc-step-line"></div>
-            }
-            index++;
-        }
-    </ul>
-</div>
- *@
-
- @inject IViewLocalizer localizer
+﻿@inject IViewLocalizer localizer
 @using System.Globalization
 
 @{
@@ -71,7 +43,8 @@
         var nextStepDescription = nextStep != null ? (culture == "ar" ? nextStep.StepNameAr : nextStep.StepNameEn) : "";
 
         <div class="progress-circle">
-            <img src="~/icons/step1of@count.svg" alt="progress" />
+                                <img src="@Url.Content($"~/icons/step1of{@count}.svg")" alt="progress" />
+                @* <img src="~/icons/step1of@count.svg" alt="progress" /> *@
         </div>
         <div class="text-section">
             <h5>@currentStepName</h5>

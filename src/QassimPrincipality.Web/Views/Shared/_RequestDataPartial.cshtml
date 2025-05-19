@@ -157,30 +157,30 @@
         });
 
 
-        const dropdownButton = $("#custom-dropdown-button");
-        const dropdownList = $("#custom-select-dropdown");
-        const hiddenInput = $("#customrequesterRelation");
-        const selectedValue = $(".custom-selected-value");
+        const customdropdownbutton = $("#custom-dropdown-button");
+        const customdropdownList = $("#custom-select-dropdown");
+        const customhiddenInput = $("#customrequesterRelation");
+        const customselectedValue = $(".custom-selected-value");
 
         // Toggle dropdown visibility
-        dropdownButton.on("click", function (event) {
+        customdropdownbutton.on("click", function (event) {
             event.preventDefault();
-            const isExpanded = dropdownButton.attr("aria-expanded") === "true";
-            dropdownButton.attr("aria-expanded", !isExpanded);
-            dropdownList.toggleClass("hidden");
+            const isExpanded = customdropdownbutton.attr("aria-expanded") === "true";
+            customdropdownbutton.attr("aria-expanded", !isExpanded);
+            customdropdownList.toggleClass("hidden");
         });
 
         // Handle option selection
-        dropdownList.on("click", "li", function () {
+        customdropdownList.on("click", "li", function () {
             const selectedText = $(this).text();
             const selectedValueAttr = $(this).data("value");
 
-            selectedValue.text(selectedText);
-            hiddenInput.val(selectedValueAttr);
+            customselectedValue.text(selectedText);
+            customhiddenInput.val(selectedValueAttr);
 
             // Close the dropdown
-            dropdownButton.attr("aria-expanded", "false");
-            dropdownList.addClass("hidden");
+            customdropdownbutton.attr("aria-expanded", "false");
+            customdropdownList.addClass("hidden");
 
             console.log("Selected Value:", selectedValueAttr);
         });
@@ -188,8 +188,8 @@
         // Close dropdown on outside click
         $(document).on("click", function (event) {
             if (!$(event.target).closest(".custom-select").length) {
-                dropdownButton.attr("aria-expanded", "false");
-                dropdownList.addClass("hidden");
+                customdropdownbutton.attr("aria-expanded", "false");
+                customdropdownList.addClass("hidden");
             }
         });
 
@@ -197,37 +197,37 @@
 
 
         // ----other dropdown 
-        const dropdownButton = $("#custom-dropdown-button-summons");
-        const dropdownList = $("#custom-select-dropdown-summons");
-        const hiddenInput = $("#customTypeOfSummons-summons");
-        const selectedValue = $(".custom-selected-value-summons");
+        const customdropdownbuttonsummons = $("#custom-dropdown-button-summons");
+        const summonsdropdownList = $("#custom-select-dropdown-summons");
+        const summonshiddenInput = $("#customTypeOfSummons-summons");
+        const summonsselectedValue = $(".custom-selected-value-summons");
 
         // Toggle dropdown visibility
-        dropdownButton.on("click", function (event) {
+        customdropdownbuttonsummons.on("click", function (event) {
             event.preventDefault();
-            const isExpanded = dropdownButton.attr("aria-expanded") === "true";
-            dropdownButton.attr("aria-expanded", !isExpanded);
-            dropdownList.toggleClass("hidden");
+            const isExpanded = customdropdownbuttonsummons.attr("aria-expanded") === "true";
+            customdropdownbuttonsummons.attr("aria-expanded", !isExpanded);
+            summonsdropdownList.toggleClass("hidden");
         });
 
         // Handle option selection
-        dropdownList.on("click", "li", function () {
+        summonsdropdownList.on("click", "li", function () {
             const selectedText = $(this).text();
             const selectedValueAttr = $(this).data("value");
 
-            selectedValue.text(selectedText);
-            hiddenInput.val(selectedValueAttr);
+            summonsselectedValue.text(selectedText);
+            summonshiddenInput.val(selectedValueAttr);
 
             // Close the dropdown
-            dropdownButton.attr("aria-expanded", "false");
-            dropdownList.addClass("hidden");
+            customdropdownbuttonsummons.attr("aria-expanded", "false");
+            summonsdropdownList.addClass("hidden");
 
             console.log("Selected Summons Type:", selectedValueAttr);
         });
         $(document).on("click", function (event) {
             if (!$(event.target).closest(".custom-select").length) {
-                dropdownButton.attr("aria-expanded", "false");
-                dropdownList.addClass("hidden");
+                customdropdownbuttonsummons.attr("aria-expanded", "false");
+                summonsdropdownList.addClass("hidden");
             }
         });
     });

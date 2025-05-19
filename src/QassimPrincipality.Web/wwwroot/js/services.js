@@ -79,5 +79,7 @@ if (document) {
             searchInput.focus();
         });
     });
+
+    
 }
 

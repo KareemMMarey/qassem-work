@@ -108,31 +108,64 @@ namespace QassimPrincipality.Web.Controllers
         }
 
 
+        //[HttpGet]
+        //public async Task<ActionResult> LoadStep(int serviceId, int stepNumber)
+        //{
+        //    var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
+        //    var step = serviceWithSteps.ServiceSteps.FirstOrDefault(s => s.StepNumber == stepNumber);
+        //    if (step == null)
+        //        return NotFound("Step not found");
+
+        //    return PartialView($"_{step.NameEn.Replace(" ", "")}Partial", step);
+        //}
         [HttpGet]
         public async Task<ActionResult> LoadStep(int serviceId, int stepNumber)
         {
+            // Load the full EService with steps and attachments
             var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
+
+            if (serviceWithSteps == null)
+                return NotFound("Service not found");
+
+            // Find the requested step
             var step = serviceWithSteps.ServiceSteps.FirstOrDefault(s => s.StepNumber == stepNumber);
             if (step == null)
                 return NotFound("Step not found");
 
+            // Check if the step is for attachments
+            if (step.NameEn.Equals("Attachments", StringComparison.OrdinalIgnoreCase))
+            {
+                // Pass the full EService model to the attachments partial
+                return PartialView("_AttachmentsPartial", serviceWithSteps.AttachmentTypes);
+            }
+
+            // Load regular step partial
             return PartialView($"_{step.NameEn.Replace(" ", "")}Partial", step);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveStepData(Guid requestId, int stepNumber, string stepData, string userId)
+        public async Task<IActionResult> SaveStepData(Guid requestId, int serviceId,int stepNumber, string stepData, string userId)
         {
             try
             {
+                
                 if (stepNumber == 1)
                 {
                     var basicDataDto = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestBasicDataDto>(stepData);
-                    await _serviceRequestAppService.SaveBasicDataAsync(requestId, basicDataDto, userId);
+                    var initiateRequest = await _serviceRequestAppService.CreateDraftRequestAsync(new CreateServiceRequestDto { 
+                    Id = Guid.NewGuid(),
+                    ServiceId = serviceId,
+                    UserId = "userId"
+                    });
+                    await _serviceRequestAppService.SaveBasicDataAsync(initiateRequest.Id,basicDataDto, userId);
+                    requestId = initiateRequest.Id;
+                    ViewBag.RequestId = requestId;  
                 }
                 else
                 {
                     var additionalDataDto = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestAdditionalDataDto>(stepData);
                     await _serviceRequestAppService.SaveAdditionalDataAsync(requestId, additionalDataDto, userId);
+                    ViewBag.RequestId = requestId;
                 }
 
                 return Ok(new { success = true });
@@ -144,38 +177,78 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadAttachment(Guid requestId, IFormFile file, string userId)
+        public async Task<IActionResult> UploadAttachments(string userId, Guid requestId,int attachmentTypeId, List<IFormFile> files)
         {
             try
             {
-                if (file == null || file.Length == 0)
-                    return BadRequest("Invalid file");
+                if (files == null || files.Count == 0)
+                    return BadRequest("No files provided");
 
-                var uploadPath = Path.Combine(_environment.WebRootPath, "uploads");
-                Directory.CreateDirectory(uploadPath);
-                var filePath = Path.Combine(uploadPath, file.FileName);
+                // Create a directory for this specific request
+                var requestFolder = Path.Combine(_environment.WebRootPath, "uploads", requestId.ToString());
+                Directory.CreateDirectory(requestFolder);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                var uploadedFiles = new List<RequestAttachmentDto>();
+
+                foreach (var file in files)
                 {
-                    await file.CopyToAsync(fileStream);
+                    if (file == null || file.Length == 0)
+                        continue;
+
+                    // Generate a unique file name to avoid conflicts
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                    var filePath = Path.Combine(requestFolder, fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+                    var attachmentDto = new RequestAttachmentDto
+                    {
+                        AttachmentTypeId = attachmentTypeId,
+                        FileName = fileName,
+                        FilePath = filePath,
+                        IsValid = false,
+                    };
+
+                    // Save the attachment in the database
+                    await _serviceRequestAppService.AddAttachmentAsync(requestId, attachmentDto, userId);
+                    uploadedFiles.Add(attachmentDto);
                 }
 
-                var attachmentDto = new RequestAttachmentDto
-                {
-                    FileName = file.FileName,
-                    FilePath = filePath,
-                    IsValid = false
-                };
-
-                await _serviceRequestAppService.AddAttachmentAsync(requestId, attachmentDto, userId);
-
-                return Ok(new { success = true, fileName = file.FileName });
+                // Return the list of uploaded file names
+                return Ok(uploadedFiles.Select(a => new { success = true, fileName = a.FileName }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error uploading file: {ex.Message}");
+                return StatusCode(500, $"Error uploading files: {ex.Message}");
             }
         }
+
+
+
+        [HttpPost]
+        public IActionResult UploadAttachment(List<IFormFile> files)
+        {
+            var uploadedFiles = new List<object>();
+
+            foreach (var file in files)
+            {
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine("wwwroot/uploads", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+
+                uploadedFiles.Add(new { fileName });
+            }
+
+            return Json(uploadedFiles);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> SubmitRequest(Guid requestId, string userId)

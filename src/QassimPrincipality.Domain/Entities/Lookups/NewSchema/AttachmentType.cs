@@ -14,8 +14,9 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema
 		public int MaxSizeMB { get; set; }
 		public string AllowedExtensions { get; set; }
 		public int? ServiceId { get; set; }
-
-		public virtual EService EService { get; set; }
+        public string DescriptionEn { get; set; }
+        public string DescriptionAr { get; set; }
+        public virtual EService EService { get; set; }
 		public virtual ICollection<RequestAttachment> Attachments { get; set; }
 	}
 }

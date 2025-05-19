@@ -90,6 +90,7 @@ namespace QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory
                     Include(c => c.ServicesCategory).
                     Include(c => c.EServiceDetails).
                     Include(c => c.ServiceSteps).
+                    Include(c => c.AttachmentTypes).
                     FirstOrDefaultAsync(c => c.Id == id);
                 var EServiceCategoryDto = entity.MapTo<GetEServiceStepsDto>();
 

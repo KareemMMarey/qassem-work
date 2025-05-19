@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -867,12 +867,59 @@ body {
     width: 320px;
 }
 
+    /*.pc-input.error input,
+    .pc-input.error textarea,
+    .custom-select.error button {
+        border-color: #B42318;
+        border-bottom: 2px solid #B42318;
+    }*/
+
+
+    /* Input and Textarea Error Styles */
     .pc-input.error input,
     .pc-input.error textarea,
     .custom-select.error button {
         border-color: #B42318;
         border-bottom: 2px solid #B42318;
+        background-color: #FFF5F5;
     }
+
+/* Error Message Text */
+.error {
+    color: #B42318;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    padding-left: 4px;
+    font-weight: 500;
+}
+
+    /* Adding subtle icon for error messages */
+    .error::before {
+        content: "⚠️ ";
+        margin-right: 4px;
+    }
+
+/* Smooth transition for input border */
+.pc-input.error input,
+.pc-input.error textarea,
+.custom-select.error button {
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Animating error message appearance */
+.error {
+    /*opacity: 0;*/
+    transform: translateY(-5px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show error on error state */
+.pc-input.error .error {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 
     .pc-input input:not([readonly]):hover,
     .pc-input select:not([readonly]):hover,

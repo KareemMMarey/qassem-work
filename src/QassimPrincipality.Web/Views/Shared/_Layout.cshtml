@@ -458,7 +458,7 @@
     <link rel="shortcut icon" type="x-icon" href="~/images/emarahCircleLogoWhite.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/eServices.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/QassimPrincipality.Web.styles.css" asp-append-version="true" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -768,13 +768,14 @@
                 <a asp-controller="Home" asp-action="Index"><img class="pc-footer-logo" src="~/images/emarahLogoWhite.svg" alt="logo"></a>
             </div>
         </div>
+        @Html.Partial("_Popup")
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    <script src="~/js/services.js"></script>
+    
 </body>
 </html>
 

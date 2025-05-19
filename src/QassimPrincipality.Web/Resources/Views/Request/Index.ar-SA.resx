@@ -117,109 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministrativeSummons" xml:space="preserve">
-    <value>Administrative Summons</value>
-  </data>
-  <data name="Birth Date" xml:space="preserve">
-    <value>Birth Date</value>
-  </data>
-  <data name="BirthDateTootip" xml:space="preserve">
-    <value>Data retrieved from National Information Center</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="City" xml:space="preserve">
-    <value>City</value>
-  </data>
-  <data name="CriminalSummons" xml:space="preserve">
-    <value>Criminal Summons</value>
-  </data>
-  <data name="Delegated" xml:space="preserve">
-    <value>Delegated</value>
-  </data>
   <data name="DetailsMessagePlease" xml:space="preserve">
-    <value>provide the request details, at least 30 characters</value>
+    <value>يرجى تعبئة تفاصيل الطلب بما لا يقل عن 30 حرفا</value>
   </data>
-  <data name="District" xml:space="preserve">
-    <value>District</value>
+  <data name="FillRequestForm" xml:space="preserve">
+    <value>تعبئة نموذج الطلب -</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="HomePage" xml:space="preserve">
+    <value>الرئيسية</value>
   </data>
-  <data name="FailedToLoadStep" xml:space="preserve">
-    <value>Failed to load step:</value>
-  </data>
-  <data name="FileUploadError" xml:space="preserve">
-    <value>File upload error</value>
-  </data>
-  <data name="FristClassRelative" xml:space="preserve">
-    <value>First Class Relative</value>
-  </data>
-  <data name="Full Name" xml:space="preserve">
-    <value>Full Name</value>
-  </data>
-  <data name="FullNameTootip" xml:space="preserve">
-    <value>Data retrieved from National Information Center</value>
-  </data>
-  <data name="ID Number" xml:space="preserve">
-    <value>ID Number</value>
-  </data>
-  <data name="IDNumberTootip" xml:space="preserve">
-    <value>Data retrieved from National Information Center</value>
-  </data>
-  <data name="JudicialSummons" xml:space="preserve">
-    <value>Judicial Summons</value>
-  </data>
-  <data name="Lawyer" xml:space="preserve">
-    <value>Lawyer</value>
-  </data>
-  <data name="LoadingIndicator" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="MySelf" xml:space="preserve">
-    <value>MySelf</value>
-  </data>
-  <data name="Nationality" xml:space="preserve">
-    <value>Nationality</value>
-  </data>
-  <data name="NationalityTootip" xml:space="preserve">
-    <value>Data retrieved from National Information Center</value>
+  <data name="Loading" xml:space="preserve">
+    <value>تحميل ....</value>
   </data>
   <data name="Next" xml:space="preserve">
-    <value>Next</value>
+    <value>التالي</value>
   </data>
-  <data name="PersonalSummons" xml:space="preserve">
-    <value>Personal Summons</value>
+  <data name="PleaseAttachRequiredFiles" xml:space="preserve">
+    <value>الرجاء ارفاق كل الملفات المطلوبة</value>
   </data>
-  <data name="Phone" xml:space="preserve">
-    <value>Phone</value>
+  <data name="RequiredInfo" xml:space="preserve">
+    <value>* المعلومات المطلوبة</value>
   </data>
-  <data name="Request Details" xml:space="preserve">
-    <value>Request Details</value>
+  <data name="Services" xml:space="preserve">
+    <value>الخدمات</value>
   </data>
-  <data name="RequestDetails" xml:space="preserve">
-    <value>Request Details</value>
-  </data>
-  <data name="SaudiPostCity" xml:space="preserve">
-    <value>Data retrieved from Saudi Post</value>
-  </data>
-  <data name="SaudiPostDistrict" xml:space="preserve">
-    <value>Data retrieved from Saudi Post</value>
-  </data>
-  <data name="SelectOption" xml:space="preserve">
-    <value>Select...</value>
-  </data>
-  <data name="SelectSummonsType" xml:space="preserve">
-    <value>Select Type of Summons</value>
-  </data>
-  <data name="ServiceRequesterRelation" xml:space="preserve">
-    <value>Requester Relation</value>
-  </data>
-  <data name="TypeOfSummons" xml:space="preserve">
-    <value>Type of Summons</value>
-  </data>
-  <data name="ValidationError" xml:space="preserve">
-    <value>There are form errors</value>
+  <data name="Submit" xml:space="preserve">
+    <value>إرسال</value>
   </data>
 </root>
