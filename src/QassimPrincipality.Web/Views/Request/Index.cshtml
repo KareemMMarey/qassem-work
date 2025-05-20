@@ -42,8 +42,9 @@
             <div id="step-content">
                 <div>Loading...</div>
                <!-- Safely set RequestId from ViewBag -->
-                <input type="hidden" id="requestId" value="@((ViewBag.RequestId ?? Guid.Empty).ToString())" />
+                
             </div>
+            <input type="hidden" id="requestId" value="@((ViewBag.RequestId ?? Guid.Empty).ToString())" />
             @* <button id="next-btn" class="btn btn-primary mt-4">Next</button> *@
             <button id="previous-btn" class="btn btn-secondary" style="display:none;">
                 @localizer["Previous"]
@@ -56,6 +57,7 @@
             <div id="loading-indicator" style="display:none;">@localizer["Loading"]</div>
         </div>
     </div>
+    @* <input type="hidden" id="total-steps-data" value='@Json.Serialize(Model.ServiceSteps)' /> *@
 </div>
 
 <
@@ -73,6 +75,27 @@
             pleaseSelectRelation: '@localizer["PleaseSelectRelation"]',
             failedToUploadFile: '@localizer["FailedToUploadFile"]'
         };
+       
+            const inputLabelMap = {
+            "customrequesterRelation": '@localizer["ServiceRequesterRelation"]',
+            "customTypeOfSummons-summons": '@localizer["TypeOfSummons"]',
+            "fullName": '@localizer["FullName"]',
+            "nationality": '@localizer["Nationality"]',
+            "birthDate": '@localizer["BirthDate"]',
+            "idNumber": '@localizer["IDNumber"]',
+            "phone": '@localizer["Phone"]',
+            "email": '@localizer["Email"]',
+            "city": '@localizer["City"]',
+            "district": '@localizer["District"]',
+            "requestDetails": '@localizer["RequestDetails"]'
+        };
+        const serviceId = "@Model.Id";  // Assuming this is available in the Razor view
+        const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+        let currentStep = storedServiceData.currentStep || 1;
+        let requestData = storedServiceData.requestData || {};
+        let attachments = storedServiceData.attachments || [];
+        const totalSteps = @Model.ServiceSteps.Count;
+
     </script>
 
     <script src="/lib/jquery-validation/dist/jquery.validate.js" ></script>

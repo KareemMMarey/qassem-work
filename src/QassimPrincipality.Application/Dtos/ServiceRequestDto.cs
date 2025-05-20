@@ -15,6 +15,7 @@ namespace QassimPrincipality.Application.Dtos
         public Guid Id { get; set; }
         public int ServiceId { get; set; }
         public string UserId { get; set; }
+        public string RequestNumber { get; set; } = string.Empty;   
         public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
         //public RequestBasicDataDto BasicData { get; set; }
         //public RequestAdditionalDataDto AdditionalData { get; set; }
@@ -45,6 +46,7 @@ namespace QassimPrincipality.Application.Dtos
         public Guid Id { get; set; }
         public int ServiceId { get; set; }
         public string UserId { get; set; }
+        public string RequestNumber { get; set; } = string.Empty;
         public ServiceRequestStatus Status { get; set; }
         public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
         public RequestBasicDataDto BasicData { get; set; }

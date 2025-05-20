@@ -38,7 +38,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             serviceRequest.Status = ServiceRequestStatus.Draft;
             serviceRequest.CreatedOn = DateTime.UtcNow;
             serviceRequest.UpdatedOn = DateTime.UtcNow;
-
+            serviceRequest.RequestNumber = GenerateRequestNumber(dto.ServiceId);
             var savedRequest = await _serviceRequestRepository.InsertAsync(serviceRequest, true);
             return savedRequest.MapTo<ServiceRequestDto>();
         }
@@ -53,7 +53,8 @@ namespace QassimPrincipality.Application.Services.NewShema
             basicData.UpdatedBy = userId;
             basicData.UpdatedOn = DateTime.UtcNow;
             basicData.IsActive = true;
-
+            
+            basicData.RequestDetails = basicDataDto.RequestDetails; 
             await _requestBasicDataRepository.InsertAsync(basicData, true);
             return true;
         }
@@ -91,7 +92,9 @@ namespace QassimPrincipality.Application.Services.NewShema
         // Submit the service request
         public async Task<ServiceRequestDto> SubmitRequestAsync(Guid requestId, string userId)
         {
-            var request = await _serviceRequestRepository.GetByIdAsync(requestId);
+            var request = await _serviceRequestRepository.TableNoTracking
+                .Include(r => r.Actions)
+                .FirstOrDefaultAsync(r => r.Id == requestId);
             ValidateStatusTransition(request.Status, ServiceRequestStatus.Submitted);
 
             request.Status = ServiceRequestStatus.Submitted;
@@ -106,6 +109,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             foreach (var attachment in attachments)
             {
                 attachment.IsActive = true;
+                attachment.IsValid = true;
                 _requestAttachmentRepository.Update(attachment);
             }
 
@@ -132,6 +136,16 @@ namespace QassimPrincipality.Application.Services.NewShema
                 .Include(r => r.Attachments)
                 .Include(r => r.Actions)
                 .FirstOrDefaultAsync(r => r.Id == requestId);
+
+            if (request == null)
+                throw new KeyNotFoundException("Service request not found.");
+
+            return request.MapTo<ServiceRequestDto>();
+        }
+        // Get service request by ID
+        public async Task<ServiceRequestDto> GetIdAsync(Guid requestId)
+        {
+            var request = await _serviceRequestRepository.GetByIdAsync(requestId);
 
             if (request == null)
                 throw new KeyNotFoundException("Service request not found.");
@@ -206,6 +220,32 @@ namespace QassimPrincipality.Application.Services.NewShema
 
             if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected))
                 throw new InvalidOperationException("UnderReview can only transition to Approved or Rejected.");
+        }
+
+        private string GenerateRequestNumber(int serviceId)
+        {
+            // Prefix
+            string prefix = "QA_";
+
+            // Get the current year as a 4-digit string (e.g., 2025)
+            string year = DateTime.UtcNow.Year.ToString();
+
+            // Format the Service ID (add leading zero if single digit)
+            string servicePrefix = serviceId < 10 ? $"0{serviceId}" : serviceId.ToString().Substring(0, 2);
+
+            // Generate a random 6-character alphanumeric code
+            string uniqueCode = GenerateRandomAlphanumeric(6);
+
+            // Combine prefix, year, service prefix, and unique code
+            return $"{prefix}{year}{servicePrefix}{uniqueCode}";
+        }
+
+        private string GenerateRandomAlphanumeric(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

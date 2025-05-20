@@ -10,6 +10,7 @@ namespace QassimPrincipality.Domain.Entities.Services.NewSchema
     public class RequestBasicData : LookupEntityBase
     {
         public Guid RequestId { get; set; }
+        
         public string NationalId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
@@ -19,6 +20,7 @@ namespace QassimPrincipality.Domain.Entities.Services.NewSchema
         public DateTime DateOfBirth { get; set; }
         public bool SourceFromNafath { get; set; }
         public bool SourceFromSpl { get; set; }
+        public string RequestDetails { get; set; }
         public virtual ServiceRequest Request { get; set; }
     }
 }

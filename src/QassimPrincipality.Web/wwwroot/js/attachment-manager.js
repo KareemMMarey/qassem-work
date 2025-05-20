@@ -2,6 +2,7 @@
 // Upload files
 $(".attachment-input").on("change", function () {
     const attachmentId = $(this).data("attachment-id");
+    const attachmentName = $(this).siblings("label").text().trim();
     const maxSizeMB = $(this).data("max-size");
     const allowedExtensions = $(this).data("allowed-extensions").split(",");
     const files = $(this).prop("files");
@@ -24,26 +25,41 @@ $(".attachment-input").on("change", function () {
 
         // Validate file size
         if (fileSizeMB > maxSizeMB) {
-            const message = messages.fileSizeExceeded.replace("{0}", file.name).replace("{1}", maxSizeMB);
+            const message = attachmentmessages.fileSizeExceeded.replace("{0}", file.name).replace("{1}", maxSizeMB);
             errorMessages.push(message);
             continue;
         }
 
         // Validate file extension
         if (!allowedExtensions.includes(fileExtension)) {
-            const message = messages.unsupportedExtension.replace("{0}", file.name).replace("{1}", allowedExtensions.join(", "));
+            const message = attachmentmessages.unsupportedExtension.replace("{0}", file.name).replace("{1}", allowedExtensions.join(", "));
             errorMessages.push(message);
             continue;
         }
 
         // Add the valid file to the form data
         formData.append("files", file);
+        // Save the attachment with ID and Name
+        attachments.push({
+            id: attachmentId,
+            name: file.name,
+            typeName: attachmentName
+        });
     }
+
 
     if (errorMessages.length > 0) {
         showPopup("error", "Error", errorMessages.join("\n"));
         return;
     }
+
+    // Save to service-specific storage
+    const serviceData = {
+        currentStep: currentStep,
+        requestData: requestData,
+        attachments: attachments
+    };
+    localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
 
     // Upload files
     $.ajax({
@@ -57,10 +73,10 @@ $(".attachment-input").on("change", function () {
             response.forEach(file => {
                 uploadedList.append(`<li>${file.fileName}</li>`);
             });
-            showPopup("success", "Success", messages.successUploadMessage);
+            showPopup("success", "Success", attachmentmessages.successUploadMessage);
         },
         error: function (xhr) {
-            showPopup("error", "Error", messages.uploadFailed)
+            showPopup("error", "Error", attachmentmessages.uploadFailed)
         }
     });
 });

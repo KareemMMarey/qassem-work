@@ -13,6 +13,7 @@ namespace QassimPrincipality.Domain.Entities.Services.NewSchema
     {
         public int ServiceId { get; set; }
         public string UserId { get; set; }
+        public string RequestNumber { get; set; } = string.Empty;
         public ServiceRequestStatus Status { get; set; }
         public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
 

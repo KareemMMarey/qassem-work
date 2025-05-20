@@ -1,20 +1,29 @@
-﻿let currentStep = parseInt(localStorage.getItem("currentStep")) || 1;
-const totalSteps = @Model.ServiceSteps.Count;
-const serviceId = @Model.Id;
+﻿
 $(document).ready(function () {
     // Initial Setup
-    //const serviceId = @Model.Id;
-    // const totalSteps = @Model.ServiceSteps.Count;
+    
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
-    //let currentStep = parseInt(localStorage.getItem("currentStep")) || 1;
-    let requestData = JSON.parse(localStorage.getItem("requestData")) || {};
-    let attachments = JSON.parse(localStorage.getItem("attachments")) || [];
 
-    // Load the current step on page load
-    localStorage.setItem("currentStep", currentStep);
-    loadStep(serviceId, currentStep);
-    updateStepper(currentStep);
-    updateButtonVisibility();
+    const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+    if (storedServiceData.currentStep) {
+        currentStep = storedServiceData.currentStep;
+        requestData = storedServiceData.requestData || {};
+        attachments = storedServiceData.attachments || [];
+
+        // Update the hidden requestId field if available
+        if (storedServiceData.requestId) {
+            $("#requestId").val(storedServiceData.requestId);
+            console.log("Loaded requestId from storage:", storedServiceData.requestId);
+        }
+
+        loadStep(serviceId, currentStep);
+        updateStepper(currentStep);
+        updateButtonVisibility();
+    } else {
+        // Start from the first step if no matching data found
+        currentStep = 1;
+        loadStep(serviceId, currentStep);
+    }
 
     // Next Button Click Event
     $("#next-btn").click(function () {
@@ -40,11 +49,20 @@ $(document).ready(function () {
 
         // Move to the next step
         currentStep++;
-        localStorage.setItem("currentStep", currentStep);
+        //localStorage.setItem("currentStep", currentStep);
         loadStep(serviceId, currentStep);
         updateStepper(currentStep);
         updateButtonVisibility();
+
+         // Store the current step with service ID
+        const serviceData = {
+            currentStep: currentStep,
+            requestData: requestData,
+            attachments: attachments
+        };
+        localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
     });
+
     $("#previous-btn").click(function () {
         if (currentStep > 1) {
             currentStep--;
@@ -56,9 +74,9 @@ $(document).ready(function () {
     });
     // Submit Button Click Event
     $("#submit-btn").click(function () {
-        if ($("#step-form").valid()) {
+        //if ($("#step-form").valid()) {
             submitRequest();
-        }
+        //}
     });
 
     // Load Step Content via AJAX
@@ -71,6 +89,10 @@ $(document).ready(function () {
                 $("#loading-indicator").hide();
                 initializeFormValidation();
 
+                // Update total steps based on returned data
+                // const stepsData = JSON.parse($("#total-steps-data").val() || "[]");
+                // totalSteps = stepsData.length + 2; // Including Attachments and Review
+
                 // Check if this is the review step
                 if (stepNumber === totalSteps) {
                     loadReviewData();
@@ -82,19 +104,6 @@ $(document).ready(function () {
                             $(`#${key}`).val(value);
                         }
                     }
-                }
-
-                // Restore saved data for the current step
-                // const stepData = requestData[`Step${stepNumber}`];
-                // if (stepData) {
-                //     for (const [key, value] of Object.entries(stepData)) {
-                //         $(`#${key}`).val(value);
-                //     }
-                // }
-
-                // Handle file uploads if on the last step
-                if (stepNumber === totalSteps - 1) {
-                    handleFileUploads();
                 }
             })
             .fail(function (xhr) {
@@ -130,32 +139,28 @@ $(document).ready(function () {
 
         const stepContent = $("#step-content").find("input, textarea, select");
         let stepData = {};
-
-        stepContent.each(function () {
-            const id = $(this).attr("id");
-            const value = $(this).val();
-
-            // Check if we are on Step 1
-            const currentStep = localStorage.getItem("currentStep");
-            if (currentStep === "1" && id) {
-                // Use the label text instead of the ID for Step 1
-                const labelElement = $(`label[for="${id}"]`);
-                const label = labelElement.length ? labelElement.text().trim() : id;
-                stepData[label] = value;
-            } else if (id) {
-                // Use regular ID for other steps
-                stepData[id] = value;
-            }
-        });
-
-        // Store data locally
+        if (currentStep !== totalSteps - 1) {
+            stepContent.each(function () {
+                const id = $(this).attr("id");
+                const value = $(this).val();
+                if (id) {
+                    stepData[id] = value;
+                }
+            });
+        }
+        // Store data locally with service ID
         requestData[`Step${stepNumber}`] = stepData;
-        localStorage.setItem("requestData", JSON.stringify(requestData));
+        const serviceData = {
+            currentStep: currentStep,
+            requestData: requestData,
+            attachments: attachments
+        };
+        localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
         console.log("Current Step Data:", requestData);
 
         // Check if the current step is "Attachments"
-        const stepName = $("#step-title").data("step-name") || "";
-        if (stepName.toLowerCase().includes("attachments")) {
+
+        if (currentStep === totalSteps-1) {
             console.log("Skipping server save for attachments step");
             return;
         }
@@ -173,28 +178,39 @@ $(document).ready(function () {
             serviceId: serviceId,
             stepNumber: stepNumber,
             stepData: JSON.stringify(stepData)
+        }).done(function (response) {
+            // Check if the response contains a new requestId
+            if (response.requestId && response.requestId !== emptyGuid) {
+                // Update the hidden input
+                $("#requestId").val(response.requestId);
+
+                // Update local storage with the new request ID
+                const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+                serviceData.requestId = response.requestId;
+                localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
+
+                console.log("Request ID updated:", response.requestId);
+            }
         }).fail(function (xhr) {
             "error", messages.errorTitle,
             showError(messages.failedToSaveStepData + ' ' + xhr.responseText);
         });
+        $("#requestId").val('@ViewBag.RequestId')
     }
 
     // Submit Full Request
     function submitRequest() {
-        const requestDetails = JSON.stringify(requestData);
+        //const requestDetails = JSON.stringify(requestData);
         const requestId = $("#requestId").val() || emptyGuid;
 
         $.post("/Request/SubmitRequest", {
-            requestId: requestId,
-            serviceId: serviceId,
-            requestDetails: requestDetails,
-            attachments: JSON.stringify(attachments)
+            requestId: requestId
         })
             .done(function (response) {
                 if (response.success) {
-                    showError(messages.requestSubmitted);
-                    clearLocalStorage();
-                    window.location.href = "/Request/Success";
+                    const requestNumber = response.requestNumber || "UNKNOWN";
+                    clearServiceData(serviceId);
+                    window.location.href = `/Request/Success?requestNumber=${requestNumber}`;
                 } else {
                     showPopup("error", messages.errorTitle, messages.failedToSubmitRequest);
                 }
@@ -205,33 +221,7 @@ $(document).ready(function () {
     }
 
     // Handle File Uploads
-    function handleFileUploads() {
-        $("#attachments").on("change", function () {
-            const files = $(this).prop("files");
-            const formData = new FormData();
-
-            for (let i = 0; i < files.length; i++) {
-                formData.append("file", files[i]);
-            }
-
-            $.ajax({
-                url: "/Request/UploadAttachment",
-                type: "POST",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    attachments.push(response.fileName);
-                    localStorage.setItem("attachments", JSON.stringify(attachments));
-                    $("#uploaded-files").append(`<li>${response.fileName}</li>`);
-                    console.log("Attachments:", attachments);
-                },
-                error: function (xhr) {
-                    showError(messages.failedToUploadFile + ' ' + xhr.responseText);
-                }
-            });
-        });
-    }
+    
 
     // Show Error Messages
     function showError(message) {
@@ -246,13 +236,6 @@ $(document).ready(function () {
     // Hide Inline Error Message
     function hideErrorMessage(selector) {
         $(selector).next(".error").hide();
-    }
-
-    // Clear Local Storage on Completion
-    function clearLocalStorage() {
-        localStorage.removeItem("currentStep");
-        localStorage.removeItem("requestData");
-        localStorage.removeItem("attachments");
     }
     function updateStepper(currentStep) {
         debugger;
@@ -301,45 +284,78 @@ $(document).ready(function () {
     }
 
     function loadReviewData() {
-        const requestData = JSON.parse(localStorage.getItem("requestData") || "{}");
+        const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`) || "{}");
+        const requestData = serviceData.requestData || {};
+        const attachments = serviceData.attachments || [];
+
         const reviewContainer = $("#review-data");
         const attachmentContainer = $("#review-attachments");
+        const additionalDataContainer = $("#review-additionaldata");
 
         // Clear previous content
         reviewContainer.empty();
+        additionalDataContainer.empty();
         attachmentContainer.empty();
-
+        // Track if Step 2 exists
+        let hasStep2Data = false;
         // Iterate through each step
-        for (const [stepKey, stepValues] of Object.entries(requestData)) {
-            for (const [key, value] of Object.entries(stepValues)) {
-                // Handle attachments separately
-                if (key.startsWith("attachment-")) {
-                    const fileName = value.split("\\").pop();
-                    attachmentContainer.append(`
-                            <li>
-                                <i class="fas fa-file"></i> ${fileName}
-                            </li>
-                        `);
-                } else {
-                    // Format field names for better readability
-                    const formattedKey = key
-                        .replace(/([A-Z])/g, " $1")
-                        .replace(/-/g, " ")
-                        .replace(/_/g, " ")
-                        .replace(/attachment /g, "")
-                        .trim();
-
+        let hasAttachments = attachments.length > 0;
+        Object.entries(requestData).forEach(([stepKey, stepValues]) => {
+            // Step 1 (Basic Data)
+            if (stepKey === "Step1") {
+                Object.entries(stepValues).forEach(([key, value]) => {
+                    const label = inputLabelMap[key] || formatKey(key);
                     reviewContainer.append(`
-                            <li>
-                                <span class="review-label">${formattedKey}:</span>
-                                <span class="review-value">${value}</span>
-                            </li>
-                        `);
-                }
+                    <li>
+                        <span class="review-label">${label}:</span>
+                        <span class="review-value">${value}</span>
+                    </li>
+                `);
+                });
             }
+            // Step 2 (Additional Data)
+            else if (stepKey !== "Step1" && Object.keys(stepValues).length > 0) {
+                hasStep2Data = true;
+                Object.entries(stepValues).forEach(([key, value]) => {
+                    const label = inputLabelMap[key] || formatKey(key);
+                    additionalDataContainer.append(`
+                    <li>
+                        <span class="review-label">${label}:</span>
+                        <span class="review-value">${value}</span>
+                    </li>
+                `);
+                });
+            }
+        });
+        // Remove Step 2 container if empty
+        if (!hasStep2Data) {
+            additionalDataContainer.closest(".review-section").remove();
+        }
+        // Handle attachments separately
+        if (!hasAttachments) {
+            attachmentContainer.closest(".review-section").remove();
+        } else {
+            // Populate the attachments
+            attachments.forEach(att => {
+                attachmentContainer.append(`
+                <li>
+                    <strong>${att.typeName}</strong>: ${att.name}
+                </li>
+            `);
+            });
         }
     }
+    
 
-
+    function formatKey(key) {
+        return key.replace(/([A-Z])/g, " $1")
+            .replace(/[-_]/g, " ")
+            .trim()
+            .replace(/\b\w/g, c => c.toUpperCase());
+    }
+    function clearServiceData(serviceId) {
+        localStorage.removeItem(`serviceData_${serviceId}`);
+    }
+    
 
 });

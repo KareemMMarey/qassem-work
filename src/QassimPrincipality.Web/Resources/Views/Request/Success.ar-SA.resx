@@ -117,142 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdministrativeSummons" xml:space="preserve">
-    <value>استدعاء إداري</value>
+  <data name="BackToHome" xml:space="preserve">
+    <value>العودة</value>
   </data>
-  <data name="BirthDate" xml:space="preserve">
-    <value>تاريخ الميلاد</value>
+  <data name="CheckRequestStatus" xml:space="preserve">
+    <value>معرفة حالة الطلب</value>
   </data>
-  <data name="BirthDateTootip" xml:space="preserve">
-    <value>بيانات من نفاذ</value>
+  <data name="RequestSubmittedSuccessfully" xml:space="preserve">
+    <value>تم إرسال الطلب بنجاح</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>إلغاء</value>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>تم إرسال الطلب بنجاح</value>
   </data>
-  <data name="City" xml:space="preserve">
-    <value>المدينة</value>
+  <data name="SuccessRequestPage" xml:space="preserve">
+    <value>صفحة الطلب</value>
   </data>
-  <data name="CriminalSummons" xml:space="preserve">
-    <value>استدعاء جنائي</value>
-  </data>
-  <data name="Delegated" xml:space="preserve">
-    <value>وكيل</value>
-  </data>
-  <data name="DetailsMessagePlease" xml:space="preserve">
-    <value>يرجى تعبئة تفاصيل الطلب بما لا يقل عن 30 حرفا</value>
-  </data>
-  <data name="DetailsMessagePlease1" xml:space="preserve">
-    <value>الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف</value>
-  </data>
-  <data name="District" xml:space="preserve">
-    <value>الحي</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>البريد الإلكتروني</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>خطأ</value>
-  </data>
-  <data name="FailedToLoadStep" xml:space="preserve">
-    <value>فشل في تحميل الخطوة:</value>
-  </data>
-  <data name="FileUploadError" xml:space="preserve">
-    <value>حدث خطأ أثناء تحميل الملف</value>
-  </data>
-  <data name="FillRequestForm" xml:space="preserve">
-    <value>تعبئة نموذج الطلب -</value>
-  </data>
-  <data name="FristClassRelative" xml:space="preserve">
-    <value>قريب من الدرجة الأولى</value>
-  </data>
-  <data name="FullName" xml:space="preserve">
-    <value>الاسم الرباعي</value>
-  </data>
-  <data name="FullNameTootip" xml:space="preserve">
-    <value>بيانات من نفاذ</value>
-  </data>
-  <data name="HomePage" xml:space="preserve">
-    <value>الرئيسية</value>
-  </data>
-  <data name="IDNumber" xml:space="preserve">
-    <value>رقم الهوية</value>
-  </data>
-  <data name="IDNumberTootip" xml:space="preserve">
-    <value>بيانات من نفاذ</value>
-  </data>
-  <data name="JudicialSummons" xml:space="preserve">
-    <value>استدعاء قضائي</value>
-  </data>
-  <data name="Lawyer" xml:space="preserve">
-    <value>محامي</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>تحميل ....</value>
-  </data>
-  <data name="LoadingIndicator" xml:space="preserve">
-    <value>جاري التحميل...</value>
-  </data>
-  <data name="MySelf" xml:space="preserve">
-    <value>أصالة عن نفسه</value>
-  </data>
-  <data name="Nationality" xml:space="preserve">
-    <value>الجنسية</value>
-  </data>
-  <data name="NationalityTootip" xml:space="preserve">
-    <value>بيانات من نفاذ</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>التالي</value>
-  </data>
-  <data name="Next1" xml:space="preserve">
-    <value>التالي</value>
-  </data>
-  <data name="PersonalSummons" xml:space="preserve">
-    <value>استدعاء شخصي</value>
-  </data>
-  <data name="Phone" xml:space="preserve">
-    <value>رقم الجوال</value>
-  </data>
-  <data name="PleaseAttachRequiredFiles" xml:space="preserve">
-    <value>الرجاء ارفاق كل الملفات المطلوبة</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>السابق</value>
-  </data>
-  <data name="Request Details" xml:space="preserve">
-    <value>تفاصيل الطلب</value>
-  </data>
-  <data name="RequestDetails" xml:space="preserve">
-    <value>تفاصيل الطلب</value>
-  </data>
-  <data name="RequiredInfo" xml:space="preserve">
-    <value>* المعلومات المطلوبة</value>
-  </data>
-  <data name="SaudiPostCity" xml:space="preserve">
-    <value>بيانات من سبل</value>
-  </data>
-  <data name="SaudiPostDistrict" xml:space="preserve">
-    <value>بيانات من سبل</value>
-  </data>
-  <data name="SelectOption" xml:space="preserve">
-    <value>اختر...</value>
-  </data>
-  <data name="SelectSummonsType" xml:space="preserve">
-    <value>اختر نوع الاستدعاء</value>
-  </data>
-  <data name="ServiceRequesterRelation" xml:space="preserve">
-    <value>صفة مقدم الطلب</value>
-  </data>
-  <data name="Services" xml:space="preserve">
-    <value>الخدمات</value>
-  </data>
-  <data name="Submit" xml:space="preserve">
-    <value>إرسال</value>
-  </data>
-  <data name="TypeOfSummons" xml:space="preserve">
-    <value>نوع الاستدعاء</value>
-  </data>
-  <data name="ValidationError" xml:space="preserve">
-    <value>يوجد أخطاء في النموذج</value>
+  <data name="YourRequestNumber" xml:space="preserve">
+    <value>رقم طلب هو</value>
   </data>
 </root>

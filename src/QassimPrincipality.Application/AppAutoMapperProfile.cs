@@ -242,9 +242,20 @@ namespace QassimPrincipality.Application
 
 
             
-            CreateMap<RequestBasicDataDto, RequestBasicData>();
+            //CreateMap<RequestBasicDataDto, RequestBasicData>();
             CreateMap<CreateServiceRequestDto, ServiceRequest>();
-            CreateMap<ServiceRequest, ServiceRequestDto>();
+            // Map ServiceRequest to ServiceRequestDto
+            CreateMap<ServiceRequest, ServiceRequestDto>()
+                .ForMember(dest => dest.BasicData, opt => opt.MapFrom(src => src.BasicData))
+                .ForMember(dest => dest.Actions, opt => opt.MapFrom(src => src.Actions))
+                .ForMember(dest => dest.AdditionalData, opt => opt.MapFrom(src => src.AdditionalData))
+                .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments))
+                .ReverseMap();
+
+            // Map ServiceRequestBasicData to ServiceRequestBasicDataDto
+            CreateMap<RequestBasicData, RequestBasicDataDto>().ReverseMap();
+            CreateMap<RequestAction, RequestActionDto>().ReverseMap();
+            CreateMap<RequestAdditionalData, RequestAdditionalDataDto>().ReverseMap();
             CreateMap<RequestAttachmentDto, RequestAttachment>();
         }
        

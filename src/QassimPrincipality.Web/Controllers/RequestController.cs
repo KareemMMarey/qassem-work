@@ -168,7 +168,7 @@ namespace QassimPrincipality.Web.Controllers
                     ViewBag.RequestId = requestId;
                 }
 
-                return Ok(new { success = true });
+                return Ok(new { success = true, requestId = requestId });
             }
             catch (Exception ex)
             {
@@ -251,17 +251,36 @@ namespace QassimPrincipality.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SubmitRequest(Guid requestId, string userId)
+        public async Task<IActionResult> SubmitRequest(Guid requestId)
         {
             try
             {
-                var result = await _serviceRequestAppService.SubmitRequestAsync(requestId, userId);
-                return Ok(new { success = true, requestId = result.Id });
+                if(requestId == Guid.Empty) requestId= Guid.Parse("b5f4de64-aaaa-4f5d-995d-ddb81c5475ec");
+                var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
+                if (request == null)
+                    return BadRequest("Request not found");
+
+                var result = await _serviceRequestAppService.SubmitRequestAsync(requestId, "current-user");
+                return Ok(new { success = true, requestNumber = request.RequestNumber });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Error submitting request: {ex.Message}");
             }
+        }
+
+        [HttpGet]
+        public IActionResult Success(string requestNumber)
+        {
+            if (string.IsNullOrEmpty(requestNumber))
+            {
+                // If no request number, redirect to a more appropriate page
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Pass the request number to the view
+            ViewBag.RequestNumber = requestNumber;
+            return View();
         }
 
         [HttpPost]
