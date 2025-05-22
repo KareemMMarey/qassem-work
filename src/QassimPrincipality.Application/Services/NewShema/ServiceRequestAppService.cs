@@ -181,14 +181,18 @@ namespace QassimPrincipality.Application.Services.NewShema
         public async Task<List<ServiceRequestDto>> SearchRequestsAsync(RequestSearchFilterDto filter)
         {
             var query = _serviceRequestRepository.TableNoTracking
-                .Include(r => r.BasicData)
-                .Include(r => r.AdditionalData)
-                .Include(r => r.Attachments)
-                .Include(r => r.Actions)
+                //.Include(r => r.BasicData)
+                //.Include(r => r.AdditionalData)
+                //.Include(r => r.Attachments)
+                //.Include(r => r.Actions)
+                .Include(r => r.EService)
                 .AsQueryable();
 
             if (!string.IsNullOrEmpty(filter.UserId))
                 query = query.Where(r => r.UserId == filter.UserId);
+
+            if (!string.IsNullOrEmpty(filter.RequestNumber))
+                query = query.Where(r => r.RequestNumber.Contains(filter.RequestNumber));
 
             if (filter.ServiceId.HasValue)
                 query = query.Where(r => r.ServiceId == filter.ServiceId);

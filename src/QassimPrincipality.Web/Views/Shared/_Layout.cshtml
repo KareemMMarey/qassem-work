@@ -442,8 +442,10 @@
 </body>
 </html>
  *@
+ @inject UserManager<ApplicationUser> _userManager
  @inject IViewLocalizer localizer
  @using System.Globalization
+
  @{
     // Determine the page direction based on the current culture
     var direction = CultureInfo.CurrentUICulture.Name.StartsWith("ar") ? "rtl" : "ltr";
@@ -501,64 +503,74 @@
                     <img src="~/icons/translation.svg" alt="translation" width="24" height="24">
                     <a class="pc-nav-link" href="#">English</a>
                     </div> *@
+                    @if (!User.Identity.IsAuthenticated)
+                    {
 
-                    @* logged in *@
-                    <div class="pc-nav-dropdown-container">
-                        <div class="pc-nav-tab pc-nav-dropdown-tab">
-                            <img src="~/icons/user.svg" alt="login" width="24" height="24">
-                            <p class="pc-nav-link">عبدالله أحمد محمد الأحمد</p>
-                            <div class="pc-arrow-toggle">
-                                <img src="~/icons/arrowDown.svg" alt="down arrow" class="pc-down-arrow" width="14" height="8">
-                                <img src="~/icons/arrowUp.svg" alt="up arrow" class="pc-up-arrow" width="16" height="16">
-                            </div>
-                        </div>
-
-                        <div class="pc-nav-dropdown">
-                            <div class="pc-nav-header-menu-item">
-                                <img src="~/icons/userCircle.svg" alt="profile" width="24" height="24">
-                                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link"> @localizer["MyProfile"]</a>
-                            </div>
-
-                            <div class="pc-nav-header-menu-item">
-                                <img src="~/icons/papers.svg" alt="profile" width="24" height="24">
-                                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link"> @localizer["MyRequests"]</a>
-                            </div>
-
-                            <div class="pc-nav-header-menu-item">
-                                <img src="~/icons/logout.svg" alt="log out" width="24" height="24">
-                                <a class="pc-warning-text pc-nav-link">@localizer["Signout"] </a>
-                            </div>
-                        </div>
+                        @* <a class="btn btn-outline-primary" href="~/Account/NafathLogin">تسجيل الدخول</a> *@
+                        @* loggedout *@
+                        <div class="pc-nav-tab">
+                    <img src="~/icons/login.svg" alt="login" width="24" height="24">
+                            <a class="pc-nav-link" asp-controller="Account" asp-action="NafathLogin">تسجيل الدخول</a>
                     </div>
+                    }
+                    else
+                    {
+                        var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                        @* logged in *@
+                        <div class="pc-nav-dropdown-container">
+                            <div class="pc-nav-tab pc-nav-dropdown-tab">
+                                <img src="~/icons/user.svg" alt="login" width="24" height="24">
+                                @if (!string.IsNullOrEmpty(user.FullName))
+                                {
+                                    
+                                    <p class="pc-nav-link">@user.FullName</p>
+                                }
+
+                                else
+                                {
+
+                                    <p class="pc-nav-link">@user.UserName</p>
+                                }
+                                
+                                <div class="pc-arrow-toggle">
+                                    <img src="~/icons/arrowDown.svg" alt="down arrow" class="pc-down-arrow" width="14" height="8">
+                                    <img src="~/icons/arrowUp.svg" alt="up arrow" class="pc-up-arrow" width="16" height="16">
+                                </div>
+                            </div>
+
+                            <div class="pc-nav-dropdown">
+                                <div class="pc-nav-header-menu-item">
+                                    <img src="~/icons/userCircle.svg" alt="profile" width="24" height="24">
+                                    <a asp-controller="Account" asp-action="Profile" class="pc-nav-link"> @localizer["MyProfile"]</a>
+                                </div>
+
+                                <div class="pc-nav-header-menu-item">
+                                    <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
+                                    <a asp-controller="Request" asp-action="MyRequests" class="pc-nav-link"> @localizer["MyRequests"]</a>
+                                    @* <a href="#" class="pc-nav-link" id="search-my-requests"
+                                       data-user-id="@user.Id"
+                                       data-service-id="0"
+                                       data-status="0"
+                                       data-start-date=""
+                                       data-end-date="">@localizer["MyRequests"]</a> *@
+                                </div>
+
+                                <div class="pc-nav-header-menu-item">
+                                    <img src="~/icons/logout.svg" alt="log out" width="24" height="24">
+                                    <a class="pc-warning-text pc-nav-link" href="~/Account/Logout">@localizer["Signout"] </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     <!-- Language Switcher -->
                     <div class="dropdown">
                         <partial name="_Culture" />
 
-                            @* <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            @if (System.Globalization.CultureInfo.CurrentCulture.Name == "ar-SA")
-                            {
-                                <span>العربية</span>
-                            }
-                            else
-                            {
-                                <span>English</span>
-                            }
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li>
-                                <a class="dropdown-item" href="?culture=ar-SA">العربية</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="?culture=en-US">English</a>
-                            </li>
-                        </ul> *@
+                           
                     </div>
 
-                    @* loggedout *@
-                    @* <div class="pc-nav-tab">
-                    <img src="~/icons/login.svg" alt="login" width="24" height="24">
-                    <a class="pc-nav-link" asp-controller="Login" asp-action="Index">تسجيل الدخول</a>
-                    </div> *@
+                    
                 </div>
             </div>
         </nav>
@@ -775,6 +787,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popup-script.js" asp-append-version="true"></script>
+    @* <script src="~/js/request-processing.js"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
     
 </body>

@@ -163,8 +163,10 @@
 		UnderReview = 2,
 		Approved = 3,
 		Rejected = 4,
-		Cancelled = 5
-	}
+		Cancelled = 5,
+        RequiresCompletion = 6,
+        NotQualified = 7,   
+    }
 	public enum ServiceRequesterRelation
 	{
 		MySelf = 1,
