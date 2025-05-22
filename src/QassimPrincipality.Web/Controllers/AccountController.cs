@@ -124,6 +124,13 @@ namespace QassimPrincipality.Web.Controllers
                     {
                         var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
 
+
+                        // Currently use this instead of email 
+
+                        // Save token to file
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"{user.Id}.txt");
+                        Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+                        await System.IO.File.WriteAllTextAsync(filePath, token);
                         //_emailservice.SendEmail(new EmailMessage
                         //{
                         //    From="",

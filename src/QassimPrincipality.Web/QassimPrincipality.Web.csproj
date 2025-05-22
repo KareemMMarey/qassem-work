@@ -12,6 +12,7 @@
     <Folder Include="Resources\Views\Shared\Components\" />
     <Folder Include="Uploads\Requests\" />
     <Folder Include="ViewModels\Common\" />
+    <Folder Include="wwwroot\otp_tokens\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

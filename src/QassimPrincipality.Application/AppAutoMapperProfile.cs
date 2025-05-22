@@ -250,6 +250,8 @@ namespace QassimPrincipality.Application
                 .ForMember(dest => dest.Actions, opt => opt.MapFrom(src => src.Actions))
                 .ForMember(dest => dest.AdditionalData, opt => opt.MapFrom(src => src.AdditionalData))
                 .ForMember(dest => dest.Attachments, opt => opt.MapFrom(src => src.Attachments))
+                .ForMember(dest => dest.ServiceNameAr, opt => opt.MapFrom(src => src.EService != null ? src.EService.NameAr : string.Empty))
+                .ForMember(dest => dest.ServiceNameEn, opt => opt.MapFrom(src => src.EService != null ? src.EService.NameEn : string.Empty))
                 .ReverseMap();
 
             // Map ServiceRequestBasicData to ServiceRequestBasicDataDto

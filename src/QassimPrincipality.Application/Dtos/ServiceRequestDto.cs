@@ -7,6 +7,7 @@ using QassimPrincipality.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 namespace QassimPrincipality.Application.Dtos
 {
     
@@ -53,8 +54,10 @@ namespace QassimPrincipality.Application.Dtos
         public RequestAdditionalDataDto AdditionalData { get; set; }
         public List<RequestAttachmentDto> Attachments { get; set; }
         public List<RequestActionDto> Actions { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public string ServiceNameAr { get; set; }
+        public string ServiceNameEn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? UpdatedOn { get; set; }
     }
 
 

@@ -18,8 +18,10 @@ using QassimPrincipality.Domain.Entities.Services.NewSchema;
 using Microsoft.EntityFrameworkCore;
 using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Web.ViewModels.Request;
 namespace QassimPrincipality.Web.Controllers
 {
+    [Authorize]
     public class RequestController : Controller
     {
        
@@ -30,7 +32,7 @@ namespace QassimPrincipality.Web.Controllers
 		private readonly IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
-
+        UserManager<ApplicationUser> _userManager;
         public RequestController(
             ILogger<HomeController> logger,
             IHtmlLocalizer<HomeController> localizer,
@@ -38,7 +40,8 @@ namespace QassimPrincipality.Web.Controllers
 			NewsAppService news,
             LookupAppService lookups,
             IWebHostEnvironment environment,
-            ServiceRequestAppService serviceRequestAppService
+            ServiceRequestAppService serviceRequestAppService,
+            UserManager<ApplicationUser> userManager
             )
         {
             _logger = logger;
@@ -48,6 +51,7 @@ namespace QassimPrincipality.Web.Controllers
             _lookups = lookups;
             _environment = environment;
             _serviceRequestAppService = serviceRequestAppService;
+            _userManager = userManager;
 
         }
 
@@ -99,7 +103,50 @@ namespace QassimPrincipality.Web.Controllers
             try
             {
                 var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
-                return Ok(results);
+                return View("MyRequests", results); // Pass list to the view
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error searching requests: {ex.Message}");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> MyRequests()
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                RequestSearchFilterDto filter = new RequestSearchFilterDto { 
+                UserId = user.Id.ToString(),
+                };
+                var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
+
+                return View(new MyRequestsViewModel
+                {
+                    Filter = new RequestSearchFilterDto(),
+                    Results = results
+                });
+
+                //return View(results); // Pass list to the view
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error searching requests: {ex.Message}");
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+        {
+            try
+            {
+                var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
+                return View(new MyRequestsViewModel
+                {
+                    Filter = filter,
+                    Results = results
+                });
             }
             catch (Exception ex)
             {
@@ -148,14 +195,14 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (stepNumber == 1)
                 {
                     var basicDataDto = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestBasicDataDto>(stepData);
                     var initiateRequest = await _serviceRequestAppService.CreateDraftRequestAsync(new CreateServiceRequestDto { 
                     Id = Guid.NewGuid(),
                     ServiceId = serviceId,
-                    UserId = "userId"
+                    UserId = user.Id.ToString(),
                     });
                     await _serviceRequestAppService.SaveBasicDataAsync(initiateRequest.Id,basicDataDto, userId);
                     requestId = initiateRequest.Id;

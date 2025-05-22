@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using QassimPrincipality.Application;
 using QassimPrincipality.Infrastructure;
@@ -82,11 +82,32 @@ namespace QassimPrincipality.Web
                 builder.Services.ConfigureApplicationCookie(options =>
                 {
                     options.Cookie.HttpOnly = true;
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set the session expiry time
+                    //options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Set the session expiry time
+
+                    //options.LoginPath = "/Account/Login";
+                    ////options.AccessDeniedPath = "/Account/AccessDenied";
+                    //options.SlidingExpiration = true; // Refresh the cookie expiry on each request
+
 
                     options.LoginPath = "/Account/Login";
-                    //options.AccessDeniedPath = "/Account/AccessDenied";
-                    options.SlidingExpiration = true; // Refresh the cookie expiry on each request
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.SlidingExpiration = true;
+
+                    // ✅ توجيه مخصص بناءً على نوع المستخدم والمسار
+                    options.Events.OnRedirectToLogin = context =>
+                    {
+                        var path = context.Request.Path;
+                        if (path.StartsWithSegments("/Admin"))
+                        {
+                            context.Response.Redirect("/Account/Login");
+                        }
+                        else
+                        {
+                            context.Response.Redirect("/Account/NafathLogin");
+                        }
+                        return Task.CompletedTask;
+                    };
                 });
 
                 
@@ -137,6 +158,7 @@ namespace QassimPrincipality.Web
                 app.UseAuthorization();
                 app.UseEndpoints(endpoints =>
                 {
+
                     endpoints.MapControllerRoute(
                         name: "default",
                         pattern: "{controller=Home}/{action=Index}/{id?}");
