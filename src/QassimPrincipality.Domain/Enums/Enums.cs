@@ -176,6 +176,7 @@
 	}
     public enum LookupOptionType {
 		Prison = 1,
+        ExitReasons = 2
 	}
 	public enum ContactMessageType
 	{

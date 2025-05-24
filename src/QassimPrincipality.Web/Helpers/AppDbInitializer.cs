@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content;
+using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Infrastructure.Data;
 
 namespace QassimPrincipality.Web.Helpers
@@ -28,6 +29,7 @@ namespace QassimPrincipality.Web.Helpers
 				SeedEServiceFlow(context);
 				SeedFAQs(context);
 				SeedServiceSteps(context);
+				SeedLookupOptions(context);
 
             }
 		}
@@ -112,58 +114,6 @@ namespace QassimPrincipality.Web.Helpers
 								}
 						}
 					);
-				context.SaveChanges();
-			}
-		}
-		private static void SeedCountries(AppDbContext context)
-		{
-			if (!context.Set<Country>().Any())
-			{
-				var countries = new List<Country>
-		{
-			new Country
-			{
-				NameAr = "مصر",
-				NameEn = "Egypt",
-				IsActive = true,
-				CreatedBy = "admin",
-				CreatedOn = DateTime.Now
-			},
-			new Country
-			{
-				NameAr = "السعودية",
-				NameEn = "Saudi Arabia",
-				IsActive = true,
-				CreatedBy = "admin",
-				CreatedOn = DateTime.Now
-			},
-			new Country
-			{
-				NameAr = "الهند",
-				NameEn = "India",
-				IsActive = true,
-				CreatedBy = "admin",
-				CreatedOn = DateTime.Now
-			},
-			new Country
-			{
-				NameAr = "الأردن",
-				NameEn = "Jordan",
-				IsActive = true,
-				CreatedBy = "admin",
-				CreatedOn = DateTime.Now
-			},
-			new Country
-			{
-				NameAr = "باكستان",
-				NameEn = "Pakistan",
-				IsActive = true,
-				CreatedBy = "admin",
-				CreatedOn = DateTime.Now
-			}
-		};
-
-				context.Set<Country>().AddRange(countries);
 				context.SaveChanges();
 			}
 		}
@@ -1837,6 +1787,158 @@ namespace QassimPrincipality.Web.Helpers
                 context.SaveChanges();
             }
         }
+
+        private static void SeedLookupOptions(AppDbContext context)
+        {
+            if (!context.Set<LookupOption>().Any(o => o.LookupOptionType == LookupOptionType.Prison))
+            {
+                var now = DateTime.Now;
+                var createdBy = "admin";
+
+                var options = new List<LookupOption>
+				{
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "القصيم", NameEn = "Qassim", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "الرياض", NameEn = "Riyadh", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "حائل", NameEn = "Hail", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "الشرقية", NameEn = "Eastern Province", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "نجران", NameEn = "Najran", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "جازان", NameEn = "Jazan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "عسير", NameEn = "Asir", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "الباحة", NameEn = "Al-Bahah", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "مكة المكرمة", NameEn = "Makkah", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "المدينة المنورة", NameEn = "Madinah", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "تبوك", NameEn = "Tabuk", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "الجوف", NameEn = "Al-Jouf", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+					new LookupOption { LookupOptionType = LookupOptionType.Prison, NameAr = "الحدود الشمالية", NameEn = "Northern Borders", CreatedBy = createdBy, CreatedOn = now, IsActive = true }
+				};
+
+                context.Set<LookupOption>().AddRange(options);
+
+                if (!context.Set<LookupOption>().Any(o => o.LookupOptionType == LookupOptionType.ExitReasons))
+                {
+                    var visitReasons = new List<LookupOption>
+					{
+						new LookupOption { LookupOptionType = LookupOptionType.ExitReasons, NameAr = "حضور دفن أو عزاء", NameEn = "Attend funeral or condolence", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+						new LookupOption { LookupOptionType = LookupOptionType.ExitReasons, NameAr = "حضور زواج", NameEn = "Attend wedding", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+						new LookupOption { LookupOptionType = LookupOptionType.ExitReasons, NameAr = "غير ذلك", NameEn = "Other", CreatedBy = createdBy, CreatedOn = now, IsActive = true }
+					};
+                    context.Set<LookupOption>().AddRange(visitReasons);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        private static void SeedCountries(AppDbContext context)
+        {
+            if (!context.Set<Country>().Any())
+            {
+                var now = DateTime.Now;
+                var createdBy = "admin";
+
+                var countries = new List<Country>
+        {
+            new Country { NameAr = "أفغانستان", NameEn = "Afghanistan", NationalityAr = "أفغاني", NationalityEn = "Afghan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "ألبانيا", NameEn = "Albania", NationalityAr = "ألباني", NationalityEn = "Albanian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الجزائر", NameEn = "Algeria", NationalityAr = "جزائري", NationalityEn = "Algerian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أندورا", NameEn = "Andorra", NationalityAr = "أندوري", NationalityEn = "Andorran", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أنغولا", NameEn = "Angola", NationalityAr = "أنغولي", NationalityEn = "Angolan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الأرجنتين", NameEn = "Argentina", NationalityAr = "أرجنتيني", NationalityEn = "Argentinian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أرمينيا", NameEn = "Armenia", NationalityAr = "أرميني", NationalityEn = "Armenian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أستراليا", NameEn = "Australia", NationalityAr = "أسترالي", NationalityEn = "Australian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "النمسا", NameEn = "Austria", NationalityAr = "نمساوي", NationalityEn = "Austrian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أذربيجان", NameEn = "Azerbaijan", NationalityAr = "أذربيجاني", NationalityEn = "Azerbaijani", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "البحرين", NameEn = "Bahrain", NationalityAr = "بحريني", NationalityEn = "Bahraini", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بنغلاديش", NameEn = "Bangladesh", NationalityAr = "بنغلاديشي", NationalityEn = "Bangladeshi", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بربادوس", NameEn = "Barbados", NationalityAr = "بربادوسي", NationalityEn = "Barbadian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بيلاروسيا", NameEn = "Belarus", NationalityAr = "بيلاروسي", NationalityEn = "Belarusian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بلجيكا", NameEn = "Belgium", NationalityAr = "بلجيكي", NationalityEn = "Belgian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بليز", NameEn = "Belize", NationalityAr = "بليزي", NationalityEn = "Belizean", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بنين", NameEn = "Benin", NationalityAr = "بنيني", NationalityEn = "Beninese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بوتان", NameEn = "Bhutan", NationalityAr = "بوتاني", NationalityEn = "Bhutanese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "البرازيل", NameEn = "Brazil", NationalityAr = "برازيلي", NationalityEn = "Brazilian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بلغاريا", NameEn = "Bulgaria", NationalityAr = "بلغاري", NationalityEn = "Bulgarian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كندا", NameEn = "Canada", NationalityAr = "كندي", NationalityEn = "Canadian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الصين", NameEn = "China", NationalityAr = "صيني", NationalityEn = "Chinese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كولومبيا", NameEn = "Colombia", NationalityAr = "كولومبي", NationalityEn = "Colombian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كوبا", NameEn = "Cuba", NationalityAr = "كوبي", NationalityEn = "Cuban", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "التشيك", NameEn = "Czech Republic", NationalityAr = "تشيكي", NationalityEn = "Czech", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الدنمارك", NameEn = "Denmark", NationalityAr = "دنماركي", NationalityEn = "Danish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "مصر", NameEn = "Egypt", NationalityAr = "مصري", NationalityEn = "Egyptian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إثيوبيا", NameEn = "Ethiopia", NationalityAr = "إثيوبي", NationalityEn = "Ethiopian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "فنلندا", NameEn = "Finland", NationalityAr = "فنلندي", NationalityEn = "Finnish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "فرنسا", NameEn = "France", NationalityAr = "فرنسي", NationalityEn = "French", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "ألمانيا", NameEn = "Germany", NationalityAr = "ألماني", NationalityEn = "German", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "غانا", NameEn = "Ghana", NationalityAr = "غاني", NationalityEn = "Ghanaian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "اليونان", NameEn = "Greece", NationalityAr = "يوناني", NationalityEn = "Greek", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "المجر", NameEn = "Hungary", NationalityAr = "مجري", NationalityEn = "Hungarian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أيسلندا", NameEn = "Iceland", NationalityAr = "أيسلندي", NationalityEn = "Icelandic", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الهند", NameEn = "India", NationalityAr = "هندي", NationalityEn = "Indian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إندونيسيا", NameEn = "Indonesia", NationalityAr = "إندونيسي", NationalityEn = "Indonesian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إيران", NameEn = "Iran", NationalityAr = "إيراني", NationalityEn = "Iranian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "العراق", NameEn = "Iraq", NationalityAr = "عراقي", NationalityEn = "Iraqi", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أيرلندا", NameEn = "Ireland", NationalityAr = "أيرلندي", NationalityEn = "Irish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إسرائيل", NameEn = "Israel", NationalityAr = "إسرائيلي", NationalityEn = "Israeli", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إيطاليا", NameEn = "Italy", NationalityAr = "إيطالي", NationalityEn = "Italian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "اليابان", NameEn = "Japan", NationalityAr = "ياباني", NationalityEn = "Japanese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الأردن", NameEn = "Jordan", NationalityAr = "أردني", NationalityEn = "Jordanian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كازاخستان", NameEn = "Kazakhstan", NationalityAr = "كازاخستاني", NationalityEn = "Kazakhstani", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كينيا", NameEn = "Kenya", NationalityAr = "كيني", NationalityEn = "Kenyan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الكويت", NameEn = "Kuwait", NationalityAr = "كويتي", NationalityEn = "Kuwaiti", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "لبنان", NameEn = "Lebanon", NationalityAr = "لبناني", NationalityEn = "Lebanese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "ليبيا", NameEn = "Libya", NationalityAr = "ليبي", NationalityEn = "Libyan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "ماليزيا", NameEn = "Malaysia", NationalityAr = "ماليزي", NationalityEn = "Malaysian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "المكسيك", NameEn = "Mexico", NationalityAr = "مكسيكي", NationalityEn = "Mexican", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "المغرب", NameEn = "Morocco", NationalityAr = "مغربي", NationalityEn = "Moroccan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "هولندا", NameEn = "Netherlands", NationalityAr = "هولندي", NationalityEn = "Dutch", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "نيوزيلندا", NameEn = "New Zealand", NationalityAr = "نيوزيلندي", NationalityEn = "New Zealander", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "نيجيريا", NameEn = "Nigeria", NationalityAr = "نيجيري", NationalityEn = "Nigerian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "النرويج", NameEn = "Norway", NationalityAr = "نرويجي", NationalityEn = "Norwegian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "عمان", NameEn = "Oman", NationalityAr = "عماني", NationalityEn = "Omani", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "باكستان", NameEn = "Pakistan", NationalityAr = "باكستاني", NationalityEn = "Pakistani", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "فلسطين", NameEn = "Palestine", NationalityAr = "فلسطيني", NationalityEn = "Palestinian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الفلبين", NameEn = "Philippines", NationalityAr = "فلبيني", NationalityEn = "Filipino", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "بولندا", NameEn = "Poland", NationalityAr = "بولندي", NationalityEn = "Polish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "البرتغال", NameEn = "Portugal", NationalityAr = "برتغالي", NationalityEn = "Portuguese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "قطر", NameEn = "Qatar", NationalityAr = "قطري", NationalityEn = "Qatari", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "رومانيا", NameEn = "Romania", NationalityAr = "روماني", NationalityEn = "Romanian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "روسيا", NameEn = "Russia", NationalityAr = "روسي", NationalityEn = "Russian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "المملكة العربية السعودية", NameEn = "Saudi Arabia", NationalityAr = "سعودي", NationalityEn = "Saudi", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "السنغال", NameEn = "Senegal", NationalityAr = "سنغالي", NationalityEn = "Senegalese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "صربيا", NameEn = "Serbia", NationalityAr = "صربي", NationalityEn = "Serbian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سنغافورة", NameEn = "Singapore", NationalityAr = "سنغافوري", NationalityEn = "Singaporean", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سلوفاكيا", NameEn = "Slovakia", NationalityAr = "سلوفاكي", NationalityEn = "Slovak", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سلوفينيا", NameEn = "Slovenia", NationalityAr = "سلوفيني", NationalityEn = "Slovenian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "جنوب إفريقيا", NameEn = "South Africa", NationalityAr = "جنوب إفريقي", NationalityEn = "South African", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "كوريا الجنوبية", NameEn = "South Korea", NationalityAr = "كوري جنوبي", NationalityEn = "South Korean", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "إسبانيا", NameEn = "Spain", NationalityAr = "إسباني", NationalityEn = "Spanish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سريلانكا", NameEn = "Sri Lanka", NationalityAr = "سريلانكي", NationalityEn = "Sri Lankan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "السودان", NameEn = "Sudan", NationalityAr = "سوداني", NationalityEn = "Sudanese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "السويد", NameEn = "Sweden", NationalityAr = "سويدي", NationalityEn = "Swedish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سويسرا", NameEn = "Switzerland", NationalityAr = "سويسري", NationalityEn = "Swiss", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "سوريا", NameEn = "Syria", NationalityAr = "سوري", NationalityEn = "Syrian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "تايوان", NameEn = "Taiwan", NationalityAr = "تايواني", NationalityEn = "Taiwanese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "تايلاند", NameEn = "Thailand", NationalityAr = "تايلندي", NationalityEn = "Thai", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "تونس", NameEn = "Tunisia", NationalityAr = "تونسي", NationalityEn = "Tunisian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "تركيا", NameEn = "Turkey", NationalityAr = "تركي", NationalityEn = "Turkish", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أوكرانيا", NameEn = "Ukraine", NationalityAr = "أوكراني", NationalityEn = "Ukrainian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الإمارات العربية المتحدة", NameEn = "United Arab Emirates", NationalityAr = "إماراتي", NationalityEn = "Emirati", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "المملكة المتحدة", NameEn = "United Kingdom", NationalityAr = "بريطاني", NationalityEn = "British", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "الولايات المتحدة", NameEn = "United States", NationalityAr = "أمريكي", NationalityEn = "American", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أوروغواي", NameEn = "Uruguay", NationalityAr = "أوروغواياني", NationalityEn = "Uruguayan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "أوزبكستان", NameEn = "Uzbekistan", NationalityAr = "أوزبكي", NationalityEn = "Uzbek", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "فنزويلا", NameEn = "Venezuela", NationalityAr = "فنزويلي", NationalityEn = "Venezuelan", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "فيتنام", NameEn = "Vietnam", NationalityAr = "فيتنامي", NationalityEn = "Vietnamese", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "اليمن", NameEn = "Yemen", NationalityAr = "يمني", NationalityEn = "Yemeni", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "زامبيا", NameEn = "Zambia", NationalityAr = "زامبي", NationalityEn = "Zambian", CreatedBy = createdBy, CreatedOn = now, IsActive = true },
+            new Country { NameAr = "زيمبابوي", NameEn = "Zimbabwe", NationalityAr = "زيمبابوي", NationalityEn = "Zimbabwean", CreatedBy = createdBy, CreatedOn = now, IsActive = true }
+        };
+
+                context.Set<Country>().AddRange(countries);
+                context.SaveChanges();
+            }
+        }
+
 
 
 
