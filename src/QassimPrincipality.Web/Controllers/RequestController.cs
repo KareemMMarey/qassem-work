@@ -186,6 +186,15 @@ namespace QassimPrincipality.Web.Controllers
                 return PartialView("_AttachmentsPartial", serviceWithSteps.AttachmentTypes);
             }
 
+            if (step.NameEn.Equals("Request Subject Info", StringComparison.OrdinalIgnoreCase))
+            {
+                ViewBag.Nationalities = await _lookups.GetCountries();
+                ViewBag.Prisons = await _lookups.GetPrisons();
+                ViewBag.Reasons = await _lookups.GetReasons();
+                ViewBag.ServiceCategoryId = serviceWithSteps.CategoryId;
+            }
+
+
             // Load regular step partial
             return PartialView($"_{step.NameEn.Replace(" ", "")}Partial", step);
         }
