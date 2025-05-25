@@ -10,13 +10,13 @@
                     <span class="required">*</span> @localizer["ServiceRequesterRelation"]
                 </div>
 
-                <button id="custom-dropdown-button" class="select-button" role="combobox" aria-label="select button"
-                        aria-haspopup="listbox" aria-expanded="false" aria-controls="custom-select-dropdown">
-                    <span class="custom-selected-value">@localizer["SelectOption"]</span>
+                <button id="customrequesterRelation-button" class="select-button" role="combobox" aria-label="select button"
+                        aria-haspopup="listbox" aria-expanded="false" aria-controls="customrequesterRelation-dropdown">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
 
-                <ul class="select-dropdown hidden" role="listbox" id="custom-select-dropdown" aria-labelledby="custom-dropdown-button">
+                <ul class="select-dropdown hidden" role="listbox" id="customrequesterRelation-dropdown" aria-labelledby="customrequesterRelation-button">
                     <li role="option" data-value="1">@localizer["MySelf"]</li>
                     <li role="option" data-value="2">@localizer["Delegated"]</li>
                     <li role="option" data-value="3">@localizer["Lawyer"]</li>
@@ -34,20 +34,20 @@
                     <span class="required">*</span> @localizer["TypeOfSummons"]
                 </div>
 
-                <button id="custom-dropdown-button-summons" class="select-button" role="combobox" aria-label="select button"
-                        aria-haspopup="listbox" aria-expanded="false" aria-controls="custom-select-dropdown-summons">
-                    <span class="custom-selected-value-summons">@localizer["SelectSummonsType"]</span>
+                <button id="customTypeOfSummons-button" class="select-button" role="combobox" aria-label="select button"
+                        aria-haspopup="listbox" aria-expanded="false" aria-controls="customTypeOfSummons-dropdown">
+                    <span class="selected-value">@localizer["SelectSummonsType"]</span>
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
 
-                <ul class="select-dropdown hidden" role="listbox" id="custom-select-dropdown-summons" aria-labelledby="custom-dropdown-button-summons">
+                <ul class="select-dropdown hidden" role="listbox" id="customTypeOfSummons-dropdown" aria-labelledby="customTypeOfSummons-button">
                     <li role="option" data-value="1">@localizer["JudicialSummons"]</li>
                     <li role="option" data-value="2">@localizer["AdministrativeSummons"]</li>
                     <li role="option" data-value="3">@localizer["PersonalSummons"]</li>
                     <li role="option" data-value="4">@localizer["CriminalSummons"]</li>
                 </ul>
 
-                <input type="hidden" id="customTypeOfSummons-summons" name="customTypeOfSummons-summons">
+                <input type="hidden" id="customTypeOfSummons" name="customTypeOfSummons">
                 <div class="error"></div>
             </div>
         }
@@ -136,5 +136,22 @@
 </form>
 
 
-<script src="/js/integration-manager.js"> </script>
+
+    <script>
+        
+
+       
+    Object.assign(inputLabelMap, {
+        "nationality": '@localizer["Nationality"]',
+        "prison": '@localizer["Prison"]',
+        "reason": '@localizer["Reason"]'
+    });
+
+    </script>
+
+    <script src="/js/integration-manager.js"> </script>
+
+
+
+
 

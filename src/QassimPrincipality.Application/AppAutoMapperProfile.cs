@@ -258,7 +258,7 @@ namespace QassimPrincipality.Application
             CreateMap<RequestBasicData, RequestBasicDataDto>().ReverseMap();
             CreateMap<RequestAction, RequestActionDto>().ReverseMap();
             CreateMap<RequestAdditionalData, RequestAdditionalDataDto>().ReverseMap();
-            CreateMap<RequestAttachmentDto, RequestAttachment>();
+            CreateMap<RequestAttachmentDto, RequestAttachment>().ReverseMap();
             CreateMap<LookupOption, LookupOptionDto>();
             CreateMap<Country, CountryDto>();
         }

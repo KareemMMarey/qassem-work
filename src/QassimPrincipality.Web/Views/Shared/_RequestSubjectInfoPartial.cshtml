@@ -12,39 +12,39 @@
 <form id="PR-TR-step2-form" class="pc-form" data-service-category-id="@serviceCategoryId">
     <div class="pc-form-grid-2col">
         <div class="pc-input">
-            <label for="name" class="pc-input-label"><span class="required">*</span> @localizer["FullName"]</label>
-            <input type="text" id="name" name="name" placeholder="@localizer["EnterFullName"]">
+            <label for="fullName" class="pc-input-label"><span class="required">*</span> @localizer["FullName"]</label>
+            <input type="text" id="fullName" name="fullName" placeholder="@localizer["EnterFullName"]">
             <div class="error"></div>
         </div>
 
         @if (nationalities.Any())
         {
-            <div class="custom-select" id="nationality-block">
+            <div class="custom-select" id="countryId-block">
                 <div class="pc-input-label"><span class="required">*</span> @localizer["Nationality"]</div>
-                <button id="nationality-button" class="select-button" role="combobox">
+                <button id="countryId-button" class="select-button" role="combobox">
                     <span class="selected-value">@localizer["SelectOption"]</span>
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
-                <ul class="select-dropdown hidden" id="nationality-dropdown">
+                <ul class="select-dropdown hidden" id="countryId-dropdown">
                     @foreach (var country in nationalities)
                     {
                         <li role="option" data-value="@country.Id">@(currentCulture == "ar-SA" ? country.NameAr : country.NameEn)</li>
                     }
                 </ul>
-                <input type="hidden" id="nationality" name="nationality" />
+                <input type="hidden" id="countryId" name="countryId" />
                 <div class="error"></div>
             </div>
         }
 
         <div class="pc-input">
-            <label for="idNumber" class="pc-input-label"><span class="required">*</span> @localizer["IDNumber"]</label>
-            <input type="text" id="idNumber" name="idNumber" placeholder="@localizer["EnterIDNumber"]">
+            <label for="nationalId" class="pc-input-label"><span class="required">*</span> @localizer["IDNumber"]</label>
+            <input type="text" id="nationalId" name="nationalId" placeholder="@localizer["EnterIDNumber"]">
             <div class="error"></div>
         </div>
 
         <div class="pc-input">
-            <label for="birthdate" class="pc-input-label"><span class="required">*</span> @localizer["BirthDate"]</label>
-            <input type="date" id="birthdate" name="birthdate">
+            <label for="dateOfBirth" class="pc-input-label"><span class="required">*</span> @localizer["BirthDate"]</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth">
             <div class="error"></div>
         </div>
 
@@ -74,55 +74,70 @@
 
         @if (prisons.Any())
         {
-            <div class="custom-select" id="prison-block">
+            <div class="custom-select" id="prisonFromId-block">
                 <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
-                <button id="prison-button" class="select-button" role="combobox">
+                <button id="prisonFromId-button" class="select-button" role="combobox">
                     <span class="selected-value">@localizer["SelectOption"]</span>
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
-                <ul class="select-dropdown hidden" id="prison-dropdown">
+                <ul class="select-dropdown hidden" id="prisonFromId-dropdown">
                     @foreach (var p in prisons)
                     {
                         <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
                     }
                 </ul>
-                <input type="hidden" id="prison" name="prison" />
+                <input type="hidden" id="prisonFromId" name="prisonFromId" />
+                <div class="error"></div>
+            </div>
+        }
+        @if (prisons.Any())
+        {
+            <div class="custom-select" id="prisonToId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
+                <button id="prisonToId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="prisonToId-dropdown">
+                    @foreach (var p in prisons)
+                    {
+                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="prisonToId" name="prisonToId" />
                 <div class="error"></div>
             </div>
         }
 
         @if (reasons.Any())
         {
-            <div class="custom-select" id="reason-block">
+            <div class="custom-select" id="otherDDLId-block">
                 <div class="pc-input-label"><span class="required">*</span> @localizer["Reason"]</div>
-                <button id="reason-button" class="select-button" role="combobox">
+                <button id="otherDDLId-button" class="select-button" role="combobox">
                     <span class="selected-value">@localizer["SelectOption"]</span>
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
-                <ul class="select-dropdown hidden" id="reason-dropdown">
+                <ul class="select-dropdown hidden" id="otherDDLId-dropdown">
                     @foreach (var r in reasons)
                     {
                         <li role="option" data-value="@r.Id">@(currentCulture == "ar-SA" ? r.NameAr : r.NameEn)</li>
                     }
                 </ul>
-                <input type="hidden" id="reason" name="reason" />
+                <input type="hidden" id="otherDDLId" name="otherDDLId" />
                 <div class="error"></div>
             </div>
         }
 
         <div class="pc-input pc-full-width-input">
-            <label for="details" class="pc-input-label"><span class="required">*</span> @localizer["RequestDetails"]</label>
-            <textarea name="details" id="details" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
+            <label for="requestDetails" class="pc-input-label"><span class="required">*</span> @localizer["RequestDetails"]</label>
+            <textarea name="requestDetails" id="requestDetails" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
             <div class="error"></div>
         </div>
     </div>
 
-    // <div class="pc-form-buttons">
-    //     <a asp-controller="PRTR" asp-action="StepOne" class="pc-outline-btn">@localizer["Back"]</a>
-    //     <button type="submit" class="pc-primary-btn">@localizer["Next"]</button>
-    // </div>
-</form>
 
+</form>
+<script src="/js/request-subject-info.js"> </script>
 
 @* <script>
     $(document).ready(function () {

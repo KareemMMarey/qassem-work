@@ -183,7 +183,7 @@
   <data name="FullNameRequired" xml:space="preserve">
     <value>الاسم الكامل مطلوب.</value>
   </data>
-  <data name="IDNumber+A5:A21" xml:space="preserve">
+  <data name="IDNumber" xml:space="preserve">
     <value>رقم الهوية</value>
   </data>
   <data name="IdNumberInvalid" xml:space="preserve">
