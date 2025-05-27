@@ -90,10 +90,14 @@ public class RequestBasicDataDto
 
         [JsonPropertyName("requestDetails")]
         public string RequestDetails { get; set; }
+
+        [JsonPropertyName("serviceRequesterRelation")]
+        public ServiceRequesterRelation ServiceRequesterRelation { get; set; }
     }
 
     public class RequestAdditionalDataDto
     {
+       
         public string NationalId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }

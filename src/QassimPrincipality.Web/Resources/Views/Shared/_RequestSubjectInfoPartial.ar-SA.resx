@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Back" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="BirthDate" xml:space="preserve">
+    <value>تاريخ الميلاد</value>
+  </data>
   <data name="BirthDateLabel" xml:space="preserve">
     <value>تاريخ الميلاد</value>
   </data>
   <data name="BirthDateRequired" xml:space="preserve">
     <value>تاريخ الميلاد مطلوب.</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
   </data>
   <data name="CityLabel" xml:space="preserve">
     <value>المدينة</value>
@@ -129,11 +138,20 @@
   <data name="CityRequired" xml:space="preserve">
     <value>المدينة مطلوبة.</value>
   </data>
+  <data name="DetailsMessagePlease" xml:space="preserve">
+    <value>يرجى كتابة تفاصيل الطلب...</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>المنطقة</value>
+  </data>
   <data name="DistrictLabel" xml:space="preserve">
     <value>الحي</value>
   </data>
   <data name="DistrictRequired" xml:space="preserve">
     <value>الحي مطلوب.</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
   </data>
   <data name="EmailInvalid" xml:space="preserve">
     <value>يرجى إدخال بريد إلكتروني صحيح.</value>
@@ -144,11 +162,29 @@
   <data name="EmailRequired" xml:space="preserve">
     <value>البريد الإلكتروني مطلوب.</value>
   </data>
+  <data name="EnterCity" xml:space="preserve">
+    <value>أدخل المدينة</value>
+  </data>
+  <data name="EnterDistrict" xml:space="preserve">
+    <value>أدخل المنطقة</value>
+  </data>
+  <data name="EnterFullName" xml:space="preserve">
+    <value>أدخل الاسم الكامل</value>
+  </data>
+  <data name="EnterIDNumber" xml:space="preserve">
+    <value>أدخل رقم الهوية</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم الكامل</value>
+  </data>
   <data name="FullNameLabel" xml:space="preserve">
     <value>الاسم الكامل</value>
   </data>
   <data name="FullNameRequired" xml:space="preserve">
     <value>الاسم الكامل مطلوب.</value>
+  </data>
+  <data name="IDNumber" xml:space="preserve">
+    <value>رقم الهوية</value>
   </data>
   <data name="IdNumberInvalid" xml:space="preserve">
     <value>يجب أن يكون رقم الهوية 10 أرقام.</value>
@@ -159,11 +195,20 @@
   <data name="IdNumberRequired" xml:space="preserve">
     <value>رقم الهوية مطلوب.</value>
   </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>الجنسية</value>
+  </data>
   <data name="NationalityLabel" xml:space="preserve">
     <value>الجنسية</value>
   </data>
   <data name="NationalityRequired" xml:space="preserve">
     <value>الجنسية مطلوبة.</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>رقم الهاتف</value>
   </data>
   <data name="PhoneInvalid" xml:space="preserve">
     <value>يجب أن يبدأ رقم الجوال بـ 05 ويتكون من 10 أرقام.</value>
@@ -174,6 +219,15 @@
   <data name="PhoneRequired" xml:space="preserve">
     <value>رقم الجوال مطلوب.</value>
   </data>
+  <data name="Prison" xml:space="preserve">
+    <value>السجن</value>
+  </data>
+  <data name="Reason" xml:space="preserve">
+    <value>السبب</value>
+  </data>
+  <data name="RequestDetails" xml:space="preserve">
+    <value>تفاصيل الطلب</value>
+  </data>
   <data name="RequestDetailsLabel" xml:space="preserve">
     <value>تفاصيل الطلب</value>
   </data>
@@ -182,5 +236,8 @@
   </data>
   <data name="RequestDetailsRequired" xml:space="preserve">
     <value>تفاصيل الطلب مطلوبة.</value>
+  </data>
+  <data name="SelectOption" xml:space="preserve">
+    <value>اختر...</value>
   </data>
 </root>

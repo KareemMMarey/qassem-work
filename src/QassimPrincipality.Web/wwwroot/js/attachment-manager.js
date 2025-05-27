@@ -9,7 +9,7 @@ $(".attachment-input").on("change", function () {
     const formData = new FormData();
 
     const userId = "admin"; //"@ViewBag.UserId";
-    const requestId = "a4cbe8f4-2b3e-4801-9703-93a6a3866e8f";//"@ViewBag.RequestId";
+    const requestId = $("#requestId").val()//"a4cbe8f4-2b3e-4801-9703-93a6a3866e8f";//"@ViewBag.RequestId";
 
     // Add user and request IDs
     formData.append("userId", userId);

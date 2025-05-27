@@ -127,6 +127,7 @@ $(document).ready(function () {
 
     // Save Data for the Current Step
     function saveCurrentStepData(stepNumber) {
+        let stepData = {};
         const customHiddenInput = $("#customrequesterRelation");
         if (customHiddenInput.length) {
             const relationValue = customHiddenInput.val();
@@ -134,11 +135,12 @@ $(document).ready(function () {
                 showError(messages.pleaseSelectRelation );
                 return false;
             }
+            stepData['serviceRequesterRelation'] = relationValue;
             console.log("Submitting Requester Relation:", relationValue);
         }
 
         const stepContent = $("#step-content").find("input, textarea, select");
-        let stepData = {};
+        
         if (currentStep !== totalSteps - 1) {
             stepContent.each(function () {
                 const id = $(this).attr("id");
@@ -305,10 +307,30 @@ $(document).ready(function () {
             if (stepKey === "Step1") {
                 Object.entries(stepValues).forEach(([key, value]) => {
                     const label = inputLabelMap[key] || formatKey(key);
+
+                    let displayValue = value;
+                    if (key === 'serviceRequesterRelation' && value == '1') {
+                        // Use the localized message value instead of the raw value
+                        displayValue = messages.mySelf;
+                    }
+                    else if (key === 'serviceRequesterRelation' && value == '2') {
+                        // Use the localized message value instead of the raw value
+                        displayValue = messages.delegated;
+                    }
+                    else if (key === 'serviceRequesterRelation' && value == '3') {
+                        // Use the localized message value instead of the raw value
+                        displayValue = messages.lawyer;
+                    }
+                    else if (key === 'serviceRequesterRelation' && value == '4') {
+                        // Use the localized message value instead of the raw value
+                        displayValue = messages.fristClassRelative;
+                    }
+                    else { displayValue = value }
+
                     reviewContainer.append(`
                     <li>
                         <span class="review-label">${label}:</span>
-                        <span class="review-value">${value}</span>
+                        <span class="review-value">${displayValue}</span>
                     </li>
                 `);
                 });

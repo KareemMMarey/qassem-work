@@ -1,73 +1,152 @@
-﻿@inject IViewLocalizer localizer
+﻿@using QassimPrincipality.Application.Dtos
+@inject IViewLocalizer localizer
 
-<form id="request-subject-form">
-    <div class="card p-4">
-        <h5>@localizer["RequestDetailsLabel"]</h5>
+@{
+    var serviceCategoryId = ViewBag.ServiceCategoryId as int? ?? 0;
+    var nationalities = ViewBag.Nationalities as List<CountryDto> ?? new();
+    var prisons = ViewBag.Prisons as List<LookupOptionDto> ?? new();
+    var reasons = ViewBag.Reasons as List<LookupOptionDto> ?? new();
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
 
-        <div class="form-group">
-            <label>@localizer["FullNameLabel"]</label>
-            <input type="text" id="subjectFullName" name="subjectFullName" class="form-control" required />
-            <div class="text-danger" id="subjectFullName-error"></div>
+<form id="PR-TR-step2-form" class="pc-form" data-service-category-id="@serviceCategoryId">
+    <div class="pc-form-grid-2col">
+        <div class="pc-input">
+            <label for="fullName" class="pc-input-label"><span class="required">*</span> @localizer["FullName"]</label>
+            <input type="text" id="fullName" name="fullName" placeholder="@localizer["EnterFullName"]">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["NationalityLabel"]</label>
-            <input type="text" id="subjectNationality" name="subjectNationality" class="form-control" required />
-            <div class="text-danger" id="subjectNationality-error"></div>
+        @if (nationalities.Any())
+        {
+            <div class="custom-select" id="countryId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["Nationality"]</div>
+                <button id="countryId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="countryId-dropdown">
+                    @foreach (var country in nationalities)
+                    {
+                        <li role="option" data-value="@country.Id">@(currentCulture == "ar-SA" ? country.NameAr : country.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="countryId" name="countryId" />
+                <div class="error"></div>
+            </div>
+        }
+
+        <div class="pc-input">
+            <label for="nationalId" class="pc-input-label"><span class="required">*</span> @localizer["IDNumber"]</label>
+            <input type="text" id="nationalId" name="nationalId" placeholder="@localizer["EnterIDNumber"]">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["BirthDateLabel"]</label>
-            <input type="date" id="subjectBirthDate" name="subjectBirthDate" class="form-control" required />
-            <div class="text-danger" id="subjectBirthDate-error"></div>
+        <div class="pc-input">
+            <label for="dateOfBirth" class="pc-input-label"><span class="required">*</span> @localizer["BirthDate"]</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["IdNumberLabel"]</label>
-            <input type="text" id="subjectIdNumber" name="subjectIdNumber" class="form-control" required />
-            <div class="text-danger" id="subjectIdNumber-error"></div>
+        <div class="pc-input">
+            <label for="phone" class="pc-input-label"><span class="required">*</span> @localizer["Phone"]</label>
+            <input type="text" id="phone" name="phone" placeholder="05xxxxxxxx">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["EmailLabel"]</label>
-            <input type="email" id="subjectEmail" name="subjectEmail" class="form-control" required />
-            <div class="text-danger" id="subjectEmail-error"></div>
+        <div class="pc-input">
+            <label for="email" class="pc-input-label">@localizer["Email"]</label>
+            <input type="email" id="email" name="email" placeholder="example@mail.com">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["PhoneLabel"]</label>
-            <input type="text" id="subjectPhone" name="subjectPhone" class="form-control" required />
-            <div class="text-danger" id="subjectPhone-error"></div>
+        <div class="pc-input">
+            <label for="city" class="pc-input-label"><span class="required">*</span> @localizer["City"]</label>
+            <input type="text" id="city" name="city" placeholder="@localizer["EnterCity"]">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["CityLabel"]</label>
-            <input type="text" id="subjectCity" name="subjectCity" class="form-control" required />
-            <div class="text-danger" id="subjectCity-error"></div>
+        <div class="pc-input">
+            <label for="district" class="pc-input-label"><span class="required">*</span> @localizer["District"]</label>
+            <input type="text" id="district" name="district" placeholder="@localizer["EnterDistrict"]">
+            <div class="error"></div>
         </div>
 
-        <div class="form-group">
-            <label>@localizer["DistrictLabel"]</label>
-            <input type="text" id="subjectDistrict" name="subjectDistrict" class="form-control" required />
-            <div class="text-danger" id="subjectDistrict-error"></div>
-        </div>
+        @if (prisons.Any())
+        {
+            <div class="custom-select" id="prisonFromId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
+                <button id="prisonFromId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="prisonFromId-dropdown">
+                    @foreach (var p in prisons)
+                    {
+                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="prisonFromId" name="prisonFromId" />
+                <div class="error"></div>
+            </div>
+        }
+        @if (prisons.Any())
+        {
+            <div class="custom-select" id="prisonToId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
+                <button id="prisonToId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="prisonToId-dropdown">
+                    @foreach (var p in prisons)
+                    {
+                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="prisonToId" name="prisonToId" />
+                <div class="error"></div>
+            </div>
+        }
 
-        <div class="form-group">
-            <label>@localizer["RequestDetailsLabel"]</label>
-            <textarea id="subjectDetails" name="subjectDetails" class="form-control" rows="4" required></textarea>
-            <div class="text-danger" id="subjectDetails-error"></div>
+        @if (reasons.Any())
+        {
+            <div class="custom-select" id="otherDDLId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["Reason"]</div>
+                <button id="otherDDLId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="otherDDLId-dropdown">
+                    @foreach (var r in reasons)
+                    {
+                        <li role="option" data-value="@r.Id">@(currentCulture == "ar-SA" ? r.NameAr : r.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="otherDDLId" name="otherDDLId" />
+                <div class="error"></div>
+            </div>
+        }
+
+        <div class="pc-input pc-full-width-input">
+            <label for="requestDetails" class="pc-input-label"><span class="required">*</span> @localizer["RequestDetails"]</label>
+            <textarea name="requestDetails" id="requestDetails" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
+            <div class="error"></div>
         </div>
     </div>
-</form>
 
-<script>
+
+</form>
+<script src="/js/request-subject-info.js"> </script>
+
+@* <script>
     $(document).ready(function () {
-        // Custom validation for Saudi phone numbers
+        
         $.validator.addMethod("saudiphone", function (value, element) {
             return this.optional(element) || /^05[0-9]{8}$/.test(value);
         }, "@localizer["PhoneInvalid"]");
 
-        // Initialize form validation
+        
         $("#request-subject-form").validate({
             errorClass: "text-danger",
             errorElement: "div",
@@ -107,4 +186,4 @@
             }
         });
     });
-</script>
+</script> *@

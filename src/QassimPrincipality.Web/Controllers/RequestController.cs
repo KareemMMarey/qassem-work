@@ -170,7 +170,8 @@ namespace QassimPrincipality.Web.Controllers
         {
             // Load the full EService with steps and attachments
             var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
-
+            ViewBag.HasApplicantStatus = serviceWithSteps.HasApplicantStatus;
+            ViewBag.HasTypeOfSummons = serviceWithSteps.HasTypeOfSummons;
             if (serviceWithSteps == null)
                 return NotFound("Service not found");
 
@@ -185,6 +186,15 @@ namespace QassimPrincipality.Web.Controllers
                 // Pass the full EService model to the attachments partial
                 return PartialView("_AttachmentsPartial", serviceWithSteps.AttachmentTypes);
             }
+
+            if (step.NameEn.Equals("Request Subject Info", StringComparison.OrdinalIgnoreCase))
+            {
+                ViewBag.Nationalities = await _lookups.GetCountries();
+                ViewBag.Prisons = await _lookups.GetPrisons();
+                ViewBag.Reasons = await _lookups.GetReasons();
+                ViewBag.ServiceCategoryId = serviceWithSteps.CategoryId;
+            }
+
 
             // Load regular step partial
             return PartialView($"_{step.NameEn.Replace(" ", "")}Partial", step);
@@ -203,6 +213,7 @@ namespace QassimPrincipality.Web.Controllers
                     Id = Guid.NewGuid(),
                     ServiceId = serviceId,
                     UserId = user.Id.ToString(),
+                    ServiceRequesterRelation = basicDataDto.ServiceRequesterRelation
                     });
                     await _serviceRequestAppService.SaveBasicDataAsync(initiateRequest.Id,basicDataDto, userId);
                     requestId = initiateRequest.Id;
@@ -302,7 +313,7 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                if(requestId == Guid.Empty) requestId= Guid.Parse("b5f4de64-aaaa-4f5d-995d-ddb81c5475ec");
+                if(requestId == Guid.Empty) requestId= Guid.Parse("ceadbb51-1c0b-46d3-b27a-bf2d05788c09");
                 var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
                 if (request == null)
                     return BadRequest("Request not found");

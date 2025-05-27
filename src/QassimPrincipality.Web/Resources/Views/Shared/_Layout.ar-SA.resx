@@ -204,6 +204,9 @@
   <data name="PrivacyPolicy" xml:space="preserve">
     <value>سياسة الخصوصية</value>
   </data>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>هذا الحقل مطلوب</value>
+  </data>
   <data name="ServiceLevelAgreement" xml:space="preserve">
     <value>اتفاقية مستوى الخدمة</value>
   </data>
