@@ -161,7 +161,8 @@
 						var value = statItem.Value;
 						var imageUrl = statItem.IconClass;
 						<div class="pc-statistics-card">
-							<img src="@Url.Content($"~/{imageUrl}")"  width="64" height="64" />
+							@* <img src="@Url.Content($"~/{imageUrl}")"  width="64" height="64" /> *@
+							<img src="/icons/user-group.svg" width="64" height="64" />
 							<h5>@title</h5>
 							<img src="~/icons/arrowDownFilled.svg" />
 							<p>@value</p>
