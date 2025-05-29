@@ -29,12 +29,19 @@
                 </div>
                 <div class="pc-service-page-title">
                     <h3> @(currentCulture == "ar-SA" ? serviceItem.NameAr : serviceItem.NameEn)</h3>
-                    @{
 
+                    @if (!serviceItem.NameEn.Contains("Inquiry about a Transaction"))
+                    {
                         <a asp-controller="Request" asp-action="Index" asp-route-serviceId="@serviceItem.Id" class="pc-primary-btn">@localizer["StartServices"] </a>
-                        
-                        
                     }
+                    else
+                    {
+                        <a asp-controller="Request" asp-action="InqueryRequest" asp-route-serviceId="@serviceItem.Id" class="pc-primary-btn">@localizer["StartServices"] </a>
+                    }
+                       
+                        
+                        
+                    
                 </div>
                 <p class="pc-grey-tag"> @(currentCulture == "ar-SA" ? serviceItem.CategoryNameAr : serviceItem.CategoryNameEn) </p>
                 <p>@(currentCulture == "ar-SA" ? serviceItem.DescriptionAr : serviceItem.DescriptionEn) </p>

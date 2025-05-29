@@ -1,0 +1,247 @@
+﻿@using Microsoft.AspNetCore.Localization
+@using QassimPrincipality.Web.ViewModels.Inquery
+@inject IViewLocalizer localizer
+@model InqueryVM
+
+@{
+    ViewData["Title"] = localizer["InquiryTitle"];
+
+    var resultData = ViewBag.Result as dynamic;
+    var hasResults = resultData != null && resultData.Records != null && resultData.Records.Count > 0;
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+
+}
+<div class="pc-service-steps-page">
+
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li>
+                <a asp-controller="Home" asp-action="Index"> @localizer["HomePage"] </a>
+            </li>
+            <li>></li>
+            <li>
+                <a asp-controller="Services" asp-action="Index">  @localizer["Services"] </a>
+            </li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">@(currentCulture == "ar-SA" ? Model.NameAr : Model.NameEn)</li>
+        </ul>
+    </div>
+    <div class="pc-service-steps-container">
+        <div class="pc-service-form pc-basic-container">
+            <form asp-action="InqueryRequest" class="form" enctype="multipart/form-data" id="transactionQueryForm" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="pc-input">
+                        <label asp-for="RecordNo" class="pc-input-label">@localizer["RecordNumber"]</label>
+                        <input asp-for="RecordNo" placeholder="353327" />
+                        <span asp-validation-for="RecordNo" class="error"></span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label asp-for="NationalNo" class="pc-input-label"><span class="required">*</span> @localizer["NationalID"]</label>
+                        <input asp-for="NationalNo" placeholder="1109882374" />
+                        <span asp-validation-for="NationalNo" class="error"></span>
+                    </div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    <button type="reset" class="pc-outline-btn">@localizer["ResetForm"]</button>
+                    <button type="submit" class="pc-primary-btn">@localizer["Search"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (ViewBag.Result != null)
+    {
+        <div class="transaction-query-result">
+            
+
+            <table class="pc-table transaction-query-result-table1a">
+                <thead>
+                    <tr>
+                        <th>@localizer["IncomingRecordNumber"]</th>
+                        <th>@localizer["TransactionDate"]</th>
+                        <th>@localizer["TransactionSubject"]</th>
+                        <th>@localizer["AssignedDepartment"]</th>
+                        <th>@localizer["TransactionOwner"]</th>
+                        <th>@localizer["TransactionStatus"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var rec in resultData.Records)
+                    {
+                        var rDate = rec.RecordDate != null ? DateTime.Parse(rec.RecordDate.ToString()).ToString("yyyy-MM-dd HH:mm:ss") : "";
+                        var rStatus = rec.Status?.ToString()?.ToLower() ?? "";
+                        <tr>
+                            <td>@rec.RecordNo</td>
+                            <td>@rDate</td>
+                            <td>@(rec.Subject != null ? localizer[rec.Subject.ToString()] : "")</td>
+                            <td>@(rec.Department != null ? localizer[rec.Department.ToString()] : "")</td>
+                            <td>@rec.OwnerName</td>
+                            <td class="pc-request-status">
+                                @if (rStatus == "issued")
+                                {
+                                    <p class="pc-green-status">@localizer["Issued"]</p>
+                                }
+                                else if (rStatus == "under review")
+                                {
+                                    <p class="pc-grey-status">@localizer["UnderReview"]</p>
+                                }
+                                else if (rStatus == "saved")
+                                {
+                                    <p class="pc-orange-status">@localizer["Saved"]</p>
+                                }
+                                else
+                                {
+                                    <p class="pc-grey-status">@rStatus</p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @if (hasResults)
+            {
+                var record = resultData.Records[0];
+                var recordDate = record.RecordDate != null ? DateTime.Parse(record.RecordDate.ToString()).ToString("yyyy-MM-dd HH:mm:ss") : "";
+                var status = record.Status?.ToString()?.ToLower() ?? "";
+
+                <table class="pc-table transaction-query-result-table2a">
+                    <tbody>
+                        <tr>
+                            <th>@localizer["IncomingRecordNumber"]</th>
+                            <td>@record.RecordNo</td>
+                        </tr>
+                        <tr>
+                            <th>@localizer["TransactionDate"]</th>
+                            <td>@recordDate</td>
+                        </tr>
+                        <tr>
+                            <th>@localizer["TransactionSubject"]</th>
+                            <td>@(record.Subject != null ? localizer[record.Subject.ToString()] : "")</td>
+                        </tr>
+                        <tr>
+                            <th>@localizer["AssignedDepartment"]</th>
+                            <td>@(record.Department != null ? localizer[record.Department.ToString()] : "")</td>
+                        </tr>
+                        <tr>
+                            <th>@localizer["TransactionOwner"]</th>
+                            <td>@record.OwnerName</td>
+                        </tr>
+                        <tr>
+                            <th>@localizer["TransactionStatus"]</th>
+                            <td class="pc-request-status">
+                                @if (status == "issued")
+                                {
+                                    <p class="pc-green-status">@localizer["Issued"]</p>
+                                }
+                                else if (status == "under review")
+                                {
+                                    <p class="pc-grey-status">@localizer["UnderReview"]</p>
+                                }
+                                else if (status == "saved")
+                                {
+                                    <p class="pc-orange-status">@localizer["Saved"]</p>
+                                }
+                                else
+                                {
+                                    <p class="pc-grey-status">@status</p>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                @if (status == "issued" && resultData.IssuedRecords != null && resultData.IssuedRecords.Count > 0)
+                {
+                    var issuedRecord = resultData.IssuedRecords[0];
+                    var issuedDate = issuedRecord.IssuedDate != null ? DateTime.Parse(issuedRecord.IssuedDate.ToString()).ToString("yyyy-MM-dd HH:mm:ss") : "";
+
+                    <table class="pc-table transaction-query-result-table1b">
+                        <thead>
+                            <tr>
+                                <th>@localizer["OutgoingNumber"]</th>
+                                <th>@localizer["OutgoingDate"]</th>
+                                <th>@localizer["OutgoingDestination"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var iRec in resultData.IssuedRecords)
+                            {
+                                var iDate = iRec.IssuedDate != null ? DateTime.Parse(iRec.IssuedDate.ToString()).ToString("yyyy-MM-dd HH:mm:ss") : "";
+                                <tr>
+                                    <td>@iRec.IssuedNo</td>
+                                    <td>@iDate</td>
+                                    <td>@(iRec.Destination != null ? localizer[iRec.Destination.ToString()] : "")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <table class="pc-table transaction-query-result-table2b">
+                        <tbody>
+                            <tr>
+                                <th>@localizer["OutgoingNumber"]</th>
+                                <td>@issuedRecord.IssuedNo</td>
+                            </tr>
+                            <tr>
+                                <th>@localizer["OutgoingDate"]</th>
+                                <td>@issuedDate</td>
+                            </tr>
+                            <tr>
+                                <th>@localizer["OutgoingDestination"]</th>
+                                <td>@(issuedRecord.Destination != null ? localizer[issuedRecord.Destination.ToString()] : "")</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+            }
+            
+
+            <div class="pc-form-buttons">
+                <button class="pc-primary-btn" id="printButton">
+                    <img src="~/icons/print.svg" alt="print" width="21.5" height="21.5" />
+                    @localizer["Print"]
+                </button>
+            </div>
+            }
+            else
+            {
+            <div class="pc-empty-state">
+                <div class="pc-empty-state-message">
+                    <h2>@localizer["NoResults"]</h2>
+                    <p>@localizer["NoMatchingRequests"]</p>
+                    <button class="pc-outline-btn" id="clear-search-field-btn">@localizer["ClearSearchField"]</button>
+                </div>
+            </div>
+            }
+        </div>
+    }
+
+    <div class="pc-back-btn-container">
+        <a asp-controller="Services" asp-action="Index" class="pc-outline-btn">@localizer["Back"]</a>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const printButton = document.getElementById('printButton');
+            if (printButton) {
+                printButton.addEventListener('click', function () {
+                    window.print();
+                });
+            }
+
+            const clearSearchBtn = document.getElementById('clear-search-field-btn');
+            if (clearSearchBtn) {
+                clearSearchBtn.addEventListener('click', function () {
+                    document.getElementById('RecordNo').value = '';
+                    document.getElementById('NationalNo').value = '';
+                });
+            }
+        });
+    </script>
+}

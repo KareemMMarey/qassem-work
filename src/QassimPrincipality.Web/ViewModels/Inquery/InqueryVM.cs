@@ -13,6 +13,9 @@ namespace QassimPrincipality.Web.ViewModels.Inquery
         [Required(ErrorMessage = "هذا الحقل مطلوب")]
         public string RecordNo { get; set; } = null!;
 
+
+        public string NameAr { get; set; } = "";
+        public string NameEn { get; set; } = "";
         //[MaxLength(50, ErrorMessage = "يجب ادخال 50 حرف كحد اقصى")]
         //[Required]
         //public string UserFullName { get; set; }

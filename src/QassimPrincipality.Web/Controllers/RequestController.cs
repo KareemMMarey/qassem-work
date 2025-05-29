@@ -19,6 +19,12 @@ using Microsoft.EntityFrameworkCore;
 using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Application.Dtos;
 using QassimPrincipality.Web.ViewModels.Request;
+using Framework.Core.Extensions;
+using Newtonsoft.Json;
+using QassimPrincipality.Web.Helpers;
+using QassimPrincipality.Web.ViewModels.Inquery;
+using Framework.Core.SharedServices.Services;
+using Framework.Identity.Data.Services;
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
@@ -33,6 +39,8 @@ namespace QassimPrincipality.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
         UserManager<ApplicationUser> _userManager;
+        private readonly LogAppService _logservice;
+        private readonly UserAppService _userAppService;
         public RequestController(
             ILogger<HomeController> logger,
             IHtmlLocalizer<HomeController> localizer,
@@ -41,7 +49,9 @@ namespace QassimPrincipality.Web.Controllers
             LookupAppService lookups,
             IWebHostEnvironment environment,
             ServiceRequestAppService serviceRequestAppService,
-            UserManager<ApplicationUser> userManager
+            UserManager<ApplicationUser> userManager,
+            LogAppService logservice,
+            UserAppService userAppService
             )
         {
             _logger = logger;
@@ -52,6 +62,8 @@ namespace QassimPrincipality.Web.Controllers
             _environment = environment;
             _serviceRequestAppService = serviceRequestAppService;
             _userManager = userManager;
+            _logservice = logservice;
+            _userAppService = userAppService;
 
         }
 
@@ -406,6 +418,109 @@ namespace QassimPrincipality.Web.Controllers
                 // Return an error response
                 return StatusCode(500, $"Error retrieving user data: {ex.Message}");
             }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> InqueryRequest(int serviceId)
+        {
+            try
+            {
+                var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
+
+                InqueryVM vM =  new InqueryVM();
+
+                vM.NameAr = serviceWithSteps.NameAr;
+                vM.NameEn = serviceWithSteps.NameEn;
+                var user = await _userAppService.GetUserAsync(Guid.Parse(HttpContext.User.GetId()));
+                //vM.UserFullName = user.FullNameAr ?? user.FullName;
+                vM.NationalNo = user.UserName.Replace("@nafath", "");
+                return View(vM);
+            }
+            catch (Exception ex)
+            {
+
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "Inquery Index Catch" + ex.ToString(),
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+                return View(new InqueryVM());
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> InqueryRequest(InqueryVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
+                return View("Index", model);
+            }
+            try
+            {
+
+                var result = await ApiConsumer.ServiceConsumerAsync<dynamic>(
+            "https://dms.alqassim.gov.sa/INTEGSERV_DEMO/api/Receiver/SearchForRecord/?RecordNo=" + long.Parse(model.RecordNo) + "&NationalNo=" + long.Parse(model.NationalNo)
+            );
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "Header data " + JsonConvert.SerializeObject(result, Formatting.Indented),
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+
+                if (result["isSuccess"].ToString() == "True")
+                {
+                    var RequestStatus = result["RequestStatus"].ToString();
+                    ViewBag.RequestStatus = RequestStatus;
+                }
+                else { ViewBag.RequestStatus = "لا توجد بيانات "; }
+            }
+            catch (Exception ex)
+            {
+
+                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
+                {
+                    CallSite = "",
+                    Date = DateTime.Now,
+                    Exception = "InqueryRequest" + ex.ToString(),
+                    Host = "myhost",
+                    Logger = "my logger",
+                    LogLevel = "Info",
+                    MachineName = "manual",
+                    Message = "my message",
+                    Thread = "No thread",
+                    Url = "api",
+                    UserAgent = "agent",
+                    UserName = "my name",
+                    Id = Guid.NewGuid(),
+                });
+                ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
+            }
+
+            return View("Index");
         }
 
         //[HttpGet]
