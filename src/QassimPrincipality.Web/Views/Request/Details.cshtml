@@ -1,0 +1,173 @@
+﻿@using QassimPrincipality.Application.Dtos;
+@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Web.ViewModels.Request
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+@model ServiceRequestDto
+@{
+    ViewData["Title"] = "مراجعة بيانات الطلب";
+    string FormatBirthDate(DateTime date) =>
+        date.Year == 1 ? "غير محدد" : date.ToString("yyyy-MM-dd");
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? "غير محدد" : val;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f6f6f6;
+            direction: rtl;
+            text-align: right;
+            padding: 50px;
+        }
+
+        .container {
+            background: #fff;
+            width: 400px;
+            margin: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #007bff;
+        }
+
+        .field {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .value {
+            margin-right: 5px;
+            color: #555;
+        }
+
+        .button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            background-color: #495057;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+@inject IViewLocalizer localizer
+
+<body>
+    <div class="container">
+        <h2>مراجعة بيانات الطلب</h2>
+
+        <div class="field"><span class="label">@localizer["FullName"] : </span><span class="value">@GetValue(Model.BasicData.FullName)</span></div>
+        <div class="field"><span class="label">@localizer["Nationality"] : </span><span class="value">@GetValue(Model.BasicData.Nationality)</span></div>
+        <div class="field"><span class="label">@localizer["BirthDate"] : </span><span class="value">@FormatBirthDate(Model.BasicData.BirthDate)</span></div>
+        <div class="field"><span class="label">@localizer["IDNumber"] : </span><span class="value">@GetValue(Model.BasicData.IdNumber)</span></div>
+        <div class="field"><span class="label">@localizer["PhoneNumber"] : </span><span class="value">@GetValue(Model.BasicData.Phone)</span></div>
+        <div class="field"><span class="label">@localizer["mail"] : </span><span class="value">@GetValue(Model.BasicData.Email)</span></div>
+        <div class="field"><span class="label">@localizer["City"] : </span><span class="value">@GetValue(Model.BasicData.City)</span></div>
+        <div class="field"><span class="label">@localizer["District"] : </span><span class="value">@GetValue(Model.BasicData.District)</span></div>
+        <hr />
+        <div class="field"><span class="label">@localizer["ServiceName"] : </span><span class="value">@Model.ServiceNameAr</span></div>
+        <div class="field"><span class="label">@localizer["RequestNumber"] : </span><span class="value">@GetValue(Model.RequestNumber)</span></div>
+        <div class="field"><span class="label">@localizer["RequestDetails"] : </span><span class="value">@GetValue(Model.BasicData.RequestDetails)</span></div>
+        
+        <div class="field">
+            <span class="label">@localizer["RequestStatus"] : </span>
+
+
+            <span class="value" @WorkFlowHelper.hideStatic(Model.Status)>
+                <p class="@WorkFlowHelper.GetStatusClass(Model.Status)">
+                    @WorkFlowHelper.GetStatusDisplay(Model.Status, localizer)
+                </p>
+            </span>
+        </div>
+        @{
+            var notes = Model.Actions.OrderByDescending(c => c.ActionDate).FirstOrDefault().ActionDescription ?? "";
+        }
+        <div class="card" @WorkFlowHelper.hideStatic(Model.Status)>
+            <div class="card-body">
+                <div class="request-details__header">
+                    <h3 class="request-details__title">
+                        @localizer["Notes"]
+                    </h3>
+                </div>
+                <div>
+
+                    <p>@(string.IsNullOrEmpty(notes) ? localizer["NotFound"] : notes)</p>
+                </div>
+            </div>
+        </div>
+
+        @if (User.IsInRole("EServicesRequestAdmin") || User.IsInRole("Admin"))
+        {
+            <div @WorkFlowHelper.hideOption(Model.Status)>
+                <form asp-controller="Request" asp-action="ChangeRequestStatus" method="post">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input hidden name="RequestId" class="form-control" type="text" value="@Model.Id">
+
+
+
+                                <select @WorkFlowHelper.hideOption(Model.Status) name="NewStatus" class="pc-search-select">
+
+                                    @{
+                                        var selected = Model.Status == null ? "selected" : "";
+                                        var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+
+                                    }
+
+
+
+                                    @foreach (ServiceRequestStatus status in transitions)
+                                    {
+
+                                        var isSelected = Model.Status == status ? "selected" : "";
+                                        <option value="@((int)status)" @isSelected>
+                                            @WorkFlowHelper.GetStatusDisplay(status, localizer)
+                                        </option>
+                                    }
+
+                                </select>
+                                <br />
+                                <label class="form-label" for="ActionNotes">@localizer["Notes"]	</label>
+                                <input @WorkFlowHelper.Required(Model.Status)
+                                       name="ActionNotes" class="form-control"
+                                       type="text" data-val="true"
+                                       data-val-required="هذا الحقل مطلوب" value="">
+                                @*   <input class="form-control" type="text" value="@Model.Id" id="requestId" name="requestId" hidden>
+                            <span class="text-danger field-validation-valid" data-valmsg-for="rejectReasons" data-valmsg-replace="true"></span> *@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-between margin-top-lg">
+                        <div class="d-flex gap-2">
+                            <input class="btn btn-success" type="submit" value="@localizer["Save"]" />
+                            @*  <input class="btn btn-success" type="submit" value="قبول" formaction="Accept" />
+                        <input class="btn btn-outline-danger" type="submit" value="رفض" formaction="Reject" /> *@
+                        </div>
+                        <a href="javascript:history.back()" class="btn btn-outline-primary">@localizer["back"]</a>
+                    </div>
+                </form>
+
+            </div>
+        }
+    </div>
+</body>
+</html>

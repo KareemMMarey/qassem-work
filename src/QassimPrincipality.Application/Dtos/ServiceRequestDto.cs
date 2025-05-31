@@ -60,7 +60,12 @@ namespace QassimPrincipality.Application.Dtos
         public DateTime? UpdatedOn { get; set; }
     }
 
-
+    public class SelectListDto
+    {
+        public int Id { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
+    }
 
 public class RequestBasicDataDto
     {
