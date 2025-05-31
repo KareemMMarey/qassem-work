@@ -421,7 +421,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> InqueryRequest(int serviceId)
+        public async Task<ActionResult> InqueryTransaction(int serviceId)
         {
             try
             {
@@ -461,7 +461,7 @@ namespace QassimPrincipality.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> InqueryRequest(InqueryVM model)
+        public async Task<ActionResult> InqueryTransaction(InqueryVM model)
         {
             if (!ModelState.IsValid)
             {
