@@ -11,7 +11,8 @@
 
         // Set the default requester relation if the dropdown is present
         if ($("#customrequesterRelation").length) {
-            $("#customrequesterRelation").val("1"); // Default to "MySelf"
+           // $("#customrequesterRelation").val("1"); // Default to "MySelf"
+            $("#customrequesterRelation").val(""); // Default null
         }
     }).fail(function (xhr) {
         alert("Failed to fetch user data: " + xhr.responseText);
@@ -97,7 +98,7 @@
 bindCustomSelect("customrequesterRelation");
 bindCustomSelect("customTypeOfSummons");
 function bindCustomSelect(id) {
-    alert(id)
+    //alert(id)
     const button = document.getElementById(`${id}-button`);
     const dropdown = document.getElementById(`${id}-dropdown`);
     const input = document.getElementById(id);
