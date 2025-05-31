@@ -55,12 +55,12 @@
         <div class="pc-my-requests-header">
             <p>البحث</p>
 
-            <div class="pc-search-container search-width" id="requestsSearch">
+            <div class="pc-search-container-order search-width" id="requestsSearch-order">
                 @* <button type="submit" class="pc-search-btn" onclick="searchTable()">
                     <img src="~/icons/search.svg" alt="search" width="20" height="20" />
                 </button> *@
                 <form asp-action="MyRequests" method="post">
-                    <input type="text" class="pc-search-input" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
+                    <input type="text" class="pc-search-input-order" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
                     <button cclass="pc-primary-btn" type="submit">
                         @localizer["SearchRequests"]
                     </button>

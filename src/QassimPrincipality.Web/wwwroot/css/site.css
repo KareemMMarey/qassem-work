@@ -524,6 +524,8 @@ body {
     outline: none;
     direction: rtl;
     text-align: right;
+    width: 100%;
+    padding: 0px 5px;
 }
 
     .pc-search-input::placeholder {
@@ -3352,4 +3354,70 @@ iframe {
         width: 127px;
         height: 42px;
     }
+}
+
+/* new style */
+.pc-tabs-search {
+    flex-direction: row-reverse;
+}
+
+.pc-tabs-container{
+    flex-direction:row-reverse;
+}
+.pc-card {
+    display: flex;
+    flex-direction: column;
+    direction: rtl;
+    border-radius: 16px;
+    border: 1px solid #D2D6DB;
+    background: #FFF;
+    padding: 16px;
+    gap: 24px;
+}
+.pc-cards{
+    width:100%;
+}
+
+.pc-service-info-divisions button:hover::after, .pc-service-info-divisions button.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 3px;
+    background-color: #1B8354;
+    border-radius: 6px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+.pc-search-container-order button {
+    background-color: #1b8354;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    appearance: none;
+    border:none;
+}
+.pc-search-input-order {
+/*    flex: 1;
+    font-size: 16px;
+    border: none;
+    outline: none;*/
+    direction: rtl;
+    text-align: right;
+    width: 100%;
+    padding: 0px 5px;
+}
+.pc-search-container-order{
+    border:none;
+}
+#requestsSearch-order form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.account-login {
+    max-width: 1440px;
+    margin-bottom: 40px;
 }
