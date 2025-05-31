@@ -1,0 +1,15 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+@if (!string.IsNullOrEmpty(Model.BasicData.RequestDetails) || !string.IsNullOrEmpty(Model.AdditionalData?.RequestDetails))
+{
+    <table class="pc-basic-table request-data-table">
+        <tr>
+            <td class="td-bold">@Localizer["RequestDetails"]</td>
+            <td class="td-request-details" colspan="3">
+                @(Model.AdditionalData?.RequestDetails ?? Model.BasicData.RequestDetails)
+            </td>
+        </tr>
+    </table>
+    <div class="pc-form-line"></div>
+}

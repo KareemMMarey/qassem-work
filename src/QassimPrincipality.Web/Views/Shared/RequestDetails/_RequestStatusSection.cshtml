@@ -1,0 +1,74 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+<div class="request-status-container">
+    <div class="request-status-heading-container">
+        <div class="request-status-heading">
+            <h5>@Localizer["RequestStatus"]</h5>
+            @{
+                var statusClass = Model.Status switch
+                {
+                    ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
+                    ServiceRequestStatus.Approved => "pc-green-status",
+                    ServiceRequestStatus.Rejected => "pc-red-status",
+                    ServiceRequestStatus.NotSpecialized => "pc-grey-status",
+                    _ => "pc-grey-status"
+                };
+            }
+            <p class="@statusClass">@Localizer[Model.Status.ToString()]</p>
+        </div>
+
+        @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+        {
+            <div class="complete-request-actions-desktop">
+                <button class="pc-primary-btn" data-bs-toggle="modal" data-bs-target="#completeRequestModal">
+                    @Localizer["CompleteRequest"]
+                </button>
+            </div>
+        }
+    </div>
+
+    <div class="request-status-body">
+        @if (Model.Actions != null && Model.Actions.Any())
+        {
+            foreach (var action in Model.Actions.OrderBy(a => a.ActionDate))
+            {
+                <div class="request-status">
+                    <img src="~/icons/progressIndicator.svg" alt="Progress" width="32" height="128" />
+                    <div>
+                        <p class="request-progress-data">@action.ActionDescription</p>
+                        <p class="request-progress-date">@action.ActionDate.ToString("yyyy-MM-dd HH:mm")</p>
+                    </div>
+                </div>
+            }
+        }
+
+        <!-- Conditional Notes -->
+        @{
+            var noteAction = Model.Actions?.FirstOrDefault(a => a.ActionType == Model.Status.ToString());
+            if (noteAction != null && !string.IsNullOrEmpty(noteAction.ActionDescription))
+            {
+                <div class="request-notes-container">
+                    <div class="request-notes">
+                        <p class="request-notes-title">
+                            @Localizer[Model.Status == ServiceRequestStatus.Approved ? "TransactionIssued" :
+                                 Model.Status == ServiceRequestStatus.Rejected ? "RejectionReason" :
+                                 Model.Status == ServiceRequestStatus.NotSpecialized ? "SuggestedAuthority" :
+                                 "RequiredDocumentsToComplete"]
+                        </p>
+                        <p>@noteAction.ActionDescription</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+    {
+        <div class="complete-request-actions-mobile">
+            <button class="pc-primary-btn" data-bs-toggle="modal" data-bs-target="#completeRequestModal">
+                @Localizer["CompleteRequest"]
+            </button>
+        </div>
+    }
+</div>

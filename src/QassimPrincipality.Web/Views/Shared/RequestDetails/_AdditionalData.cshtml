@@ -1,0 +1,50 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+@if (Model.AdditionalData != null)
+{
+    <div class="pc-service-form-heading">
+        <h4>@Localizer["RequestSubjectData"]</h4>
+    </div>
+
+    <table class="pc-basic-table request-data-table">
+        @if (!string.IsNullOrEmpty(Model.AdditionalData.FullName))
+        {
+            <tr>
+                <td class="td-bold">@Localizer["FullName"]</td>
+                <td>@Model.AdditionalData.FullName</td>
+                <td class="td-bold">@Localizer["Nationality"]</td>
+                <td>@Model.AdditionalData.CountryId</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.AdditionalData.NationalId))
+        {
+            <tr>
+                <td class="td-bold">@Localizer["IdNumber"]</td>
+                <td>@Model.AdditionalData.NationalId</td>
+                <td class="td-bold">@Localizer["BirthDate"]</td>
+                <td>@Model.AdditionalData.DateOfBirth?.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.AdditionalData.Phone))
+        {
+            <tr>
+                <td class="td-bold">@Localizer["PhoneNumber"]</td>
+                <td>@Model.AdditionalData.Phone</td>
+                <td class="td-bold">@Localizer["Email"]</td>
+                <td>@Model.AdditionalData.Email</td>
+            </tr>
+        }
+        @if (!string.IsNullOrEmpty(Model.AdditionalData.City))
+        {
+            <tr>
+                <td class="td-bold">@Localizer["City"]</td>
+                <td>@Model.AdditionalData.City</td>
+                <td class="td-bold">@Localizer["District"]</td>
+                <td>@Model.AdditionalData.District</td>
+            </tr>
+        }
+    </table>
+
+    <div class="pc-form-line"></div>
+}

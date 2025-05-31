@@ -1,0 +1,35 @@
+﻿@using QassimPrincipality.Domain.Enums
+@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+@if ((bool)ViewBag.IsAdmin && (Model.Status == ServiceRequestStatus.UnderReview || Model.Status == ServiceRequestStatus.New))
+{
+    <div class="pc-form-line"></div>
+    <div class="pc-service-form-heading">
+        <h4>@Localizer["AdminDecision"]</h4>
+    </div>
+
+    <form asp-action="UpdateRequestStatus" asp-route-id="@Model.Id" method="post">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">@Localizer["Status"]</label>
+                <select name="Status" class="form-select" required>
+                    <option value="">@Localizer["SelectStatus"]</option>
+                    <option value="@((int)ServiceRequestStatus.Approved)">@Localizer["Approved"]</option>
+                    <option value="@((int)ServiceRequestStatus.Rejected)">@Localizer["Rejected"]</option>
+                    <option value="@((int)ServiceRequestStatus.RequiresCompletion)">@Localizer["RequiresCompletion"]</option>
+                    <option value="@((int)ServiceRequestStatus.NotQualified)">@Localizer["NotSpecialized"]</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">@Localizer["Notes"]</label>
+                <textarea name="Notes" class="form-control" rows="4" required></textarea>
+            </div>
+        </div>
+        <div class="pc-form-buttons">
+            <button type="submit" class="pc-primary-btn">@Localizer["SaveDecision"]</button>
+        </div>
+    </form>
+}

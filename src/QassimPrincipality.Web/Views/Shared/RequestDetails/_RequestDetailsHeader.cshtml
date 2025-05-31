@@ -1,0 +1,14 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+<div class="pc-service-form-heading">
+    <h3>@Localizer["RequestDetails"]</h3>
+    <div class="request-details-heading">
+        <h4>@(ViewContext.HttpContext.Request.Headers["Accept-Language"].ToString().Contains("ar") ? Model.ServiceNameAr : Model.ServiceNameEn)</h4>
+        <div>
+            <h4>@Model.RequestNumber</h4>
+            <p>@Model.CreatedOn.ToString("yyyy-MM-dd")</p>
+        </div>
+    </div>
+</div>
+<div class="pc-form-line"></div>

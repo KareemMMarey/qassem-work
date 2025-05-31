@@ -1,0 +1,43 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+<div class="pc-service-form-heading">
+    <h4>@Localizer["RequesterData"]</h4>
+</div>
+
+<table class="pc-basic-table request-data-table">
+    <tr>
+        <td class="td-bold">@Localizer["FullName"]</td>
+        <td>@Model.BasicData.FullName</td>
+        <td class="td-bold">@Localizer["Nationality"]</td>
+        <td>@Model.BasicData.Nationality</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["IdNumber"]</td>
+        <td>@Model.BasicData.IdNumber</td>
+        <td class="td-bold">@Localizer["BirthDate"]</td>
+        <td>@Model.BasicData.BirthDate.ToString("yyyy-MM-dd")</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["PhoneNumber"]</td>
+        <td>@Model.BasicData.Phone</td>
+        <td class="td-bold">@Localizer["Email"]</td>
+        <td>@Model.BasicData.Email</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["City"]</td>
+        <td>@Model.BasicData.City</td>
+        <td class="td-bold">@Localizer["District"]</td>
+        <td>@Model.BasicData.District</td>
+    </tr>
+
+    @if (Model.ServiceRequesterRelation != ServiceRequesterRelation.MySelf)
+    {
+        <tr>
+            <td class="td-bold">@Localizer["RequesterRelation"]</td>
+            <td>@Localizer[$"Relation_{Model.ServiceRequesterRelation}"]</td>
+        </tr>
+    }
+</table>
+
+<div class="pc-form-line"></div>

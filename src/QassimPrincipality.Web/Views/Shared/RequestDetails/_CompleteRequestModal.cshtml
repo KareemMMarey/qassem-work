@@ -1,0 +1,28 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@inject IViewLocalizer Localizer
+
+@if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+{
+    <div class="modal fade" id="completeRequestModal" tabindex="-1" aria-labelledby="completeRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-action="CompleteRequest" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+                    <div class="custom-modal-header">
+                        <img src="~/icons/paper.svg" alt="icon" width="40" height="40" />
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="custom-modal-body">
+                        <h5>@Localizer["ToCompleteRequestAttachDocs"]</h5>
+                        <div class="pc-file-uploader complete-request-file-uploader">
+                            <input type="file" name="attachments" multiple accept=".jpg,.jpeg,.png,.pdf" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="pc-outline-btn" data-bs-dismiss="modal">@Localizer["Cancel"]</button>
+                        <button type="submit" class="pc-primary-btn">@Localizer["AttachToRequest"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

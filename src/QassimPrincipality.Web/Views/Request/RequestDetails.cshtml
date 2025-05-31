@@ -1,0 +1,64 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@using QassimPrincipality.Domain.Enums
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["RequestDetails"];
+    var isAdmin = ViewBag.IsAdmin ?? false;
+    var currentUserId = ViewBag.UserId;
+}
+
+<div class="pc-service-steps-page">
+    <!-- Breadcrumbs -->
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index">@Localizer["HomePage"]</a></li>
+            <li>></li>
+            <li><a asp-controller="User" asp-action="MyRequests">@Localizer["MyRequests"]</a></li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">@Localizer["RequestDetails"]</li>
+        </ul>
+    </div>
+
+    <!-- Alerts -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+            <div>
+                <img src="~/icons/checkmarkFilled.svg" alt="checkmark" class="ms-1" />
+                <span>@TempData["SuccessMessage"]</span>
+            </div>
+            <button type="button" class="custom-btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <img src="~/icons/xIcon.svg" alt="close" />
+            </button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+            <div><span>@TempData["ErrorMessage"]</span></div>
+            <button type="button" class="custom-btn-close" data-bs-dismiss="alert" aria-label="Close">
+                <img src="~/icons/xIcon.svg" alt="close" />
+            </button>
+        </div>
+    }
+
+    <!-- Main Form Section -->
+    <div class="pc-service-form pc-basic-container">
+        @Html.Partial("_RequestDetailsHeader", Model)
+        @Html.Partial("_RequestStatusSection", Model)
+        @Html.Partial("_CompleteRequestModal", Model)
+        @Html.Partial("_RequesterData", Model)
+        @Html.Partial("_AdditionalData", Model)
+        @Html.Partial("_RequestDetailsText", Model)
+        @Html.Partial("_AttachmentsSection", Model)
+        @Html.Partial("_AdminDecisionSection", Model)
+
+        <div class="pc-form-buttons">
+            <a asp-controller="User" asp-action="MyRequests" class="pc-outline-btn">@Localizer["BackToMyRequests"]</a>
+        </div>
+    </div>
+</div>
+
+
