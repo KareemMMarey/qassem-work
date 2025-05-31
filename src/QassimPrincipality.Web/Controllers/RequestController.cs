@@ -1,31 +1,21 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using Framework.Core.Extensions;
+using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using QassimPrincipality.Application.Dtos;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
-using QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCategory;
-using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
-using QassimPrincipality.Application.Services.Main.Evaluation;
 using QassimPrincipality.Application.Services.NewShema;
 using QassimPrincipality.Application.Services.NewShema.Content;
-using QassimPrincipality.Domain.Entities.Services.NewSchema;
-using QassimPrincipality.Domain.Enums;
-using QassimPrincipality.Web.Models;
-using QassimPrincipality.Web.ViewModels.Request;
-using Framework.Core.Extensions;
-using Newtonsoft.Json;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Inquery;
-using Framework.Core.SharedServices.Services;
-using Framework.Identity.Data.Services;
+using QassimPrincipality.Web.ViewModels.Request;
+
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
@@ -41,6 +31,7 @@ namespace QassimPrincipality.Web.Controllers
         UserManager<ApplicationUser> _userManager;
         private readonly LogAppService _logservice;
         private readonly UserAppService _userAppService;
+
         public RequestController(
             ILogger<HomeController> logger,
             IHtmlLocalizer<HomeController> localizer,
@@ -52,7 +43,7 @@ namespace QassimPrincipality.Web.Controllers
             UserManager<ApplicationUser> userManager,
             LogAppService logservice,
             UserAppService userAppService
-            )
+        )
         {
             _logger = logger;
             _eService = eService;
@@ -64,7 +55,6 @@ namespace QassimPrincipality.Web.Controllers
             _userManager = userManager;
             _logservice = logservice;
             _userAppService = userAppService;
-
         }
 
         public async Task<ActionResult> Index(int serviceId)
@@ -80,9 +70,7 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                var request = await _serviceRequestAppService.GetRequestByIdAsync(
-                    requestId
-                );
+                var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
                 return Ok(request);
             }
             catch (Exception ex)
@@ -90,14 +78,13 @@ namespace QassimPrincipality.Web.Controllers
                 return StatusCode(500, $"Error retrieving request: {ex.Message}");
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> Details(Guid requestId)
         {
             try
             {
-                var request = await _serviceRequestAppService.GetRequestByIdAsync(
-                   requestId
-                );
+                var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
                 return View(request);
             }
             catch (Exception ex)
@@ -113,8 +100,9 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-
-               var UserId =  User.Claims.FirstOrDefault(c=>c.Type == ClaimTypes.NameIdentifier)?.Value;
+                var UserId = User
+                    .Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                    ?.Value;
                 var xx = Guid.Parse(changeStatusDto.RequestId);
 
                 await _serviceRequestAppService.ChangeRequestStatusAsync(
@@ -520,7 +508,7 @@ namespace QassimPrincipality.Web.Controllers
             {
                 var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
 
-                InqueryVM vM =  new InqueryVM();
+                InqueryVM vM = new InqueryVM();
 
                 vM.NameAr = serviceWithSteps.NameAr;
                 vM.NameEn = serviceWithSteps.NameEn;
@@ -531,27 +519,28 @@ namespace QassimPrincipality.Web.Controllers
             }
             catch (Exception ex)
             {
-
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "Inquery Index Catch" + ex.ToString(),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception = "Inquery Index Catch" + ex.ToString(),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
                 return View(new InqueryVM());
             }
-
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> InqueryRequest(InqueryVM model)
@@ -563,53 +552,63 @@ namespace QassimPrincipality.Web.Controllers
             }
             try
             {
-
                 var result = await ApiConsumer.ServiceConsumerAsync<dynamic>(
-            "https://dms.alqassim.gov.sa/INTEGSERV_DEMO/api/Receiver/SearchForRecord/?RecordNo=" + long.Parse(model.RecordNo) + "&NationalNo=" + long.Parse(model.NationalNo)
-            );
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "Header data " + JsonConvert.SerializeObject(result, Formatting.Indented),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                    "https://dms.alqassim.gov.sa/INTEGSERV_DEMO/api/Receiver/SearchForRecord/?RecordNo="
+                        + long.Parse(model.RecordNo)
+                        + "&NationalNo="
+                        + long.Parse(model.NationalNo)
+                );
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception =
+                            "Header data "
+                            + JsonConvert.SerializeObject(result, Formatting.Indented),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
 
                 if (result["isSuccess"].ToString() == "True")
                 {
                     var RequestStatus = result["RequestStatus"].ToString();
                     ViewBag.RequestStatus = RequestStatus;
                 }
-                else { ViewBag.RequestStatus = "لا توجد بيانات "; }
+                else
+                {
+                    ViewBag.RequestStatus = "لا توجد بيانات ";
+                }
             }
             catch (Exception ex)
             {
-
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "InqueryRequest" + ex.ToString(),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception = "InqueryRequest" + ex.ToString(),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
             }
 
