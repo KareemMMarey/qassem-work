@@ -1,5 +1,5 @@
 ﻿
-    alert('hello')
+
     document.addEventListener("DOMContentLoaded", function () {
         // Custom dropdown binding
        
