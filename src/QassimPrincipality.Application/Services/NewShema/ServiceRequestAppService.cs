@@ -16,6 +16,7 @@ namespace QassimPrincipality.Application.Services.NewShema
     public class ServiceRequestAppService
     {
         private readonly IRepository<ServiceRequest> _serviceRequestRepository;
+        private readonly IRepository<RequestAction> _requestActionRepository;
         private readonly IRepository<RequestBasicData> _requestBasicDataRepository;
         private readonly IRepository<RequestAdditionalData> _requestAdditionalDataRepository;
         private readonly IRepository<RequestAttachment> _requestAttachmentRepository;
@@ -26,6 +27,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             IRepository<RequestBasicData> requestBasicDataRepository,
             IRepository<RequestAdditionalData> requestAdditionalDataRepository,
             IRepository<EService> serviceRepository,
+            IRepository<RequestAction> requestActionRepository,
             IRepository<RequestAttachment> requestAttachmentRepository)
         {
             _serviceRequestRepository = serviceRequestRepository;
@@ -33,6 +35,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             _requestAdditionalDataRepository = requestAdditionalDataRepository;
             _requestAttachmentRepository = requestAttachmentRepository;
             _serviceRepository = serviceRepository;
+            _requestActionRepository = requestActionRepository;
         }
 
         // Create a new service request (Draft)
@@ -134,19 +137,38 @@ namespace QassimPrincipality.Application.Services.NewShema
         // Get service request by ID
         public async Task<ServiceRequestDto> GetRequestByIdAsync(Guid requestId)
         {
-            var reqs = await _serviceRequestRepository.TableNoTracking
+            var request = await _serviceRequestRepository.TableNoTracking
                 .Include(r => r.BasicData)
                 .Include(r => r.AdditionalData)
                 .Include(r => r.Attachments)
                 .Include(r => r.EService)
-                .Include(r => r.Actions).ToListAsync();
-            var request =
-               reqs.FirstOrDefault(r => r.Id.ToString() == requestId.ToString());
+                .Include(r => r.Actions).FirstOrDefaultAsync(r => r.Id.ToString() == requestId.ToString());
+
 
             if (request == null)
                 throw new KeyNotFoundException("Service request not found.");
+            request.Actions =await _requestActionRepository.TableNoTracking
+                //.Where(c => c.RequestId.ToString() == requestId.ToString())
+                .ToListAsync();
 
-            return request.MapTo<ServiceRequestDto>();
+            var model = request.MapTo<ServiceRequestDto>();
+
+            if (request.Actions != null)
+            {
+                model.Actions = new List<RequestActionDto>();
+                foreach (var action in request.Actions)
+                {
+                    model.Actions.Add(new RequestActionDto
+                    {
+                        ActionByUserId = action.ActionBy,
+                        ActionDate = action.ActionDate,
+                        ActionStatus = action.ToStatus,
+                    });
+                }
+
+            }
+
+            return model;
         }
         // Get service request by ID
         public async Task<ServiceRequestDto> GetIdAsync(Guid requestId)

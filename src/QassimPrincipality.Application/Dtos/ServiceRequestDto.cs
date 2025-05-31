@@ -128,10 +128,10 @@ public class RequestBasicDataDto
 
     public class RequestActionDto
     {
-        public Guid ServiceRequestId { get; set; }
+        public Guid RequestId { get; set; }
         public string ActionByUserId { get; set; }
         public string ActionType { get; set; }
-        public string ActionDescription { get; set; }
+        public ServiceRequestStatus ActionStatus { get; set; }
         public DateTime ActionDate { get; set; }
     }
 
