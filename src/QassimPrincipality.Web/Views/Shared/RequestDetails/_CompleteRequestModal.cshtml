@@ -1,6 +1,6 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @inject IViewLocalizer Localizer
-
+@using QassimPrincipality.Domain.Enums
 @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
 {
     <div class="modal fade" id="completeRequestModal" tabindex="-1" aria-labelledby="completeRequestModalLabel" aria-hidden="true">

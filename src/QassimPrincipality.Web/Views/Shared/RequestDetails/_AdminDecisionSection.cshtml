@@ -2,7 +2,7 @@
 @model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @inject IViewLocalizer Localizer
 
-@if ((bool)ViewBag.IsAdmin && (Model.Status == ServiceRequestStatus.UnderReview || Model.Status == ServiceRequestStatus.New))
+@if ((bool)ViewBag.IsAdmin && (Model.Status == ServiceRequestStatus.UnderReview || Model.Status == ServiceRequestStatus.Submitted))
 {
     <div class="pc-form-line"></div>
     <div class="pc-service-form-heading">
