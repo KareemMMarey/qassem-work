@@ -46,14 +46,14 @@
 
     <!-- Main Form Section -->
     <div class="pc-service-form pc-basic-container">
-        @Html.Partial("_RequestDetailsHeader", Model)
-        @Html.Partial("_RequestStatusSection", Model)
-        @Html.Partial("_CompleteRequestModal", Model)
-        @Html.Partial("_RequesterData", Model)
-        @Html.Partial("_AdditionalData", Model)
-        @Html.Partial("_RequestDetailsText", Model)
-        @Html.Partial("_AttachmentsSection", Model)
-        @Html.Partial("_AdminDecisionSection", Model)
+        @Html.Partial("RequestDetails/_RequestDetailsHeader", Model)
+        @Html.Partial("RequestDetails/_RequestStatusSection", Model)
+        @Html.Partial("RequestDetails/_CompleteRequestModal", Model)
+        @Html.Partial("RequestDetails/_RequesterData", Model)
+        @Html.Partial("RequestDetails/_AdditionalData", Model)
+        @Html.Partial("RequestDetails/_RequestDetailsText", Model)
+        @Html.Partial("RequestDetails/_AttachmentsSection", Model)
+        @Html.Partial("RequestDetails/_AdminDecisionSection", Model)
 
         <div class="pc-form-buttons">
             <a asp-controller="User" asp-action="MyRequests" class="pc-outline-btn">@Localizer["BackToMyRequests"]</a>
