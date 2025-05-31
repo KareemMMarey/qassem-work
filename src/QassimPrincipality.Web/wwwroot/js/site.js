@@ -74,7 +74,97 @@ if (document.querySelector(".pc-header")) {
 
 
 
+// ------------------------------- Service Page -------------------------------
+
+if (document.getElementById("pcServicePage")) {
+    const serviceRequirementsBtn = document.getElementById("pc-service-requirements-btn");
+    const serviceRequirements = document.querySelector(".pc-service-requirements");
+    const serviceStepsBtn = document.getElementById("pc-service-steps-btn");
+    const serviceSteps = document.querySelector(".pc-service-steps");
+    const serviceFAQBtn = document.getElementById("pc-service-FAQ-btn");
+    const serviceFAQ = document.querySelector(".pc-service-FAQ");
+
+    const buttons = document.querySelectorAll(".pc-service-info-divisions button");
+
+    // Function to remove 'active' class from all buttons
+    function clearActiveStates() {
+        buttons.forEach(button => button.classList.remove("active"));
+    }
+
+    // Initially set serviceRequirements as active
+    serviceRequirementsBtn.classList.add("active");
+    serviceRequirements.style.display = "flex";
+    serviceSteps.style.display = "none";
+    serviceFAQ.style.display = "none";
+
+    // Show/Hide sections and set active state
+    serviceRequirementsBtn.addEventListener("click", () => {
+        clearActiveStates();
+        serviceRequirementsBtn.classList.add("active");
+        serviceRequirements.style.display = "flex";
+        serviceSteps.style.display = "none";
+        serviceFAQ.style.display = "none";
+    });
+
+    serviceStepsBtn.addEventListener("click", () => {
+        clearActiveStates();
+        serviceStepsBtn.classList.add("active");
+        serviceRequirements.style.display = "none";
+        serviceSteps.style.display = "flex";
+        serviceFAQ.style.display = "none";
+    });
+
+    serviceFAQBtn.addEventListener("click", () => {
+        clearActiveStates();
+        serviceFAQBtn.classList.add("active");
+        serviceRequirements.style.display = "none";
+        serviceSteps.style.display = "none";
+        serviceFAQ.style.display = "flex";
+    });
+}
 
 
+// ------------------------------- FAQ's -------------------------------
+if (document.querySelector(".pc-service-FAQ")) {
+    document.querySelectorAll(".pc-accordion").forEach(accordion => {
+        const accordionHead = accordion.querySelector(".pc-accordion-head");
+        const accordionBody = accordion.querySelector(".pc-accordion-body");
+        const arrowIcon = accordionHead.querySelector("img");
 
+        accordionHead.addEventListener("click", () => {
+            accordionBody.classList.toggle("open");
 
+            if (accordionBody.classList.contains("open")) {
+                arrowIcon.style.transform = "rotate(180deg)";
+            } else {
+                arrowIcon.style.transform = "rotate(0deg)";
+            }
+        });
+    });
+}
+
+// ------------------------------- OTP timer -------------------------------
+if (document.getElementById("timer")) {
+    const timerElement = document.getElementById("timer");
+
+    if (timerElement) {
+        let timeRemaining = 60;
+
+        function updateTimer() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+
+            timerElement.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+            timeRemaining--;
+
+            if (timeRemaining < 0) {
+                clearInterval(timerInterval);
+                timerElement.textContent = "0:00";
+            }
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    }
+}
