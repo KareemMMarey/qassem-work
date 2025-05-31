@@ -1,6 +1,6 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @inject IViewLocalizer Localizer
-
+@using QassimPrincipality.Domain.Enums
 <div class="request-status-container">
     <div class="request-status-heading-container">
         <div class="request-status-heading">
@@ -11,7 +11,7 @@
                     ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
                     ServiceRequestStatus.Approved => "pc-green-status",
                     ServiceRequestStatus.Rejected => "pc-red-status",
-                    ServiceRequestStatus.NotSpecialized => "pc-grey-status",
+                    ServiceRequestStatus.NotQualified => "pc-grey-status",
                     _ => "pc-grey-status"
                 };
             }
@@ -53,7 +53,7 @@
                         <p class="request-notes-title">
                             @Localizer[Model.Status == ServiceRequestStatus.Approved ? "TransactionIssued" :
                                  Model.Status == ServiceRequestStatus.Rejected ? "RejectionReason" :
-                                 Model.Status == ServiceRequestStatus.NotSpecialized ? "SuggestedAuthority" :
+                                 Model.Status == ServiceRequestStatus.NotQualified ? "SuggestedAuthority" :
                                  "RequiredDocumentsToComplete"]
                         </p>
                         <p>@noteAction.ActionDescription</p>
