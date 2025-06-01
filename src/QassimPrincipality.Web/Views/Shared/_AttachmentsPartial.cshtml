@@ -64,14 +64,20 @@ else
 <div class="pc-uploaded-files">
 </div>
 
+<script src="/js/attachment-manager.js?v=007"></script>
+
 <script>
-    debugger;
     const attachmentmessages = {
         fileSizeExceeded: '@localizer["FileSizeExceeded", "{0}", "{1}"]'.replace("{0}", "{0}").replace("{1}", "{1}"),
         unsupportedExtension: '@localizer["UnsupportedExtension", "{0}", "{1}"]'.replace("{0}", "{0}").replace("{1}", "{1}"),
         uploadFailed: '@localizer["UploadFailed"]',
         successUploadMessage: '@localizer["SuccessUploadMessage"]'
     };
+
+
+
+
+
     if (document.querySelector(".pc-file-uploader")) {
         const dropArea = document.querySelector(".pc-file-uploader");
         const fileUploadBtn = dropArea.querySelector("button");
@@ -84,9 +90,34 @@ else
         const attachmentsAlert = document.getElementById("attachmentsAlert");
         // const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
 
-        let files = [];
 
+        let files = [];
         fileUploadInput.setAttribute("multiple", "true");
+        debugger;
+        const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+        const storedrequestId = localStorage.getItem(`requestId_${serviceId}`);
+
+        const attachments = storedServiceData.attachments || [];
+
+        if (attachments) {
+            // const parsedFiles = JSON.parse(attachments);
+
+            attachments.forEach(fileMeta => {
+                // ممكن تستخدم Blob/URL.createObjectURL لو معاك محتوى فعلي
+                const dummyFile = new File([""], fileMeta.name, {
+                    type: fileMeta.extension,
+                    name: fileMeta.name,
+                    size:fileMeta.size * 1024,
+                    url:fileMeta.url
+                });
+
+                files.push(dummyFile);
+                displayFile(dummyFile, true, true); // نفترض إن الملف سليم من حيث الحجم والنوع
+            });
+
+            updateButtonState();
+        }
+
 
         if (sendFilesandNextBtn) {
             sendFilesandNextBtn.disabled = true;
@@ -158,110 +189,110 @@ else
 
                 displayFile(file, validExtension, validSize);
             });
-                updateButtonState();
+            updateButtonState();
+        }
+
+        function displayFile(file, validExtension, validSize) {
+            const fileRow = document.createElement("div");
+            fileRow.classList.add("pc-file-row");
+
+            const fileInfo = document.createElement("div");
+            fileInfo.classList.add("file-info");
+
+            const rightContainer = document.createElement("div");
+            rightContainer.classList.add("file-right");
+
+            const fileIcon = document.createElement("img");
+            const fileName = document.createElement("p");
+            fileName.classList.add("file-name");
+            fileName.textContent = file.name;
+
+            const deleteIcon = document.createElement("img");
+            deleteIcon.src = "/icons/xIcon.svg";
+            deleteIcon.width = 12;
+            deleteIcon.height = 12;
+            deleteIcon.classList.add("delete-file");
+
+            const helperText = document.createElement("p");
+            helperText.classList.add("helper-text");
+
+            if (!validExtension) {
+                fileIcon.src = "/icons/infoFilled.svg";
+                fileRow.style.borderColor = "#B42318";
+                helperText.textContent = "الرجاء تحميل ملف بصيغة مدعومة: .jpg، .png، .pdf";
+            } else if (!validSize) {
+                fileIcon.src = "/icons/infoFilled.svg";
+                fileRow.style.borderColor = "#B42318";
+                helperText.textContent = " حجم الملف يجب أن يكون 2 ميجابايت أو أقل";
+            } else {
+                fileIcon.src = "/icons/checkmarkFilled.svg";
+                helperText.textContent = "";
+                helperText.style.display = "none";
             }
 
-            function displayFile(file, validExtension, validSize) {
-                const fileRow = document.createElement("div");
-                fileRow.classList.add("pc-file-row");
+            fileIcon.width = 20;
+            fileIcon.height = 20;
 
-                const fileInfo = document.createElement("div");
-                fileInfo.classList.add("file-info");
+            deleteIcon.onclick = () => {
+                files = files.filter(f => f !== file);
+                fileRow.remove();
+                updateButtonState();
+                deleteAttachment(file.name);
+            };
 
-                const rightContainer = document.createElement("div");
-                rightContainer.classList.add("file-right");
+            rightContainer.appendChild(fileIcon);
+            rightContainer.appendChild(fileName);
 
-                const fileIcon = document.createElement("img");
-                const fileName = document.createElement("p");
-                fileName.classList.add("file-name");
-                fileName.textContent = file.name;
+            fileInfo.appendChild(rightContainer);
+            fileInfo.appendChild(deleteIcon);
 
-                const deleteIcon = document.createElement("img");
-                deleteIcon.src = "/icons/xIcon.svg";
-                deleteIcon.width = 12;
-                deleteIcon.height = 12;
-                deleteIcon.classList.add("delete-file");
+            fileRow.appendChild(fileInfo);
+            fileRow.appendChild(helperText);
 
-                const helperText = document.createElement("p");
-                helperText.classList.add("helper-text");
+            uploadedFilesContainer.appendChild(fileRow);
 
-                if (!validExtension) {
-                    fileIcon.src = "/icons/infoFilled.svg";
-                    fileRow.style.borderColor = "#B42318";
-                    helperText.textContent = "الرجاء تحميل ملف بصيغة مدعومة: .jpg، .png، .pdf";
-                } else if (!validSize) {
-                    fileIcon.src = "/icons/infoFilled.svg";
-                    fileRow.style.borderColor = "#B42318";
-                    helperText.textContent = " حجم الملف يجب أن يكون 2 ميجابايت أو أقل";
-                } else {
-                    fileIcon.src = "/icons/checkmarkFilled.svg";
-                    helperText.textContent = "";
-                    helperText.style.display = "none";
-                }
-
-                fileIcon.width = 20;
-                fileIcon.height = 20;
-
-                deleteIcon.onclick = () => {
-                    files = files.filter(f => f !== file);
+            if (!validExtension || !validSize) {
+                setTimeout(() => {
                     fileRow.remove();
                     updateButtonState();
-                };
-
-                rightContainer.appendChild(fileIcon);
-                rightContainer.appendChild(fileName);
-
-                fileInfo.appendChild(rightContainer);
-                fileInfo.appendChild(deleteIcon);
-
-                fileRow.appendChild(fileInfo);
-                fileRow.appendChild(helperText);
-
-                uploadedFilesContainer.appendChild(fileRow);
-
-                if (!validExtension || !validSize) {
-                    setTimeout(() => {
-                        fileRow.remove();
-                        updateButtonState();
-                    }, 10000);
-                }
+                }, 10000);
             }
+        }
 
-            //backend: save the uploaded files to the db
-            function updateButtonState() {
-                if (sendFilesandNextBtn) {
-                    sendFilesandNextBtn.disabled = files.length === 0;
-                }
-
-                if (sendFilesBtn) {
-                    sendFilesBtn.disabled = files.length === 0;
-
-                    sendFilesBtn.addEventListener("click", () => {
-                        attachmentsAlert.style.display = "flex";
-                        saveRequestChangesBtn.disabled = false;
-                    });
-                }
-            }
-
+        //backend: save the uploaded files to the db
+        function updateButtonState() {
             if (sendFilesandNextBtn) {
-                sendFilesandNextBtn.addEventListener("click", e => {
+                sendFilesandNextBtn.disabled = files.length === 0;
+            }
 
+            if (sendFilesBtn) {
+                sendFilesBtn.disabled = files.length === 0;
 
-                    e.preventDefault();
-
-                    const currentUrl = window.location.pathname;
-                    const segments = currentUrl.split("/");
-                    const routeId = segments.length > 2 ? segments[1] : null;
-
-                    if (routeId) {
-                        window.location.href = `/${routeId}/ReviewRequest`;
-                    } else {
-                        window.location.href = `/ReviewRequest`;
-                    }
+                sendFilesBtn.addEventListener("click", () => {
+                    attachmentsAlert.style.display = "flex";
+                    saveRequestChangesBtn.disabled = false;
                 });
             }
         }
 
+        if (sendFilesandNextBtn) {
+            sendFilesandNextBtn.addEventListener("click", e => {
+
+
+                e.preventDefault();
+
+                const currentUrl = window.location.pathname;
+                const segments = currentUrl.split("/");
+                const routeId = segments.length > 2 ? segments[1] : null;
+
+                if (routeId) {
+                    window.location.href = `/${routeId}/ReviewRequest`;
+                } else {
+                    window.location.href = `/ReviewRequest`;
+                }
+            });
+        }
+    }
+
 </script>
 
-<script src="/js/attachment-manager.js?v=007"></script>

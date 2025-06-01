@@ -3,15 +3,15 @@ $(document).ready(function () {
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
 
     const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+    const requestId = JSON.parse(localStorage.getItem(`requestId{serviceId}`));
     if (storedServiceData.currentStep) {
         currentStep = storedServiceData.currentStep;
         requestData = storedServiceData.requestData || {};
         attachments = storedServiceData.attachments || [];
 
         // Update the hidden requestId field if available
-        if (storedServiceData.requestId) {
-            $("#requestId").val(storedServiceData.requestId);
-            console.log("Loaded requestId from storage:", storedServiceData.requestId);
+        if (requestId) {
+            $("#requestId").val(requestId);
         }
 
         loadStep(serviceId, currentStep);
@@ -241,6 +241,7 @@ $(document).ready(function () {
                 const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
                 serviceData.requestId = response.requestId;
                 localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
+                localStorage.setItem(`requestId_${serviceId}`, response.requestId);
 
                 console.log("Request ID updated:", response.requestId);
             }
@@ -354,6 +355,8 @@ $(document).ready(function () {
         Object.entries(requestData).forEach(([stepKey, stepValues]) => {
             // Step 1 (Basic Data)
             if (stepKey === "Step1") {
+
+
                 Object.entries(stepValues).forEach(([key, value]) => {
                     const label = inputLabelMap[key] || formatKey(key);
 
@@ -377,10 +380,11 @@ $(document).ready(function () {
                     else { displayValue = value }
 
                     reviewContainer.append(`
-                    <li>
-                        <span class="review-label">${label}:</span>
-                        <span class="review-value">${displayValue}</span>
-                    </li>
+                    <div class="pc-input">
+                    <label for="name" class="pc-input-label">${label}</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${displayValue}" readonly>
+
+                    </div>
                 `);
                 });
             }
@@ -390,10 +394,10 @@ $(document).ready(function () {
                 Object.entries(stepValues).forEach(([key, value]) => {
                     const label = inputLabelMap[key] || formatKey(key);
                     additionalDataContainer.append(`
-                    <li>
-                        <span class="review-label">${label}:</span>
-                        <span class="review-value">${value}</span>
-                    </li>
+                    <div class="pc-input">
+                    <label for="name" class="pc-input-label">${label}</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${displayValue}" readonly>
+                    </div>
                 `);
                 });
             }
@@ -407,13 +411,34 @@ $(document).ready(function () {
             attachmentContainer.closest(".review-section").remove();
         } else {
             // Populate the attachments
+            //<strong>${att.typeName}</strong>:
+            attachmentContainer.append(`
+            <thead>
+                    <tr>
+                        <th>اسم الملف</th>
+                        <th>صيغة الملف</th>
+                        <th>حجم الملف</th>
+                        <th>معاينة الملف</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `);
+
             attachments.forEach(att => {
                 attachmentContainer.append(`
-                <li>
-                    <strong>${att.typeName}</strong>: ${att.name}
-                </li>
+                <tr>
+                <td>${att.name}</td>
+                <td>${att.extension}</td>
+                <td>${att.size} KB</td>
+                <td>
+                <button class="pc-outline-btn" href="${att.url}" target=_blank>معاينة</button>
+                </td>
+                    </tr>
             `);
             });
+            attachmentContainer.append(`
+                </tbody>
+            `);
         }
     }
 
