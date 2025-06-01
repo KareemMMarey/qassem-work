@@ -149,7 +149,7 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+            public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
         {
             try
             {
@@ -466,7 +466,7 @@ namespace QassimPrincipality.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
-                return View("Index", model);
+                return View(model);
             }
             try
             {
@@ -520,7 +520,7 @@ namespace QassimPrincipality.Web.Controllers
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
             }
 
-            return View("Index");
+            return View(model);
         }
 
         //[HttpGet]

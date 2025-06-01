@@ -1,7 +1,5 @@
 ﻿
 $(document).ready(function () {
-    // Initial Setup
-
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
 
     const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
