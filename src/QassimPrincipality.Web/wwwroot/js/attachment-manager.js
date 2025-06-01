@@ -2,7 +2,7 @@
 
 
 $(document).ready(function () {
-    debugger
+    
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
 
     const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
@@ -21,7 +21,7 @@ $(document).ready(function () {
 })
 // Upload files
 $(".attachment-input").on("change", function () {
-    debugger;
+    
     const attachmentId = $(this).data("attachment-id");
     const attachmentName = $(this).siblings("label").text().trim();
     const maxSizeMB = $(this).data("max-size");
