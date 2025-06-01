@@ -147,9 +147,7 @@ namespace QassimPrincipality.Application.Services.NewShema
 
             if (request == null)
                 throw new KeyNotFoundException("Service request not found.");
-            request.Actions =await _requestActionRepository.TableNoTracking
-                //.Where(c => c.RequestId.ToString() == requestId.ToString())
-                .ToListAsync();
+            
 
             var model = request.MapTo<ServiceRequestDto>();
 

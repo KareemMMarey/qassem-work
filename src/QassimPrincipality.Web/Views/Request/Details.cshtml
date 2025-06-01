@@ -7,7 +7,7 @@
 @inject IViewLocalizer localizer
 
 @{
-    ViewData["Title"] = localizer["RequestDetails"].Value; 
+    ViewData["Title"] = localizer["RequestDetails"].Value;
     // Helper functions:
     string FormatDate(DateTime date) => date == DateTime.MinValue ? localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
     string GetValue(string val) => string.IsNullOrEmpty(val) ? localizer["NotFound"].Value : val;
@@ -18,12 +18,10 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewData["Title"]</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css"
-      rel="stylesheet"
-      integrity="sha384-+qdLaWWVBK4Fh7ZR4PQcqeZJ8QThM2i5iQx8X7XgjBVvu6coAIYm/2uN5wQKfXxB"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css"
+          rel="stylesheet"
+          integrity="sha384-+qdLaWWVBK4Fh7ZR4PQcqeZJ8QThM2i5iQx8X7XgjBVvu6coAIYm/2uN5wQKfXxB"
+          crossorigin="anonymous" />
     <style>
         /* Container background and padding */
         .page‐wrapper {
@@ -43,37 +41,42 @@
             position: relative;
             padding-left: 30px;
         }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            right: 6px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #dee2e6;
-        }
+
+            .timeline::before {
+                content: '';
+                position: absolute;
+                right: 6px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: #dee2e6;
+            }
+
         .timeline‐item {
             position: relative;
             margin-bottom: 25px;
         }
-        .timeline‐item::before {
-            content: '';
-            position: absolute;
-            right: -4px;
-            width: 10px;
-            height: 10px;
-            background: #28a745;
-            border-radius: 50%;
-            top: 2px;
-        }
-        .timeline‐item .time {
-            color: #6c757d;
-            font-size: 0.85rem;
-        }
+
+            .timeline‐item::before {
+                content: '';
+                position: absolute;
+                right: -4px;
+                width: 10px;
+                height: 10px;
+                background: #28a745;
+                border-radius: 50%;
+                top: 2px;
+            }
+
+            .timeline‐item .time {
+                color: #6c757d;
+                font-size: 0.85rem;
+            }
         /* Table headings alignment */
         .table‐rtl th {
             text-align: right;
         }
+
         .table‐rtl td {
             vertical-align: middle;
             text-align: right;
@@ -90,221 +93,49 @@
         }
     </style>
 </head>
+<partial src=".\shared\requestdetails\_requestdetailsheader.cshtml"></partial>
+
+ 
+
+@await Html.PartialAsync("../shared/requestdetails/_CompleteRequestModal.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+<br />
+<br />
+<br />
+<br />
 
 <body>
     <div class="container‐fluid page‐wrapper">
         <div class="container">
-            <!-- ======== عنوان الصفحة وأزرار الإجراء ======== -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h3 class="mb-0">@localizer["RequestDetails"]</h3>
-                    <small class="text-muted">
-                        @localizer["RequestNumber"] :
-                        <strong>@GetValue(Model.RequestNumber)</strong> |
-                        @localizer["RequestDate"] : 
-                        <strong>@FormatDate(Model.CreatedOn)</strong>
-                    </small>
-                </div>
-                <a href="javascript:history.back()" class="btn btn-outline-secondary">
-                    @localizer["Back"]
-                </a>
-            </div>
+          
+            @await Html.PartialAsync("../shared/requestdetails/_RequestDetailsHeader.cshtml", Model
+                     , new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
             <div class="row">
-                <!-- ======== العمود الأيمن: Timeline لحالة الطلب ======== -->
-                <div class="col‐md‐4">
-                    <div class="section‐box">
-                        <h5 class="mb-3">@localizer["RequestStatus"]</h5>
-                        <div class="timeline">
-                            @*
-                                نعرض كل Action كمحطة في الـ timeline، أصغر خطوة في الأعلى.
-                                الفعل نفسه (ActionDescription) يأتي من WorkFlowHelper.GetActionDescription(...)
-                            *@
-                            @if (Model.Actions != null && Model.Actions.Any())
-                            {
-                                @foreach (var action in Model.Actions.OrderBy(a => a.ActionDate))
-                                {
-                                    <div class="timeline‐item">
-                                        <div class="pe-3">
-                                            <p class="mb-1">
-                                                <strong>
-                                                    @WorkFlowHelper.GetActionDescription(
-                                                        action.ActionStatus,
-                                                        Model.RequestNumber,
-                                                        localizer
-                                                    )
-                                                </strong>
-                                            </p>
-                                            <p class="time">@action.ActionDate.ToString("yyyy-MM-dd HH:mm")</p>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                            else
-                            {
-                                <div class="text-muted small">
-                                    @localizer["NoActionsYet"]  @* هذا مفتاح جديد: "NoActionsYet" => "لم يتم بعد اتخاذ أي إجراء" *@
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+                @await Html.PartialAsync("../shared/requestdetails/_RequestStatusSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-                <!-- ======== العمود الأيسر: باقي المحتوى ======== -->
                 <div class="col‐md‐8">
                     <!-- ======== بيانات مقدم الطلب ======== -->
-                    <div class="section‐box">
-                        <h5 class="mb-3">@localizer["ApplicantData"]</h5> @* مفتاح جديد: "ApplicantData" => "بيانات مقدم الطلب" *@
-                        <table class="table table-bordered table‐rtl">
-                            <tbody>
-                                <tr>
-                                    <th style="width: 30%;">@localizer["FullName"]</th>
-                                    <td>@GetValue(Model.BasicData.FullName)</td>
-                                    <th style="width: 30%;">@localizer["Nationality"]</th>
-                                    <td>@GetValue(Model.BasicData.Nationality)</td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["IDNumber"]</th>
-                                    <td>@GetValue(Model.BasicData.IdNumber)</td>
-                                    <th>@localizer["BirthDate"]</th>
-                                    <td>@FormatDate(Model.BasicData.BirthDate)</td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["PhoneNumber"]</th>
-                                    <td>@GetValue(Model.BasicData.Phone)</td>
-                                    <th>@localizer["mail"]</th>
-                                    <td>@GetValue(Model.BasicData.Email)</td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["City"]</th>
-                                    <td>@GetValue(Model.BasicData.City)</td>
-                                    <th>@localizer["District"]</th>
-                                    <td>@GetValue(Model.BasicData.District)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- ======== فاصل أفقي ======== -->
+                   
+                    @await Html.PartialAsync("../shared/requestdetails/_RequesterData.cshtml", Model,
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+             
                     <div class="section‐divider"></div>
 
                     <!-- ======== بيانات المعني بالطلب ======== -->
-                    <div class="section‐box">
-                        <h5 class="mb-3">@localizer["RequestedPartyData"]</h5> 
-                        @* مفتاح جديد: "RequestedPartyData" => "بيانات المعني بالطلب" *@
-                        <table class="table table-bordered table‐rtl">
-                            <tbody>
-                                <tr>
-                                    <th style="width: 30%;">@localizer["FullName"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.FullName)</td>
-                                    <th style="width: 30%;">@localizer["Nationality"]</th>
-                                    <td>
-                                        @* إذا كنت بحاجة إلى ترجمة CountryId، أضفه هنا. *@
-                                        @GetValue(Model.AdditionalData?.NationalId) 
-                                        @* (أضف مفتاحًا جديدًا إذا أردت اسم البلد نفسه) *@
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["IDNumber"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.NationalId)</td>
-                                    <th>@localizer["BirthDate"]</th>
-                                    <td>
-                                        @(Model.AdditionalData?.DateOfBirth.HasValue ?? false 
-                                            ? FormatDate(Model.AdditionalData.DateOfBirth.Value) 
-                                            : localizer["NotFound"].Value)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["PhoneNumber"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.Phone)</td>
-                                    <th>@localizer["mail"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.Email)</td>
-                                </tr>
-                                <tr>
-                                    <th>@localizer["City"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.City)</td>
-                                    <th>@localizer["District"]</th>
-                                    <td>@GetValue(Model.AdditionalData?.District)</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    @await Html.PartialAsync("../shared/requestdetails/_AdditionalData.cshtml", Model,
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-                        <!-- ======== تفاصيل الطلب (نص طويل) ======== -->
-                        <div class="mt-4">
-                            <h6>@localizer["RequestDetails"]</h6>
-                            <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; max-height: 200px; overflow-y: auto;">
-                                @Html.Raw(
-                                    string.IsNullOrWhiteSpace(Model.BasicData.RequestDetails)
-                                        ? $"<span class='text-muted'>{localizer["NoDetailsRecorded"].Value}</span>"
-                                          @* مفتاح جديد: "NoDetailsRecorded" => "لا توجد تفاصيل مسجلة" *@
-                                        : Model.BasicData.RequestDetails.Replace("\n", "<br />")
-                                )
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ======== فاصل أفقي ======== -->
-                    <div class="section‐divider"></div>
 
                     <!-- ======== المرفقات ======== -->
-                    <div class="section‐box">
-                        <h5 class="mb-3">@localizer["Attachments"]</h5>
-                        @* مفتاح جديد: "Attachments" => "المرفقات" *@
+                    @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                    
 
-                        @if (Model.Attachments != null && Model.Attachments.Any())
-                        {
-                            <table class="table table-bordered table‐rtl">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th style="width: 30%;">@localizer["AttachmentName"]</th> 
-                                        @* مفتاح جديد: "AttachmentName" => "اسم الملف" *@
-                                        <th>@localizer["FileType"]</th> 
-                                        @* مفتاح جديد: "FileType" => "نوع الملف" *@
-                                        <th>@localizer["FileSize"]</th> 
-                                        @* مفتاح جديد: "FileSize" => "حجم الملف (KB)" *@
-                                        <th>@localizer["UploadDate"]</th> 
-                                        @* مفتاح جديد: "UploadDate" => "تاريخ الرفع" *@
-                                        <th style="width: 120px;">@localizer["Download"]</th> 
-                                        @* مفتاح جديد: "Download" => "تحميل" *@
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var file in Model.Attachments)
-                                    {
-                                        <tr>
-                                            <td>@GetValue(file.FileName)</td>
-                                            <td>
-                                                @(System.IO.Path.GetExtension(file.FileName)
-                                                    ?.TrimStart('.')
-                                                    ?.ToLower() ?? localizer["NotFound"].Value)
-                                            </td>
-                                            <td>
-                                                @String.Format(
-                                                    "{0:N0}", 
-                                                    (file.FilePath == null ? 0 : /* بإمكانك تغيير المنطق ليحسب الحجم فعلًا */ 0)
-                                                )
-                                            </td>
-                                            <td>@FormatDate(file.UploadedAt)</td>
-                                            <td>
-                                                <a asp-controller="Request"
-                                                   asp-action="DownloadAttachment"
-                                                   asp-route-fileName="@file.FileName"
-                                                   class="btn btn-sm btn-outline-primary btn‐download">
-                                                    @localizer["Download"]
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                        else
-                        {
-                            <div class="text-muted small">@localizer["NoAttachments"]</div>
-                            @* مفتاح جديد: "NoAttachments" => "لا توجد مرفقات" *@
-                        }
-                    </div>
-
+                    @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
                     <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->
                     <div class="text-end">
                         <a href="javascript:history.back()" class="btn btn-outline-secondary">
@@ -318,4 +149,6 @@
 
     @* في حال كنت تريد تضمين جافاسكربت إضافي لديك، يمكنك إضافته هنا *@
 </body>
+
+
 </html>

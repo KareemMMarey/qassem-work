@@ -85,6 +85,9 @@ namespace QassimPrincipality.Web.Controllers
             try
             {
                 var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
+                ViewBag.UserId = HttpContext
+                    .User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Value;
                 return View(request);
             }
             catch (Exception ex)

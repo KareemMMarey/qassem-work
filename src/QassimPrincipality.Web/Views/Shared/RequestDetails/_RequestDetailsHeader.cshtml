@@ -1,14 +1,31 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
 
-<div class="pc-service-form-heading">
-    <h3>@Localizer["RequestDetails"]</h3>
-    <div class="request-details-heading">
-        <h4>@(ViewContext.HttpContext.Request.Headers["Accept-Language"].ToString().Contains("ar") ? Model.ServiceNameAr : Model.ServiceNameEn)</h4>
-        <div>
-            <h4>@Model.RequestNumber</h4>
-            <p>@Model.CreatedOn.ToString("yyyy-MM-dd")</p>
-        </div>
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    string FormatDate(DateTime date) => date == DateTime.MinValue ? localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
+
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? localizer["NotFound"].Value : val;
+
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="mb-0">@localizer["RequestDetails"]</h3>
+        <h4>@(currentCulture == "ar-SA" ? Model.ServiceNameAr : Model.ServiceNameEn)</h4>
+
+        <small class="text-muted">
+            @localizer["RequestNumber"] :
+            <strong>@GetValue(Model.RequestNumber)</strong> |
+            @localizer["RequestDate"] :
+            <strong>@FormatDate(Model.CreatedOn)</strong>
+        </small>
     </div>
+    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+        @localizer["Back"]
+    </a>
 </div>
-<div class="pc-form-line"></div>
+

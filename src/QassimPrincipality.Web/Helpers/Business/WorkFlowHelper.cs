@@ -143,6 +143,7 @@ namespace QassimPrincipality.Web.Helpers.Business
                 {
                     ServiceRequestStatus.Approved,
                     ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
                 },
             },
         };

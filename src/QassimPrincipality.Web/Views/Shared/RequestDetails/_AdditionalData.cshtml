@@ -1,50 +1,107 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+    string FormatDate(DateTime date) => date == DateTime.MinValue ? localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? localizer["NotFound"].Value : val;
+
+}
 
 @if (Model.AdditionalData != null)
 {
     <div class="pc-service-form-heading">
-        <h4>@Localizer["RequestSubjectData"]</h4>
+        <h4>@localizer["RequestSubjectData"]</h4>
     </div>
 
     <table class="pc-basic-table request-data-table">
         @if (!string.IsNullOrEmpty(Model.AdditionalData.FullName))
         {
             <tr>
-                <td class="td-bold">@Localizer["FullName"]</td>
+                <td class="td-bold">@localizer["FullName"]</td>
                 <td>@Model.AdditionalData.FullName</td>
-                <td class="td-bold">@Localizer["Nationality"]</td>
+                <td class="td-bold">@localizer["Nationality"]</td>
                 <td>@Model.AdditionalData.CountryId</td>
             </tr>
         }
         @if (!string.IsNullOrEmpty(Model.AdditionalData.NationalId))
         {
             <tr>
-                <td class="td-bold">@Localizer["IdNumber"]</td>
+                <td class="td-bold">@localizer["IdNumber"]</td>
                 <td>@Model.AdditionalData.NationalId</td>
-                <td class="td-bold">@Localizer["BirthDate"]</td>
+                <td class="td-bold">@localizer["BirthDate"]</td>
                 <td>@Model.AdditionalData.DateOfBirth?.ToString("yyyy-MM-dd")</td>
             </tr>
         }
         @if (!string.IsNullOrEmpty(Model.AdditionalData.Phone))
         {
             <tr>
-                <td class="td-bold">@Localizer["PhoneNumber"]</td>
+                <td class="td-bold">@localizer["PhoneNumber"]</td>
                 <td>@Model.AdditionalData.Phone</td>
-                <td class="td-bold">@Localizer["Email"]</td>
+                <td class="td-bold">@localizer["Email"]</td>
                 <td>@Model.AdditionalData.Email</td>
             </tr>
         }
         @if (!string.IsNullOrEmpty(Model.AdditionalData.City))
         {
             <tr>
-                <td class="td-bold">@Localizer["City"]</td>
+                <td class="td-bold">@localizer["City"]</td>
                 <td>@Model.AdditionalData.City</td>
-                <td class="td-bold">@Localizer["District"]</td>
+                <td class="td-bold">@localizer["District"]</td>
                 <td>@Model.AdditionalData.District</td>
             </tr>
         }
     </table>
 
     <div class="pc-form-line"></div>
+
+
+   @*  <div class="section‐box">
+        <h5 class="mb-3">@localizer["RequestedPartyData"]</h5>
+        <table class="table table-bordered table‐rtl">
+            <tbody>
+                @if (stri)
+                {
+                    
+                }
+                <tr>
+                    <th style="width: 30%;">@localizer["FullName"]</th>
+                    <td>@GetValue(Model.AdditionalData?.FullName)</td>
+                    <th style="width: 30%;">@localizer["Nationality"]</th>
+                    <td>
+                        @GetValue(Model.AdditionalData?.NationalId)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@localizer["IDNumber"]</th>
+                    <td>@GetValue(Model.AdditionalData?.NationalId)</td>
+                    <th>@localizer["BirthDate"]</th>
+                    <td>
+                        @(Model.AdditionalData?.DateOfBirth.HasValue ?? false
+                            ? FormatDate(Model.AdditionalData.DateOfBirth.Value)
+                            : localizer["NotFound"].Value)
+                    </td>
+                </tr>
+                <tr>
+                    <th>@localizer["PhoneNumber"]</th>
+                    <td>@GetValue(Model.AdditionalData?.Phone)</td>
+                    <th>@localizer["mail"]</th>
+                    <td>@GetValue(Model.AdditionalData?.Email)</td>
+                </tr>
+                <tr>
+                    <th>@localizer["City"]</th>
+                    <td>@GetValue(Model.AdditionalData?.City)</td>
+                    <th>@localizer["District"]</th>
+                    <td>@GetValue(Model.AdditionalData?.District)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ======== تفاصيل الطلب (نص طويل) ======== -->
+        @await Html.PartialAsync("../shared/requestdetails/_RequestDetailsText.cshtml", Model,
+                new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+    </div>
+ *@
 }

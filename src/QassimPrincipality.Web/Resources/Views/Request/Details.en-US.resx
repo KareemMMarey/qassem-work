@@ -231,38 +231,58 @@
   <data name="UnknownStatus" xml:space="preserve">
     <value>Unknown</value>
   </data>
-  <!-- Do not leave these values ​​constant in the code; Add it to your translation files -->
   <data name="NoActionsYet" xml:space="preserve">
-<value>No action yet</value>
-</data>
+    <value>No action yet</value>
+  </data>
   <data name="ApplicantData" xml:space="preserve">
-<value>Applicant Data</value>
-</data>
+    <value>Applicant Data</value>
+  </data>
   <data name="RequestedPartyData" xml:space="preserve">
-<value>Applicant Data</value>
-</data>
+    <value>Applicant Data</value>
+  </data>
   <data name="NoDetailsRecorded" xml:space="preserve">
-<value>No details recorded</value>
-</data>
+    <value>No details recorded</value>
+  </data>
   <data name="Attachments" xml:space="preserve">
-<value>Attachments</value>
-</data>
+    <value>Attachments</value>
+  </data>
   <data name="AttachmentName" xml:space="preserve">
-<value>File Name</value>
-</data>
+    <value>File Name</value>
+  </data>
   <data name="FileType" xml:space="preserve">
-<value>File Type</value>
-</data>
+    <value>File Type</value>
+  </data>
   <data name="FileSize" xml:space="preserve">
-<value>File Size (KB)</value>
-</data>
+    <value>File Size (KB)</value>
+  </data>
   <data name="UploadDate" xml:space="preserve">
-<value>Upload Date</value>
-</data>
+    <value>Upload Date</value>
+  </data>
   <data name="Download" xml:space="preserve">
-<value>Download</value>
-</data>
+    <value>Download</value>
+  </data>
   <data name="NoAttachments" xml:space="preserve">
-<value>No Attachments</value>
-</data>
+    <value>No Attachments</value>
+  </data>
+  <data name="AdminDecision" xml:space="preserve">
+    <value>Admin decision</value>
+  </data>
+  <data name="Relation_0" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="Relation_1" xml:space="preserve">
+    <value>Myself</value>
+  </data>
+  <data name="Relation_2" xml:space="preserve">
+    <value>Delegated</value>
+  </data>
+  <data name="Relation_3" xml:space="preserve">
+    <value>Lawyer</value>
+  </data>
+  <data name="Relation_4" xml:space="preserve">
+    <value>Frist class relative</value>
+  </data>
+  <data name="RequesterRelation" xml:space="preserve">
+    <value>Requester relation</value>
+  </data>
 </root>

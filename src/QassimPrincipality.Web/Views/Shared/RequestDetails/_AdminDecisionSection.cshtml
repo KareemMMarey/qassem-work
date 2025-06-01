@@ -1,10 +1,21 @@
 ﻿@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
 @model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var Localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
 
-@if ((bool)ViewBag.IsAdmin && (Model.Status == ServiceRequestStatus.UnderReview || Model.Status == ServiceRequestStatus.Submitted))
-{
-    <div class="pc-form-line"></div>
+
+
+
+
+
+
+
+<div class="section‐box" @WorkFlowHelper.hideOption(Model.Status)>
+
     <div class="pc-service-form-heading">
         <h4>@Localizer["AdminDecision"]</h4>
     </div>
@@ -12,14 +23,38 @@
     <form asp-action="UpdateRequestStatus" asp-route-id="@Model.Id" method="post">
         <div class="row mb-3">
             <div class="col-md-6">
-                <label class="form-label">@Localizer["Status"]</label>
-                <select name="Status" class="form-select" required>
-                    <option value="">@Localizer["SelectStatus"]</option>
-                    <option value="@((int)ServiceRequestStatus.Approved)">@Localizer["Approved"]</option>
-                    <option value="@((int)ServiceRequestStatus.Rejected)">@Localizer["Rejected"]</option>
-                    <option value="@((int)ServiceRequestStatus.RequiresCompletion)">@Localizer["RequiresCompletion"]</option>
-                    <option value="@((int)ServiceRequestStatus.NotQualified)">@Localizer["NotSpecialized"]</option>
+                <label class="form-label">@Localizer["RequestStatus"]</label>
+
+                @removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+
+                <select class="form-select" required name="NewStatus" class="pc-search-select">
+
+                    @{
+                        var selected = Model.Status == null ? "selected" : "";
+                        var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+                    }
+
+                    @foreach (ServiceRequestStatus status in transitions)
+                    {
+                        var isSelected = Model.Status == status ? "selected" : "";
+                        <option value="@((int)status)" @isSelected>
+                            @WorkFlowHelper.GetStatusDisplay(status, Localizer)
+                        </option>
+                    }
+
                 </select>
+
+
+
+                @*
+                <select name="Status" class="form-select" required>
+                <option value="">@Localizer["SelectStatus"]</option>
+                <option value="@((int)ServiceRequestStatus.Approved)">@Localizer["Approved"]</option>
+                <option value="@((int)ServiceRequestStatus.Rejected)">@Localizer["Rejected"]</option>
+                <option value="@((int)ServiceRequestStatus.RequiresCompletion)">@Localizer["RequiresCompletion"]</option>
+                <option value="@((int)ServiceRequestStatus.NotQualified)">@Localizer["NotSpecialized"]</option>
+                </select> *@
             </div>
         </div>
         <div class="row mb-3">
@@ -29,7 +64,7 @@
             </div>
         </div>
         <div class="pc-form-buttons">
-            <button type="submit" class="pc-primary-btn">@Localizer["SaveDecision"]</button>
+            <button type="submit" class="pc-primary-btn">@Localizer["Save"]</button>
         </div>
     </form>
-}
+</div>

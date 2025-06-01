@@ -1,5 +1,9 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var Localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
 @using QassimPrincipality.Domain.Enums
 @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
 {
