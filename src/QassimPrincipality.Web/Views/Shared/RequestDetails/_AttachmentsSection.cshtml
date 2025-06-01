@@ -1,9 +1,9 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @{
-    // Try to pull the parent’s localizer out of ViewData
     var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
-                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+        ?? throw new InvalidOperationException("ParentLocalizer not found.");
 }
+
 @if (Model.Attachments != null && Model.Attachments.Any())
 {
     <div class="pc-service-form-heading">
@@ -28,13 +28,20 @@
                     <td class="td-hide-on-mobile">@System.IO.Path.GetExtension(attachment.FileName).TrimStart('.')</td>
                     <td class="td-hide-on-mobile">@GetFileSize(attachment.FilePath)</td>
                     <td>
-                        <a asp-action="PreviewAttachment" asp-route-requestId="@Model.Id" asp-route-attachmentId="@attachment.AttachmentTypeId" class="pc-outline-btn" target="_blank">
+                        <a asp-action="PreviewAttachment"
+                           asp-route-requestId="@Model.Id"
+                           asp-route-attachmentId="@attachment.AttachmentTypeId"
+                           class="pc-outline-btn"
+                           target="_blank">
                             <img src="~/icons/view.svg" alt="view" width="20" height="20" />
                             @localizer["Preview"]
                         </a>
                     </td>
                     <td>
-                        <a asp-action="DownloadAttachment" asp-route-requestId="@Model.Id" asp-route-attachmentId="@attachment.AttachmentTypeId" class="pc-outline-btn">
+                        <a asp-action="DownloadAttachment"
+                           asp-route-requestId="@Model.Id"
+                           asp-route-attachmentId="@attachment.AttachmentTypeId"
+                           class="pc-outline-btn">
                             <img src="~/icons/download.svg" alt="download" width="20" height="20" />
                             @localizer["Download"]
                         </a>
@@ -43,65 +50,7 @@
             }
         </tbody>
     </table>
-
-
 }
-
-
-
-@*
-<div class="section‐box">
-    <h5 class="mb-3">@localizer["Attachments"]</h5>
-
-    @if (Model.Attachments != null && Model.Attachments.Any())
-    {
-        <table class="table table-bordered table‐rtl">
-            <thead class="table-light">
-                <tr>
-                    <th style="width: 30%;">@localizer["AttachmentName"]</th>
-                    <th>@localizer["FileType"]</th>
-                    <th>@localizer["FileSize"]</th>
-                    <th>@localizer["UploadDate"]</th>
-                    <th style="width: 120px;">@localizer["Download"]</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var file in Model.Attachments)
-                {
-                    <tr>
-                        <td>@GetValue(file.FileName)</td>
-                        <td>
-                            @(System.IO.Path.GetExtension(file.FileName)
-                                ?.TrimStart('.')
-                                ?.ToLower() ?? localizer["NotFound"].Value)
-                        </td>
-                        <td>
-                            @String.Format(
-                                     "{0:N0}",
-                                     (file.FilePath == null ? 0 : /* بإمكانك تغيير المنطق ليحسب الحجم فعلًا */ 0)
-                                     )
-                        </td>
-                        <td>@FormatDate(file.UploadedAt)</td>
-                        <td>
-                            <a asp-controller="Request"
-                               asp-action="DownloadAttachment"
-                               asp-route-fileName="@file.FileName"
-                               class="btn btn-sm btn-outline-primary btn‐download">
-                                @localizer["Download"]
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <div class="text-muted small">@localizer["NoAttachments"]</div>
-    }
-</div>
- *@
-
 
 @functions {
     private string GetFileSize(string filePath)

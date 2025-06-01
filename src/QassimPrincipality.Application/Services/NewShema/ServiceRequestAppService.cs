@@ -271,7 +271,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             if (currentStatus == ServiceRequestStatus.Submitted && newStatus != ServiceRequestStatus.UnderReview)
                 throw new InvalidOperationException("Submitted can only transition to UnderReview.");
 
-            if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected))
+            if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected&& newStatus != ServiceRequestStatus.RequiresCompletion))
                 throw new InvalidOperationException("UnderReview can only transition to Approved or Rejected.");
         }
        

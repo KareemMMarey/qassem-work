@@ -146,6 +146,16 @@ namespace QassimPrincipality.Web.Helpers.Business
                     ServiceRequestStatus.RequiresCompletion,
                 },
             },
+            new WorkFlowItem
+            {
+                Id = ServiceRequestStatus.RequiresCompletion,
+                AllowedStatusses = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
+                },
+            },
         };
 
         public static ServiceRequestStatus[] GetNextTransition(ServiceRequestStatus status)

@@ -1,21 +1,23 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @{
-    // Try to pull the parent’s localizer out of ViewData
+    // Pull the parent’s localizer out of ViewData
     var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
-                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+        ?? throw new InvalidOperationException("ParentLocalizer not found.");
 }
+
 @if (!string.IsNullOrEmpty(Model.BasicData.RequestDetails) || !string.IsNullOrEmpty(Model.AdditionalData?.RequestDetails))
 {
-
-    <div class="mt-4">
-        <h6>@localizer["RequestDetails"]</h6>
-        <div style="background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 5px; padding: 15px; max-height: 200px; overflow-y: auto;">
-            @Html.Raw(
-                     string.IsNullOrWhiteSpace(Model.BasicData.RequestDetails)
-                     ? $"<span class='text-muted'>{localizer["NoDetailsRecorded"].Value}</span>"
-                     @* مفتاح جديد: "NoDetailsRecorded" => "لا توجد تفاصيل مسجلة" *@
-                     : Model.BasicData.RequestDetails.Replace("\n", "<br />")
-                     )
-        </div>
-    </div>
+    <table class="pc-basic-table request-data-table">
+        <tr>
+            <td class="td-bold">@localizer["RequestDetails"]</td>
+            <td class="td-request-details" colspan="3">
+                @Html.Raw(
+                         string.IsNullOrWhiteSpace(Model.BasicData.RequestDetails)
+                         ? $"<span class='text-muted'>{localizer["NoDetailsRecorded"].Value}</span>"
+                         : Model.BasicData.RequestDetails.Replace("\n", "<br />")
+                         )
+            </td>
+        </tr>
+    </table>
+    <div class="pc-form-line"></div>
 }

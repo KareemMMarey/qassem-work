@@ -95,20 +95,16 @@
 </head>
 <partial src=".\shared\requestdetails\_requestdetailsheader.cshtml"></partial>
 
- 
+
 
 @await Html.PartialAsync("../shared/requestdetails/_CompleteRequestModal.cshtml", Model,
-                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-<br />
-<br />
-<br />
-<br />
 
 <body>
     <div class="container‐fluid page‐wrapper">
         <div class="container">
-          
+                
             @await Html.PartialAsync("../shared/requestdetails/_RequestDetailsHeader.cshtml", Model
                      , new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
@@ -116,32 +112,28 @@
                 @await Html.PartialAsync("../shared/requestdetails/_RequestStatusSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-                <div class="col‐md‐8">
-                    <!-- ======== بيانات مقدم الطلب ======== -->
-                   
-                    @await Html.PartialAsync("../shared/requestdetails/_RequesterData.cshtml", Model,
-                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
-             
-                    <div class="section‐divider"></div>
-
-                    <!-- ======== بيانات المعني بالطلب ======== -->
-                    @await Html.PartialAsync("../shared/requestdetails/_AdditionalData.cshtml", Model,
-                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                <!-- ======== بيانات مقدم الطلب ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_RequesterData.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
 
-                    <!-- ======== المرفقات ======== -->
-                    @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
-                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
-                    
+                <!-- ======== بيانات المعني بالطلب ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_AdditionalData.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-                    @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
-                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
-                    <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->
-                    <div class="text-end">
-                        <a href="javascript:history.back()" class="btn btn-outline-secondary">
-                            @localizer["Back"]
-                        </a>
-                    </div>
+
+                <!-- ======== المرفقات ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+                @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->
+                <div class="text-end">
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                        @localizer["Back"]
+                    </a>
                 </div>
             </div>
         </div>

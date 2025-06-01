@@ -12,8 +12,51 @@
 @using QassimPrincipality.Domain.Enums
 
 
+<div class="pc-service-form-heading">
+    <h4>@Localizer["ApplicantData"]</h4>
+</div>
+
+<table class="pc-basic-table request-data-table">
+    <tr>
+        <td class="td-bold">@Localizer["FullName"]</td>
+        <td>@GetValue(Model.BasicData.FullName)</td>
+        <td class="td-bold">@Localizer["Nationality"]</td>
+        <td>@GetValue(Model.BasicData.Nationality)</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["IDNumber"]</td>
+        <td>@GetValue(Model.BasicData.IdNumber)</td>
+        <td class="td-bold">@Localizer["BirthDate"]</td>
+        <td>@FormatDate(Model.BasicData.BirthDate)</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["PhoneNumber"]</td>
+        <td>@GetValue(Model.BasicData.Phone)</td>
+        <td class="td-bold">@Localizer["mail"]</td>
+        <td>@GetValue(Model.BasicData.Email)</td>
+    </tr>
+    <tr>
+        <td class="td-bold">@Localizer["City"]</td>
+        <td>@GetValue(Model.BasicData.City)</td>
+        <td class="td-bold">@Localizer["District"]</td>
+        <td>@GetValue(Model.BasicData.District)</td>
+    </tr>
+
+    @if (Model.ServiceRequesterRelation != ServiceRequesterRelation.MySelf)
+    {
+        <tr>
+            <td class="td-bold">@Localizer["RequesterRelation"]</td>
+            <td colspan="3">@Localizer[$"Relation_{Model.ServiceRequesterRelation}"]</td>
+        </tr>
+    }
+</table>
+
+<div class="pc-form-line"></div>
+
+@* 
+
 <div class="section‐box">
-    <h5 class="mb-3">@Localizer["ApplicantData"]</h5> @* مفتاح جديد: "ApplicantData" => "بيانات مقدم الطلب" *@
+    <h5 class="mb-3">@Localizer["ApplicantData"]</h5> 
     <table class="table table-bordered table‐rtl">
         <tbody>
             <tr>
@@ -52,3 +95,4 @@
     </table>
 </div>
 
+ *@

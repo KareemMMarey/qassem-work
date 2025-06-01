@@ -285,4 +285,13 @@
   <data name="RequesterRelation" xml:space="preserve">
     <value>Requester relation</value>
   </data>
+  <data name="AttachToRequest" xml:space="preserve">
+<value>Add to request</value>
+</data>
+  <data name="CompleteRequest" xml:space="preserve">
+<value>Complete request</value>
+</data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+<value>Attach a file to complete the request</value>
+</data>
 </root>

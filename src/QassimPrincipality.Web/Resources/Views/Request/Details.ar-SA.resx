@@ -294,4 +294,13 @@
   <data name="RequesterRelation" xml:space="preserve">
     <value>صلة مقدم الطلب</value>
   </data>
+  <data name="AttachToRequest" xml:space="preserve">
+    <value>إضافة الى الطلب</value>
+  </data>
+  <data name="CompleteRequest" xml:space="preserve">
+    <value>اكمال الطلب</value>
+  </data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+    <value>لإكمال الطلب أرفق ملف</value>
+  </data>
 </root>
