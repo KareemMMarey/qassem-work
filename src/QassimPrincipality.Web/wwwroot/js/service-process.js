@@ -3,7 +3,7 @@ $(document).ready(function () {
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
 
     const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
-    const requestId = JSON.parse(localStorage.getItem(`requestId{serviceId}`));
+    const requestId = localStorage.getItem(`requestId_${serviceId}`);
     if (storedServiceData.currentStep) {
         currentStep = storedServiceData.currentStep;
         requestData = storedServiceData.requestData || {};
@@ -88,6 +88,116 @@ $(document).ready(function () {
             }
 
         }
+
+        if (currentStep === 2 && (serviceId == 5 || serviceId == 6 || serviceId == 7)) {
+            //const details = $("#requestDetails").val().trim();
+            //if (details === "") {
+            //    showErrorMessage("#requestDetails", messages.detailsMessage);
+            //    return;
+            //}
+
+
+            //const details = $("#requestDetails").val().trim();
+            const fullName = $("#fullName").val().trim();
+            const countryId = $("#countryId").val().trim();
+            const nationalId = $("#nationalId").val().trim();
+            const dateOfBirth = $("#dateOfBirth").val().trim();
+            const phone = $("#phone").val().trim();
+            const city = $("#city").val().trim();
+            const district = $("#district").val().trim();
+            const email = $("#email").val().trim();
+
+            hideErrorMessage("#requestDetails")
+            hideErrorMessage("#phone")
+            hideErrorMessage("#email")
+            // Regular expressions for validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const saudiPhoneRegex = /^(00966|966|\+966|0)?5\d{8}$/;
+
+            let hasError = false;
+
+            if ( serviceId == 6) {
+                const prisonFromId = $("#prisonFromId").val().trim();
+                if (prisonFromId === "") {
+                    showErrorMessage("#prisonFromId", messages.applicantDescriptionError);
+                    hasError = true;
+                }
+
+                const otherDDLId = $("#otherDDLId").val().trim();
+                if (otherDDLId === "") {
+                    showErrorMessage("#otherDDLId", messages.applicantDescriptionError);
+                    hasError = true;
+                }
+            }
+
+            if (serviceId == 7) {
+                const prisonFromId = $("#prisonFromId").val().trim();
+                if (prisonFromId === "") {
+                    showErrorMessage("#prisonFromId", messages.applicantDescriptionError);
+                    hasError = true;
+                }
+
+                const prisonToId = $("#prisonToId").val().trim();
+                if (prisonToId === "") {
+                    showErrorMessage("#prisonToId", messages.applicantDescriptionError);
+                    hasError = true;
+                }
+            }
+            const requestDetails = $("#requestDetails").val().trim();
+            if (requestDetails === "") {
+                showErrorMessage("#requestDetails", messages.detailsMessage);
+                hasError = true;
+            }
+
+            if (fullName === "") {
+                showErrorMessage("#fullName", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (countryId === "") {
+                showErrorMessage("#countryId", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (nationalId === "") {
+                showErrorMessage("#nationalId", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (dateOfBirth === "") {
+                showErrorMessage("#dateOfBirth", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (city === "") {
+                showErrorMessage("#city", messages.RequiredInputMessage);
+                hasError = true;
+            }
+
+            if (district === "") {
+                showErrorMessage("#district", messages.RequiredInputMessage);
+                hasError = true;
+            }
+
+
+            if (phone === "") {
+                showErrorMessage("#phone", messages.phoneRequiredMessage);
+                hasError = true;
+            } else if (!saudiPhoneRegex.test(phone)) {
+                showErrorMessage("#phone", messages.phoneInvalidMessage);
+                hasError = true;
+            }
+
+            if (email === "") {
+                showErrorMessage("#email", messages.emailRequiredMessage);
+                hasError = true;
+            } else if (!emailRegex.test(email)) {
+                showErrorMessage("#email", messages.emailInvalidMessage);
+                hasError = true;
+            }
+
+            if (hasError) {
+                return;
+            }
+
+        }
+
 
         // Validate required attachments
         if (!validateRequiredAttachments()) {
@@ -224,7 +334,9 @@ $(document).ready(function () {
 
     // Save to Server
     function saveToServer(stepNumber, stepData) {
-        const requestId = $("#requestId").val() || emptyGuid;
+        debugger;
+        //const requestId = $("#requestId").val() || emptyGuid;
+        const requestId = localStorage.getItem(`requestId_${serviceId}`);
 
         $.post("/Request/SaveStepData", {
             requestId: requestId,
@@ -255,7 +367,9 @@ $(document).ready(function () {
     // Submit Full Request
     function submitRequest() {
         //const requestDetails = JSON.stringify(requestData);
-        const requestId = $("#requestId").val() || emptyGuid;
+        //const requestId = $("#requestId").val() || emptyGuid;
+        const requestId = localStorage.getItem(`requestId_${serviceId}`);
+
 
         $.post("/Request/SubmitRequest", {
             requestId: requestId
@@ -396,7 +510,7 @@ $(document).ready(function () {
                     additionalDataContainer.append(`
                     <div class="pc-input">
                     <label for="name" class="pc-input-label">${label}</label>
-                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${displayValue}" readonly>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${value}" readonly>
                     </div>
                 `);
                 });
@@ -404,6 +518,7 @@ $(document).ready(function () {
         });
         // Remove Step 2 container if empty
         if (!hasStep2Data) {
+            document.querySelector("#stepTwo").style.display = "none";
             additionalDataContainer.closest(".review-section").remove();
         }
         // Handle attachments separately

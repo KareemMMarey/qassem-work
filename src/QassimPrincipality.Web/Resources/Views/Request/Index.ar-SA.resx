@@ -153,6 +153,10 @@
   <data name="emailRequiredMessage" xml:space="preserve">
     <value>يرجى تعبئة البريد الإلكتروني</value>
   </data>
+  
+  <data name="RequiredInputMessage" xml:space="preserve">
+    <value>يرجى تعبئة الحقل</value>
+  </data>
   <data name="emailInvalidMessage" xml:space="preserve">
     <value>البريد الإلكتروني غير صالح</value>
   </data>

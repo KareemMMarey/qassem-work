@@ -206,6 +206,7 @@ namespace QassimPrincipality.Web.Controllers
                 ViewBag.Prisons = await _lookups.GetPrisons();
                 ViewBag.Reasons = await _lookups.GetReasons();
                 ViewBag.ServiceCategoryId = serviceWithSteps.CategoryId;
+                ViewBag.ServiceId = serviceWithSteps.Id;
             }
 
 

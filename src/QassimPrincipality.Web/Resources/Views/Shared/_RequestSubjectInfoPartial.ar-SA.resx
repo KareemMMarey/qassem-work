@@ -222,6 +222,12 @@
   <data name="Prison" xml:space="preserve">
     <value>السجن</value>
   </data>
+  <data name="FromPrison" xml:space="preserve">
+    <value>مقر السجن الحالي</value>
+  </data>
+  <data name="ToPrison" xml:space="preserve">
+    <value>مقر السجن المراد الإنتقال إليه</value>
+  </data>
   <data name="Reason" xml:space="preserve">
     <value>السبب</value>
   </data>
