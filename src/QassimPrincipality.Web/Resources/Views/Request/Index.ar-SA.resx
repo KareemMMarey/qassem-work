@@ -255,4 +255,10 @@
   <data name="ValidationError" xml:space="preserve">
     <value>يوجد أخطاء في النموذج</value>
   </data>
+  <data name="ErrorMessagePhone" xml:space="preserve">
+    <value>هذا الرقم غير صحيح </value>
+  </data>
+  <data name="ErrorMessageEmail" xml:space="preserve">
+    <value>بريد الكترونى غير صالح</value>
+  </data>
 </root>

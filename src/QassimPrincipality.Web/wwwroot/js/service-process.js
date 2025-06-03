@@ -32,10 +32,33 @@ $(document).ready(function () {
         // Handle first step details validation
         if (currentStep === 1) {
             const details = $("#requestDetails").val().trim();
+            const phone = $("#phone").val().trim();
+            const email = $("#email").val().trim();
             if (details === "") {
                 showErrorMessage("#requestDetails", messages.detailsMessage);
-                return;
+                $('#requestDetails').next().css('display', 'block');
+                //$('<div class="error"></div>').insertAfter('#requestDetails');
+                
+                console.log("details")
             }
+
+            if (email === "") {
+                showErrorMessage("#email", messages.errorEmail);
+                $('#email').next().css('display', 'block');
+                console.log("Phone")
+
+            }
+
+            if (phone === "") {
+                showErrorMessage("#phone", messages.errorPhone);
+                $('#phone').next().css('display', 'block');
+                
+                console.log("Phone")
+                
+                
+            }
+            return;
+            
         }
 
         // Validate required attachments
@@ -240,7 +263,7 @@ $(document).ready(function () {
         $(selector).next(".error").hide();
     }
     function updateStepper(currentStep) {
-        debugger;
+        //debugger;
         // Remove active class from all steps
         $(".pc-step").removeClass("active");
 
