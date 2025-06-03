@@ -2,7 +2,7 @@
 
 @{
 
-    
+
     var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
 }
 
@@ -17,51 +17,311 @@
         color: #dc3545;
     }
 </style>
-<div class="card p-4">
-    <h5>@localizer["Attachments"] </h5>
+<h4>@localizer["Attachments"] </h4>
+<p class="pc-docs-requirements-heading">- المستندات المطلوبة:</p>
 
-    @if (Model != null && Model.Count>0)
-    {
-        <ul class="list-group mb-3">
-            @foreach (var attachmentType in Model)
+
+@if (Model != null && Model.Count > 0)
+{
+    <ul class="pc-docs-requirements-list">
+        @foreach (var attachmentType in Model)
+        {
+            <li>
+                <label>
+                    <img src="~/icons/checkmarkOutline.svg" alt="checkmark" />
+                    @(currentCulture == "ar-SA" ? attachmentType.NameAr : attachmentType.NameEn)
+                    @*                         @if (attachmentType.IsMandatory)
             {
-                <li class="list-group-item @(attachmentType.IsMandatory ? "required" : "")">
-                    <label>
-                        @attachmentType.NameAr / @attachmentType.NameEn
-                        @if (attachmentType.IsMandatory)
-                        {
-                            <span class="text-danger">*</span>
-                        }
-                       
-                    </label>
-                    <input type="file"
-                           id="attachment-@attachmentType.Id"
-                           class="form-control attachment-input @(attachmentType.IsMandatory ? "required-file" : "")"
-                           data-attachment-id="@attachmentType.Id"
-                           data-max-size="@attachmentType.MaxSizeMB"
-                           data-allowed-extensions="@attachmentType.AllowedExtensions"
-                           multiple />
-                    
+            <span class="text-danger">*</span>
+            } *@
 
-                    <small class="text-muted mt-1 d-block">
-                        @localizer["AttachmentInfo", attachmentType.MaxSizeMB, attachmentType.AllowedExtensions]
-                    </small>
-                    <ul id="uploaded-files-@attachmentType.Id" class="mt-2 uploaded-files"></ul>
-                </li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>@localizer["Noattachmentsrequired"] </p>
-    }
+                </label>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>@localizer["Noattachmentsrequired"] </p>
+}
+
+
+
+<div class="pc-file-uploader">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M10.9998 0.25C14.1608 0.25 15.903 0.25 17.23 1.185C17.611 1.453 17.95 1.773 18.24 2.136C19.251 3.407 19.251 5.034 19.251 8.273V10.818C19.251 13.873 19.251 15.406 18.729 16.722C17.895 18.827 16.139 20.484 13.911 21.266C12.7097 21.6868 11.3248 21.741 8.85332 21.748C8.841 21.749 8.82868 21.75 8.81633 21.751C8.80186 21.7521 8.78781 21.751 8.77406 21.7482C8.43151 21.749 8.0683 21.749 7.68208 21.749C5.80016 21.749 4.85498 21.749 4.01699 21.455C2.65599 20.977 1.582 19.963 1.071 18.674C0.75 17.865 0.75 16.968 0.75 15.1821V10.6694C0.75 10.2554 1.086 9.91942 1.5 9.91942C1.914 9.91942 2.25 10.2554 2.25 10.6694V15.182C2.25 16.7779 2.25 17.579 2.46499 18.122C2.81599 19.007 3.56301 19.707 4.51301 20.041C5.11001 20.251 5.96899 20.251 7.68096 20.251C8.0634 20.251 8.42207 20.251 8.75907 20.2502C10.0619 20.1198 11.083 19.0167 11.083 17.6801C11.083 17.5202 11.075 17.3479 11.0666 17.1657L11.0647 17.1252C11.0398 16.5806 11.0115 15.964 11.165 15.3881C11.388 14.5561 12.043 13.9011 12.875 13.6781C13.4506 13.5248 14.0659 13.5529 14.6112 13.5778L14.6511 13.5797C14.8339 13.5881 15.0067 13.5961 15.167 13.5961C16.5666 13.5961 17.7102 12.4765 17.749 11.086C17.749 10.9985 17.749 10.9095 17.749 10.8192V8.274C17.749 5.383 17.749 3.932 17.064 3.071C16.864 2.82 16.629 2.598 16.364 2.413C15.465 1.78 13.9868 1.752 10.9978 1.752C10.5838 1.752 10.2478 1.416 10.2478 1.002C10.2478 0.588001 10.5838 0.252001 10.9978 0.252001L10.9998 0.25ZM17.6944 14.2175C16.9986 14.7675 16.1204 15.0961 15.167 15.0961C14.9762 15.0961 14.7811 15.0875 14.5905 15.079C14.5763 15.0784 14.5621 15.0777 14.548 15.0771L14.5321 15.0764C14.0781 15.0556 13.6109 15.0342 13.263 15.1281C12.948 15.2121 12.699 15.4611 12.615 15.7761C12.5212 16.1283 12.5429 16.6009 12.5638 17.0578L12.564 17.0611C12.574 17.2651 12.583 17.4751 12.583 17.6801C12.583 18.6161 12.2663 19.4796 11.7344 20.1691C12.4126 20.1122 12.9462 20.0157 13.413 19.852C15.23 19.214 16.659 17.872 17.333 16.171C17.5375 15.6548 17.6415 15.0447 17.6944 14.2175Z" fill="#161616" />
+        <path d="M3.58933 3.35931C3.39711 3.60404 3.19487 3.86115 3.03781 4.02274C2.74911 4.31977 2.27428 4.32651 1.97726 4.03781C1.68023 3.74911 1.67349 3.27428 1.96219 2.97726C2.05089 2.886 2.19651 2.70419 2.40971 2.43276L2.45675 2.37284C2.64683 2.13069 2.8698 1.84663 3.09954 1.57551C3.34574 1.28495 3.62131 0.983158 3.89679 0.748536C4.03484 0.630961 4.19043 0.514992 4.35782 0.425414C4.51926 0.33902 4.74172 0.25 5 0.25C5.25829 0.25 5.48074 0.33902 5.64218 0.425414C5.80957 0.514992 5.96517 0.630961 6.10321 0.748536C6.37869 0.983158 6.65426 1.28495 6.90047 1.57551C7.1302 1.84663 7.35317 2.13068 7.54324 2.37282L7.59029 2.43276C7.80349 2.70419 7.94911 2.886 8.03781 2.97726C8.32651 3.27428 8.31977 3.74911 8.02274 4.03781C7.72572 4.32651 7.25089 4.31977 6.96219 4.02274C6.80513 3.86115 6.6029 3.60404 6.41067 3.3593L6.36595 3.30235C6.17304 3.05663 5.96675 2.79386 5.75606 2.54522L5.75 2.53807V9C5.75 9.41421 5.41421 9.75 5 9.75C4.58579 9.75 4.25 9.41421 4.25 9V2.53807L4.24394 2.54522C4.03326 2.79385 3.82698 3.05661 3.63408 3.30232L3.58933 3.35931Z" fill="#161616" />
+    </svg>
+
+    <div>
+        <h4>اسحب وأفلت الملفات هنا للإرفاق</h4>
+        <p>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</p>
+    </div>
+    <button class="pc-secondary-btn">تصفح الملفات</button>
+    <input type="file" hidden class="form-control attachment-input" />
 </div>
-<script>
-    const attachmentmessages = {
-        fileSizeExceeded: '@localizer["FileSizeExceeded", "{0}", "{1}"]'.replace("{0}", "{0}").replace("{1}", "{1}"),
-        unsupportedExtension: '@localizer["UnsupportedExtension", "{0}", "{1}"]'.replace("{0}", "{0}").replace("{1}", "{1}"),
-        uploadFailed: '@localizer["UploadFailed"]',
-        successUploadMessage: '@localizer["SuccessUploadMessage"]'
-    };
-</script>
+
+<div class="pc-uploaded-files">
+</div>
+
 <script src="/js/attachment-manager.js?v=007"></script>
+
+<script>
+    if (typeof attachmentmessages === "undefined") {
+        var attachmentmessages = {
+            fileSizeExceeded: 'الملف {0} يتجاوز الحجم الأقصى {1} ميغابايت.',
+            unsupportedExtension: 'الملف {0} يحتوي على امتداد غير مدعوم. المسموح به: {1}.',
+            uploadFailed: 'فشل في تحميل الملفات. يرجى المحاولة مرة أخرى.',
+            successUploadMessage: 'تم رفع الملف بنجاح'
+        };
+    }
+
+
+
+
+
+    if (document.querySelector(".pc-file-uploader")) {
+        const dropArea = document.querySelector(".pc-file-uploader");
+        const fileUploadBtn = dropArea.querySelector("button");
+        const fileUploadInput = dropArea.querySelector("input");
+        const dragText = dropArea.querySelector("h4");
+        const uploadedFilesContainer = document.querySelector(".pc-uploaded-files");
+        const sendFilesandNextBtn = document.getElementById("sendFilesandNextBtn");
+        const sendFilesBtn = document.getElementById("sendFilesBtn");
+        const saveRequestChangesBtn = document.getElementById("saveRequestChangesBtn");
+        const attachmentsAlert = document.getElementById("attachmentsAlert");
+        // const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+
+
+        let files = [];
+        fileUploadInput.setAttribute("multiple", "true");
+        
+        const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+        const storedrequestId = localStorage.getItem(`requestId_${serviceId}`);
+
+        const attachments = storedServiceData.attachments || [];
+
+        if (attachments) {
+            // const parsedFiles = JSON.parse(attachments);
+
+            attachments.forEach(fileMeta => {
+                // ممكن تستخدم Blob/URL.createObjectURL لو معاك محتوى فعلي
+                const dummyFile = new File([""], fileMeta.name, {
+                    type: fileMeta.extension,
+                    name: fileMeta.name,
+                    size:fileMeta.size * 1024,
+                    url:fileMeta.url
+                });
+
+                files.push(dummyFile);
+                displayFile(dummyFile, true, true); // نفترض إن الملف سليم من حيث الحجم والنوع
+            });
+
+            updateButtonState();
+        }
+
+        $("#previous-btn").click(function () {
+            debugger;
+            files = [];
+            const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+
+            const sattachments = serviceData.attachments || [];
+
+            if (sattachments) {
+                // const parsedFiles = JSON.parse(attachments);
+
+                sattachments.forEach(fileMeta => {
+                    // ممكن تستخدم Blob/URL.createObjectURL لو معاك محتوى فعلي
+                    const dummyFile = new File([""], fileMeta.name, {
+                        type: fileMeta.extension,
+                        name: fileMeta.name,
+                        size: fileMeta.size * 1024,
+                        url: fileMeta.url
+                    });
+
+                    files.push(dummyFile);
+                    displayFile(dummyFile, true, true); // نفترض إن الملف سليم من حيث الحجم والنوع
+                });
+
+                updateButtonState();
+            }
+        });
+
+
+        if (sendFilesandNextBtn) {
+            sendFilesandNextBtn.disabled = true;
+        }
+
+        if (sendFilesBtn) {
+            sendFilesBtn.disabled = true;
+        }
+
+        if (saveRequestChangesBtn) {
+            saveRequestChangesBtn.disabled = true;
+        }
+
+        fileUploadBtn.onclick = () => {
+            fileUploadInput.click();
+        }
+
+        fileUploadInput.addEventListener("change", function () {
+            addFiles([...this.files]);
+        });
+
+        dropArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dropArea.classList.add("active");
+            fileUploadBtn.disabled = true;
+            dragText.textContent = "أفلت الملف هنا للإرفاق";
+        });
+
+        dropArea.addEventListener("dragleave", (e) => {
+            if (!dropArea.contains(e.relatedTarget)) {
+                dropArea.classList.remove("active");
+                fileUploadBtn.disabled = false;
+                dragText.textContent = "اسحب وأفلت الملفات هنا للإرفاق";
+            }
+        });
+
+        dropArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dropArea.classList.remove("active");
+            fileUploadBtn.disabled = false;
+            dragText.textContent = "اسحب وأفلت الملفات هنا للإرفاق";
+            addFiles([...e.dataTransfer.files]);
+        });
+
+        // Prevent file from being opened when dropped outside the drop area
+        ["dragover", "drop"].forEach(event => {
+            document.addEventListener(event, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            window.addEventListener(event, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        function addFiles(selectedFiles) {
+            const validExtensions = ["image/png", "image/jpg", "image/jpeg", "application/pdf"];
+            let maxSize = 2 * 1024 * 1024;
+
+            selectedFiles.forEach(file => {
+                let validExtension = validExtensions.includes(file.type);
+                let validSize = file.size <= maxSize;
+
+                if (validExtension && validSize) {
+                    files.push(file);
+                }
+
+                displayFile(file, validExtension, validSize);
+            });
+            updateButtonState();
+        }
+
+        function displayFile(file, validExtension, validSize) {
+            const fileRow = document.createElement("div");
+            fileRow.classList.add("pc-file-row");
+
+            const fileInfo = document.createElement("div");
+            fileInfo.classList.add("file-info");
+
+            const rightContainer = document.createElement("div");
+            rightContainer.classList.add("file-right");
+
+            const fileIcon = document.createElement("img");
+            const fileName = document.createElement("p");
+            fileName.classList.add("file-name");
+            fileName.textContent = file.name;
+
+            const deleteIcon = document.createElement("img");
+            deleteIcon.src = "/icons/xIcon.svg";
+            deleteIcon.width = 12;
+            deleteIcon.height = 12;
+            deleteIcon.classList.add("delete-file");
+
+            const helperText = document.createElement("p");
+            helperText.classList.add("helper-text");
+
+            if (!validExtension) {
+                fileIcon.src = "/icons/infoFilled.svg";
+                fileRow.style.borderColor = "#B42318";
+                helperText.textContent = "الرجاء تحميل ملف بصيغة مدعومة: .jpg، .png، .pdf";
+            } else if (!validSize) {
+                fileIcon.src = "/icons/infoFilled.svg";
+                fileRow.style.borderColor = "#B42318";
+                helperText.textContent = " حجم الملف يجب أن يكون 2 ميجابايت أو أقل";
+            } else {
+                fileIcon.src = "/icons/checkmarkFilled.svg";
+                helperText.textContent = "";
+                helperText.style.display = "none";
+            }
+
+            fileIcon.width = 20;
+            fileIcon.height = 20;
+
+            deleteIcon.onclick = () => {
+                files = files.filter(f => f !== file);
+                fileRow.remove();
+                updateButtonState();
+                deleteAttachment(file.name);
+            };
+
+            rightContainer.appendChild(fileIcon);
+            rightContainer.appendChild(fileName);
+
+            fileInfo.appendChild(rightContainer);
+            fileInfo.appendChild(deleteIcon);
+
+            fileRow.appendChild(fileInfo);
+            fileRow.appendChild(helperText);
+
+            uploadedFilesContainer.appendChild(fileRow);
+
+            if (!validExtension || !validSize) {
+                setTimeout(() => {
+                    fileRow.remove();
+                    updateButtonState();
+                }, 10000);
+            }
+        }
+
+        //backend: save the uploaded files to the db
+        function updateButtonState() {
+            if (sendFilesandNextBtn) {
+                sendFilesandNextBtn.disabled = files.length === 0;
+            }
+
+            if (sendFilesBtn) {
+                sendFilesBtn.disabled = files.length === 0;
+
+                sendFilesBtn.addEventListener("click", () => {
+                    attachmentsAlert.style.display = "flex";
+                    saveRequestChangesBtn.disabled = false;
+                });
+            }
+        }
+
+        if (sendFilesandNextBtn) {
+            sendFilesandNextBtn.addEventListener("click", e => {
+
+
+                e.preventDefault();
+
+                const currentUrl = window.location.pathname;
+                const segments = currentUrl.split("/");
+                const routeId = segments.length > 2 ? segments[1] : null;
+
+                if (routeId) {
+                    window.location.href = `/${routeId}/ReviewRequest`;
+                } else {
+                    window.location.href = `/ReviewRequest`;
+                }
+            });
+        }
+    }
+
+</script>
+

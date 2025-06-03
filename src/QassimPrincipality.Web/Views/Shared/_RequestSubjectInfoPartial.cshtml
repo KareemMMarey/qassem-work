@@ -2,6 +2,7 @@
 @inject IViewLocalizer localizer
 
 @{
+    var serviceId = ViewBag.serviceId as int? ?? 0;
     var serviceCategoryId = ViewBag.ServiceCategoryId as int? ?? 0;
     var nationalities = ViewBag.Nationalities as List<CountryDto> ?? new();
     var prisons = ViewBag.Prisons as List<LookupOptionDto> ?? new();
@@ -72,7 +73,44 @@
             <div class="error"></div>
         </div>
 
-        @if (prisons.Any())
+        @if (prisons.Any() && serviceId == 7)
+        {
+            <div class="custom-select" id="prisonFromId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["FromPrison"]</div>
+                <button id="prisonFromId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="prisonFromId-dropdown">
+                    @foreach (var p in prisons)
+                    {
+                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="prisonFromId" name="prisonFromId" />
+                <div class="error"></div>
+            </div>
+        }
+        @if (prisons.Any() && serviceId == 7)
+        {
+            <div class="custom-select" id="prisonToId-block">
+                <div class="pc-input-label"><span class="required">*</span> @localizer["ToPrison"]</div>
+                <button id="prisonToId-button" class="select-button" role="combobox">
+                    <span class="selected-value">@localizer["SelectOption"]</span>
+                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
+                </button>
+                <ul class="select-dropdown hidden" id="prisonToId-dropdown">
+                    @foreach (var p in prisons)
+                    {
+                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
+                    }
+                </ul>
+                <input type="hidden" id="prisonToId" name="prisonToId" />
+                <div class="error"></div>
+            </div>
+        }
+
+        @if (prisons.Any() && serviceId == 6)
         {
             <div class="custom-select" id="prisonFromId-block">
                 <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
@@ -90,26 +128,7 @@
                 <div class="error"></div>
             </div>
         }
-        @if (prisons.Any())
-        {
-            <div class="custom-select" id="prisonToId-block">
-                <div class="pc-input-label"><span class="required">*</span> @localizer["Prison"]</div>
-                <button id="prisonToId-button" class="select-button" role="combobox">
-                    <span class="selected-value">@localizer["SelectOption"]</span>
-                    <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
-                </button>
-                <ul class="select-dropdown hidden" id="prisonToId-dropdown">
-                    @foreach (var p in prisons)
-                    {
-                        <li role="option" data-value="@p.Id">@(currentCulture == "ar-SA" ? p.NameAr : p.NameEn)</li>
-                    }
-                </ul>
-                <input type="hidden" id="prisonToId" name="prisonToId" />
-                <div class="error"></div>
-            </div>
-        }
-
-        @if (reasons.Any())
+        @if (reasons.Any() && serviceId == 6)
         {
             <div class="custom-select" id="otherDDLId-block">
                 <div class="pc-input-label"><span class="required">*</span> @localizer["Reason"]</div>

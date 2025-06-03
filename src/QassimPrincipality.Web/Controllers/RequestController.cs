@@ -25,6 +25,7 @@ using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Inquery;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data.Services;
+using Org.BouncyCastle.Asn1.Ocsp;
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
@@ -149,7 +150,7 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+            public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
         {
             try
             {
@@ -205,6 +206,7 @@ namespace QassimPrincipality.Web.Controllers
                 ViewBag.Prisons = await _lookups.GetPrisons();
                 ViewBag.Reasons = await _lookups.GetReasons();
                 ViewBag.ServiceCategoryId = serviceWithSteps.CategoryId;
+                ViewBag.ServiceId = serviceWithSteps.Id;
             }
 
 
@@ -251,6 +253,8 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
+                var userName = User.Identity.Name;
+
                 if (files == null || files.Count == 0)
                     return BadRequest("No files provided");
 
@@ -289,6 +293,23 @@ namespace QassimPrincipality.Web.Controllers
 
                 // Return the list of uploaded file names
                 return Ok(uploadedFiles.Select(a => new { success = true, fileName = a.FileName }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error uploading files: {ex.Message}");
+            }
+        }
+                
+        [HttpPost]
+        public async Task<IActionResult> DeleteAttachment(string requestId,string fileName)
+        {
+            try
+            {
+                    // Save the attachment in the database
+                    await _serviceRequestAppService.DeleteAttachmentAsync(new Guid(requestId),fileName);
+
+                // Return the list of uploaded file names
+                return Ok(new { success = true });
             }
             catch (Exception ex)
             {
@@ -466,7 +487,7 @@ namespace QassimPrincipality.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
-                return View("Index", model);
+                return View(model);
             }
             try
             {
@@ -520,7 +541,7 @@ namespace QassimPrincipality.Web.Controllers
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
             }
 
-            return View("Index");
+            return View(model);
         }
 
         //[HttpGet]

@@ -77,7 +77,14 @@
             delegated: '@localizer["Delegated"]',
             fristClassRelative: '@localizer["FristClassRelative"]',
             lawyer: '@localizer["Lawyer"]',
-            mySelf: '@localizer["MySelf"]'
+            mySelf: '@localizer["MySelf"]',
+            emailRequiredMessage: '@localizer["emailRequiredMessage"]',
+            emailInvalidMessage: '@localizer["emailInvalidMessage"]',
+            phoneRequiredMessage: '@localizer["phoneRequiredMessage"]',
+            phoneInvalidMessage: '@localizer["phoneInvalidMessage"]',
+            applicantDescriptionError: '@localizer["applicantDescriptionError"]',
+            RequiredInputMessage: '@localizer["RequiredInputMessage"]',
+
         };
        
             const inputLabelMap = {
@@ -94,6 +101,7 @@
             "requestDetails": '@localizer["RequestDetails"]'
         };
         const serviceId = "@Model.Id";  // Assuming this is available in the Razor view
+        const HasApplicantStatus = "@Model.HasApplicantStatus"
         const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
         let currentStep = storedServiceData.currentStep || 1;
         let requestData = storedServiceData.requestData || {};

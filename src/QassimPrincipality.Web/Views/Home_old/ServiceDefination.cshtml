@@ -190,7 +190,7 @@
 
     $(document).ready(function () {
        
-        debugger;
+        
         SetSerrviceRating();
         
 
@@ -200,7 +200,7 @@
     
 
     $('#serviceRating').change(function () {
-        debugger;
+        
         if ('@ViewBag.IsEvaluationDone' == 'False') {
             var url = "/Home/AddEvaluation";
             var eveluationValue = $('#serviceRating').val();

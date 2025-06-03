@@ -28,7 +28,7 @@
     </div>
     <div class="pc-service-steps-container">
         <div class="pc-service-form pc-basic-container">
-            <form asp-action="InqueryRequest" class="form" enctype="multipart/form-data" id="transactionQueryForm" class="pc-form">
+            <form asp-action="InqueryTransaction" class="form" enctype="multipart/form-data" id="transactionQueryForm" class="pc-form">
                 <div class="pc-form-grid-2col">
                     <div class="pc-input">
                         <label asp-for="RecordNo" class="pc-input-label">@localizer["RecordNumber"]</label>
@@ -40,6 +40,18 @@
                         <label asp-for="NationalNo" class="pc-input-label"><span class="required">*</span> @localizer["NationalID"]</label>
                         <input asp-for="NationalNo" placeholder="1109882374" />
                         <span asp-validation-for="NationalNo" class="error"></span>
+                    </div>
+                    
+                    <div class="pc-input" hidden>
+                        <label asp-for="NameAr" class="pc-input-label">@localizer["NameAr"]</label>
+                        <input asp-for="NameAr" placeholder="1109882374" value="@Model.NameAr"/>
+                        <span asp-validation-for="NameAr" class="error"></span>
+                    </div>
+                    
+                    <div class="pc-input" hidden>
+                        <label asp-for="NameEn" class="pc-input-label"> @localizer["NameEn"]</label>
+                        <input asp-for="NameEn" placeholder="1109882374" value="@Model.NameEn" />
+                        <span asp-validation-for="NameEn" class="error"></span>
                     </div>
                 </div>
 

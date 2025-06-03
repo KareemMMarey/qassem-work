@@ -16,7 +16,7 @@
                     <span class="arrow"><img src="~/icons/arrowDown.svg" /></span>
                 </button>
 
-                <ul class="select-dropdown hidden" role="listbox" id="customrequesterRelation-dropdown" aria-labelledby="customrequesterRelation-button">
+                <ul class="select-dropdown" role="listbox" id="customrequesterRelation-dropdown" aria-labelledby="customrequesterRelation-button">
                     <li role="option" data-value="1">@localizer["MySelf"]</li>
                     <li role="option" data-value="2">@localizer["Delegated"]</li>
                     <li role="option" data-value="3">@localizer["Lawyer"]</li>
@@ -56,7 +56,7 @@
             <label for="fullName" class="pc-input-label">
                 @localizer["FullName"]
             </label>
-            <input type="text" id="fullName" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="fullName" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["FullNameTootip"]</span>
         </div>
 
@@ -64,7 +64,7 @@
             <label for="nationality" class="pc-input-label">
                 @localizer["Nationality"]
             </label>
-            <input type="text" id="nationality" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="nationality" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["NationalityTootip"]</span>
         </div>
 
@@ -72,7 +72,7 @@
             <label for="birthDate" class="pc-input-label">
                 @localizer["BirthDate"]
             </label>
-            <input type="text" id="birthDate" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="birthDate" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["BirthDateTootip"]</span>
         </div>
 
@@ -80,8 +80,17 @@
             <label for="idNumber" class="pc-input-label">
                 @localizer["IDNumber"]
             </label>
-            <input type="text" id="idNumber" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="idNumber" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["IDNumberTootip"]</span>
+        </div>
+
+
+        <div class="pc-input">
+            <label for="email" class="pc-input-label">
+                <span class="required">*</span> @localizer["Email"]
+            </label>
+            <input type="text" id="email" placeholder="example@mail.com">
+            <div class="error"></div>
         </div>
 
         <div class="pc-input">
@@ -92,19 +101,12 @@
             <div class="error"></div>
         </div>
 
-        <div class="pc-input">
-            <label for="email" class="pc-input-label">
-                @localizer["Email"]
-            </label>
-            <input type="email" id="email" placeholder="example@mail.com">
-            <div class="error"></div>
-        </div>
 
         <div class="pc-input">
             <label for="city" class="pc-input-label">
                 @localizer["City"]
             </label>
-            <input type="text" id="city" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="city" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["SaudiPostCity"]</span>
         </div>
 
@@ -112,42 +114,43 @@
             <label for="district" class="pc-input-label">
                 @localizer["District"]
             </label>
-            <input type="text" id="district" class="pc-auto-filled-input"  readonly>
+            <input type="text" id="district" class="pc-auto-filled-input" readonly>
             <span class="pc-service-form-tooltip">@localizer["SaudiPostDistrict"]</span>
         </div>
     </div>
-
-    <div class="pc-input pc-full-width-input">
-        <label for="requestDetails" class="pc-input-label">
-            <span class="required">*</span> @localizer["RequestDetails"]
-        </label>
-        <textarea id="requestDetails" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
-        <div class="error"></div>
-    </div>
-
+    @if (ViewBag.HasApplicantStatus == false)
+    {
+        <div class="pc-input pc-full-width-input">
+            <label for="requestDetails" class="pc-input-label">
+                <span class="required">*</span> @localizer["RequestDetails"]
+            </label>
+            <textarea id="requestDetails" placeholder="@localizer["DetailsMessagePlease"]"></textarea>
+            <div class="error"></div>
+        </div>
+    }
     @* <div class="pc-form-buttons">
-        <a href="/Services/AboutTheService/MSNA" class="pc-outline-btn">
-            @localizer["Cancel"]
-        </a>
-        <button type="submit" class="pc-primary-btn">
-            @localizer["Next"]
-        </button>
+    <a href="/Services/AboutTheService/MSNA" class="pc-outline-btn">
+    @localizer["Cancel"]
+    </a>
+    <button type="submit" class="pc-primary-btn">
+    @localizer["Next"]
+    </button>
     </div> *@
 </form>
 
 
 
-    <script>
-        
+<script>
 
-       
+
+
     Object.assign(inputLabelMap, {
         "nationality": '@localizer["Nationality"]',
         "prison": '@localizer["Prison"]',
         "reason": '@localizer["Reason"]'
     });
 
-    </script>
+</script>
 
 <script src="/js/integration-manager.js?v=007"> </script>
 

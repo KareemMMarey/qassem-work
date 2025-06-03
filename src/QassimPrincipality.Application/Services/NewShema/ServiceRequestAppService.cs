@@ -1,4 +1,5 @@
 ﻿using Framework.Core.AutoMapper;
+using Framework.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using QassimPrincipality.Application.Dtos;
@@ -86,6 +87,11 @@ namespace QassimPrincipality.Application.Services.NewShema
             attachment.IsActive = false;  // Set to false until the request is submitted
 
             await _requestAttachmentRepository.InsertAsync(attachment, true);
+            return true;
+        }
+        public async Task<bool> DeleteAttachmentAsync(Guid requestId,string fileName)
+        {
+            var attachment = await _requestAttachmentRepository.DeleteAsync(c => c.RequestId == requestId &&  c.FileName.ToLower().Contains(fileName.ToLower()),true);
             return true;
         }
 

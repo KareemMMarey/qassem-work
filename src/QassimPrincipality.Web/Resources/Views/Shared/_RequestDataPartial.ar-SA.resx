@@ -141,6 +141,18 @@
   <data name="DetailsMessagePlease" xml:space="preserve">
     <value>الرجاء إيضاح تفاصيل الطلب على ألا يقل عن 30 حرف</value>
   </data>
+  <data name="emailRequiredMessage" xml:space="preserve">
+    <value>يرجى تعبئة البريد الإلكتروني</value>
+  </data>
+  <data name="emailInvalidMessage" xml:space="preserve">
+    <value>البريد الإلكتروني غير صالح</value>
+  </data>
+  <data name="phoneRequiredMessage" xml:space="preserve">
+    <value>يرجى تعبئة رقم الجوال</value>
+  </data>
+  <data name="phoneInvalidMessage" xml:space="preserve">
+    <value>رقم الجوال غير صالح</value>
+  </data>
   <data name="District" xml:space="preserve">
     <value>الحي</value>
   </data>
