@@ -26,6 +26,7 @@ using QassimPrincipality.Domain.Entities.Services.Main;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content;
 using QassimPrincipality.Domain.Entities.Services.NewSchema;
+using QassimPrincipality.Domain.Enums;
 
 namespace QassimPrincipality.Application
 {
@@ -62,6 +63,16 @@ namespace QassimPrincipality.Application
             CreateMap<EServiceSubCategory, EServiceSubCategoryDto>().ReverseMap();
             CreateMap<EServiceSubCategory, CommonEServiceDto>().ReverseMap();
             CreateMap<EServiceCategory, CommonEServiceDto>().ReverseMap();
+
+            //SharedContactForm
+            CreateMap<ContactUsModel,SharedContactForm>()
+                .ForMember(c=> c.FirstName,s=> s.MapFrom(x=> x.FirstName))
+                .ForMember(c=> c.LastName,s=> s.MapFrom(x=> x.LastName))
+                .ForMember(c=> c.MessageType, s=> s.MapFrom(x=> x.MessageType == ContactMessageType.Inquiry.ToString() ? ContactMessageType.Inquiry : ContactMessageType.Request))
+                .ForMember(c=> c.Email, s=> s.MapFrom(x=> x.Email))
+                .ForMember(c=> c.Subject, s=> s.MapFrom(x=> x.Subject))
+                .ForMember(c=> c.Message, s=> s.MapFrom(x=> x.Message))
+                .ReverseMap();
 
             // News Mappings
             CreateMap<News, NewsDto>().ReverseMap();
