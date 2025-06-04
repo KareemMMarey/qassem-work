@@ -1,0 +1,123 @@
+﻿@{
+    ViewData["Title"] = "التطوير المشترك - ";
+}
+
+<div class="pc-service-page">
+    <div class="pc-service-page-container">
+        <div class="pc-service-info">
+            <div class="pc-service-info-heading">
+                <div class="pc-breadcrumbs">
+                    <ul>
+                        <li>
+                            <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                        </li>
+                        <li>></li>
+                        <li>
+                            <a asp-controller="EParticipation" asp-action="Index"> المشاركة الإلكترونية </a>
+                        </li>
+                        <li>></li>
+                        <li class="pc-breadcrumbs-current">التطوير المشترك</li>
+                    </ul>
+                </div>
+
+                <div class="pc-content-title">
+                    <img src="~/icons/palm.svg" alt="palm icon" />
+                    <h2>التطوير المشترك</h2>
+                </div>
+
+                <div class="pc-content-description">
+                    <p>
+                        يسر إمارة منطقة القصيم استقبال أفكاركم التطويرية الهادفة إلى تحسين الخدمات وتعزيز الأداء، وذلك في إطار سعينا المستمر للتطوير والابتكار بالشراكة مع المجتمع.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pc-form-container">
+                <div class="form-container">
+                    <iframe src='https://forms.zohopublic.sa/customercare/form/Untitled2/formperma/wDXEQrioS1zzP_Z8FLY-cIV1_BxMigPR_tT_IjgTsHY'></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="pc-info-card">
+            <div>
+                <h5>قنوات التواصل</h5>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/call.svg" alt="user icon" />
+                        <h6>الرقم الموحد</h6>
+                    </div>
+                    <p>0163231818</p>
+                </div>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/mail.svg" alt="clock icon" />
+                        <h6>البريد الإلكتروني</h6>
+                    </div>
+                    <p>info@alqassim.gov.sa</p>
+                </div>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/mail.svg" alt="money icon" />
+                        <h6>فاكس</h6>
+                    </div>
+                    <p>00966163249056 - 00966163250619</p>
+                </div>
+
+                <div>
+                    <div class="pc-text-icon-combo">
+                        <img src="~/icons/location.svg" alt="money icon" />
+                        <h6>الموقع</h6>
+                    </div>
+                    <p>القصيم، بريدة، حي الصفراء</p>
+                </div>
+            </div>
+
+            <svg width="100%" height="1">
+                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+            </svg>
+
+            <div>
+                <h5>تابعنا على</h5>
+                @* <div class="pc-card-rating">
+                </div> *@
+                <div class="pc-footer-social-media">
+                    <a href="https://www.instagram.com/EmarahAlQassim">
+                        <img alt="instagram"
+                             src="~/icons/instagramGreen.svg" width="32" height="32" alt="instagram">
+                    </a>
+                    <a href="https://www.snapchat.com/add/emarahalqassim">
+                        <img alt="snapchat"
+                             src="~/icons/snapchatGreen.svg" width="32" height="32" alt="snapchat">
+                    </a>
+                    <a href="https://x.com/EmarahAlQassim">
+                        <img alt="x" src="~/icons/xGreen.svg" width="32 alt="x"
+                             height="32">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pc-page-feedback">
+        <div>
+            <div class="pc-page-feedback-section">
+                <p>هل كانت هذه الصفحة مفيدة؟</p>
+                <div class="pc-page-feedback-btns">
+                    <button class="pc-primary-btn">نعم</button>
+                    <button class="pc-primary-btn">لا</button>
+                </div>
+            </div>
+            @* <div class="pc-page-feedback-response">
+            <img src="~/icons/checkmarkCircle.svg"/>
+            <p>تم إرسال ردك بنجاح</p>
+            </div> *@
+        </div>
+        <div class="pc-page-feedback-section">
+            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+        </div>
+    </div>
+</div>

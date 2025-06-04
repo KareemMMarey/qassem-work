@@ -418,17 +418,24 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
+                var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
+
+                if(user == null)
+                {
+                    return StatusCode(500, $"Error retrieving user data: No User Founded");
+
+                }
                 // Simulated user data (replace this with actual user data retrieval logic)
                 var userData = new
                 {
-                    fullName = "عبدالله احمد محمد الأحمد",
-                    nationality = "المملكة العربية السعودية",
-                    birthDate = "1998-05-19",
-                    idNumber = "1109882374",
-                    email = "example@mail.com",
-                    phone = "0555555555",
-                    city = "بريدة",
-                    district = "حي الصفراء"
+                    fullName = /*"عبدالله احمد محمد الأحمد"*/ user.FullName,
+                    nationality = /*"المملكة العربية السعودية"*/ user.Nationality,
+                    //birthDate = "1998-05-19",
+                    idNumber = /*"1109882374"*/ user.IdentityNumber,
+                    email = /*"example@mail.com"*/ user.Email,
+                    phone = /*"0555555555"*/ user.PhoneNumber,
+                    city = /*"بريدة"*/ user.City,
+                    district = /*"حي الصفراء"*/ user.Neighborhood
                 };
 
                 // Return the data as JSON

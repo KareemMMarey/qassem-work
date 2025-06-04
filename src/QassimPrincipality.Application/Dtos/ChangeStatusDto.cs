@@ -14,4 +14,6 @@ namespace QassimPrincipality.Application.Dtos
         public string ActionNotes { get; set; }
         public string UserId { get; set; }
     }
+
+
 }

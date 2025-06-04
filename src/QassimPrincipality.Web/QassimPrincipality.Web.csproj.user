@@ -17,6 +17,12 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\EParticipation\ContactUs.ar-SA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\EParticipation\ContactUs.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Request\Index.ar-SA.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
