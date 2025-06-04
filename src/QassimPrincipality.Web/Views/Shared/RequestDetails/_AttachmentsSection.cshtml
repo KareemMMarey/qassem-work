@@ -1,20 +1,23 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+        ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
 
 @if (Model.Attachments != null && Model.Attachments.Any())
 {
     <div class="pc-service-form-heading">
-        <h4>@Localizer["Attachments"]</h4>
+        <h4>@localizer["Attachments"]</h4>
     </div>
 
     <table class="pc-table pc-striped-table attachments-table">
         <thead>
             <tr>
-                <th>@Localizer["FileName"]</th>
-                <th class="td-hide-on-mobile">@Localizer["FileFormat"]</th>
-                <th class="td-hide-on-mobile">@Localizer["FileSize"]</th>
-                <th>@Localizer["Preview"]</th>
-                <th>@Localizer["Download"]</th>
+                <th>@localizer["FileName"]</th>
+                <th class="td-hide-on-mobile">@localizer["FileFormat"]</th>
+                <th class="td-hide-on-mobile">@localizer["FileSize"]</th>
+                <th>@localizer["Preview"]</th>
+                <th>@localizer["Download"]</th>
             </tr>
         </thead>
         <tbody>
@@ -25,23 +28,28 @@
                     <td class="td-hide-on-mobile">@System.IO.Path.GetExtension(attachment.FileName).TrimStart('.')</td>
                     <td class="td-hide-on-mobile">@GetFileSize(attachment.FilePath)</td>
                     <td>
-                        <a asp-action="PreviewAttachment" asp-route-requestId="@Model.Id" asp-route-attachmentId="@attachment.AttachmentTypeId" class="pc-outline-btn" target="_blank">
+                        <a asp-action="PreviewAttachment"
+                           asp-route-requestId="@Model.Id"
+                           asp-route-attachmentId="@attachment.AttachmentTypeId"
+                           class="pc-outline-btn"
+                           target="_blank">
                             <img src="~/icons/view.svg" alt="view" width="20" height="20" />
-                            @Localizer["Preview"]
+                            @localizer["Preview"]
                         </a>
                     </td>
                     <td>
-                        <a asp-action="DownloadAttachment" asp-route-requestId="@Model.Id" asp-route-attachmentId="@attachment.AttachmentTypeId" class="pc-outline-btn">
+                        <a asp-action="DownloadAttachment"
+                           asp-route-requestId="@Model.Id"
+                           asp-route-attachmentId="@attachment.AttachmentTypeId"
+                           class="pc-outline-btn">
                             <img src="~/icons/download.svg" alt="download" width="20" height="20" />
-                            @Localizer["Download"]
+                            @localizer["Download"]
                         </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-
 }
 
 @functions {

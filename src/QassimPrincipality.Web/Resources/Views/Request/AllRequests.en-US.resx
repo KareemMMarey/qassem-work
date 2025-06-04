@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AllRequests" xml:space="preserve">
+    <value>All requests</value>
+  </data>
   <data name="ApprovedStatus" xml:space="preserve">
     <value>Approved </value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="SearchWithRequestNumber" xml:space="preserve">
     <value>Search With Request Number</value>
+  </data>
+  <data name="SearchWithServiceId" xml:space="preserve">
+    <value>Search with Service Name</value>
+  </data>
+  <data name="SearchWithStatusId" xml:space="preserve">
+    <value>Search with service status</value>
   </data>
   <data name="ServiceName" xml:space="preserve">
     <value>Service Name</value>

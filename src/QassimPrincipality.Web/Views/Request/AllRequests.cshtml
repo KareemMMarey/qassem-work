@@ -3,6 +3,8 @@
 @using QassimPrincipality.Web.Helpers.Business
 @using QassimPrincipality.Web.ViewModels.Request
 @model MyRequestsViewModel
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
 @inject IViewLocalizer localizer
 @{
 
@@ -19,27 +21,61 @@
                     <a asp-controller="Home" asp-action="Index"> @localizer["Home"] </a>
                 </li>
                 <li>></li>
-                <li class="pc-breadcrumbs-current">@localizer["MyRequests"]</li>
+                <li class="pc-breadcrumbs-current">@localizer["AllRequests"]</li>
             </ul>
         </div>
 
-        <h1 class="pc-profile-title">@localizer["MyRequests"]</h1>
+        <h1 class="pc-profile-title">@localizer["AllRequests"]</h1>
     </div>
 
     <div class="pc-my-requests-body">
         <div class="pc-my-requests-header">
             <p>البحث</p>
 
-            <div class="pc-search-container-order search-width" id="requestsSearch-order">
+            <div class="pc-search-container search-width" id="requestsSearch">
                 @* <button type="submit" class="pc-search-btn" onclick="searchTable()">
                     <img src="~/icons/search.svg" alt="search" width="20" height="20" />
                 </button> *@
-                <form asp-action="MyRequests" method="post">
-                    <input type="text" class="pc-search-input-order" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
-                    <button cclass="pc-primary-btn" type="submit">
-                        @localizer["SearchRequests"]
-                    </button>
-                </form>
+                <form asp-action="AllRequests" method="Get" class="pc-filter-form">
+                <input type="text" class="pc-search-input" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
+                    <select class="pc-search-input" placeholder="" name="ServiceId" asp-for="Filter.ServiceId">
+                        <option value="">@localizer["SearchWithServiceId"]</option>
+                        @foreach (var item in Model.ServiceList)
+                        {
+                            var selectedService = item.Id == Model.Filter.ServiceId ? "selected" : "";
+                            <option @selectedService value="@item.Id">@(currentCulture == "ar-SA" ? item.NameAr : item.NameEn)</option>
+                        }
+                    </select>
+
+                <select name="Status" class="pc-search-select">
+
+                        @{
+                            var selected = Model.Filter.Status == null ? "selected" : "";
+                        }
+                        <option @(Model.Filter.Status == null ? "selected" : null) value="">@localizer["SearchWithStatusId"]</option>
+
+                        @foreach (ServiceRequestStatus status in Enum.GetValues(typeof(ServiceRequestStatus)))
+                        {
+                            if(status == ServiceRequestStatus.Draft){
+                                continue;
+                            }
+                            var isSelected = Model.Filter.Status == status ? "selected" : "";
+                            <option value="@((int)status)" @isSelected>
+                                @WorkFlowHelper.GetStatusDisplay(status,localizer)
+                            </option>
+                        }
+
+                </select>
+
+                <input type="date" class="pc-search-input" name="StartDate" value="@(Model.Filter.StartDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["StartDate"]" aria-label="Start Date">
+
+                <input type="date" class="pc-search-input" name="EndDate" value="@(Model.Filter.EndDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["EndDate"]" aria-label="End Date">
+
+                <button class="pc-primary-btn" type="submit">
+                    @localizer["SearchRequests"]
+                </button>
+</form>
+
                 
             </div>
 
@@ -92,7 +128,7 @@
                             </td>
                             <td>
                                 <div>
-                                    <a asp-controller="Request" asp-action="RequestDetails" asp-route-id="@request.Id" class="pc-borderless-btn">
+                                    <a asp-controller="Request" asp-action="Details" asp-route-requestid= "@request.Id" class="pc-borderless-btn">
                                         <img src="~/icons/arrowRightblc.svg" width="15" height="11" /> @localizer["DetailsButton"]
                                     </a>
                                 </div>

@@ -1,0 +1,146 @@
+﻿@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper"
+
+@model ServiceRequestDto
+@inject IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = localizer["RequestDetails"].Value;
+    // Helper functions:
+    string FormatDate(DateTime date) => date == DateTime.MinValue ? localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? localizer["NotFound"].Value : val;
+}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css"
+          rel="stylesheet"
+          integrity="sha384-+qdLaWWVBK4Fh7ZR4PQcqeZJ8QThM2i5iQx8X7XgjBVvu6coAIYm/2uN5wQKfXxB"
+          crossorigin="anonymous" />
+    <style>
+        /* Container background and padding */
+        .page‐wrapper {
+            background: #f6f6f6;
+            padding: 30px 0;
+        }
+        /* White box for each section */
+        .section‐box {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        /* Timeline dots and lines */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+            .timeline::before {
+                content: '';
+                position: absolute;
+                right: 6px;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: #dee2e6;
+            }
+
+        .timeline‐item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+            .timeline‐item::before {
+                content: '';
+                position: absolute;
+                right: -4px;
+                width: 10px;
+                height: 10px;
+                background: #28a745;
+                border-radius: 50%;
+                top: 2px;
+            }
+
+            .timeline‐item .time {
+                color: #6c757d;
+                font-size: 0.85rem;
+            }
+        /* Table headings alignment */
+        .table‐rtl th {
+            text-align: right;
+        }
+
+        .table‐rtl td {
+            vertical-align: middle;
+            text-align: right;
+        }
+        /* File‐download button */
+        .btn‐download {
+            font-size: 0.9rem;
+            padding: 4px 10px;
+        }
+        /* Horizontal divider */
+        .section‐divider {
+            border-top: 2px solid #e9ecef;
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<partial src=".\shared\requestdetails\_requestdetailsheader.cshtml"></partial>
+
+
+
+@await Html.PartialAsync("../shared/requestdetails/_CompleteRequestModal.cshtml", Model,
+                             new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+<body>
+    <div class="container‐fluid page‐wrapper">
+        <div class="container">
+                
+            @await Html.PartialAsync("../shared/requestdetails/_RequestDetailsHeader.cshtml", Model
+                     , new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+            <div class="row">
+                @await Html.PartialAsync("../shared/requestdetails/_RequestStatusSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+                <!-- ======== بيانات مقدم الطلب ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_RequesterData.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+                <!-- ======== بيانات المعني بالطلب ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_AdditionalData.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+                <!-- ======== المرفقات ======== -->
+                @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
+                @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->
+                <div class="text-end">
+                    <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                        @localizer["Back"]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @* في حال كنت تريد تضمين جافاسكربت إضافي لديك، يمكنك إضافته هنا *@
+</body>
+
+
+</html>

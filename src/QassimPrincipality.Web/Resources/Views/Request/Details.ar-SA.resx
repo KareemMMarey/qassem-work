@@ -118,75 +118,189 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ApprovedStatus" xml:space="preserve">
-    <value>Approved </value>
+    <value>معتمد</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>عودة</value>
   </data>
-  <data name="Cancelled" xml:space="preserve">
-    <value>Cancelled</value>
+  <data name="BirthDate" xml:space="preserve">
+    <value>تاريخ الميلاد</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>المدينة</value>
   </data>
   <data name="ClearSearchInput" xml:space="preserve">
-    <value>Clear Search Input</value>
+    <value>محو مدخلات البحث</value>
   </data>
   <data name="DetailsButton" xml:space="preserve">
-    <value>Details</value>
+    <value>تفاصيل</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>الحي</value>
+  </data>
+  <data name="SearchWithServiceId" xml:space="preserve">
+    <value>ابحث باسم الخدمة</value>
+  </data>
+  <data name="SearchWithStatusId" xml:space="preserve">
+    <value>ابحث بحالة الخدمة</value>
   </data>
   <data name="Draft" xml:space="preserve">
-    <value>Draft</value>
+    <value>مسودة</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ملغي</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>الاسم</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>الرئيسية</value>
+  </data>
+  <data name="IDNumber" xml:space="preserve">
+    <value>رقم الهوية</value>
+  </data>
+  <data name="mail" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
   </data>
   <data name="MyRequests" xml:space="preserve">
-    <value>My Requests</value>
+    <value>طلباتي</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>الجنسية</value>
   </data>
   <data name="NoRequests" xml:space="preserve">
-    <value>No Requests</value>
+    <value>لا يوجد طلبات</value>
   </data>
   <data name="NoResults" xml:space="preserve">
-    <value>No Results</value>
+    <value>لا يوجد نتائج</value>
   </data>
   <data name="NoResultsMatch" xml:space="preserve">
-    <value>No Results Match Search Criteria</value>
+    <value>لا توجد طلبات مطابقة للرقم المدخل، يرجى التحقق من الرقم والمحاولة مرة أخرى.</value>
   </data>
   <data name="NotQualifiedStatus" xml:space="preserve">
-    <value>NotQualified</value>
+    <value>غير مختص</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>رقم التليفون</value>
   </data>
   <data name="RejectedStatus" xml:space="preserve">
-    <value>Rejected</value>
+    <value>مرفوض</value>
   </data>
   <data name="RequestDate" xml:space="preserve">
-    <value>Request Date</value>
+    <value>تاريخ الطلب</value>
   </data>
   <data name="RequestDetails" xml:space="preserve">
-    <value>Request Details</value>
+    <value>تفاصيل الطلب</value>
   </data>
   <data name="RequestNumber" xml:space="preserve">
-    <value>Request Number</value>
+    <value>رقم الطلب</value>
   </data>
   <data name="RequestStatus" xml:space="preserve">
-    <value>Request Status</value>
+    <value>حالة الطلب</value>
   </data>
   <data name="RequiresCompletionStatus" xml:space="preserve">
-    <value>RequiresCompletion</value>
+    <value>يتطلب إكماله</value>
   </data>
   <data name="SearchRequests" xml:space="preserve">
     <value>Search Requests</value>
   </data>
   <data name="SearchWithRequestNumber" xml:space="preserve">
-    <value>Search With Request Number</value>
+    <value>ابحث برقم الطلب</value>
   </data>
   <data name="ServiceName" xml:space="preserve">
-    <value>Service Name</value>
+    <value>اسم الخدمة</value>
   </data>
   <data name="SubmittedStatus" xml:space="preserve">
-    <value>Submitted</value>
+    <value>تم تقديم الطلب</value>
   </data>
   <data name="UnderReview" xml:space="preserve">
-    <value>Under review</value>
+    <value>تحت المراجعة</value>
   </data>
   <data name="UnknownStatus" xml:space="preserve">
-    <value>Unknown</value>
+    <value>غير معروف</value>
+  </data>
+  <data name="RejectionReasons" xml:space="preserve">
+    <value>أسباب الرفض</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>لا يوجد</value>
+  </data>
+  <data name="NewRequestCreated" xml:space="preserve">
+    <value>تم إنشاء طلب جديد برقم {0}</value>
+  </data>
+  <data name="RequestUpdatedTo" xml:space="preserve">
+    <value>تم تحديث الطلب إلى {0}</value>
+  </data>
+  <data name="NoActionsYet" xml:space="preserve">
+    <value>لم يتم بعد اتخاذ أي إجراء</value>
+  </data>
+  <data name="ApplicantData" xml:space="preserve">
+    <value>بيانات مقدم الطلب</value>
+  </data>
+  <data name="RequestedPartyData" xml:space="preserve">
+    <value>بيانات المعني بالطلب</value>
+  </data>
+  <data name="NoDetailsRecorded" xml:space="preserve">
+    <value>لا توجد تفاصيل مسجلة</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>نوع الملف</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>حجم الملف (KB)</value>
+  </data>
+  <data name="UploadDate" xml:space="preserve">
+    <value>تاريخ الرفع</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="NoAttachments" xml:space="preserve">
+    <value>لا توجد مرفقات</value>
+  </data>
+  <data name="AdminDecision" xml:space="preserve">
+    <value>قرار المدير</value>
+  </data>
+  <data name="Relation_0" xml:space="preserve">
+    <value>لا يوجد</value>
+  </data>
+  <data name="Relation_1" xml:space="preserve">
+    <value>نفسي</value>
+  </data>
+  <data name="Relation_2" xml:space="preserve">
+    <value>موكل عنه</value>
+  </data>
+  <data name="Relation_3" xml:space="preserve">
+    <value>محامى</value>
+  </data>
+  <data name="Relation_4" xml:space="preserve">
+    <value>قرابة من الدرجة الأولى</value>
+  </data>
+  <data name="RequesterRelation" xml:space="preserve">
+    <value>صلة مقدم الطلب</value>
+  </data>
+  <data name="AttachToRequest" xml:space="preserve">
+    <value>إضافة الى الطلب</value>
+  </data>
+  <data name="CompleteRequest" xml:space="preserve">
+    <value>اكمال الطلب</value>
+  </data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+    <value>لإكمال الطلب أرفق ملف</value>
   </data>
 </root>
