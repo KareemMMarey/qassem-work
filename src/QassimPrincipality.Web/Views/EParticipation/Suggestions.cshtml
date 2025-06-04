@@ -1,6 +1,49 @@
-﻿@{
-    ViewData["Title"] = "التطوير المشترك - ";
+﻿@model QassimPrincipality.Application.Dtos.ContactUsModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+
+@{
+    ViewData["Title"] = localizer["Suggestions"] + " - ";
 }
+<style>
+    .contact-container {
+        background-color: #f9fdfb;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .contact-info h5 {
+        font-weight: bold;
+    }
+
+    .contact-info i {
+        margin-left: 10px;
+        color: green;
+    }
+
+    .social-icons img {
+        width: 32px;
+        margin-left: 10px;
+    }
+
+    label {
+        font-weight: 600;
+    }
+
+    button.pc-primary-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #198754; /* Bootstrap green */
+        border: none;
+        color: white;
+    }
+
+    .pc-form-container .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+</style>
 
 <div class="pc-service-page">
     <div class="pc-service-page-container">
@@ -9,70 +52,116 @@
                 <div class="pc-breadcrumbs">
                     <ul>
                         <li>
-                            <a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+                            <a asp-controller="Home" asp-action="Index">@localizer["Home"]</a>
                         </li>
                         <li>></li>
                         <li>
-                            <a asp-controller="EParticipation" asp-action="Index"> المشاركة الإلكترونية </a>
+                            <a asp-controller="EParticipation" asp-action="Index">@localizer["EParticipation"]</a>
                         </li>
                         <li>></li>
-                        <li class="pc-breadcrumbs-current">التطوير المشترك</li>
+                        <li class="pc-breadcrumbs-current">@localizer["Suggestions"]</li>
                     </ul>
                 </div>
 
                 <div class="pc-content-title">
                     <img src="~/icons/palm.svg" alt="palm icon" />
-                    <h2>التطوير المشترك</h2>
+                    <h2>@localizer["Suggestions"]</h2>
                 </div>
 
                 <div class="pc-content-description">
-                    <p>
-                        يسر إمارة منطقة القصيم استقبال أفكاركم التطويرية الهادفة إلى تحسين الخدمات وتعزيز الأداء، وذلك في إطار سعينا المستمر للتطوير والابتكار بالشراكة مع المجتمع.
-                    </p>
+                    <p>@localizer["SuggestionsDescription"]</p>
                 </div>
             </div>
 
             <div class="pc-form-container">
                 <div class="form-container">
-                    <iframe src='https://forms.zohopublic.sa/customercare/form/Untitled2/formperma/wDXEQrioS1zzP_Z8FLY-cIV1_BxMigPR_tT_IjgTsHY'></iframe>
+                    <form  id="suggestionsForm" method="post">
+                        <div class="form-group">
+                            <label asp-for="FirstName">@localizer["FirstName"] <span class="text-danger">*</span></label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LastName">@localizer["LastName"] <span class="text-danger">*</span></label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Email">@localizer["Email"] <span class="text-danger">*</span></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="MessageType">@localizer["MessageType"] <span class="text-danger">*</span></label>
+                            <select asp-for="MessageType" class="form-control">
+                                <option value="">@localizer["SelectMessageType"]</option>
+                                <option value="Inquiry">@localizer["Inquiry"]</option>
+                                <option value="Suggestion">@localizer["Suggestion"]</option>
+                            </select>
+                            <span asp-validation-for="MessageType" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Subject">@localizer["Subject"] <span class="text-danger">*</span></label>
+                            <input asp-for="Subject" class="form-control" />
+                            <span asp-validation-for="Subject" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Message">@localizer["Message"] <span class="text-danger">*</span></label>
+                            <textarea asp-for="Message" class="form-control"></textarea>
+                            <span asp-validation-for="Message" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="pc-primary-btn">@localizer["Send"]</button>
+                    </form>
+
+                    <div id="successMessage" style="display:none; margin-top: 20px;" class="alert alert-success text-center">
+                        <img src="~/icons/checkmarkCircle.svg" width="64" />
+                        <h4>@localizer["ThankYou"]</h4>
+                        <p>@localizer["MessageReceived"]</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="pc-info-card">
             <div>
-                <h5>قنوات التواصل</h5>
+                <h5>@localizer["ContactChannels"]</h5>
 
                 <div>
                     <div class="pc-text-icon-combo">
-                        <img src="~/icons/call.svg" alt="user icon" />
-                        <h6>الرقم الموحد</h6>
+                        <img src="~/icons/call.svg" alt="phone icon" />
+                        <h6>@localizer["Hotline"]</h6>
                     </div>
                     <p>0163231818</p>
                 </div>
 
                 <div>
                     <div class="pc-text-icon-combo">
-                        <img src="~/icons/mail.svg" alt="clock icon" />
-                        <h6>البريد الإلكتروني</h6>
+                        <img src="~/icons/mail.svg" alt="mail icon" />
+                        <h6>@localizer["Email"]</h6>
                     </div>
                     <p>info@alqassim.gov.sa</p>
                 </div>
 
                 <div>
                     <div class="pc-text-icon-combo">
-                        <img src="~/icons/mail.svg" alt="money icon" />
-                        <h6>فاكس</h6>
+                        <img src="~/icons/mail.svg" alt="fax icon" />
+                        <h6>@localizer["Fax"]</h6>
                     </div>
                     <p>00966163249056 - 00966163250619</p>
                 </div>
 
                 <div>
                     <div class="pc-text-icon-combo">
-                        <img src="~/icons/location.svg" alt="money icon" />
-                        <h6>الموقع</h6>
+                        <img src="~/icons/location.svg" alt="location icon" />
+                        <h6>@localizer["Location"]</h6>
                     </div>
-                    <p>القصيم، بريدة، حي الصفراء</p>
+                    <p>@localizer["Address"]</p>
                 </div>
             </div>
 
@@ -81,21 +170,16 @@
             </svg>
 
             <div>
-                <h5>تابعنا على</h5>
-                @* <div class="pc-card-rating">
-                </div> *@
+                <h5>@localizer["FollowUs"]</h5>
                 <div class="pc-footer-social-media">
                     <a href="https://www.instagram.com/EmarahAlQassim">
-                        <img alt="instagram"
-                             src="~/icons/instagramGreen.svg" width="32" height="32" alt="instagram">
+                        <img src="~/icons/instagramGreen.svg" width="32" height="32" alt="instagram" />
                     </a>
                     <a href="https://www.snapchat.com/add/emarahalqassim">
-                        <img alt="snapchat"
-                             src="~/icons/snapchatGreen.svg" width="32" height="32" alt="snapchat">
+                        <img src="~/icons/snapchatGreen.svg" width="32" height="32" alt="snapchat" />
                     </a>
                     <a href="https://x.com/EmarahAlQassim">
-                        <img alt="x" src="~/icons/xGreen.svg" width="32 alt="x"
-                             height="32">
+                        <img src="~/icons/xGreen.svg" width="32" height="32" alt="x" />
                     </a>
                 </div>
             </div>
@@ -105,19 +189,40 @@
     <div class="pc-page-feedback">
         <div>
             <div class="pc-page-feedback-section">
-                <p>هل كانت هذه الصفحة مفيدة؟</p>
+                <p>@localizer["WasThisHelpful"]</p>
                 <div class="pc-page-feedback-btns">
-                    <button class="pc-primary-btn">نعم</button>
-                    <button class="pc-primary-btn">لا</button>
+                    <button class="pc-primary-btn">@localizer["Yes"]</button>
+                    <button class="pc-primary-btn">@localizer["No"]</button>
                 </div>
             </div>
-            @* <div class="pc-page-feedback-response">
-            <img src="~/icons/checkmarkCircle.svg"/>
-            <p>تم إرسال ردك بنجاح</p>
-            </div> *@
         </div>
         <div class="pc-page-feedback-section">
-            <p class="pc-page-feedback-result">x% من المستخدمين قالوا نعم من x تقييماً</p>
+            <p class="pc-page-feedback-result">x% @localizer["UsersSaidYes"]</p>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            $('#suggestionsForm').submit(function (e) {
+                var form = $('#suggestionsForm');
+                e.preventDefault();
+
+                $.ajax({
+                    url: '@Url.Action("SubmitContact", "EParticipation")',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function (res) {
+                        $('#suggestionsForm').hide();
+                        $('#successMessage').show();
+                    },
+                    error: function () {
+                        // alert('@localizer["ErrorOccurred"]');
+                    }
+                });
+            });
+        });
+    </script>
+}

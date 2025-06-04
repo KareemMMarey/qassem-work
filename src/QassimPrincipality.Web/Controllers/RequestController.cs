@@ -518,7 +518,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     fullName = /*"عبدالله احمد محمد الأحمد"*/ user.FullName,
                     nationality = /*"المملكة العربية السعودية"*/ user.Nationality,
-                    //birthDate = "1998-05-19",
+                    birthDate = /*"1998-05-19"*/ user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : "",
                     idNumber = /*"1109882374"*/ user.IdentityNumber,
                     email = /*"example@mail.com"*/ user.Email,
                     phone = /*"0555555555"*/ user.PhoneNumber,

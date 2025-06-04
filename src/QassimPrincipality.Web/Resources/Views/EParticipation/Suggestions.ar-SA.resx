@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContactUs" xml:space="preserve">
-    <value>تواصل معنا</value>
+  <data name="Suggestions" xml:space="preserve">
+    <value>التطوير المشترك</value>
   </data>
   <data name="ContactUs_Description" xml:space="preserve">
     <value>يهدف هذا القسم إلى توفير قناة اتصال مباشرة لمستفيدي إمارة منطقة القصيم لضمان تجربة مرضية ولتلبية احتياجاتهم بشكل فعّال.</value>
@@ -153,9 +153,6 @@
   <data name="No" xml:space="preserve">
     <value>لا</value>
   </data>
-  <data name="FeedbackSummary" xml:space="preserve">
-    <value>{0}% من المستخدمين قالوا نعم من {1} تقييماً</value>
-  </data>
   <data name="MessageReceived" xml:space="preserve">
     <value>سيتم التواصل معك قريبًا على البريد الإلكتروني</value>
   </data>
@@ -180,8 +177,8 @@
   <data name="Suggestion" xml:space="preserve">
     <value>مقترح تطويري</value>
   </data>
-  <data name="ContactUsDescription" xml:space="preserve">
-    <value>يهدف هذا القسم إلى توفير قناة اتصال مباشرة لمستفيدي إمارة منطقة القصيم لضمان تجربة مرضية ولتلبية احتياجاتهم بشكل فعّال.</value>
+  <data name="SuggestionsDescription" xml:space="preserve">
+    <value>يسر إمارة منطقة القصيم استقبال أفكاركم التطويرية الهادفة إلى تحسين الخدمات وتعزيز الأداء، وذلك في إطار سعينا المستمر للتطوير والابتكار بالشراكة مع المجتمع.</value>
   </data>
   <data name="EParticipation" xml:space="preserve">
     <value>المشاركة الإلكترونية</value>

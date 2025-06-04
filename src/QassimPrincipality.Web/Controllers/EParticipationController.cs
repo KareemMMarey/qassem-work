@@ -1,58 +1,61 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
+using QassimPrincipality.Application.Services.Lookups.Main.SharedContactFormService;
 
 namespace eServices.Controllers
 {
-	public class EParticipationController : Controller
-	{
-		public IActionResult Index()
-		{
-			try
-			{
-				return View();
-			}
-			catch (Exception ex)
-			{
+    public class EParticipationController : Controller
+    {
+        private readonly SharedContactFormAppService _sharedContactFormAppService;
 
-				throw;
-			}
-		}
+        public EParticipationController(SharedContactFormAppService sharedContactFormAppService)
+        {
+            _sharedContactFormAppService = sharedContactFormAppService;
+        }
 
-		public IActionResult ESurveys()
-		{
-			return View();
-		}
+        public IActionResult Index()
+        {
+            return View();
+        }
 
-		public IActionResult BeneficiaryVoice()
-		{
-			return View();
-		}
+        public IActionResult ESurveys()
+        {
+            return View();
+        }
 
-		public IActionResult Suggestions()
-		{
-			return View();
-		}
+        public IActionResult BeneficiaryVoice()
+        {
+            return View();
+        }
 
-		public IActionResult ContactUs()
-		{
-			return View();
-		}
+        public IActionResult Suggestions()
+        {
+            return View();
+        }
 
-		public IActionResult OpenDataRequest()
-		{
-			return View();
-		}
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public IActionResult OpenDataRequest()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public IActionResult SubmitContact(ContactUsModel model)
+        public async Task<IActionResult> SubmitContact(ContactUsModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest("بيانات غير صالحة");
             }
 
-            // أي منطق إرسال أو تخزين
+            await _sharedContactFormAppService.InsertAsync(model);
+
             return Ok();
         }
+        
     }
 }
