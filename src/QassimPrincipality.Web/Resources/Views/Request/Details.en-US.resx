@@ -156,6 +156,9 @@
   <data name="Nationality" xml:space="preserve">
     <value>Nationality</value>
   </data>
+  <data name="NewRequestCreated" xml:space="preserve">
+    <value>A new Request has been created with number {0}.</value>
+  </data>
   <data name="NoRequests" xml:space="preserve">
     <value>No Requests</value>
   </data>
@@ -195,6 +198,9 @@
   <data name="RequestStatus" xml:space="preserve">
     <value>Request Status</value>
   </data>
+  <data name="RequestUpdatedTo" xml:space="preserve">
+    <value>The request has been updated to {0}.</value>
+  </data>
   <data name="RequiresCompletionStatus" xml:space="preserve">
     <value>RequiresCompletion</value>
   </data>
@@ -225,4 +231,67 @@
   <data name="UnknownStatus" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="NoActionsYet" xml:space="preserve">
+    <value>No action yet</value>
+  </data>
+  <data name="ApplicantData" xml:space="preserve">
+    <value>Applicant Data</value>
+  </data>
+  <data name="RequestedPartyData" xml:space="preserve">
+    <value>Applicant Data</value>
+  </data>
+  <data name="NoDetailsRecorded" xml:space="preserve">
+    <value>No details recorded</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>File Type</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>File Size (KB)</value>
+  </data>
+  <data name="UploadDate" xml:space="preserve">
+    <value>Upload Date</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="NoAttachments" xml:space="preserve">
+    <value>No Attachments</value>
+  </data>
+  <data name="AdminDecision" xml:space="preserve">
+    <value>Admin decision</value>
+  </data>
+  <data name="Relation_0" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="Relation_1" xml:space="preserve">
+    <value>Myself</value>
+  </data>
+  <data name="Relation_2" xml:space="preserve">
+    <value>Delegated</value>
+  </data>
+  <data name="Relation_3" xml:space="preserve">
+    <value>Lawyer</value>
+  </data>
+  <data name="Relation_4" xml:space="preserve">
+    <value>Frist class relative</value>
+  </data>
+  <data name="RequesterRelation" xml:space="preserve">
+    <value>Requester relation</value>
+  </data>
+  <data name="AttachToRequest" xml:space="preserve">
+<value>Add to request</value>
+</data>
+  <data name="CompleteRequest" xml:space="preserve">
+<value>Complete request</value>
+</data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+<value>Attach a file to complete the request</value>
+</data>
 </root>

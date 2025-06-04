@@ -5,50 +5,52 @@
 @{
     ViewData["Title"] = "تسجيل الدخول";
 }
-<div class="row justify-content-xxl-center">
-    <div class="col-xxl-8">
-        <div class="page-panel">
-            <h3 class="page-title margin-bottom-lg">رمز التحقق</h3>
-            @if (TempData["Error"] != null)
-            {
-                <div class="alert alert-danger">
-                    <span><b>ناسف !</b> - @TempData["Error"] </span>
-                </div>
-            }
-            <form asp-action="VerifyOtp" class="form">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="EmailAddress" />
+<div class="account-login">
+    <div class="row justify-content-xxl-center">
+        <div class="col-xxl-8">
+            <div class="page-panel">
+                <h3 class="page-title margin-bottom-lg">رمز التحقق</h3>
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger">
+                        <span><b>ناسف !</b> - @TempData["Error"] </span>
+                    </div>
+                }
+                <form asp-action="VerifyOtp" class="form">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="EmailAddress" />
 
-                <div class="form-group">
-                    <label asp-for="OTP" class="form-label"> رمز التحقق </label>
-                    <input asp-for="OTP" class="form-control" />
-                    <span asp-validation-for="OTP" class="text-danger"></span>
-                </div>
+                    <div class="form-group">
+                        <label asp-for="OTP" class="form-label"> رمز التحقق </label>
+                        <input asp-for="OTP" class="form-control" />
+                        <span asp-validation-for="OTP" class="text-danger"></span>
+                    </div>
 
-                <div id="timerdiv" style=" text-align: center; margin-top: -15px;">
-                    <span id="timer" style="font-size: 60px;
+                    <div id="timerdiv" style=" text-align: center; margin-top: 20px;">
+                        <span id="timer" style="font-size: 60px;
                                         color: #777575;
                                         font-family: 'inherit';">04:43</span>
-                </div>
+                    </div>
 
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="تأكيد " />
-                    <a class="btn btn-outline-primary" asp-controller="Movies" asp-action="Index">الغاء</a>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <input class="btn btn-primary" type="submit" value="تأكيد " />
+                        <a class="btn btn-outline-primary" asp-controller="Movies" asp-action="Index">الغاء</a>
+                    </div>
+                </form>
 
-            <form action="" method="post">
+                <form action="" method="post">
 
-                <input name="email" id="email" value="@Model.EmailAddress" type="hidden">
-                <div class="col-md-12 otpnum" id="otp" style="display: flex; justify-content: center; gap: 3px; align-items: center; color: rgb(69, 71, 117);">
-                    لم يتم استلام الرمز؟
-                    <button id="resend" type="submit"
-                        style="padding: 0px; margin: 0px; border: none; background-color: transparent; text-decoration: underline; color: rgb(69, 71, 117);" 
-                        formaction="/Account/RsendOtpToUser">
-                        إعادة إرسال
-                    </button>
-                </div>
-            </form>
+                    <input name="email" id="email" value="@Model.EmailAddress" type="hidden">
+                    <div class="col-md-12 otpnum" id="otp" style="display: flex; justify-content: center; gap: 3px; align-items: center; color: rgb(69, 71, 117);">
+                        لم يتم استلام الرمز؟
+                        <button id="resend" type="submit"
+                                style="padding: 0px; margin: 0px; border: none; background-color: transparent; text-decoration: underline; color: rgb(69, 71, 117);"
+                                formaction="/Account/RsendOtpToUser">
+                            إعادة إرسال
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

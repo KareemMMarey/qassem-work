@@ -85,6 +85,9 @@ namespace QassimPrincipality.Web.Controllers
             try
             {
                 var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
+                ViewBag.UserId = HttpContext
+                    .User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Value;
                 return View(request);
             }
             catch (Exception ex)
@@ -502,7 +505,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> InqueryRequest(int serviceId)
+        public async Task<ActionResult> InqueryTransaction(int serviceId)
         {
             try
             {
@@ -543,7 +546,7 @@ namespace QassimPrincipality.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> InqueryRequest(InqueryVM model)
+        public async Task<ActionResult> InqueryTransaction(InqueryVM model)
         {
             if (!ModelState.IsValid)
             {

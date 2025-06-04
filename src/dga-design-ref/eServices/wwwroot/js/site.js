@@ -2067,6 +2067,7 @@ if (document.querySelector(".pc-tabs-search")) {
 }
 
 // ------------------------------- Service Page -------------------------------
+
 if (document.getElementById("pcServicePage")) {
     const serviceRequirementsBtn = document.getElementById("pc-service-requirements-btn");
     const serviceRequirements = document.querySelector(".pc-service-requirements");

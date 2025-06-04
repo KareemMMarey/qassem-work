@@ -20,14 +20,16 @@ if (document) {
                     console.log(category);
                     console.log(filter);
 
-                    if (filter === "all" || filter === category) {
-                        console.log(category);
-                        card.style.display = "block";
-                        console.log('else');
+                    if (filter === "all" || category === filter ) {
+                        //console.log(category);
+                        card.style.display = "flex";
+                        //console.log('else');
                     } else {
-                        console.log('else');
+                        //console.log('else');
                         card.style.display = "none";
                     }
+
+                    
                 });
             });
         });

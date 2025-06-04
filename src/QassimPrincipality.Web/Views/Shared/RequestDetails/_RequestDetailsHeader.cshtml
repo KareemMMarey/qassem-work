@@ -1,0 +1,21 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@{
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+        ?? throw new InvalidOperationException("ParentLocalizer not found.");
+
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    string FormatDate(DateTime date) => date == DateTime.MinValue ? localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? localizer["NotFound"].Value : val;
+}
+
+<div class="pc-service-form-heading">
+    <h3>@localizer["RequestDetails"]</h3>
+    <div class="request-details-heading">
+        <h4>@(currentCulture == "ar-SA" ? Model.ServiceNameAr : Model.ServiceNameEn)</h4>
+        <div>
+            <h4>@GetValue(Model.RequestNumber)</h4>
+            <p>@FormatDate(Model.CreatedOn)</p>
+        </div>
+    </div>
+</div>
+<div class="pc-form-line"></div>

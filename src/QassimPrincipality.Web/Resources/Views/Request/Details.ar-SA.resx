@@ -234,4 +234,73 @@
   <data name="NotFound" xml:space="preserve">
     <value>لا يوجد</value>
   </data>
+  <data name="NewRequestCreated" xml:space="preserve">
+    <value>تم إنشاء طلب جديد برقم {0}</value>
+  </data>
+  <data name="RequestUpdatedTo" xml:space="preserve">
+    <value>تم تحديث الطلب إلى {0}</value>
+  </data>
+  <data name="NoActionsYet" xml:space="preserve">
+    <value>لم يتم بعد اتخاذ أي إجراء</value>
+  </data>
+  <data name="ApplicantData" xml:space="preserve">
+    <value>بيانات مقدم الطلب</value>
+  </data>
+  <data name="RequestedPartyData" xml:space="preserve">
+    <value>بيانات المعني بالطلب</value>
+  </data>
+  <data name="NoDetailsRecorded" xml:space="preserve">
+    <value>لا توجد تفاصيل مسجلة</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>نوع الملف</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>حجم الملف (KB)</value>
+  </data>
+  <data name="UploadDate" xml:space="preserve">
+    <value>تاريخ الرفع</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>تحميل</value>
+  </data>
+  <data name="NoAttachments" xml:space="preserve">
+    <value>لا توجد مرفقات</value>
+  </data>
+  <data name="AdminDecision" xml:space="preserve">
+    <value>قرار المدير</value>
+  </data>
+  <data name="Relation_0" xml:space="preserve">
+    <value>لا يوجد</value>
+  </data>
+  <data name="Relation_1" xml:space="preserve">
+    <value>نفسي</value>
+  </data>
+  <data name="Relation_2" xml:space="preserve">
+    <value>موكل عنه</value>
+  </data>
+  <data name="Relation_3" xml:space="preserve">
+    <value>محامى</value>
+  </data>
+  <data name="Relation_4" xml:space="preserve">
+    <value>قرابة من الدرجة الأولى</value>
+  </data>
+  <data name="RequesterRelation" xml:space="preserve">
+    <value>صلة مقدم الطلب</value>
+  </data>
+  <data name="AttachToRequest" xml:space="preserve">
+    <value>إضافة الى الطلب</value>
+  </data>
+  <data name="CompleteRequest" xml:space="preserve">
+    <value>اكمال الطلب</value>
+  </data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+    <value>لإكمال الطلب أرفق ملف</value>
+  </data>
 </root>

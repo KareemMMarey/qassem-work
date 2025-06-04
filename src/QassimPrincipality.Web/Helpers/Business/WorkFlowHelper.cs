@@ -16,9 +16,10 @@ namespace QassimPrincipality.Web.Helpers.Business
                 ServiceRequestStatus.Rejected => "pc-red-status",
                 ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
                 ServiceRequestStatus.NotQualified => "pc-grey-status",
-                _ => ""
+                _ => "",
             };
         }
+
         public static string GetStatusDisplay(ServiceRequestStatus status, IViewLocalizer localizer)
         {
             return status switch
@@ -41,6 +42,38 @@ namespace QassimPrincipality.Web.Helpers.Business
                 ].Value,
                 _ => localizer["UnknownStatus"].Value,
             };
+        }
+
+        /// <summary>
+        /// Returns a localized “action description” based on the new status.
+        /// - If the status is Submitted, we say “تم إنشاء طلب جديد برقم {RequestNumber}”
+        /// - Otherwise we say “تم تحديث الطلب إلى {LocalizedStatusText}”
+        /// </summary>
+        /// <param name="status">الحالة الجديدة</param>
+        /// <param name="requestNumber">رقم الطلب (مثلاً “RR-12345”)</param>
+        /// <param name="localizer">IViewLocalizer لقراءة جمل الـ .resx</param>
+        public static string GetActionDescription(
+            ServiceRequestStatus status,
+            string requestNumber,
+            IViewLocalizer localizer
+        )
+        {
+            // 1) إذا كانت الحالة Submitted
+            if (status == ServiceRequestStatus.Submitted)
+            {
+                // هذا المفتاح موجود لدينا في الـ .resx: "NewRequestCreated" => "تم إنشاء طلب جديد برقم {0}"
+                // localizer["NewRequestCreated", requestNumber] سيُرجع جملة تحتوي على التأشير وقيمة requestNumber
+                return localizer["NewRequestCreated", requestNumber].Value.Replace("{0}", requestNumber);
+            }
+
+            // 2) غير ذلك => “تم تحديث الطلب إلى {0}”
+            // أولاً نحصل على النص المحلي للحالة (مثلاً "مقبول"، "قيد المراجعة"، ...)
+            string localizedStatus = GetStatusDisplay(status, localizer);
+
+            // ثم نستدعي المفتاح "RequestUpdatedTo" من الـ .resx
+            // والذي في مثالي هو: "تم تحديث الطلب إلى {0}"
+            var st =  localizer["RequestUpdatedTo", localizedStatus].Value;
+            return st.Replace("{0}", localizedStatus);
         }
 
         public static string hideOption(ServiceRequestStatus status)
@@ -110,6 +143,17 @@ namespace QassimPrincipality.Web.Helpers.Business
                 {
                     ServiceRequestStatus.Approved,
                     ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
+                },
+            },
+            new WorkFlowItem
+            {
+                Id = ServiceRequestStatus.RequiresCompletion,
+                AllowedStatusses = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
                 },
             },
         };

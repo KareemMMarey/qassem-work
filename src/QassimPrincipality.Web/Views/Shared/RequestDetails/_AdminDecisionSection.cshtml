@@ -1,0 +1,124 @@
+﻿@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var Localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
+
+
+
+
+<div class="pc-form-line"></div>
+<div class="pc-service-form-heading">
+    <h4>@Localizer["AdminDecision"]</h4>
+</div>
+
+<form asp-action="ChangeRequestStatus" method="post">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <input type="hidden" name="RequestId" value="@Model.Id" />
+            <input type="hidden" name="UserId" value="@Model.UserId" />
+
+            <label class="form-label">@Localizer["RequestStatus"]</label>
+
+            @removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+            <select name="NewStatus" class="form-select pc-search-select" required>
+                @{
+                    var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+                }
+                @foreach (ServiceRequestStatus status in transitions)
+                {
+                    var isSelected = Model.Status == status ? "selected" : "";
+                    <option value="@((int)status)" @isSelected>
+                        @WorkFlowHelper.GetStatusDisplay(status, Localizer)
+                    </option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <label class="form-label">@Localizer["Notes"]</label>
+            <textarea name="Notes" class="form-control" rows="4"
+                      id="notesTextArea"
+            @(Model.Status == ServiceRequestStatus.Rejected ? "required" : "")>
+            </textarea>
+        </div>
+    </div>
+    <div class="pc-form-buttons">
+        <button type="submit" class="pc-primary-btn">@Localizer["Save"]</button>
+    </div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const statusSelect = document.getElementById('statusSelect');
+        const notesTextArea = document.getElementById('notesTextArea');
+        // Enum value for Rejected; adjust as needed
+        const rejectedValue = '@((int)ServiceRequestStatus.Rejected)';
+
+        function updateRequired() {
+            if (statusSelect.value === rejectedValue) {
+                notesTextArea.setAttribute('required', 'required');
+            } else {
+                notesTextArea.removeAttribute('required');
+            }
+        }
+        statusSelect.addEventListener('change', updateRequired);
+        updateRequired(); // call on load
+    });
+</script>
+
+
+@*
+
+<div class="section‐box" @WorkFlowHelper.hideOption(Model.Status)>
+
+    <div class="pc-service-form-heading">
+        <h4>@Localizer["AdminDecision"]</h4>
+    </div>
+
+    <form asp-action="UpdateRequestStatus" asp-route-id="@Model.Id" method="post">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">@Localizer["RequestStatus"]</label>
+
+                @removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+
+                <select class="form-select" required name="NewStatus" class="pc-search-select">
+
+                    @{
+                        var selected = Model.Status == null ? "selected" : "";
+                        var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+                    }
+
+                    @foreach (ServiceRequestStatus status in transitions)
+                    {
+                        var isSelected = Model.Status == status ? "selected" : "";
+                        <option value="@((int)status)" @isSelected>
+                            @WorkFlowHelper.GetStatusDisplay(status, Localizer)
+                        </option>
+                    }
+
+                </select>
+
+
+
+
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label class="form-label">@Localizer["Notes"]</label>
+                <textarea name="Notes" class="form-control" rows="4" required></textarea>
+            </div>
+        </div>
+        <div class="pc-form-buttons">
+            <button type="submit" class="pc-primary-btn">@Localizer["Save"]</button>
+        </div>
+    </form>
+</div> *@

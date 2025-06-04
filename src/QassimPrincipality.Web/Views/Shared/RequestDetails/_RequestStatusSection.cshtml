@@ -1,0 +1,98 @@
+﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
+@{
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+
+<div class="request-status-container">
+    <div class="request-status-heading-container">
+        <div class="request-status-heading">
+            <h5>@localizer["RequestStatus"]</h5>
+            @{
+                var statusClass = Model.Status switch
+                {
+                    ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
+                    ServiceRequestStatus.Approved => "pc-green-status",
+                    ServiceRequestStatus.Rejected => "pc-red-status",
+                    ServiceRequestStatus.NotQualified => "pc-grey-status",
+                    _ => "pc-grey-status"
+                };
+            }
+            <p class="@statusClass">@WorkFlowHelper.GetStatusDisplay(Model.Status,localizer)</p>
+        </div>
+
+        @* Complete Request button (desktop) *@
+        @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+        {
+            <div class="complete-request-actions-desktop">
+                <button class="pc-primary-btn" data-bs-toggle="modal" data-bs-target="#completeRequestModal">
+                    @localizer["CompleteRequest"]
+                </button>
+            </div>
+        }
+    </div>
+
+    <div class="request-status-body">
+        <div class="timeline">
+            @if (Model.Actions != null && Model.Actions.Any())
+            {
+                foreach (var action in Model.Actions.OrderBy(a => a.ActionDate))
+                {
+                    <div class="timeline-item">
+                        <img src="~/icons/progressIndicator.svg" alt="Progress" width="32" height="128" />
+                        <div class="pe-3">
+                            <p class="mb-1">
+                                <strong>
+                                    @WorkFlowHelper.GetActionDescription(
+                                             action.ActionStatus,
+                                             Model.RequestNumber,
+                                             localizer
+                                             )
+                                </strong>
+                            </p>
+                            <p class="time">@action.ActionDate.ToString("yyyy-MM-dd HH:mm")</p>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-muted small">
+                    @localizer["NoActionsYet"]
+                </div>
+            }
+        </div>
+
+        @{
+            var noteAction = Model.Actions?.FirstOrDefault(a => a.ActionType == Model.Status.ToString());
+            if (noteAction != null)
+            {
+                <div class="request-notes-container">
+                    <div class="request-notes">
+                        <p class="request-notes-title">
+                            @localizer[
+                                 Model.Status == ServiceRequestStatus.Approved ? "TransactionIssued" :
+                                 Model.Status == ServiceRequestStatus.Rejected ? "RejectionReason" :
+                                 Model.Status == ServiceRequestStatus.NotQualified ? "SuggestedAuthority" :
+                                 "RequiredDocumentsToComplete"
+                                 ]
+                        </p>
+                        <p>@noteAction.ActionStatus</p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @* Complete Request button (mobile) *@
+    @if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+    {
+        <div class="complete-request-actions-mobile">
+            <button class="pc-primary-btn" data-bs-toggle="modal" data-bs-target="#completeRequestModal">
+                @localizer["CompleteRequest"]
+            </button>
+        </div>
+    }
+</div>
