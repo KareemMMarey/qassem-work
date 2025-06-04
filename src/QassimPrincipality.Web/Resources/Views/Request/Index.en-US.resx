@@ -120,9 +120,6 @@
   <data name="AdministrativeSummons" xml:space="preserve">
     <value>Administrative Summons</value>
   </data>
-  <data name="Birth Date" xml:space="preserve">
-    <value>Birth Date</value>
-  </data>
   <data name="BirthDateTootip" xml:space="preserve">
     <value>Data retrieved from National Information Center</value>
   </data>
@@ -184,17 +181,11 @@
   <data name="FristClassRelative" xml:space="preserve">
     <value>First Class Relative</value>
   </data>
-  <data name="Full Name" xml:space="preserve">
-    <value>Full Name</value>
-  </data>
   <data name="FullNameTootip" xml:space="preserve">
     <value>Data retrieved from National Information Center</value>
   </data>
   <data name="HomePage" xml:space="preserve">
     <value>HomePage</value>
-  </data>
-  <data name="ID Number" xml:space="preserve">
-    <value>ID Number</value>
   </data>
   <data name="IDNumberTootip" xml:space="preserve">
     <value>Data retrieved from National Information Center</value>
@@ -273,5 +264,20 @@
   </data>
   <data name="ValidationError" xml:space="preserve">
     <value>There are form errors</value>
+  </data>
+  <data name="Birth Date" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
+  <data name="Full Name" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="ID Number" xml:space="preserve">
+    <value>ID Number</value>
+  </data>
+  <data name="ErrorMessagePhone" xml:space="preserve">
+    <value>This Number is Wrong</value>
+  </data>
+  <data name="ErrorMessageEmail" xml:space="preserve">
+    <value>email is invalid</value>
   </data>
 </root>
