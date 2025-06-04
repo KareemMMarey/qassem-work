@@ -1,7 +1,13 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s localizer out of ViewData
+    var Localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
 @using QassimPrincipality.Domain.Enums
-@if (Model.Status == ServiceRequestStatus.RequiresCompletion && Model.UserId == ViewBag.UserId?.ToString())
+@using System.Security.Claims
+@if (Model.Status == ServiceRequestStatus.RequiresCompletion
+&& Model.UserId == User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value?.ToString())
 {
     <div class="modal fade" id="completeRequestModal" tabindex="-1" aria-labelledby="completeRequestModalLabel" aria-hidden="true">
         <div class="modal-dialog">

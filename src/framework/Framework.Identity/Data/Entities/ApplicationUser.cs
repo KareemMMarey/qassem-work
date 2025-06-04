@@ -43,6 +43,7 @@ namespace Framework.Identity.Data.Entities
 		public string City { get; set; }
 		public string Neighborhood { get; set; }
 		public string IdentityNumber { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
-	}
+    }
 }

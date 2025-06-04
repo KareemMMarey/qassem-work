@@ -50,23 +50,38 @@
 </style>
 
 
-<div id="review-container" class="review-container">
-    <div class="review-section">
-        <h5>@localizer["ReviewRequestData"]</h5>
-        <ul id="review-data" class="review-list"></ul>
+@* <div id="review-container" class="review-container"> *@
+<div class="pc-service-form pc-basic-container">
+    <div class="pc-service-form-heading">
+        <div class="pc-form-line"></div>
+        <h4>@localizer["ReviewRequestData"]</h4>
     </div>
 
-    <div class="review-section">
+    <form action="" method="" id="" class="pc-form">
+        <div class="pc-form-grid-2col" id="review-data"></div>
+    </form>
+
+  @*   <div class="review-section">
         <h5>@localizer["ReviewAdditionalData"]</h5>
         <ul id="review-additionaldata" class="review-list"></ul>
+    </div> *@
+
+    <div class="pc-service-form-heading" id="stepTwo">
+        <div class="pc-form-line"></div>
+        <h4>@localizer["ReviewAdditionalData"]</h4>
     </div>
 
-    <div class="review-section">
-        <h5>@localizer["ReviewAttachments"]</h5>
-        <ul id="review-attachments" class="review-list"></ul>
-    </div>
+    <form action="" method="" id="" class="pc-form">
+        <div class="pc-form-grid-2col" id="review-additionaldata"></div>
+    </form>
 
-    
+    <div class="pc-service-form-heading">
+        <div class="pc-form-line"></div>
+
+        <h4>@localizer["ReviewAttachments"]</h4>
+    </div>
+    <table id="review-attachments" class="pc-table pc-striped-table attachments-table review-section"></table>
+
 </div>
 
 

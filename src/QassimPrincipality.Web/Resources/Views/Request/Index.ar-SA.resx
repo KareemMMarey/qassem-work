@@ -150,6 +150,16 @@
   <data name="Email" xml:space="preserve">
     <value>البريد الإلكتروني</value>
   </data>
+  <data name="emailRequiredMessage" xml:space="preserve">
+    <value>يرجى تعبئة البريد الإلكتروني</value>
+  </data>
+  
+  <data name="RequiredInputMessage" xml:space="preserve">
+    <value>يرجى تعبئة الحقل</value>
+  </data>
+  <data name="emailInvalidMessage" xml:space="preserve">
+    <value>البريد الإلكتروني غير صالح</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>خطأ</value>
   </data>
@@ -212,6 +222,15 @@
   </data>
   <data name="Phone" xml:space="preserve">
     <value>رقم الجوال</value>
+  </data>
+  <data name="phoneRequiredMessage" xml:space="preserve">
+    <value>يرجى تعبئة رقم الجوال</value>
+  </data>
+  <data name="phoneInvalidMessage" xml:space="preserve">
+    <value>رقم الجوال غير صالح</value>
+  </data>
+  <data name="applicantDescriptionError" xml:space="preserve">
+    <value>يرجى تعبئة صفة مقدم الطلب</value>
   </data>
   <data name="PleaseAttachRequiredFiles" xml:space="preserve">
     <value>الرجاء ارفاق كل الملفات المطلوبة</value>

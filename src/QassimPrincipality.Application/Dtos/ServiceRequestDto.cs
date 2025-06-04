@@ -60,7 +60,12 @@ namespace QassimPrincipality.Application.Dtos
         public DateTime? UpdatedOn { get; set; }
     }
 
-
+    public class SelectListDto
+    {
+        public int Id { get; set; }
+        public string NameAr { get; set; }
+        public string NameEn { get; set; }
+    }
 
 public class RequestBasicDataDto
     {
@@ -123,10 +128,10 @@ public class RequestBasicDataDto
 
     public class RequestActionDto
     {
-        public Guid ServiceRequestId { get; set; }
+        public Guid RequestId { get; set; }
         public string ActionByUserId { get; set; }
         public string ActionType { get; set; }
-        public string ActionDescription { get; set; }
+        public ServiceRequestStatus ActionStatus { get; set; }
         public DateTime ActionDate { get; set; }
     }
 

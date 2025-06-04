@@ -1,5 +1,6 @@
 ﻿@using QassimPrincipality.Application.Dtos
 @using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
 @using QassimPrincipality.Web.ViewModels.Request
 @model MyRequestsViewModel
 @inject IViewLocalizer localizer
@@ -8,33 +9,7 @@
     ViewData["Title"] = @localizer["MyRequests"];/*  "" */
     var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
 }
-@functions {
-    private string GetStatusClass(ServiceRequestStatus status)
-    {
-        return status switch
-        {
-            ServiceRequestStatus.Approved => "pc-green-status",
-            ServiceRequestStatus.Submitted => "pc-blue-status",
-            ServiceRequestStatus.Rejected => "pc-red-status",
-            ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
-            ServiceRequestStatus.NotQualified => "pc-grey-status",
-            _ => ""
-        };
-    }
 
-    private string GetStatusDisplay(ServiceRequestStatus status)
-    {
-        return status switch
-        {
-            ServiceRequestStatus.Approved => localizer["ApprovedStatus"].Value,
-            ServiceRequestStatus.Submitted => localizer["SubmittedStatus"].Value,
-            ServiceRequestStatus.Rejected => localizer["RejectedStatus"].Value,
-            ServiceRequestStatus.RequiresCompletion => localizer["RequiresCompletionStatus"].Value,
-            ServiceRequestStatus.NotQualified => localizer["NotQualifiedStatus"].Value,
-            _ => localizer["UnknownStatus"].Value
-        };
-    }
-}
 
 <div class="pc-my-requests">
     <div class="pc-profile-header">
@@ -111,8 +86,8 @@
                             <td class="break-word-cell"> @request.RequestNumber</td>
                             <td>@request.CreatedOn.ToString("yyyy-MM-dd")</td>
                             <td class="pc-request-status">
-                                <p class="@GetStatusClass(request.Status)">
-                                    @GetStatusDisplay(request.Status)
+                                <p class="@WorkFlowHelper.GetStatusClass(request.Status)">
+                                    @WorkFlowHelper.GetStatusDisplay(request.Status,localizer)
                                 </p>
                             </td>
                             <td>

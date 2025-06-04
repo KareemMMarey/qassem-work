@@ -1,13 +1,21 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Pull the parent’s localizer out of ViewData
+    var localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+        ?? throw new InvalidOperationException("ParentLocalizer not found.");
+}
 
 @if (!string.IsNullOrEmpty(Model.BasicData.RequestDetails) || !string.IsNullOrEmpty(Model.AdditionalData?.RequestDetails))
 {
     <table class="pc-basic-table request-data-table">
         <tr>
-            <td class="td-bold">@Localizer["RequestDetails"]</td>
+            <td class="td-bold">@localizer["RequestDetails"]</td>
             <td class="td-request-details" colspan="3">
-                @(Model.AdditionalData?.RequestDetails ?? Model.BasicData.RequestDetails)
+                @Html.Raw(
+                         string.IsNullOrWhiteSpace(Model.BasicData.RequestDetails)
+                         ? $"<span class='text-muted'>{localizer["NoDetailsRecorded"].Value}</span>"
+                         : Model.BasicData.RequestDetails.Replace("\n", "<br />")
+                         )
             </td>
         </tr>
     </table>

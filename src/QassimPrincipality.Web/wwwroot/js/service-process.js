@@ -1,19 +1,17 @@
 ﻿
 $(document).ready(function () {
-    // Initial Setup
-    
     const emptyGuid = '00000000-0000-0000-0000-000000000000';
 
     const storedServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+    const requestId = localStorage.getItem(`requestId_${serviceId}`);
     if (storedServiceData.currentStep) {
         currentStep = storedServiceData.currentStep;
         requestData = storedServiceData.requestData || {};
         attachments = storedServiceData.attachments || [];
 
         // Update the hidden requestId field if available
-        if (storedServiceData.requestId) {
-            $("#requestId").val(storedServiceData.requestId);
-            console.log("Loaded requestId from storage:", storedServiceData.requestId);
+        if (requestId) {
+            $("#requestId").val(requestId);
         }
 
         loadStep(serviceId, currentStep);
@@ -61,6 +59,68 @@ $(document).ready(function () {
             
         }
 
+                const prisonToId = $("#prisonToId").val().trim();
+                if (prisonToId === "") {
+                    showErrorMessage("#prisonToId", messages.applicantDescriptionError);
+                    hasError = true;
+                }
+            }
+            const requestDetails = $("#requestDetails").val().trim();
+            if (requestDetails === "") {
+                showErrorMessage("#requestDetails", messages.detailsMessage);
+                hasError = true;
+            }
+
+            if (fullName === "") {
+                showErrorMessage("#fullName", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (countryId === "") {
+                showErrorMessage("#countryId", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (nationalId === "") {
+                showErrorMessage("#nationalId", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (dateOfBirth === "") {
+                showErrorMessage("#dateOfBirth", messages.RequiredInputMessage);
+                hasError = true;
+            }
+            if (city === "") {
+                showErrorMessage("#city", messages.RequiredInputMessage);
+                hasError = true;
+            }
+
+            if (district === "") {
+                showErrorMessage("#district", messages.RequiredInputMessage);
+                hasError = true;
+            }
+
+
+            if (phone === "") {
+                showErrorMessage("#phone", messages.phoneRequiredMessage);
+                hasError = true;
+            } else if (!saudiPhoneRegex.test(phone)) {
+                showErrorMessage("#phone", messages.phoneInvalidMessage);
+                hasError = true;
+            }
+
+            if (email === "") {
+                showErrorMessage("#email", messages.emailRequiredMessage);
+                hasError = true;
+            } else if (!emailRegex.test(email)) {
+                showErrorMessage("#email", messages.emailInvalidMessage);
+                hasError = true;
+            }
+
+            if (hasError) {
+                return;
+            }
+
+        }
+
+
         // Validate required attachments
         if (!validateRequiredAttachments()) {
             showPopup("error", messages.errorTitle, messages.requiredFilesMessage);
@@ -77,7 +137,7 @@ $(document).ready(function () {
         updateStepper(currentStep);
         updateButtonVisibility();
 
-         // Store the current step with service ID
+        // Store the current step with service ID
         const serviceData = {
             currentStep: currentStep,
             requestData: requestData,
@@ -98,7 +158,7 @@ $(document).ready(function () {
     // Submit Button Click Event
     $("#submit-btn").click(function () {
         //if ($("#step-form").valid()) {
-            submitRequest();
+        submitRequest();
         //}
     });
 
@@ -155,7 +215,7 @@ $(document).ready(function () {
         if (customHiddenInput.length) {
             const relationValue = customHiddenInput.val();
             if (!relationValue) {
-                showError(messages.pleaseSelectRelation );
+                showError(messages.pleaseSelectRelation);
                 return false;
             }
             stepData['serviceRequesterRelation'] = relationValue;
@@ -163,7 +223,7 @@ $(document).ready(function () {
         }
 
         const stepContent = $("#step-content").find("input, textarea, select");
-        
+
         if (currentStep !== totalSteps - 1) {
             stepContent.each(function () {
                 const id = $(this).attr("id");
@@ -185,7 +245,7 @@ $(document).ready(function () {
 
         // Check if the current step is "Attachments"
 
-        if (currentStep === totalSteps-1) {
+        if (currentStep === totalSteps - 1) {
             console.log("Skipping server save for attachments step");
             return;
         }
@@ -196,7 +256,9 @@ $(document).ready(function () {
 
     // Save to Server
     function saveToServer(stepNumber, stepData) {
-        const requestId = $("#requestId").val() || emptyGuid;
+        debugger;
+        //const requestId = $("#requestId").val() || emptyGuid;
+        const requestId = localStorage.getItem(`requestId_${serviceId}`);
 
         $.post("/Request/SaveStepData", {
             requestId: requestId,
@@ -213,12 +275,13 @@ $(document).ready(function () {
                 const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
                 serviceData.requestId = response.requestId;
                 localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(serviceData));
+                localStorage.setItem(`requestId_${serviceId}`, response.requestId);
 
                 console.log("Request ID updated:", response.requestId);
             }
         }).fail(function (xhr) {
             "error", messages.errorTitle,
-            showError(messages.failedToSaveStepData + ' ' + xhr.responseText);
+                showError(messages.failedToSaveStepData + ' ' + xhr.responseText);
         });
         $("#requestId").val('@ViewBag.RequestId')
     }
@@ -226,7 +289,9 @@ $(document).ready(function () {
     // Submit Full Request
     function submitRequest() {
         //const requestDetails = JSON.stringify(requestData);
-        const requestId = $("#requestId").val() || emptyGuid;
+        //const requestId = $("#requestId").val() || emptyGuid;
+        const requestId = localStorage.getItem(`requestId_${serviceId}`);
+
 
         $.post("/Request/SubmitRequest", {
             requestId: requestId
@@ -246,7 +311,7 @@ $(document).ready(function () {
     }
 
     // Handle File Uploads
-    
+
 
     // Show Error Messages
     function showError(message) {
@@ -257,13 +322,11 @@ $(document).ready(function () {
     function showErrorMessage(selector, message) {
         $(selector).next(".error").text(message).show();
     }
-
     // Hide Inline Error Message
     function hideErrorMessage(selector) {
         $(selector).next(".error").hide();
     }
     function updateStepper(currentStep) {
-        //debugger;
         // Remove active class from all steps
         $(".pc-step").removeClass("active");
 
@@ -328,6 +391,8 @@ $(document).ready(function () {
         Object.entries(requestData).forEach(([stepKey, stepValues]) => {
             // Step 1 (Basic Data)
             if (stepKey === "Step1") {
+
+
                 Object.entries(stepValues).forEach(([key, value]) => {
                     const label = inputLabelMap[key] || formatKey(key);
 
@@ -351,10 +416,11 @@ $(document).ready(function () {
                     else { displayValue = value }
 
                     reviewContainer.append(`
-                    <li>
-                        <span class="review-label">${label}:</span>
-                        <span class="review-value">${displayValue}</span>
-                    </li>
+                    <div class="pc-input">
+                    <label for="name" class="pc-input-label">${label}</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${displayValue}" readonly>
+
+                    </div>
                 `);
                 });
             }
@@ -364,16 +430,17 @@ $(document).ready(function () {
                 Object.entries(stepValues).forEach(([key, value]) => {
                     const label = inputLabelMap[key] || formatKey(key);
                     additionalDataContainer.append(`
-                    <li>
-                        <span class="review-label">${label}:</span>
-                        <span class="review-value">${value}</span>
-                    </li>
+                    <div class="pc-input">
+                    <label for="name" class="pc-input-label">${label}</label>
+                        <input type="text" id="name" name="name" class="pc-auto-filled-input" value="${value}" readonly>
+                    </div>
                 `);
                 });
             }
         });
         // Remove Step 2 container if empty
         if (!hasStep2Data) {
+            document.querySelector("#stepTwo").style.display = "none";
             additionalDataContainer.closest(".review-section").remove();
         }
         // Handle attachments separately
@@ -381,16 +448,37 @@ $(document).ready(function () {
             attachmentContainer.closest(".review-section").remove();
         } else {
             // Populate the attachments
+            //<strong>${att.typeName}</strong>:
+            attachmentContainer.append(`
+            <thead>
+                    <tr>
+                        <th>اسم الملف</th>
+                        <th>صيغة الملف</th>
+                        <th>حجم الملف</th>
+                        <th>معاينة الملف</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `);
+
             attachments.forEach(att => {
                 attachmentContainer.append(`
-                <li>
-                    <strong>${att.typeName}</strong>: ${att.name}
-                </li>
+                <tr>
+                <td>${att.name}</td>
+                <td>${att.extension}</td>
+                <td>${att.size} KB</td>
+                <td>
+                <button class="pc-outline-btn" href="${att.url}" target=_blank>معاينة</button>
+                </td>
+                    </tr>
             `);
             });
+            attachmentContainer.append(`
+                </tbody>
+            `);
         }
     }
-    
+
 
     function formatKey(key) {
         return key.replace(/([A-Z])/g, " $1")
@@ -401,6 +489,6 @@ $(document).ready(function () {
     function clearServiceData(serviceId) {
         localStorage.removeItem(`serviceData_${serviceId}`);
     }
-    
+
 
 });

@@ -123,11 +123,17 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
   <data name="ClearSearchInput" xml:space="preserve">
     <value>Clear Search Input</value>
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>Details</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>Draft</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -176,6 +182,9 @@
   </data>
   <data name="SubmittedStatus" xml:space="preserve">
     <value>Submitted</value>
+  </data>
+  <data name="UnderReview" xml:space="preserve">
+    <value>Under review</value>
   </data>
   <data name="UnknownStatus" xml:space="preserve">
     <value>Unknown</value>

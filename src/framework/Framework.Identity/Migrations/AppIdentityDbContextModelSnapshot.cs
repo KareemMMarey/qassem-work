@@ -121,6 +121,9 @@ namespace Framework.Identity.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GetDate()");
 
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Department")
                         .HasColumnType("nvarchar(max)");
 

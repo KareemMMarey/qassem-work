@@ -1,0 +1,239 @@
+﻿@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Web.ViewModels.Request
+@model MyRequestsViewModel
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+@inject IViewLocalizer localizer
+@{
+
+    ViewData["Title"] = @localizer["MyRequests"];/*  "" */
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+
+<div class="pc-my-requests">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"> @localizer["Home"] </a>
+                </li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@localizer["AllRequests"]</li>
+            </ul>
+        </div>
+
+        <h1 class="pc-profile-title">@localizer["AllRequests"]</h1>
+    </div>
+
+    <div class="pc-my-requests-body">
+        <div class="pc-my-requests-header">
+            <p>البحث</p>
+
+            <div class="pc-search-container search-width" id="requestsSearch">
+                @* <button type="submit" class="pc-search-btn" onclick="searchTable()">
+                    <img src="~/icons/search.svg" alt="search" width="20" height="20" />
+                </button> *@
+                <form asp-action="AllRequests" method="Get" class="pc-filter-form">
+                <input type="text" class="pc-search-input" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
+                    <select class="pc-search-input" placeholder="" name="ServiceId" asp-for="Filter.ServiceId">
+                        <option value="">@localizer["SearchWithServiceId"]</option>
+                        @foreach (var item in Model.ServiceList)
+                        {
+                            var selectedService = item.Id == Model.Filter.ServiceId ? "selected" : "";
+                            <option @selectedService value="@item.Id">@(currentCulture == "ar-SA" ? item.NameAr : item.NameEn)</option>
+                        }
+                    </select>
+
+                <select name="Status" class="pc-search-select">
+
+                        @{
+                            var selected = Model.Filter.Status == null ? "selected" : "";
+                        }
+                        <option @(Model.Filter.Status == null ? "selected" : null) value="">@localizer["SearchWithStatusId"]</option>
+
+                        @foreach (ServiceRequestStatus status in Enum.GetValues(typeof(ServiceRequestStatus)))
+                        {
+                            if(status == ServiceRequestStatus.Draft){
+                                continue;
+                            }
+                            var isSelected = Model.Filter.Status == status ? "selected" : "";
+                            <option value="@((int)status)" @isSelected>
+                                @WorkFlowHelper.GetStatusDisplay(status,localizer)
+                            </option>
+                        }
+
+                </select>
+
+                <input type="date" class="pc-search-input" name="StartDate" value="@(Model.Filter.StartDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["StartDate"]" aria-label="Start Date">
+
+                <input type="date" class="pc-search-input" name="EndDate" value="@(Model.Filter.EndDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["EndDate"]" aria-label="End Date">
+
+                <button class="pc-primary-btn" type="submit">
+                    @localizer["SearchRequests"]
+                </button>
+</form>
+
+                
+            </div>
+
+            @* <button type="button" class="">
+            <img src="~/icons/filter.svg" alt="filter request" width="20" height="20" />
+            </button> *@
+        </div>
+
+        <table class="pc-table my-requests-table">
+            <thead>
+                <tr>
+                    <th>رقم</th>
+                    <th>
+                        <div class="pc-table-thead-icon">
+                            <p>  @localizer["ServiceName"] </p>
+                            <img src="/icons/filter.svg" alt="filter" width="13" height="13">
+                        </div>
+                    </th>
+                    <th> @localizer["RequestNumber"]  </th>
+                    <th>
+                        <div class="pc-table-thead-icon">
+                            <p> @localizer["RequestDate"]   </p>
+                            <img src="/icons/sort.svg" alt="request date sort" width="13" height="13">
+                        </div>
+                    </th>
+                    <th>
+                        <div class="pc-table-thead-icon">
+                            <p> @localizer["RequestStatus"]  </p>
+                            <img src="/icons/filter.svg" alt="request status filter" width="13" height="13">
+                        </div>
+                    </th>
+                    <th> @localizer["RequestDetails"]  </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Results.Count>0)
+                {
+                    int rowNumber = 1;
+                    foreach (var request in Model.Results)
+                    {
+                        <tr>
+                            <td>@rowNumber</td>
+                            <td> @(currentCulture == "ar-SA" ? @request.ServiceNameAr : @request.ServiceNameEn) </td>
+                            <td class="break-word-cell"> @request.RequestNumber</td>
+                            <td>@request.CreatedOn.ToString("yyyy-MM-dd")</td>
+                            <td class="pc-request-status">
+                                <p class="@WorkFlowHelper.GetStatusClass(request.Status)">
+                                    @WorkFlowHelper.GetStatusDisplay(request.Status,localizer)
+                                </p>
+                            </td>
+                            <td>
+                                <div>
+                                    <a asp-controller="Request" asp-action="Details" asp-route-requestid= "@request.Id" class="pc-borderless-btn">
+                                        <img src="~/icons/arrowRightblc.svg" width="15" height="11" /> @localizer["DetailsButton"]
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        rowNumber++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">    @localizer["NoRequests"] </td>
+                    </tr>
+                }
+            </tbody>
+            @* <tbody id="requestsTableBody">
+                <tr>
+                    <td>1</td>
+                    <td> طلب الخروج المؤقت للسجين</td>
+                    <td class="break-word-cell">RR-RI241029010</td>
+                    <td>2024-11-12</td>
+                    <td class="pc-request-status">
+                        <p class="pc-green-status">معتمد</p>
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="User" asp-action="RequestDetails" class="pc-borderless-btn"><img src="~/icons/arrowRightblc.svg" width="15" height="11"> تفاصيل</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td> زواج سعودي من غير سعودية مولودة بالسعودية</td>
+                    <td class="break-word-cell">RR-RI241029001</td>
+                    <td>2024-11-12</td>
+                    <td class="pc-request-status">
+                        <p class="pc-blue-status">تحت المراجعة</p>
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="User" asp-action="RequestDetails" class="pc-borderless-btn"><img src="~/icons/arrowRightblc.svg" width="15" height="11"> تفاصيل</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td> طلب الخروج المؤقت للسجين</td>
+                    <td class="break-word-cell">RR-RI241029002</td>
+                    <td>2024-11-12</td>
+                    <td class="pc-request-status">
+                        <p class=" pc-red-status">مرفوض</p>
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="User" asp-action="RequestDetails" class="pc-borderless-btn"><img src="~/icons/arrowRightblc.svg" width="15" height="11"> تفاصيل</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td> طلب الخروج المؤقت للسجين</td>
+                    <td class="break-word-cell">RR-RI241022003</td>
+                    <td>2024-11-12</td>
+                    <td class="pc-request-status">
+                        <p class="pc-orange-status">يتطلب إكماله</p>
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="User" asp-action="RequestDetails" class="pc-borderless-btn"><img src="~/icons/arrowRightblc.svg" width="15" height="11"> تفاصيل</a>
+                        </div>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td> طلب الخروج المؤقت للسجين</td>
+                    <td class="break-word-cell">RR-RI241022004</td>
+                    <td>2024-11-12</td>
+                    <td class="pc-request-status">
+                        <p class="pc-grey-status">غير مختص</p>
+                    </td>
+                    <td>
+                        <div>
+                            <a asp-controller="User" asp-action="RequestDetails" class="pc-borderless-btn"><img src="~/icons/arrowRightblc.svg" width="15" height="11"> تفاصيل</a>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody> *@
+        </table>
+        @if (Model == null || Model.Results!=null || Model.Results.Count < 1)
+        {
+
+            <div class="pc-empty-state">
+                <div class="pc-empty-state-message">
+                    <h2> @localizer["NoResults"]   </h2>
+                    <p> @localizer["NoResultsMatch"]  </p>
+                    <button class="pc-outline-btn" id="clear-search-field-btn"> @localizer["ClearSearchInput"] </button>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="pc-back-btn-container">
+        <button class="pc-outline-btn"> <a asp-controller="Home" asp-action="Index">@localizer["Back"]</a></button>
+    </div>
+</div>

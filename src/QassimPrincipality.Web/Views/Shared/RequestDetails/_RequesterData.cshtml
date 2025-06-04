@@ -1,43 +1,98 @@
 ﻿@model QassimPrincipality.Application.Dtos.ServiceRequestDto
-@inject IViewLocalizer Localizer
+@{
+    // Try to pull the parent’s Localizer out of ViewData
+    var Localizer = ViewData["ParentLocalizer"] as IViewLocalizer
+                    ?? throw new InvalidOperationException("ParentLocalizer not found.");
+    string FormatDate(DateTime date) => date == DateTime.MinValue ? Localizer["NotFound"].Value : date.ToString("yyyy-MM-dd");
+    string GetValue(string val) => string.IsNullOrEmpty(val) ? Localizer["NotFound"].Value : val;
+
+}
+
+
 @using QassimPrincipality.Domain.Enums
+
+
 <div class="pc-service-form-heading">
-    <h4>@Localizer["RequesterData"]</h4>
+    <h4>@Localizer["ApplicantData"]</h4>
 </div>
 
 <table class="pc-basic-table request-data-table">
     <tr>
         <td class="td-bold">@Localizer["FullName"]</td>
-        <td>@Model.BasicData.FullName</td>
+        <td>@GetValue(Model.BasicData.FullName)</td>
         <td class="td-bold">@Localizer["Nationality"]</td>
-        <td>@Model.BasicData.Nationality</td>
+        <td>@GetValue(Model.BasicData.Nationality)</td>
     </tr>
     <tr>
-        <td class="td-bold">@Localizer["IdNumber"]</td>
-        <td>@Model.BasicData.IdNumber</td>
+        <td class="td-bold">@Localizer["IDNumber"]</td>
+        <td>@GetValue(Model.BasicData.IdNumber)</td>
         <td class="td-bold">@Localizer["BirthDate"]</td>
-        <td>@Model.BasicData.BirthDate.ToString("yyyy-MM-dd")</td>
+        <td>@FormatDate(Model.BasicData.BirthDate)</td>
     </tr>
     <tr>
         <td class="td-bold">@Localizer["PhoneNumber"]</td>
-        <td>@Model.BasicData.Phone</td>
-        <td class="td-bold">@Localizer["Email"]</td>
-        <td>@Model.BasicData.Email</td>
+        <td>@GetValue(Model.BasicData.Phone)</td>
+        <td class="td-bold">@Localizer["mail"]</td>
+        <td>@GetValue(Model.BasicData.Email)</td>
     </tr>
     <tr>
         <td class="td-bold">@Localizer["City"]</td>
-        <td>@Model.BasicData.City</td>
+        <td>@GetValue(Model.BasicData.City)</td>
         <td class="td-bold">@Localizer["District"]</td>
-        <td>@Model.BasicData.District</td>
+        <td>@GetValue(Model.BasicData.District)</td>
     </tr>
 
     @if (Model.ServiceRequesterRelation != ServiceRequesterRelation.MySelf)
     {
         <tr>
             <td class="td-bold">@Localizer["RequesterRelation"]</td>
-            <td>@Localizer[$"Relation_{Model.ServiceRequesterRelation}"]</td>
+            <td colspan="3">@Localizer[$"Relation_{Model.ServiceRequesterRelation}"]</td>
         </tr>
     }
 </table>
 
 <div class="pc-form-line"></div>
+
+@* 
+
+<div class="section‐box">
+    <h5 class="mb-3">@Localizer["ApplicantData"]</h5> 
+    <table class="table table-bordered table‐rtl">
+        <tbody>
+            <tr>
+                <th style="width: 30%;">@Localizer["FullName"]</th>
+                <td>@GetValue(Model.BasicData.FullName)</td>
+                <th style="width: 30%;">@Localizer["Nationality"]</th>
+                <td>@GetValue(Model.BasicData.Nationality)</td>
+            </tr>
+            <tr>
+                <th>@Localizer["IDNumber"]</th>
+                <td>@GetValue(Model.BasicData.IdNumber)</td>
+                <th>@Localizer["BirthDate"]</th>
+                <td>@FormatDate(Model.BasicData.BirthDate)</td>
+            </tr>
+            <tr>
+                <th>@Localizer["PhoneNumber"]</th>
+                <td>@GetValue(Model.BasicData.Phone)</td>
+                <th>@Localizer["mail"]</th>
+                <td>@GetValue(Model.BasicData.Email)</td>
+            </tr>
+            <tr>
+                <th>@Localizer["City"]</th>
+                <td>@GetValue(Model.BasicData.City)</td>
+                <th>@Localizer["District"]</th>
+                <td>@GetValue(Model.BasicData.District)</td>
+            </tr>
+            @if (Model.ServiceRequesterRelation != ServiceRequesterRelation.MySelf)
+            {
+                <tr>
+                    <th>@Localizer["RequesterRelation"]</th>
+                    <td>@Localizer[$"Relation_{Model.ServiceRequesterRelation}"]</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+ *@

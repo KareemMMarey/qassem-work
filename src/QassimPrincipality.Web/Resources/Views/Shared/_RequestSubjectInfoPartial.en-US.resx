@@ -222,6 +222,12 @@
   <data name="Prison" xml:space="preserve">
     <value>Prison</value>
   </data>
+  <data name="FromPrison" xml:space="preserve">
+    <value>Current prison headquarters</value>
+  </data>
+  <data name="ToPrison" xml:space="preserve">
+    <value>Prison location to be transferred to</value>
+  </data>
   <data name="Reason" xml:space="preserve">
     <value>Reason</value>
   </data>

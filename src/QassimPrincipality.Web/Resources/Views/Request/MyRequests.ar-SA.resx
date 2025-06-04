@@ -123,11 +123,17 @@
   <data name="Back" xml:space="preserve">
     <value>عودة</value>
   </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ملغي</value>
+  </data>
   <data name="ClearSearchInput" xml:space="preserve">
     <value>محو مدخلات البحث</value>
   </data>
   <data name="DetailsButton" xml:space="preserve">
     <value>تفاصيل</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>مسودة</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>الرئيسية</value>
@@ -175,6 +181,9 @@
     <value>اسم الخدمة</value>
   </data>
   <data name="SubmittedStatus" xml:space="preserve">
+    <value>تم تقديم الطلب</value>
+  </data>
+  <data name="UnderReview" xml:space="preserve">
     <value>تحت المراجعة</value>
   </data>
   <data name="UnknownStatus" xml:space="preserve">

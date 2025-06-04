@@ -1,58 +1,52 @@
-﻿using Framework.Identity.Data.Entities;
+﻿using System.Security.Claims;
+using Framework.Core.Extensions;
+using Framework.Core.SharedServices.Services;
+using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
-using QassimPrincipality.Application.Services.Lookups.Main.EServiceSubCategory;
-using QassimPrincipality.Application.Services.Lookups.Main.RequestType;
-using QassimPrincipality.Application.Services.Main.Evaluation;
-using QassimPrincipality.Web.Models;
-using System.Diagnostics;
-using System.Linq;
-using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
-using QassimPrincipality.Application.Services.NewShema.Content;
-using QassimPrincipality.Application.Services.NewShema;
-using QassimPrincipality.Domain.Entities.Services.NewSchema;
-using Microsoft.EntityFrameworkCore;
-using QassimPrincipality.Domain.Enums;
-using QassimPrincipality.Application.Dtos;
-using QassimPrincipality.Web.ViewModels.Request;
-using Framework.Core.Extensions;
 using Newtonsoft.Json;
+using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
+using QassimPrincipality.Application.Services.NewShema;
+using QassimPrincipality.Application.Services.NewShema.Content;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Inquery;
+using QassimPrincipality.Web.ViewModels.Request;
+
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data.Services;
+using Org.BouncyCastle.Asn1.Ocsp;
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
     public class RequestController : Controller
     {
-       
         private readonly EServiceAppService _eService;
         private readonly ServiceRequestAppService _serviceRequestAppService;
         private readonly LookupAppService _lookups;
         private readonly NewsAppService _news;
-		private readonly IHtmlLocalizer<HomeController> _localizer;
+        private readonly IHtmlLocalizer<HomeController> _localizer;
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
         UserManager<ApplicationUser> _userManager;
         private readonly LogAppService _logservice;
         private readonly UserAppService _userAppService;
+
         public RequestController(
             ILogger<HomeController> logger,
             IHtmlLocalizer<HomeController> localizer,
             EServiceAppService eService,
-			NewsAppService news,
+            NewsAppService news,
             LookupAppService lookups,
             IWebHostEnvironment environment,
             ServiceRequestAppService serviceRequestAppService,
             UserManager<ApplicationUser> userManager,
             LogAppService logservice,
             UserAppService userAppService
-            )
+        )
         {
             _logger = logger;
             _eService = eService;
@@ -64,10 +58,8 @@ namespace QassimPrincipality.Web.Controllers
             _userManager = userManager;
             _logservice = logservice;
             _userAppService = userAppService;
-
         }
 
-   
         public async Task<ActionResult> Index(int serviceId)
         {
             var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
@@ -90,18 +82,42 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ChangeRequestStatus([FromBody] ChangeStatusDto changeStatusDto)
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid requestId)
         {
             try
             {
+                var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
+                ViewBag.UserId = HttpContext
+                    .User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Value;
+                return View(request);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error retrieving request: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRequestStatus(
+            [FromForm] ChangeStatusDto changeStatusDto
+        )
+        {
+            try
+            {
+                var UserId = User
+                    .Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
+                    ?.Value;
+                var xx = Guid.Parse(changeStatusDto.RequestId);
+
                 await _serviceRequestAppService.ChangeRequestStatusAsync(
-                    changeStatusDto.RequestId,
+                    Guid.Parse(changeStatusDto.RequestId),
                     changeStatusDto.NewStatus,
-                    changeStatusDto.UserId,
+                    UserId,
                     changeStatusDto.ActionNotes
                 );
-                return Ok(new { success = true });
+                return RedirectToAction("AllRequests");
             }
             catch (Exception ex)
             {
@@ -123,23 +139,25 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
 
-
         [HttpGet]
         public async Task<IActionResult> MyRequests()
         {
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
-                RequestSearchFilterDto filter = new RequestSearchFilterDto { 
-                UserId = user.Id.ToString(),
+                RequestSearchFilterDto filter = new RequestSearchFilterDto
+                {
+                    UserId = user.Id.ToString(),
                 };
                 var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
 
-                return View(new MyRequestsViewModel
-                {
-                    Filter = new RequestSearchFilterDto(),
-                    Results = results
-                });
+                return View(
+                    new MyRequestsViewModel
+                    {
+                        Filter = new RequestSearchFilterDto(),
+                        Results = results,
+                    }
+                );
 
                 //return View(results); // Pass list to the view
             }
@@ -148,17 +166,31 @@ namespace QassimPrincipality.Web.Controllers
                 return StatusCode(500, $"Error searching requests: {ex.Message}");
             }
         }
-        [HttpPost]
-        public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+
+        public ServiceRequestAppService Get_serviceRequestAppService()
+        {
+            return _serviceRequestAppService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllRequests([FromQuery] RequestSearchFilterDto filter)
         {
             try
             {
                 var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
-                return View(new MyRequestsViewModel
-                {
-                    Filter = filter,
-                    Results = results
-                });
+
+                var services = await _serviceRequestAppService.GetServices();
+
+                return View(
+                    new MyRequestsViewModel
+                    {
+                        Filter = filter ?? new RequestSearchFilterDto(),
+                        Results = results,
+                        ServiceList = services,
+                    }
+                );
+
+                //return View(results); // Pass list to the view
             }
             catch (Exception ex)
             {
@@ -166,6 +198,19 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
 
+        [HttpPost]
+            public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+        {
+            try
+            {
+                var results = await _serviceRequestAppService.SearchRequestsAsync(filter);
+                return View(new MyRequestsViewModel { Filter = filter, Results = results });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error searching requests: {ex.Message}");
+            }
+        }
 
         //[HttpGet]
         //public async Task<ActionResult> LoadStep(int serviceId, int stepNumber)
@@ -188,7 +233,9 @@ namespace QassimPrincipality.Web.Controllers
                 return NotFound("Service not found");
 
             // Find the requested step
-            var step = serviceWithSteps.ServiceSteps.FirstOrDefault(s => s.StepNumber == stepNumber);
+            var step = serviceWithSteps.ServiceSteps.FirstOrDefault(s =>
+                s.StepNumber == stepNumber
+            );
             if (step == null)
                 return NotFound("Step not found");
 
@@ -205,36 +252,59 @@ namespace QassimPrincipality.Web.Controllers
                 ViewBag.Prisons = await _lookups.GetPrisons();
                 ViewBag.Reasons = await _lookups.GetReasons();
                 ViewBag.ServiceCategoryId = serviceWithSteps.CategoryId;
+                ViewBag.ServiceId = serviceWithSteps.Id;
             }
-
 
             // Load regular step partial
             return PartialView($"_{step.NameEn.Replace(" ", "")}Partial", step);
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveStepData(Guid requestId, int serviceId,int stepNumber, string stepData, string userId)
+        public async Task<IActionResult> SaveStepData(
+            Guid requestId,
+            int serviceId,
+            int stepNumber,
+            string stepData,
+            string userId
+        )
         {
             try
             {
                 var user = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (stepNumber == 1)
                 {
-                    var basicDataDto = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestBasicDataDto>(stepData);
-                    var initiateRequest = await _serviceRequestAppService.CreateDraftRequestAsync(new CreateServiceRequestDto { 
-                    Id = Guid.NewGuid(),
-                    ServiceId = serviceId,
-                    UserId = user.Id.ToString(),
-                    ServiceRequesterRelation = basicDataDto.ServiceRequesterRelation
-                    });
-                    await _serviceRequestAppService.SaveBasicDataAsync(initiateRequest.Id,basicDataDto, userId);
+                    var basicDataDto =
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<RequestBasicDataDto>(
+                            stepData
+                        );
+                    var initiateRequest = await _serviceRequestAppService.CreateDraftRequestAsync(
+                        new CreateServiceRequestDto
+                        {
+                            Id = Guid.NewGuid(),
+                            ServiceId = serviceId,
+                            UserId = user.Id.ToString(),
+                            ServiceRequesterRelation = basicDataDto.ServiceRequesterRelation,
+                        }
+                    );
+                    await _serviceRequestAppService.SaveBasicDataAsync(
+                        initiateRequest.Id,
+                        basicDataDto,
+                        userId
+                    );
                     requestId = initiateRequest.Id;
-                    ViewBag.RequestId = requestId;  
+                    ViewBag.RequestId = requestId;
                 }
                 else
                 {
-                    var additionalDataDto = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestAdditionalDataDto>(stepData);
-                    await _serviceRequestAppService.SaveAdditionalDataAsync(requestId, additionalDataDto, userId);
+                    var additionalDataDto =
+                        Newtonsoft.Json.JsonConvert.DeserializeObject<RequestAdditionalDataDto>(
+                            stepData
+                        );
+                    await _serviceRequestAppService.SaveAdditionalDataAsync(
+                        requestId,
+                        additionalDataDto,
+                        userId
+                    );
                     ViewBag.RequestId = requestId;
                 }
 
@@ -247,15 +317,26 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadAttachments(string userId, Guid requestId,int attachmentTypeId, List<IFormFile> files)
+        public async Task<IActionResult> UploadAttachments(
+            string userId,
+            Guid requestId,
+            int attachmentTypeId,
+            List<IFormFile> files
+        )
         {
             try
             {
+                var userName = User.Identity.Name;
+
                 if (files == null || files.Count == 0)
                     return BadRequest("No files provided");
 
                 // Create a directory for this specific request
-                var requestFolder = Path.Combine(_environment.WebRootPath, "uploads", requestId.ToString());
+                var requestFolder = Path.Combine(
+                    _environment.WebRootPath,
+                    "uploads",
+                    requestId.ToString()
+                );
                 Directory.CreateDirectory(requestFolder);
 
                 var uploadedFiles = new List<RequestAttachmentDto>();
@@ -283,12 +364,33 @@ namespace QassimPrincipality.Web.Controllers
                     };
 
                     // Save the attachment in the database
-                    await _serviceRequestAppService.AddAttachmentAsync(requestId, attachmentDto, userId);
+                    await _serviceRequestAppService.AddAttachmentAsync(
+                        requestId,
+                        attachmentDto,
+                        userId
+                    );
                     uploadedFiles.Add(attachmentDto);
                 }
 
                 // Return the list of uploaded file names
                 return Ok(uploadedFiles.Select(a => new { success = true, fileName = a.FileName }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error uploading files: {ex.Message}");
+            }
+        }
+                
+        [HttpPost]
+        public async Task<IActionResult> DeleteAttachment(string requestId,string fileName)
+        {
+            try
+            {
+                    // Save the attachment in the database
+                    await _serviceRequestAppService.DeleteAttachmentAsync(new Guid(requestId),fileName);
+
+                // Return the list of uploaded file names
+                return Ok(new { success = true });
             }
             catch (Exception ex)
             {
@@ -319,18 +421,21 @@ namespace QassimPrincipality.Web.Controllers
             return Json(uploadedFiles);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> SubmitRequest(Guid requestId)
         {
             try
             {
-                if(requestId == Guid.Empty) requestId= Guid.Parse("ceadbb51-1c0b-46d3-b27a-bf2d05788c09");
+                if (requestId == Guid.Empty)
+                    requestId = Guid.Parse("ceadbb51-1c0b-46d3-b27a-bf2d05788c09");
                 var request = await _serviceRequestAppService.GetRequestByIdAsync(requestId);
                 if (request == null)
                     return BadRequest("Request not found");
 
-                var result = await _serviceRequestAppService.SubmitRequestAsync(requestId, "current-user");
+                var result = await _serviceRequestAppService.SubmitRequestAsync(
+                    requestId,
+                    "current-user"
+                );
                 return Ok(new { success = true, requestNumber = request.RequestNumber });
             }
             catch (Exception ex)
@@ -370,19 +475,22 @@ namespace QassimPrincipality.Web.Controllers
 
             return Json(new { success = true, fileName = file.FileName });
         }
+
         public IActionResult About()
         {
             return View();
         }
+
         public async Task<ActionResult> AboutTheService(int Id)
         {
-           // ViewData["NewsId"] = Id;
+            // ViewData["NewsId"] = Id;
 
             var serviceItem = await _eService.GetServiceDetailsById(Id);
             ViewData["serviceItem"] = serviceItem;
 
             return View();
         }
+
         public async Task<ActionResult> Steps(int serviceId)
         {
             // جلب الخطوات من قاعدة البيانات
@@ -391,6 +499,7 @@ namespace QassimPrincipality.Web.Controllers
             ViewBag.ServiceId = serviceId;
             return View(service.ServiceSteps);
         }
+
         // Simulate user data for now (replace this with real data from your database)
         [HttpGet]
         public async Task<IActionResult> GetUserData()
@@ -407,7 +516,7 @@ namespace QassimPrincipality.Web.Controllers
                     email = "example@mail.com",
                     phone = "0555555555",
                     city = "بريدة",
-                    district = "حي الصفراء"
+                    district = "حي الصفراء",
                 };
 
                 // Return the data as JSON
@@ -427,7 +536,7 @@ namespace QassimPrincipality.Web.Controllers
             {
                 var serviceWithSteps = await _eService.GetServiceStepsById(serviceId);
 
-                InqueryVM vM =  new InqueryVM();
+                InqueryVM vM = new InqueryVM();
 
                 vM.NameAr = serviceWithSteps.NameAr;
                 vM.NameEn = serviceWithSteps.NameEn;
@@ -438,27 +547,28 @@ namespace QassimPrincipality.Web.Controllers
             }
             catch (Exception ex)
             {
-
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "Inquery Index Catch" + ex.ToString(),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception = "Inquery Index Catch" + ex.ToString(),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
                 return View(new InqueryVM());
             }
-
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> InqueryTransaction(InqueryVM model)
@@ -466,61 +576,71 @@ namespace QassimPrincipality.Web.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
-                return View("Index", model);
+                return View(model);
             }
             try
             {
-
                 var result = await ApiConsumer.ServiceConsumerAsync<dynamic>(
-            "https://dms.alqassim.gov.sa/INTEGSERV_DEMO/api/Receiver/SearchForRecord/?RecordNo=" + long.Parse(model.RecordNo) + "&NationalNo=" + long.Parse(model.NationalNo)
-            );
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "Header data " + JsonConvert.SerializeObject(result, Formatting.Indented),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                    "https://dms.alqassim.gov.sa/INTEGSERV_DEMO/api/Receiver/SearchForRecord/?RecordNo="
+                        + long.Parse(model.RecordNo)
+                        + "&NationalNo="
+                        + long.Parse(model.NationalNo)
+                );
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception =
+                            "Header data "
+                            + JsonConvert.SerializeObject(result, Formatting.Indented),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
 
                 if (result["isSuccess"].ToString() == "True")
                 {
                     var RequestStatus = result["RequestStatus"].ToString();
                     ViewBag.RequestStatus = RequestStatus;
                 }
-                else { ViewBag.RequestStatus = "لا توجد بيانات "; }
+                else
+                {
+                    ViewBag.RequestStatus = "لا توجد بيانات ";
+                }
             }
             catch (Exception ex)
             {
-
-                await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "InqueryRequest" + ex.ToString(),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                });
+                await _logservice.InsertAsync(
+                    new Framework.Core.SharedServices.Dto.LogDto
+                    {
+                        CallSite = "",
+                        Date = DateTime.Now,
+                        Exception = "InqueryRequest" + ex.ToString(),
+                        Host = "myhost",
+                        Logger = "my logger",
+                        LogLevel = "Info",
+                        MachineName = "manual",
+                        Message = "my message",
+                        Thread = "No thread",
+                        Url = "api",
+                        UserAgent = "agent",
+                        UserName = "my name",
+                        Id = Guid.NewGuid(),
+                    }
+                );
                 ViewBag.ErrorMessage = "حدث خطأ أثناء عملية الاستعلام";
             }
 
-            return View("Index");
+            return View(model);
         }
 
         //[HttpGet]
@@ -546,7 +666,5 @@ namespace QassimPrincipality.Web.Controllers
         //            return PartialView("_NotFoundPartial");
         //    }
         //}
-
-
     }
 }
