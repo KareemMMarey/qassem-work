@@ -3,6 +3,7 @@ using Framework.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Entities.Services.NewSchema;
 using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Domain.Interfaces;
@@ -16,20 +17,26 @@ namespace QassimPrincipality.Application.Services.NewShema
     public class ServiceRequestAppService
     {
         private readonly IRepository<ServiceRequest> _serviceRequestRepository;
+        private readonly IRepository<RequestAction> _requestActionRepository;
         private readonly IRepository<RequestBasicData> _requestBasicDataRepository;
         private readonly IRepository<RequestAdditionalData> _requestAdditionalDataRepository;
         private readonly IRepository<RequestAttachment> _requestAttachmentRepository;
+        private readonly IRepository<EService> _serviceRepository;
 
         public ServiceRequestAppService(
             IRepository<ServiceRequest> serviceRequestRepository,
             IRepository<RequestBasicData> requestBasicDataRepository,
             IRepository<RequestAdditionalData> requestAdditionalDataRepository,
+            IRepository<EService> serviceRepository,
+            IRepository<RequestAction> requestActionRepository,
             IRepository<RequestAttachment> requestAttachmentRepository)
         {
             _serviceRequestRepository = serviceRequestRepository;
             _requestBasicDataRepository = requestBasicDataRepository;
             _requestAdditionalDataRepository = requestAdditionalDataRepository;
             _requestAttachmentRepository = requestAttachmentRepository;
+            _serviceRepository = serviceRepository;
+            _requestActionRepository = requestActionRepository;
         }
 
         // Create a new service request (Draft)
@@ -140,13 +147,32 @@ namespace QassimPrincipality.Application.Services.NewShema
                 .Include(r => r.BasicData)
                 .Include(r => r.AdditionalData)
                 .Include(r => r.Attachments)
-                .Include(r => r.Actions)
-                .FirstOrDefaultAsync(r => r.Id == requestId);
+                .Include(r => r.EService)
+                .Include(r => r.Actions).FirstOrDefaultAsync(r => r.Id.ToString() == requestId.ToString());
+
 
             if (request == null)
                 throw new KeyNotFoundException("Service request not found.");
+            
 
-            return request.MapTo<ServiceRequestDto>();
+            var model = request.MapTo<ServiceRequestDto>();
+
+            if (request.Actions != null)
+            {
+                model.Actions = new List<RequestActionDto>();
+                foreach (var action in request.Actions)
+                {
+                    model.Actions.Add(new RequestActionDto
+                    {
+                        ActionByUserId = action.ActionBy,
+                        ActionDate = action.ActionDate,
+                        ActionStatus = action.ToStatus,
+                    });
+                }
+
+            }
+
+            return model;
         }
         // Get service request by ID
         public async Task<ServiceRequestDto> GetIdAsync(Guid requestId)
@@ -169,8 +195,16 @@ namespace QassimPrincipality.Application.Services.NewShema
             request.UpdatedBy = userId;
             request.UpdatedOn = DateTime.UtcNow;
 
+            if (request.Actions is null)
+            {
+                request.Actions = new List<RequestAction>();
+            }
+
+
             request.Actions.Add(new RequestAction
             {
+                FromStatus = request.Status,
+                ToStatus = newStatus,
                 NameEn = newStatus.ToString(),
                 ActionDate = DateTime.UtcNow,
                 ActionBy = userId,
@@ -215,6 +249,21 @@ namespace QassimPrincipality.Application.Services.NewShema
             var results = await query.ToListAsync();
             return results.MapTo<List<ServiceRequestDto>>();
         }
+        
+        // Search requests with filters
+        public async Task<List<SelectListDto>> GetServices()
+        {
+            var data = await _serviceRepository.TableNoTracking
+                .Select(c=> new SelectListDto
+                {
+                    Id = c.Id,
+                    NameAr = c.NameAr,
+                    NameEn = c.NameEn
+                })
+                .ToListAsync();
+
+            return data;
+        }
 
         // Validate status transitions
         private void ValidateStatusTransition(ServiceRequestStatus currentStatus, ServiceRequestStatus newStatus)
@@ -228,9 +277,10 @@ namespace QassimPrincipality.Application.Services.NewShema
             if (currentStatus == ServiceRequestStatus.Submitted && newStatus != ServiceRequestStatus.UnderReview)
                 throw new InvalidOperationException("Submitted can only transition to UnderReview.");
 
-            if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected))
+            if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected&& newStatus != ServiceRequestStatus.RequiresCompletion))
                 throw new InvalidOperationException("UnderReview can only transition to Approved or Rejected.");
         }
+       
 
         private string GenerateRequestNumber(int serviceId)
         {

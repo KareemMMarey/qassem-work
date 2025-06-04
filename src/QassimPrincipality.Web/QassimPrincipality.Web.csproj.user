@@ -35,5 +35,12 @@
     <EmbeddedResource Update="Resources\Views\Shared\_RequestSubjectInfoPartial.en-US.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Request\AllRequests.ar-SA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Request\AllRequests.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    
   </ItemGroup>
 </Project>
