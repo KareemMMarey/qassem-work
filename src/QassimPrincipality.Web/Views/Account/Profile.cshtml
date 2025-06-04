@@ -42,7 +42,8 @@
                 <div class="contact-edit">
                     <h2 class="pc-personal-info-card-title">@Localizer["Section_Contact"]</h2>
                     <button class="pc-outline-btn" id="editContactInfobtn">
-                        <img src="/icons/edit.svg" alt="edit" width="20" height="20">
+                        <img src="/icons/edit.svg" alt="edit" width="20"
+                        height="20">
                         @Localizer["Edit"]
                     </button>
                 </div>
@@ -55,13 +56,14 @@
                     <div class="grid-item last-item"><p>@Model.Email</p></div>
                 </div>
 
-                <form method="post" class="pc-form" id="editContactInfoForm">
+                <form  method="post" class="pc-form" id="editContactInfoForm">
                     <div class="pc-form-grid-2col">
                         <div class="pc-input">
                             <label for="phone" class="pc-input-label">
                                 <span class="required">*</span> @Localizer["Field_Phone"]
                             </label>
                             <input type="text" id="phone" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="05xxxxxxxx" />
+                            <input type="text" id="id" hidden name="id" value="@Model.Id" />
                             <div class="error"></div>
                         </div>
                         <div class="pc-input">
@@ -93,6 +95,26 @@
 
     <a asp-controller="Home" asp-action="Index" class="pc-outline-btn">@Localizer["Back"]</a>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("editContactInfobtn");
+        const formSection = document.getElementById("editContactInfoForm");
+        const cancelBtn = document.getElementById("cancel");
+
+        toggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            formSection.style.display = (formSection.style.display === "none") ? "block" : "none";
+        });
+
+        cancelBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            formSection.style.display = "none";
+        });
+    });
+</script>
+
+
 
 @* <div class="row justify-content-xxl-center">
     <div class="col-xxl-8">
