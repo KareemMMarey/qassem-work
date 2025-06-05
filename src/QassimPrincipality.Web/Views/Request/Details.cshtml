@@ -36,61 +36,8 @@
             padding: 20px;
             margin-bottom: 30px;
         }
-        /* Timeline dots and lines */
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
 
-            .timeline::before {
-                content: '';
-                position: absolute;
-                right: 6px;
-                top: 0;
-                bottom: 0;
-                width: 2px;
-                background: #dee2e6;
-            }
-
-        .timeline‐item {
-            position: relative;
-            margin-bottom: 25px;
-        }
-
-            .timeline‐item::before {
-                content: '';
-                position: absolute;
-                right: -4px;
-                width: 10px;
-                height: 10px;
-                background: #28a745;
-                border-radius: 50%;
-                top: 2px;
-            }
-
-            .timeline‐item .time {
-                color: #6c757d;
-                font-size: 0.85rem;
-            }
-        /* Table headings alignment */
-        .table‐rtl th {
-            text-align: right;
-        }
-
-        .table‐rtl td {
-            vertical-align: middle;
-            text-align: right;
-        }
-        /* File‐download button */
-        .btn‐download {
-            font-size: 0.9rem;
-            padding: 4px 10px;
-        }
-        /* Horizontal divider */
-        .section‐divider {
-            border-top: 2px solid #e9ecef;
-            margin: 30px 0;
-        }
+     
     </style>
 </head>
 <partial src=".\shared\requestdetails\_requestdetailsheader.cshtml"></partial>
@@ -103,29 +50,39 @@
 
 <body>
     <div class="container‐fluid page‐wrapper">
-        <div class="container">
+        <div class="container container-details">
                 
             @await Html.PartialAsync("../shared/requestdetails/_RequestDetailsHeader.cshtml", Model
                      , new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
+            
+
             <div class="row">
                 @await Html.PartialAsync("../shared/requestdetails/_RequestStatusSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+               
+                
 
                 <!-- ======== بيانات مقدم الطلب ======== -->
                 @await Html.PartialAsync("../shared/requestdetails/_RequesterData.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
 
+               
+
                 <!-- ======== بيانات المعني بالطلب ======== -->
                 @await Html.PartialAsync("../shared/requestdetails/_AdditionalData.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+
+
 
 
                 <!-- ======== المرفقات ======== -->
                 @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
+                
 
                 @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
