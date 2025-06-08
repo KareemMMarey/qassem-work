@@ -1,0 +1,167 @@
+﻿@{
+	ViewData["Title"] = "المشاركة الإلكترونية - ";
+}
+
+<div class="pc-content-page">
+	<div class="pc-content-heading-bg">
+	<div class="pc-content-heading">
+		<div class="pc-breadcrumbs">
+			<ul>
+				<li>
+					<a asp-controller="Home" asp-action="Index"> الصفحة الرئيسية </a>
+				</li>
+				<li>></li>
+				<li class="pc-breadcrumbs-current">المشاركة الإلكترونية</li>
+			</ul>
+		</div>
+
+		<div class="pc-content-title">
+			<img src="~/icons/palm.svg" alt="palm icon" />
+			<h2>المشاركة الإلكترونية</h2>
+		</div>
+
+		<div class="pc-content-description">
+			<p>يتيح هذا القسم فرصة للمواطنين والمقيمين للمساهمة بآرائهم ومقترحاتهم حول خدمات إمارة منطقة القصيم. نحرص من خلاله على تعزيز التواصل وتحقيق التحسين المستمر بما يلبي تطلعات المستفيدين ويدعم مسيرة التطوير والتحول الرقمي.</p>
+		</div>
+	</div>
+	</div>
+
+	<div class="pc-body">
+		<div class="pc-body-section">
+			<div class="pc-cards">
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/survey.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>الاستبيانات الإلكترونية</h6>
+						<p>شاركنا رأيك في استطلاعات الرأي والاستبيانات المتعلقة بخدماتنا للمساهمة في تحسينها.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="EParticipation" asp-action="ESurveys" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/userQuestion.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>صوت المستفيد</h6>
+						<p>نتائج الاستشارات والتقارير المستندة إلى آراء وتجارب المستخدمين.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="EParticipation" asp-action="BeneficiaryVoice" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/light.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>التطوير المشترك</h6>
+						<p>اجعل صوتك مسموعاً بمشاركة اقتراحاتك التطويرية للخدمات التي تقدمها الإمارة.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="EParticipation" asp-action="Suggestions" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/inbox.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>تواصل معنا</h6>
+						<p>يهدف هذا القسم إلى توفير قناة اتصال مباشرة للمستفيدين لضمان تجربة مرضية ولتلبية احتياجاتهم بشكل فعّال.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a asp-controller="EParticipation" asp-action="ContactUs" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				@* <div class="pc-card">
+				<div class="pc-card-icon">
+				<img src="~/icons/archive.svg" alt="icon" />
+				</div>
+
+				<div class="pc-card-content">
+				<h6>طلب مشاركة البيانات</h6>
+				<p>يتيح هذا القسم تقديم طلبات مشاركة البيانات من قبل الجهات والأفراد لتحقيق الشفافية والتكامل.</p>
+				</div>
+
+				<div class="pc-card-btn">
+				<a asp-controller="EParticipation" asp-action="AboutTheService" asp-route-id="ES" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+				</div>
+				</div> *@
+			</div>
+		</div>
+
+		<div class="pc-content-title">
+			<img src="~/icons/palm.svg" alt="palm icon" />
+			<h2>منصات وطنية للمشاركة الإلكترونية</h2>
+		</div>
+
+		<div class="pc-body-section">
+			<div class="pc-cards">
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/inbox.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>منصة تفاعل</h6>
+						<p>منصة حكومية تعزز التواصل مع المستفيدين لأخذ آرائهم حول الخدمات الحكومية وتحسينها عبر المشاركة في اتخاذ القرار.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a href="https://eparticipation.my.gov.sa/" target="_blank" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/archive.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>منصة استطلاع</h6>
+						<p>منصة إلكترونية موحدة لاستطلاع آراء العموم والقطاع الخاص والجهات الحكومية بشأن الأنظمة واللوائح ومافي حكمها.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a href="https://istitlaa.ncc.gov.sa/" target="_blank" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+
+				<div class="pc-card">
+					<div class="pc-card-icon">
+						<img src="~/icons/archive.svg" alt="icon" />
+					</div>
+
+					<div class="pc-card-content">
+						<h6>منصة البيانات المفتوحة</h6>
+						<p>قاعدة متكاملة للبيانات الحكومية المفتوحة وذلك لتحقيق مبدأ الشفافية وتشجيع المشاركة الإلكترونية وتعزيز الإبداع.</p>
+					</div>
+
+					<div class="pc-card-btn">
+						<a href="https://open.data.gov.sa/" target="_blank" class="pc-primary-btn"><img src="~/icons/arrowRight.svg" width="24" height="24"> المزيد</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="pc-content-actions">
+			<a asp-controller="Home" asp-action="Index" class="pc-outline-btn"> رجوع </a>
+		</div>
+	</div>
+</div>

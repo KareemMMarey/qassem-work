@@ -29,113 +29,35 @@ $(document).ready(function () {
 
         // Handle first step details validation
         if (currentStep === 1) {
-            //const details = $("#requestDetails").val().trim();
-            //if (details === "") {
-            //    showErrorMessage("#requestDetails", messages.detailsMessage);
-            //    return;
-            //}
-
-
-            //const details = $("#requestDetails").val().trim();
+            const details = $("#requestDetails").val().trim();
             const phone = $("#phone").val().trim();
             const email = $("#email").val().trim();
-
-            hideErrorMessage("#requestDetails")
-            hideErrorMessage("#phone")
-            hideErrorMessage("#email")
-            // Regular expressions for validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const saudiPhoneRegex = /^(00966|966|\+966|0)?5\d{8}$/;
-
-            let hasError = false;
-
-            if (HasApplicantStatus === 'True') {
-                const customrequesterRelation = $("#customrequesterRelation").val().trim();
-                if (customrequesterRelation === "") {
-                    showErrorMessage("#customrequesterRelation", messages.applicantDescriptionError);
-                    hasError = true;
-                }
-            }
-
-            if (HasApplicantStatus === 'False') {
-                const details = $("#requestDetails").val().trim();
-                if (details === "") {
-                    showErrorMessage("#requestDetails", messages.detailsMessage);
-                    hasError = true;
-                }
-            }
-
-
-
-            if (phone === "") {
-                showErrorMessage("#phone", messages.phoneRequiredMessage);
-                hasError = true;
-            } else if (!saudiPhoneRegex.test(phone)) {
-                showErrorMessage("#phone", messages.phoneInvalidMessage);
-                hasError = true;
+            if (details === "") {
+                showErrorMessage("#requestDetails", messages.detailsMessage);
+                $('#requestDetails').next().css('display', 'block');
+                //$('<div class="error"></div>').insertAfter('#requestDetails');
+                
+                console.log("details")
             }
 
             if (email === "") {
-                showErrorMessage("#email", messages.emailRequiredMessage);
-                hasError = true;
-            } else if (!emailRegex.test(email)) {
-                showErrorMessage("#email", messages.emailInvalidMessage);
-                hasError = true;
+                showErrorMessage("#email", messages.errorEmail);
+                $('#email').next().css('display', 'block');
+                console.log("Phone")
+
             }
 
-            if (hasError) {
-                return;
+            if (phone === "") {
+                showErrorMessage("#phone", messages.errorPhone);
+                $('#phone').next().css('display', 'block');
+                
+                console.log("Phone")
+                
+                
             }
-
+            return;
+            
         }
-
-        if (currentStep === 2 && (serviceId == 5 || serviceId == 6 || serviceId == 7)) {
-            //const details = $("#requestDetails").val().trim();
-            //if (details === "") {
-            //    showErrorMessage("#requestDetails", messages.detailsMessage);
-            //    return;
-            //}
-
-
-            //const details = $("#requestDetails").val().trim();
-            const fullName = $("#fullName").val().trim();
-            const countryId = $("#countryId").val().trim();
-            const nationalId = $("#nationalId").val().trim();
-            const dateOfBirth = $("#dateOfBirth").val().trim();
-            const phone = $("#phone").val().trim();
-            const city = $("#city").val().trim();
-            const district = $("#district").val().trim();
-            const email = $("#email").val().trim();
-
-            hideErrorMessage("#requestDetails")
-            hideErrorMessage("#phone")
-            hideErrorMessage("#email")
-            // Regular expressions for validation
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const saudiPhoneRegex = /^(00966|966|\+966|0)?5\d{8}$/;
-
-            let hasError = false;
-
-            if ( serviceId == 6) {
-                const prisonFromId = $("#prisonFromId").val().trim();
-                if (prisonFromId === "") {
-                    showErrorMessage("#prisonFromId", messages.applicantDescriptionError);
-                    hasError = true;
-                }
-
-                const otherDDLId = $("#otherDDLId").val().trim();
-                if (otherDDLId === "") {
-                    showErrorMessage("#otherDDLId", messages.applicantDescriptionError);
-                    hasError = true;
-                }
-            }
-
-            if (serviceId == 7) {
-                const prisonFromId = $("#prisonFromId").val().trim();
-                if (prisonFromId === "") {
-                    showErrorMessage("#prisonFromId", messages.applicantDescriptionError);
-                    hasError = true;
-                }
 
                 const prisonToId = $("#prisonToId").val().trim();
                 if (prisonToId === "") {

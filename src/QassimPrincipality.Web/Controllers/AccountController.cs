@@ -487,6 +487,16 @@ namespace QassimPrincipality.Web.Controllers
                             userFullName = JsonConvert
                                 .DeserializeObject(TempData["arTwoNames"].ToString())
                                 .ToString();
+                            
+                            var dOB = JsonConvert
+                                .DeserializeObject(TempData["dateOfBirthGregorian"].ToString())
+                                .ToString();
+
+                            DateTime? DOBDate = null;
+                            if (!string.IsNullOrEmpty(dOB) && !string.IsNullOrWhiteSpace(dOB))
+                            {
+                                DOBDate = Convert.ToDateTime(dOB);
+                            }
                             string phone = "05xxxxxxxx";
                             user = new ApplicationUser(username, userFullName)
                             {
@@ -496,7 +506,8 @@ namespace QassimPrincipality.Web.Controllers
                                 PhoneNumber = phone,
                                 CreatedBy = "Admin",
                                 CreatedOn = DateTime.Now,
-                                EmailConfirmed = true
+                                EmailConfirmed = true,
+                                DateOfBirth = DOBDate
                             };
                             await _userManager.CreateAsync(user, "P@ssw0rd");
                             await _userServices.AddRoleAsync(user.Id, UserRoles.User);

@@ -1,1 +1,151 @@
-839638
+# Modular Monolith Project Structure
+
+```
+YourAppName/
+├── src/
+│   ├── YourAppName.WebApi/                    # Main API project
+│   │   ├── Controllers/
+│   │   ├── Middleware/
+│   │   ├── Configuration/
+│   │   ├── Program.cs
+│   │   └── appsettings.json
+│   │
+│   ├── YourAppName.Web/                       # Angular Frontend
+│   │   ├── src/
+│   │   │   ├── app/
+│   │   │   │   ├── core/                      # Core services, guards, interceptors
+│   │   │   │   ├── shared/                    # Shared components, pipes, directives
+│   │   │   │   ├── features/                  # Feature modules
+│   │   │   │   │   ├── user-management/
+│   │   │   │   │   ├── product-catalog/
+│   │   │   │   │   └── order-management/
+│   │   │   │   ├── layout/                    # Layout components
+│   │   │   │   └── app.module.ts
+│   │   │   ├── assets/
+│   │   │   └── environments/
+│   │   ├── angular.json
+│   │   ├── package.json
+│   │   └── tsconfig.json
+│   │
+│   ├── YourAppName.Infrastructure/            # Infrastructure layer
+│   │   ├── Data/
+│   │   │   ├── ApplicationDbContext.cs
+│   │   │   ├── Configurations/                # EF Core configurations
+│   │   │   └── Migrations/
+│   │   ├── Repositories/
+│   │   ├── ExternalServices/
+│   │   ├── Caching/
+│   │   └── Logging/
+│   │
+│   ├── YourAppName.Application/               # Application layer
+│   │   ├── Common/
+│   │   │   ├── Interfaces/
+│   │   │   ├── Models/
+│   │   │   ├── Exceptions/
+│   │   │   └── Behaviors/
+│   │   ├── Services/
+│   │   └── DTOs/
+│   │
+│   ├── YourAppName.Domain/                    # Domain layer
+│   │   ├── Entities/
+│   │   ├── ValueObjects/
+│   │   ├── Enums/
+│   │   ├── Interfaces/
+│   │   └── Events/
+│   │
+│   └── Modules/                               # Business modules
+│       ├── UserManagement/
+│       │   ├── YourAppName.Modules.UserManagement.Domain/
+│       │   │   ├── Entities/
+│       │   │   ├── ValueObjects/
+│       │   │   ├── Repositories/
+│       │   │   └── Events/
+│       │   ├── YourAppName.Modules.UserManagement.Application/
+│       │   │   ├── Commands/
+│       │   │   ├── Queries/
+│       │   │   ├── Handlers/
+│       │   │   ├── Services/
+│       │   │   └── DTOs/
+│       │   ├── YourAppName.Modules.UserManagement.Infrastructure/
+│       │   │   ├── Persistence/
+│       │   │   │   ├── Configurations/
+│       │   │   │   └── Repositories/
+│       │   │   └── ExternalServices/
+│       │   └── YourAppName.Modules.UserManagement.Api/
+│       │       ├── Controllers/
+│       │       ├── Models/
+│       │       └── Extensions/
+│       │
+│       ├── ProductCatalog/
+│       │   ├── YourAppName.Modules.ProductCatalog.Domain/
+│       │   ├── YourAppName.Modules.ProductCatalog.Application/
+│       │   ├── YourAppName.Modules.ProductCatalog.Infrastructure/
+│       │   └── YourAppName.Modules.ProductCatalog.Api/
+│       │
+│       └── OrderManagement/
+│           ├── YourAppName.Modules.OrderManagement.Domain/
+│           ├── YourAppName.Modules.OrderManagement.Application/
+│           ├── YourAppName.Modules.OrderManagement.Infrastructure/
+│           └── YourAppName.Modules.OrderManagement.Api/
+│
+├── tests/
+│   ├── YourAppName.UnitTests/
+│   ├── YourAppName.IntegrationTests/
+│   └── YourAppName.ArchitectureTests/
+│
+├── docs/
+│   ├── api/
+│   ├── architecture/
+│   └── deployment/
+│
+├── scripts/
+│   ├── database/
+│   └── deployment/
+│
+├── docker-compose.yml
+├── Dockerfile
+├── YourAppName.sln
+└── README.md
+```
+
+## Key Principles
+
+### 1. Module Structure
+Each business module follows the same layered architecture:
+- **Domain**: Core business logic, entities, and domain rules
+- **Application**: Use cases, commands, queries, and application services
+- **Infrastructure**: Data access, external service integrations
+- **Api**: Controllers and API-specific models
+
+### 2. Dependency Rules
+- **Domain** has no dependencies on other layers
+- **Application** depends only on Domain
+- **Infrastructure** depends on Application and Domain
+- **Api** depends on Application (and Infrastructure for DI registration)
+- **WebApi** orchestrates all modules and provides cross-cutting concerns
+
+### 3. Communication Between Modules
+- Use domain events for loose coupling
+- Shared kernel for common domain concepts
+- API contracts for module-to-module communication
+- Message bus for asynchronous communication
+
+### 4. Frontend Organization
+- **Core**: Singleton services, guards, interceptors
+- **Shared**: Reusable components across features
+- **Features**: Feature-specific modules aligned with backend modules
+- **Layout**: Application shell and navigation
+
+### 5. Benefits of This Structure
+- **Modularity**: Each business domain is encapsulated
+- **Scalability**: Easy to extract modules into microservices later
+- **Maintainability**: Clear separation of concerns
+- **Testability**: Each layer can be tested independently
+- **Team Autonomy**: Teams can work on different modules independently
+
+### 6. Configuration Tips
+- Use dependency injection to wire up module dependencies
+- Configure EF Core contexts per module or use a shared context
+- Implement module registration extensions for clean startup
+- Use MediatR for CQRS pattern implementation
+- Consider using FluentValidation for request validation
