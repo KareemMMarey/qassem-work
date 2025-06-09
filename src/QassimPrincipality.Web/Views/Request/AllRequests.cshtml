@@ -29,49 +29,55 @@
     </div>
 
     <div class="pc-my-requests-body">
-        <div class="pc-my-requests-header">
+        <div class="pc-my-requests-header-new">
             <p>البحث</p>
 
-            <div class="pc-search-container search-width" id="requestsSearch">
+            <div class="pc-search-container-new search-width" id="requestsSearch">
                 @* <button type="submit" class="pc-search-btn" onclick="searchTable()">
                     <img src="~/icons/search.svg" alt="search" width="20" height="20" />
                 </button> *@
                 <form asp-action="AllRequests" method="Get" class="pc-filter-form">
-                <input type="text" class="pc-search-input" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
-                    <select class="pc-search-input" placeholder="" name="ServiceId" asp-for="Filter.ServiceId">
-                        <option value="">@localizer["SearchWithServiceId"]</option>
-                        @foreach (var item in Model.ServiceList)
-                        {
-                            var selectedService = item.Id == Model.Filter.ServiceId ? "selected" : "";
-                            <option @selectedService value="@item.Id">@(currentCulture == "ar-SA" ? item.NameAr : item.NameEn)</option>
-                        }
-                    </select>
-
-                <select name="Status" class="pc-search-select">
-
-                        @{
-                            var selected = Model.Filter.Status == null ? "selected" : "";
-                        }
-                        <option @(Model.Filter.Status == null ? "selected" : null) value="">@localizer["SearchWithStatusId"]</option>
-
-                        @foreach (ServiceRequestStatus status in Enum.GetValues(typeof(ServiceRequestStatus)))
-                        {
-                            if(status == ServiceRequestStatus.Draft){
-                                continue;
+                <div class="d-flex gap-2 container-Allrequest">
+                        <input type="text" class="pc-search-input-new" name="RequestNumber" value="@Model.Filter.RequestNumber" placeholder="@localizer["SearchWithRequestNumber"]" aria-label="Search">
+                        <select class="pc-search-input-new" placeholder="" name="ServiceId" asp-for="Filter.ServiceId">
+                            <option value="">@localizer["SearchWithServiceId"]</option>
+                            @foreach (var item in Model.ServiceList)
+                            {
+                                var selectedService = item.Id == Model.Filter.ServiceId ? "selected" : "";
+                                <option @selectedService value="@item.Id">@(currentCulture == "ar-SA" ? item.NameAr : item.NameEn)</option>
                             }
-                            var isSelected = Model.Filter.Status == status ? "selected" : "";
-                            <option value="@((int)status)" @isSelected>
-                                @WorkFlowHelper.GetStatusDisplay(status,localizer)
-                            </option>
-                        }
+                        </select>
 
-                </select>
+                        <select name="Status" class="pc-search-select">
 
-                <input type="date" class="pc-search-input" name="StartDate" value="@(Model.Filter.StartDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["StartDate"]" aria-label="Start Date">
+                            @{
+                                var selected = Model.Filter.Status == null ? "selected" : "";
+                            }
+                            <option @(Model.Filter.Status == null ? "selected" : null) value="">@localizer["SearchWithStatusId"]</option>
 
-                <input type="date" class="pc-search-input" name="EndDate" value="@(Model.Filter.EndDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["EndDate"]" aria-label="End Date">
+                            @foreach (ServiceRequestStatus status in Enum.GetValues(typeof(ServiceRequestStatus)))
+                            {
+                                if (status == ServiceRequestStatus.Draft)
+                                {
+                                    continue;
+                                }
+                                var isSelected = Model.Filter.Status == status ? "selected" : "";
+                                <option value="@((int)status)" @isSelected>
+                                    @WorkFlowHelper.GetStatusDisplay(status, localizer)
+                                </option>
+                            }
 
-                <button class="pc-primary-btn" type="submit">
+                        </select>
+                </div>
+
+                <div class="d-flex align-items-center gap-2 my-3 container-Allrequest">
+                        <span>@localizer["FromWord"]</span>
+                        <input type="date" class="pc-search-input-new" name="StartDate" value="@(Model.Filter.StartDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["StartDate"]" aria-label="Start Date">
+                        <span>@localizer["ToWord"]</span>
+                        <input type="date" class="pc-search-input-new" name="EndDate" value="@(Model.Filter.EndDate?.ToString("yyyy-MM-dd"))" placeholder="@localizer["EndDate"]" aria-label="End Date">
+               </div>
+
+                <button class="pc-primary-btn pc-btn-request" type="submit">
                     @localizer["SearchRequests"]
                 </button>
 </form>

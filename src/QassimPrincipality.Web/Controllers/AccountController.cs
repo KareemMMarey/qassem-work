@@ -60,6 +60,32 @@ namespace QassimPrincipality.Web.Controllers
             return View(userViewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Profile(ContactInfoDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Optionally return the same view with validation errors
+                return View(CurrentUser.MapTo<UserDto>());
+            }
+
+            var user = await _userServices.GetUserAsync(Guid.Parse(model.Id));
+
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.NormalizedEmail = model.Email.ToUpper();
+
+           await  _userManager.UpdateAsync(user);
+
+
+            // Save the data here (e.g., update the DB or call a service)
+            // _userService.UpdateContactInfo(User.Identity.Name, model);
+
+            TempData["SuccessMessage"] = "Contact info updated successfully.";
+            return RedirectToAction("Profile"); // Or wherever your profile page is
+        }
+
+
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
 

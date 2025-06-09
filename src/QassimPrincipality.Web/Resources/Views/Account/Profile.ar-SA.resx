@@ -117,91 +117,60 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllRequests" xml:space="preserve">
-    <value>All requests</value>
-  </data>
-  <data name="ApprovedStatus" xml:space="preserve">
-    <value>Approved </value>
-  </data>
+  <data name="Breadcrumb_Home" xml:space="preserve">
+  <value>الصفحة الرئيسية</value>
+</data>
+  <data name="Breadcrumb_MyProfile" xml:space="preserve">
+  <value>ملفي الشخصي</value>
+</data>
+  <data name="Profile_Title" xml:space="preserve">
+  <value>ملفي الشخصي</value>
+</data>
+  <data name="Section_PersonalInfo" xml:space="preserve">
+  <value>المعلومات الشخصية</value>
+</data>
+  <data name="Field_FullName" xml:space="preserve">
+  <value>الاسم الرباعي</value>
+</data>
+  <data name="Field_EmployeeNumber" xml:space="preserve">
+  <value>رقم الهوية</value>
+</data>
+  <data name="Field_Department" xml:space="preserve">
+  <value>القسم</value>
+</data>
+  <data name="Field_JobTitle" xml:space="preserve">
+  <value>المسمى الوظيفي</value>
+</data>
+  <data name="Section_Contact" xml:space="preserve">
+  <value>معلومات التواصل</value>
+</data>
+  <data name="Field_Phone" xml:space="preserve">
+  <value>رقم الجوال</value>
+</data>
+  <data name="Field_Email" xml:space="preserve">
+  <value>البريد الإلكتروني</value>
+</data>
+  <data name="Edit" xml:space="preserve">
+  <value>تعديل المعلومات</value>
+</data>
+  <data name="Cancel" xml:space="preserve">
+  <value>إلغاء</value>
+</data>
+  <data name="SaveChanges" xml:space="preserve">
+  <value>حفظ التعديلات</value>
+</data>
+  <data name="Section_Address" xml:space="preserve">
+  <value>العنوان الوطني</value>
+</data>
+  <data name="Field_City" xml:space="preserve">
+  <value>المدينة</value>
+</data>
+  <data name="Field_District" xml:space="preserve">
+  <value>الحي</value>
+</data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="Cancelled" xml:space="preserve">
-    <value>Cancelled</value>
-  </data>
-  <data name="ClearSearchInput" xml:space="preserve">
-    <value>Clear Search Input</value>
-  </data>
-  <data name="DetailsButton" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="Draft" xml:space="preserve">
-    <value>Draft</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="MyRequests" xml:space="preserve">
-    <value>My Requests</value>
-  </data>
-  <data name="NoRequests" xml:space="preserve">
-    <value>No Requests</value>
-  </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>No Results</value>
-  </data>
-  <data name="NoResultsMatch" xml:space="preserve">
-    <value>No Results Match Search Criteria</value>
-  </data>
-  <data name="NotQualifiedStatus" xml:space="preserve">
-    <value>NotQualified</value>
-  </data>
-  <data name="RejectedStatus" xml:space="preserve">
-    <value>Rejected</value>
-  </data>
-  <data name="RequestDate" xml:space="preserve">
-    <value>Request Date</value>
-  </data>
-  <data name="RequestDetails" xml:space="preserve">
-    <value>Request Details</value>
-  </data>
-  <data name="RequestNumber" xml:space="preserve">
-    <value>Request Number</value>
-  </data>
-  <data name="RequestStatus" xml:space="preserve">
-    <value>Request Status</value>
-  </data>
-  <data name="RequiresCompletionStatus" xml:space="preserve">
-    <value>RequiresCompletion</value>
-  </data>
-  <data name="SearchRequests" xml:space="preserve">
-    <value>Search Requests</value>
-  </data>
-  <data name="SearchWithRequestNumber" xml:space="preserve">
-    <value>Search With Request Number</value>
-  </data>
-  <data name="SearchWithServiceId" xml:space="preserve">
-    <value>Search with Service Name</value>
-  </data>
-  <data name="SearchWithStatusId" xml:space="preserve">
-    <value>Search with service status</value>
-  </data>
-  <data name="ServiceName" xml:space="preserve">
-    <value>Service Name</value>
-  </data>
-  <data name="SubmittedStatus" xml:space="preserve">
-    <value>Submitted</value>
-  </data>
-  <data name="UnderReview" xml:space="preserve">
-    <value>Under review</value>
-  </data>
-  <data name="UnknownStatus" xml:space="preserve">
-    <value>Unknown</value>
-  </data>
-  <data name="FromWord" xml:space="preserve">
-    <value>From</value>
-  </data>
-  <data name="ToWord" xml:space="preserve">
-    <value>To</value>
-  </data>
+  <value>الرجوع</value>
+</data>
+
+
 </root>

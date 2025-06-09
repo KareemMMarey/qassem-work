@@ -1,4 +1,8 @@
-﻿using Framework.Core.AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Framework.Core.AutoMapper;
 using Framework.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -7,10 +11,6 @@ using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Entities.Services.NewSchema;
 using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace QassimPrincipality.Application.Services.NewShema
 {
@@ -29,7 +29,8 @@ namespace QassimPrincipality.Application.Services.NewShema
             IRepository<RequestAdditionalData> requestAdditionalDataRepository,
             IRepository<EService> serviceRepository,
             IRepository<RequestAction> requestActionRepository,
-            IRepository<RequestAttachment> requestAttachmentRepository)
+            IRepository<RequestAttachment> requestAttachmentRepository
+        )
         {
             _serviceRequestRepository = serviceRequestRepository;
             _requestBasicDataRepository = requestBasicDataRepository;
@@ -52,7 +53,11 @@ namespace QassimPrincipality.Application.Services.NewShema
         }
 
         // Save basic data for the first step
-        public async Task<bool> SaveBasicDataAsync(Guid requestId, RequestBasicDataDto basicDataDto, string userId)
+        public async Task<bool> SaveBasicDataAsync(
+            Guid requestId,
+            RequestBasicDataDto basicDataDto,
+            string userId
+        )
         {
             var basicData = basicDataDto.MapTo<RequestBasicData>();
             basicData.RequestId = requestId;
@@ -61,14 +66,18 @@ namespace QassimPrincipality.Application.Services.NewShema
             basicData.UpdatedBy = userId;
             basicData.UpdatedOn = DateTime.UtcNow;
             basicData.IsActive = true;
-            
-            basicData.RequestDetails = basicDataDto.RequestDetails; 
+
+            basicData.RequestDetails = basicDataDto.RequestDetails;
             await _requestBasicDataRepository.InsertAsync(basicData, true);
             return true;
         }
 
         // Save additional data for subsequent steps
-        public async Task<bool> SaveAdditionalDataAsync(Guid requestId, RequestAdditionalDataDto additionalDataDto, string userId)
+        public async Task<bool> SaveAdditionalDataAsync(
+            Guid requestId,
+            RequestAdditionalDataDto additionalDataDto,
+            string userId
+        )
         {
             var additionalData = additionalDataDto.MapTo<RequestAdditionalData>();
             additionalData.RequestId = requestId;
@@ -83,7 +92,11 @@ namespace QassimPrincipality.Application.Services.NewShema
         }
 
         // Add attachment to a request
-        public async Task<bool> AddAttachmentAsync(Guid requestId, RequestAttachmentDto attachmentDto, string userId)
+        public async Task<bool> AddAttachmentAsync(
+            Guid requestId,
+            RequestAttachmentDto attachmentDto,
+            string userId
+        )
         {
             var attachment = attachmentDto.MapTo<RequestAttachment>();
             attachment.RequestId = requestId;
@@ -91,22 +104,26 @@ namespace QassimPrincipality.Application.Services.NewShema
             attachment.CreatedOn = DateTime.UtcNow;
             attachment.UpdatedBy = userId;
             attachment.UpdatedOn = DateTime.UtcNow;
-            attachment.IsActive = false;  // Set to false until the request is submitted
+            attachment.IsActive = false; // Set to false until the request is submitted
 
             await _requestAttachmentRepository.InsertAsync(attachment, true);
             return true;
         }
-        public async Task<bool> DeleteAttachmentAsync(Guid requestId,string fileName)
+
+        public async Task<bool> DeleteAttachmentAsync(Guid requestId, string fileName)
         {
-            var attachment = await _requestAttachmentRepository.DeleteAsync(c => c.RequestId == requestId &&  c.FileName.ToLower().Contains(fileName.ToLower()),true);
+            var attachment = await _requestAttachmentRepository.DeleteAsync(
+                c => c.RequestId == requestId && c.FileName.ToLower().Contains(fileName.ToLower()),
+                true
+            );
             return true;
         }
 
         // Submit the service request
         public async Task<ServiceRequestDto> SubmitRequestAsync(Guid requestId, string userId)
         {
-            var request = await _serviceRequestRepository.TableNoTracking
-                .Include(r => r.Actions)
+            var request = await _serviceRequestRepository
+                .TableNoTracking.Include(r => r.Actions)
                 .FirstOrDefaultAsync(r => r.Id == requestId);
             ValidateStatusTransition(request.Status, ServiceRequestStatus.Submitted);
 
@@ -115,8 +132,8 @@ namespace QassimPrincipality.Application.Services.NewShema
             request.UpdatedOn = DateTime.UtcNow;
 
             // Activate all attachments
-            var attachments = await _requestAttachmentRepository.Table
-                .Where(a => a.RequestId == requestId)
+            var attachments = await _requestAttachmentRepository
+                .Table.Where(a => a.RequestId == requestId)
                 .ToListAsync();
 
             foreach (var attachment in attachments)
@@ -127,14 +144,16 @@ namespace QassimPrincipality.Application.Services.NewShema
             }
 
             // Add action log
-            request.Actions.Add(new RequestAction
-            {
-                NameEn = "Submitted",
-                ActionDate = DateTime.UtcNow,
-                ActionBy = userId,
-                CreatedBy = userId,
-                CreatedOn = DateTime.UtcNow,
-            });
+            request.Actions.Add(
+                new RequestAction
+                {
+                    NameEn = "Submitted",
+                    ActionDate = DateTime.UtcNow,
+                    ActionBy = userId,
+                    CreatedBy = userId,
+                    CreatedOn = DateTime.UtcNow,
+                }
+            );
 
             await _serviceRequestRepository.UpdateAsync(request, true);
             return request.MapTo<ServiceRequestDto>();
@@ -143,17 +162,16 @@ namespace QassimPrincipality.Application.Services.NewShema
         // Get service request by ID
         public async Task<ServiceRequestDto> GetRequestByIdAsync(Guid requestId)
         {
-            var request = await _serviceRequestRepository.TableNoTracking
-                .Include(r => r.BasicData)
+            var request = await _serviceRequestRepository
+                .TableNoTracking.Include(r => r.BasicData)
                 .Include(r => r.AdditionalData)
                 .Include(r => r.Attachments)
                 .Include(r => r.EService)
-                .Include(r => r.Actions).FirstOrDefaultAsync(r => r.Id.ToString() == requestId.ToString());
-
+                .Include(r => r.Actions)
+                .FirstOrDefaultAsync(r => r.Id.ToString() == requestId.ToString());
 
             if (request == null)
                 throw new KeyNotFoundException("Service request not found.");
-            
 
             var model = request.MapTo<ServiceRequestDto>();
 
@@ -162,18 +180,20 @@ namespace QassimPrincipality.Application.Services.NewShema
                 model.Actions = new List<RequestActionDto>();
                 foreach (var action in request.Actions)
                 {
-                    model.Actions.Add(new RequestActionDto
-                    {
-                        ActionByUserId = action.ActionBy,
-                        ActionDate = action.ActionDate,
-                        ActionStatus = action.ToStatus,
-                    });
+                    model.Actions.Add(
+                        new RequestActionDto
+                        {
+                            ActionByUserId = action.ActionBy,
+                            ActionDate = action.ActionDate,
+                            ActionStatus = action.ToStatus,
+                        }
+                    );
                 }
-
             }
 
             return model;
         }
+
         // Get service request by ID
         public async Task<ServiceRequestDto> GetIdAsync(Guid requestId)
         {
@@ -186,7 +206,12 @@ namespace QassimPrincipality.Application.Services.NewShema
         }
 
         // Change request status with action notes
-        public async Task<bool> ChangeRequestStatusAsync(Guid requestId, ServiceRequestStatus newStatus, string userId, string actionNotes)
+        public async Task<bool> ChangeRequestStatusAsync(
+            Guid requestId,
+            ServiceRequestStatus newStatus,
+            string userId,
+            string actionNotes
+        )
         {
             var request = await _serviceRequestRepository.GetByIdAsync(requestId);
             ValidateStatusTransition(request.Status, newStatus);
@@ -200,27 +225,31 @@ namespace QassimPrincipality.Application.Services.NewShema
                 request.Actions = new List<RequestAction>();
             }
 
-
-            request.Actions.Add(new RequestAction
-            {
-                FromStatus = request.Status,
-                ToStatus = newStatus,
-                NameEn = newStatus.ToString(),
-                ActionDate = DateTime.UtcNow,
-                ActionBy = userId,
-                Notes = actionNotes,
-                CreatedBy = userId,
-                CreatedOn = DateTime.UtcNow,
-            });
+            request.Actions.Add(
+                new RequestAction
+                {
+                    FromStatus = request.Status,
+                    ToStatus = newStatus,
+                    NameEn = newStatus.ToString(),
+                    ActionDate = DateTime.UtcNow,
+                    ActionBy = userId,
+                    Notes = actionNotes,
+                    CreatedBy = userId,
+                    CreatedOn = DateTime.UtcNow,
+                }
+            );
 
             await _serviceRequestRepository.UpdateAsync(request, true);
             return true;
         }
 
         // Search requests with filters
-        public async Task<List<ServiceRequestDto>> SearchRequestsAsync(RequestSearchFilterDto filter)
+        public async Task<List<ServiceRequestDto>> SearchRequestsAsync(
+            RequestSearchFilterDto filter
+        )
         {
-            var query = _serviceRequestRepository.TableNoTracking
+            var query = _serviceRequestRepository
+                .TableNoTracking
                 //.Include(r => r.BasicData)
                 //.Include(r => r.AdditionalData)
                 //.Include(r => r.Attachments)
@@ -249,16 +278,16 @@ namespace QassimPrincipality.Application.Services.NewShema
             var results = await query.ToListAsync();
             return results.MapTo<List<ServiceRequestDto>>();
         }
-        
+
         // Search requests with filters
         public async Task<List<SelectListDto>> GetServices()
         {
-            var data = await _serviceRepository.TableNoTracking
-                .Select(c=> new SelectListDto
+            var data = await _serviceRepository
+                .TableNoTracking.Select(c => new SelectListDto
                 {
                     Id = c.Id,
                     NameAr = c.NameAr,
-                    NameEn = c.NameEn
+                    NameEn = c.NameEn,
                 })
                 .ToListAsync();
 
@@ -266,21 +295,43 @@ namespace QassimPrincipality.Application.Services.NewShema
         }
 
         // Validate status transitions
-        private void ValidateStatusTransition(ServiceRequestStatus currentStatus, ServiceRequestStatus newStatus)
+        private void ValidateStatusTransition(
+            ServiceRequestStatus currentStatus,
+            ServiceRequestStatus newStatus
+        )
         {
-            if (currentStatus == ServiceRequestStatus.Approved || currentStatus == ServiceRequestStatus.Rejected)
+            if (
+                currentStatus == ServiceRequestStatus.Approved
+                || currentStatus == ServiceRequestStatus.Rejected
+            )
                 throw new InvalidOperationException("Cannot change status from a finalized state.");
 
-            if (currentStatus == ServiceRequestStatus.Draft && newStatus != ServiceRequestStatus.Submitted)
+            if (
+                currentStatus == ServiceRequestStatus.Draft
+                && newStatus != ServiceRequestStatus.Submitted
+            )
                 throw new InvalidOperationException("Draft can only transition to Submitted.");
 
-            if (currentStatus == ServiceRequestStatus.Submitted && newStatus != ServiceRequestStatus.UnderReview)
-                throw new InvalidOperationException("Submitted can only transition to UnderReview.");
+            if (
+                currentStatus == ServiceRequestStatus.Submitted
+                && newStatus != ServiceRequestStatus.UnderReview
+            )
+                throw new InvalidOperationException(
+                    "Submitted can only transition to UnderReview."
+                );
 
-            if (currentStatus == ServiceRequestStatus.UnderReview && (newStatus != ServiceRequestStatus.Approved && newStatus != ServiceRequestStatus.Rejected&& newStatus != ServiceRequestStatus.RequiresCompletion))
-                throw new InvalidOperationException("UnderReview can only transition to Approved or Rejected.");
+            if (
+                currentStatus == ServiceRequestStatus.UnderReview
+                && (
+                    newStatus != ServiceRequestStatus.Approved
+                    && newStatus != ServiceRequestStatus.Rejected
+                    && newStatus != ServiceRequestStatus.RequiresCompletion
+                )
+            )
+                throw new InvalidOperationException(
+                    "UnderReview can only transition to Approved or Rejected."
+                );
         }
-       
 
         private string GenerateRequestNumber(int serviceId)
         {
@@ -291,7 +342,8 @@ namespace QassimPrincipality.Application.Services.NewShema
             string year = DateTime.UtcNow.Year.ToString();
 
             // Format the Service ID (add leading zero if single digit)
-            string servicePrefix = serviceId < 10 ? $"0{serviceId}" : serviceId.ToString().Substring(0, 2);
+            string servicePrefix =
+                serviceId < 10 ? $"0{serviceId}" : serviceId.ToString().Substring(0, 2);
 
             // Generate a random 6-character alphanumeric code
             string uniqueCode = GenerateRandomAlphanumeric(6);
@@ -304,8 +356,53 @@ namespace QassimPrincipality.Application.Services.NewShema
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             var random = new Random();
-            return new string(Enumerable.Repeat(chars, length)
-                .Select(s => s[random.Next(s.Length)]).ToArray());
+            return new string(
+                Enumerable.Repeat(chars, length).Select(s => s[random.Next(s.Length)]).ToArray()
+            );
+        }
+
+        public async Task<FileDto> GetAttachment(Guid requestId, int attachmentId)
+        {
+            var file = await _requestAttachmentRepository.TableNoTracking.FirstOrDefaultAsync(c =>
+                c.RequestId.ToString() == requestId.ToString() || attachmentId == c.Id
+            );
+
+            if (!File.Exists(file.FilePath))
+            {
+                throw new FileNotFoundException("File not found.");
+            }
+            var contentType = GetContentType(file.FilePath); // determine file type based on extension
+            var fileBytes = File.ReadAllBytes(file.FilePath);
+
+            return new FileDto
+            {
+                ContentType = GetContentType(file.FilePath),
+                Data = fileBytes,
+                FileName = file.FileName,
+            };
+        }
+
+        private string GetContentType(string path)
+        {
+            var types = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                { ".pdf", "application/pdf" },
+                { ".png", "image/png" },
+                { ".jpg", "image/jpeg" },
+                { ".jpeg", "image/jpeg" },
+                {
+                    ".docx",
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                },
+                { ".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                { ".txt", "text/plain" },
+                // Add more as needed
+            };
+
+            var ext = Path.GetExtension(path);
+            return types.TryGetValue(ext, out var contentType)
+                ? contentType
+                : "application/octet-stream";
         }
     }
 }

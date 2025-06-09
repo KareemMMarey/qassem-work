@@ -46,9 +46,7 @@ $(document).ready(function () {
             // Regular expressions for validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const saudiPhoneRegex = /^(00966|966|\+966|0)?5\d{8}$/;
-
             let hasError = false;
-
             if (HasApplicantStatus === 'True') {
                 const customrequesterRelation = $("#customrequesterRelation").val().trim();
                 if (customrequesterRelation === "") {
@@ -63,6 +61,7 @@ $(document).ready(function () {
                     showErrorMessage("#requestDetails", messages.detailsMessage);
                     $('#requestDetails').next().css('display', 'block');
                     hasError = true;
+
                 }
             }
 
@@ -85,6 +84,7 @@ $(document).ready(function () {
             } else if (!emailRegex.test(email)) {
                 showErrorMessage("#email", messages.emailInvalidMessage);
                 $('#email').next().css('display', 'block');
+
                 hasError = true;
             }
 
@@ -387,8 +387,9 @@ $(document).ready(function () {
             .done(function (response) {
                 if (response.success) {
                     const requestNumber = response.requestNumber || "UNKNOWN";
+                    const requestId = response.requestId || "UNKNOWN";
                     clearServiceData(serviceId);
-                    window.location.href = `/Request/Success?requestNumber=${requestNumber}`;
+                    window.location.href = `/Request/Success?requestNumber=${requestNumber}&requestId=${requestId}`;
                 } else {
                     showPopup("error", messages.errorTitle, messages.failedToSubmitRequest);
                 }

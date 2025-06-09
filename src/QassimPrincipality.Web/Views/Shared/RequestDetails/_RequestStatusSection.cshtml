@@ -35,7 +35,7 @@
     </div>
 
     <div class="request-status-body">
-        <div class="timeline">
+        <div class="request-status">
             @if (Model.Actions != null && Model.Actions.Any())
             {
                 foreach (var action in Model.Actions.OrderBy(a => a.ActionDate))
@@ -43,16 +43,16 @@
                     <div class="timeline-item">
                         <img src="~/icons/progressIndicator.svg" alt="Progress" width="32" height="128" />
                         <div class="pe-3">
-                            <p class="mb-1">
-                                <strong>
+                            <p class="request-progress-data">
+                                
                                     @WorkFlowHelper.GetActionDescription(
                                              action.ActionStatus,
                                              Model.RequestNumber,
                                              localizer
                                              )
-                                </strong>
+                                
                             </p>
-                            <p class="time">@action.ActionDate.ToString("yyyy-MM-dd HH:mm")</p>
+                            <p class="time request-progress-date">@action.ActionDate.ToString("yyyy-MM-dd HH:mm")</p>
                         </div>
                     </div>
                 }
@@ -96,3 +96,5 @@
         </div>
     }
 </div>
+
+<div class="pc-form-line"></div>

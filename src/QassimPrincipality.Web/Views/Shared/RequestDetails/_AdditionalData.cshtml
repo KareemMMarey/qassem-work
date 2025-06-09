@@ -11,7 +11,7 @@
 @if (Model.AdditionalData != null)
 {
     <div class="pc-service-form-heading">
-        <h4>@localizer["RequestSubjectData"]</h4>
+        <h4>@localizer["RequestedPartyData"]</h4>
     </div>
 
     <table class="pc-basic-table request-data-table">
@@ -27,7 +27,7 @@
         @if (!string.IsNullOrEmpty(Model.AdditionalData.NationalId))
         {
             <tr>
-                <td class="td-bold">@localizer["IdNumber"]</td>
+                <td class="td-bold">@localizer["IDNumber"]</td>
                 <td>@Model.AdditionalData.NationalId</td>
                 <td class="td-bold">@localizer["BirthDate"]</td>
                 <td>@Model.AdditionalData.DateOfBirth?.ToString("yyyy-MM-dd")</td>
