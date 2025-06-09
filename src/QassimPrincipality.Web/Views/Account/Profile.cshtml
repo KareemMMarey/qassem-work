@@ -4,7 +4,119 @@
 @{
     ViewData["Title"] = "الملف الشخصي";
 }
-<div class="row justify-content-xxl-center">
+
+@inject IViewLocalizer Localizer
+
+<div class="pc-profile">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@Localizer["Breadcrumb_Home"]</a></li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@Localizer["Breadcrumb_MyProfile"]</li>
+            </ul>
+        </div>
+        <h1 class="pc-profile-title">@Localizer["Profile_Title"]</h1>
+    </div>
+
+    <div class="pc-profile-container">
+        <div class="pc-personal-info-card">
+            <h2 class="pc-personal-info-card-title">@Localizer["Section_PersonalInfo"]</h2>
+            <div class="grid-container">
+                <div class="grid-item"><h3>@Localizer["Field_FullName"]</h3></div>
+                <div class="grid-item"><p>@Model.FullName</p></div>
+
+                <div class="grid-item"><h3>@Localizer["Field_EmployeeNumber"]</h3></div>
+                <div class="grid-item"><p>@Model.EmployeeNumber</p></div>
+
+                <div class="grid-item"><h3>@Localizer["Field_Department"]</h3></div>
+                <div class="grid-item"><p>@Model.Department</p></div>
+
+                <div class="grid-item last-item"><h3>@Localizer["Field_JobTitle"]</h3></div>
+                <div class="grid-item last-item"><p>@Model.JobTitle</p></div>
+            </div>
+        </div>
+
+        <div class="contact-address">
+            <div class="pc-personal-info-card">
+                <div class="contact-edit">
+                    <h2 class="pc-personal-info-card-title">@Localizer["Section_Contact"]</h2>
+                    <button class="pc-outline-btn" id="editContactInfobtn">
+                        <img src="/icons/edit.svg" alt="edit" width="20"
+                        height="20">
+                        @Localizer["Edit"]
+                    </button>
+                </div>
+
+                <div class="grid-container" id="contactInfoContainer">
+                    <div class="grid-item"><h3>@Localizer["Field_Phone"]</h3></div>
+                    <div class="grid-item"><p>@Model.PhoneNumber</p></div>
+
+                    <div class="grid-item last-item"><h3>@Localizer["Field_Email"]</h3></div>
+                    <div class="grid-item last-item"><p>@Model.Email</p></div>
+                </div>
+
+                <form  method="post" class="pc-form" id="editContactInfoForm">
+                    <div class="pc-form-grid-2col">
+                        <div class="pc-input">
+                            <label for="phone" class="pc-input-label">
+                                <span class="required">*</span> @Localizer["Field_Phone"]
+                            </label>
+                            <input type="text" id="phone" name="PhoneNumber" value="@Model.PhoneNumber" placeholder="05xxxxxxxx" />
+                            <input type="text" id="id" hidden name="id" value="@Model.Id" />
+                            <div class="error"></div>
+                        </div>
+                        <div class="pc-input">
+                            <label for="email" class="pc-input-label">@Localizer["Field_Email"]</label>
+                            <input type="text" id="email" name="Email" value="@Model.Email" placeholder="example@mail.com" />
+                            <div class="error"></div>
+                        </div>
+                    </div>
+
+                    <div class="btns-container">
+                        <button class="pc-outline-btn" id="cancel">@Localizer["Cancel"]</button>
+                        <button type="submit" class="pc-primary-btn">@Localizer["SaveChanges"]</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="pc-personal-info-card">
+                <h2 class="pc-personal-info-card-title">@Localizer["Section_Address"]</h2>
+                <div class="grid-container">
+                    <div class="grid-item"><h3>@Localizer["Field_City"]</h3></div>
+                    <div class="grid-item"><p>بريدة</p></div>
+
+                    <div class="grid-item last-item"><h3>@Localizer["Field_District"]</h3></div>
+                    <div class="grid-item last-item"><p>الصفراء</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index" class="pc-outline-btn">@Localizer["Back"]</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("editContactInfobtn");
+        const formSection = document.getElementById("editContactInfoForm");
+        const cancelBtn = document.getElementById("cancel");
+
+        toggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            formSection.style.display = (formSection.style.display === "none") ? "block" : "none";
+        });
+
+        cancelBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            formSection.style.display = "none";
+        });
+    });
+</script>
+
+
+
+@* <div class="row justify-content-xxl-center">
     <div class="col-xxl-8">
         <div class="page-panel" id="elementToToggle">
             <h3 class="page-title margin-bottom-lg"> بياناتي </h3>
@@ -25,3 +137,4 @@
         </div>
     </div>
 </div>
+ *@
