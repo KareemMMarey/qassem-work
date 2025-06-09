@@ -29,6 +29,14 @@ $(document).ready(function () {
 
         // Handle first step details validation
         if (currentStep === 1) {
+            //const details = $("#requestDetails").val().trim();
+            //if (details === "") {
+            //    showErrorMessage("#requestDetails", messages.detailsMessage);
+            //    return;
+            //}
+
+
+            //const details = $("#requestDetails").val().trim();
             const phone = $("#phone").val().trim();
             const email = $("#email").val().trim();
 
@@ -38,9 +46,7 @@ $(document).ready(function () {
             // Regular expressions for validation
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             const saudiPhoneRegex = /^(00966|966|\+966|0)?5\d{8}$/;
-
             let hasError = false;
-
             if (HasApplicantStatus === 'True') {
                 const customrequesterRelation = $("#customrequesterRelation").val().trim();
                 if (customrequesterRelation === "") {
@@ -53,8 +59,9 @@ $(document).ready(function () {
                 const details = $("#requestDetails").val().trim();
                 if (details === "") {
                     showErrorMessage("#requestDetails", messages.detailsMessage);
-                    hasError = true;
                     $('#requestDetails').next().css('display', 'block');
+                    hasError = true;
+
                 }
             }
 
@@ -76,6 +83,8 @@ $(document).ready(function () {
                 hasError = true;
             } else if (!emailRegex.test(email)) {
                 showErrorMessage("#email", messages.emailInvalidMessage);
+                $('#email').next().css('display', 'block');
+
                 hasError = true;
             }
 
@@ -205,6 +214,7 @@ $(document).ready(function () {
         saveCurrentStepData(currentStep);
 
         // Move to the next step
+        if (currentStep < totalSteps)
         currentStep++;
         //localStorage.setItem("currentStep", currentStep);
         loadStep(serviceId, currentStep);
@@ -222,8 +232,13 @@ $(document).ready(function () {
 
     $("#previous-btn").click(function () {
         if (currentStep > 1) {
+
             currentStep--;
-            localStorage.setItem("currentStep", currentStep);
+            const prevServiceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+            prevServiceData.currentStep = currentStep;
+            localStorage.setItem(`serviceData_${serviceId}`, JSON.stringify(prevServiceData));
+
+            //localStorage.setItem("currentStep", currentStep);
             loadStep(serviceId, currentStep);
             updateStepper(currentStep);
             updateButtonVisibility();
@@ -319,7 +334,7 @@ $(document).ready(function () {
 
         // Check if the current step is "Attachments"
 
-        if (currentStep === totalSteps - 1) {
+        if (currentStep === totalSteps - 1 || stepData === "{}" || stepData === {} || Object.keys(stepData).length === 0) {
             console.log("Skipping server save for attachments step");
             return;
         }
@@ -330,7 +345,6 @@ $(document).ready(function () {
 
     // Save to Server
     function saveToServer(stepNumber, stepData) {
-        debugger;
         //const requestId = $("#requestId").val() || emptyGuid;
         const requestId = localStorage.getItem(`requestId_${serviceId}`);
 

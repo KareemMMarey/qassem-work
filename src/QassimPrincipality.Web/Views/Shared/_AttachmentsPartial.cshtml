@@ -121,9 +121,14 @@ else
         }
 
         $("#previous-btn").click(function () {
-            debugger;
             files = [];
+
             const serviceData = JSON.parse(localStorage.getItem(`serviceData_${serviceId}`)) || {};
+
+            if (serviceData.currentStep > (totalSteps - 1)) {
+                serviceData.currentStep = currentStep - 1;
+                localStorage.setItem(`serviceData_${serviceId}`, serviceData);
+            }
 
             const sattachments = serviceData.attachments || [];
 

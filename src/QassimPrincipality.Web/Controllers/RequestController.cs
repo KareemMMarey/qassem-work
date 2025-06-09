@@ -19,6 +19,7 @@ using QassimPrincipality.Web.ViewModels.Request;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data.Services;
 using Org.BouncyCastle.Asn1.Ocsp;
+using System.Globalization;
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
@@ -305,7 +306,7 @@ namespace QassimPrincipality.Web.Controllers
                         additionalDataDto,
                         userId
                     );
-                    ViewBag.RequestId = requestId;
+                    //ViewBag.RequestId = requestId;
                 }
 
                 return Ok(new { success = true, requestId = requestId });
@@ -519,7 +520,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     fullName = /*"عبدالله احمد محمد الأحمد"*/ user.FullName,
                     nationality = /*"المملكة العربية السعودية"*/ user.Nationality,
-                    birthDate = /*"1998-05-19"*/ user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd") : "",
+                    birthDate = /*"1998-05-19"*/ user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd", new CultureInfo("en-US")) : "",
                     idNumber = /*"1109882374"*/ user.IdentityNumber,
                     email = /*"example@mail.com"*/ user.Email,
                     phone = /*"0555555555"*/ user.PhoneNumber,
