@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = localizer["SuccessRequestPage"];
     var requestNumber = ViewBag.RequestNumber.ToString();
+    var requestId = ViewBag.requestId.ToString();
 }
 
 <div class="success-container">
@@ -16,7 +17,9 @@
     </div>
     <div class="success-actions">
         <a href="/Home" class="btn btn-primary">@localizer["BackToHome"]</a>
-        <a href="/Request/Status" class="btn btn-secondary">@localizer["CheckRequestStatus"]</a>
+        <a asp-controller="Request" asp-action="Details" asp-route-requestid= "@requestId"  class="btn btn-secondary">
+            @localizer["CheckRequestStatus"]
+        </a>
     </div>
 </div>
 

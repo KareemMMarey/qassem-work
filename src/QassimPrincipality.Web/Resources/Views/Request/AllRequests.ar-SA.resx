@@ -201,4 +201,10 @@
   <data name="UnderReview" xml:space="preserve">
     <value>تحت المراجعة</value>
   </data>
+  <data name="FromWord" xml:space="preserve">
+    <value>من</value>
+  </data>
+  <data name="ToWord" xml:space="preserve">
+    <value>إلى</value>
+  </data>
 </root>

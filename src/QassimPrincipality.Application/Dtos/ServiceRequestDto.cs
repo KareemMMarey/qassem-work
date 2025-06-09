@@ -10,7 +10,7 @@ using System.Text.Json.Serialization;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 namespace QassimPrincipality.Application.Dtos
 {
-    
+
     public class CreateServiceRequestDto
     {
         public Guid Id { get; set; }
@@ -41,7 +41,6 @@ namespace QassimPrincipality.Application.Dtos
         public DateTime ActionDate { get; set; }
         public string PerformedBy { get; set; }
     }
-
     public class ServiceRequestDto
     {
         public Guid Id { get; set; }

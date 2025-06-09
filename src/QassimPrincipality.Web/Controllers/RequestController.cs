@@ -436,7 +436,7 @@ namespace QassimPrincipality.Web.Controllers
                     requestId,
                     "current-user"
                 );
-                return Ok(new { success = true, requestNumber = request.RequestNumber });
+                return Ok(new { success = true, requestNumber = request.RequestNumber , requestId = request.Id});
             }
             catch (Exception ex)
             {
@@ -445,7 +445,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Success(string requestNumber)
+        public IActionResult Success(string requestNumber, string requestId)
         {
             if (string.IsNullOrEmpty(requestNumber))
             {
@@ -455,6 +455,7 @@ namespace QassimPrincipality.Web.Controllers
 
             // Pass the request number to the view
             ViewBag.RequestNumber = requestNumber;
+            ViewBag.requestId = requestId;
             return View();
         }
 
@@ -650,6 +651,52 @@ namespace QassimPrincipality.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PreviewAttachment(Guid requestId, int attachmentId)
+        {
+            // Example: fetch file info from DB/service using requestId and attachmentId
+            var attachment = await _serviceRequestAppService.GetAttachment(requestId, attachmentId);
+            if (attachment == null || string.IsNullOrEmpty(attachment.ContentType) || attachment.Data == null)
+            {
+                return NotFound("Attachment not found.");
+            }
+
+            // Return the file for preview
+            return File(attachment.Data, attachment.ContentType);
+        }
+        [HttpGet]
+        public async Task<IActionResult> DownloadAttachment(Guid requestId, int attachmentId)
+        {
+            // Fetch the attachment (same service as used in preview)
+            var attachment = await _serviceRequestAppService.GetAttachment(requestId, attachmentId);
+            if (attachment == null || string.IsNullOrEmpty(attachment.ContentType) || attachment.Data == null)
+            {
+                return NotFound("Attachment not found.");
+            }
+
+            // Use a default or meaningful file name
+            var fileName = string.IsNullOrEmpty(attachment.FileName)
+                ? $"attachment_{attachmentId}{GetFileExtension(attachment.ContentType)}"
+                : attachment.FileName;
+
+            // Return as downloadable file
+            return File(attachment.Data, attachment.ContentType, fileName);
+        }
+
+        private string GetFileExtension(string contentType)
+        {
+            return contentType switch
+            {
+                "application/pdf" => ".pdf",
+                "image/png" => ".png",
+                "image/jpeg" => ".jpg",
+                "application/msword" => ".doc",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => ".docx",
+                "application/vnd.ms-excel" => ".xls",
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => ".xlsx",
+                _ => ""
+            };
+        }
         //[HttpGet]
         //public async Task<IActionResult> LoadStep(int serviceId, int stepNumber)
         //{

@@ -198,4 +198,10 @@
   <data name="UnknownStatus" xml:space="preserve">
     <value>Unknown</value>
   </data>
+  <data name="FromWord" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="ToWord" xml:space="preserve">
+    <value>To</value>
+  </data>
 </root>
