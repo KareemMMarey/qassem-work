@@ -60,6 +60,32 @@ namespace QassimPrincipality.Web.Controllers
             return View(userViewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Profile(ContactInfoDto model)
+        {
+            if (!ModelState.IsValid)
+            {
+                // Optionally return the same view with validation errors
+                return View(CurrentUser.MapTo<UserDto>());
+            }
+
+            var user = await _userServices.GetUserAsync(Guid.Parse(model.Id));
+
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
+            user.NormalizedEmail = model.Email.ToUpper();
+
+           await  _userManager.UpdateAsync(user);
+
+
+            // Save the data here (e.g., update the DB or call a service)
+            // _userService.UpdateContactInfo(User.Identity.Name, model);
+
+            TempData["SuccessMessage"] = "Contact info updated successfully.";
+            return RedirectToAction("Profile"); // Or wherever your profile page is
+        }
+
+
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
 
@@ -461,6 +487,16 @@ namespace QassimPrincipality.Web.Controllers
                             userFullName = JsonConvert
                                 .DeserializeObject(TempData["arTwoNames"].ToString())
                                 .ToString();
+                            
+                            var dOB = JsonConvert
+                                .DeserializeObject(TempData["dateOfBirthGregorian"].ToString())
+                                .ToString();
+
+                            DateTime? DOBDate = null;
+                            if (!string.IsNullOrEmpty(dOB) && !string.IsNullOrWhiteSpace(dOB))
+                            {
+                                DOBDate = Convert.ToDateTime(dOB);
+                            }
                             string phone = "05xxxxxxxx";
                             user = new ApplicationUser(username, userFullName)
                             {
@@ -470,7 +506,8 @@ namespace QassimPrincipality.Web.Controllers
                                 PhoneNumber = phone,
                                 CreatedBy = "Admin",
                                 CreatedOn = DateTime.Now,
-                                EmailConfirmed = true
+                                EmailConfirmed = true,
+                                DateOfBirth = DOBDate
                             };
                             await _userManager.CreateAsync(user, "P@ssw0rd");
                             await _userServices.AddRoleAsync(user.Id, UserRoles.User);
