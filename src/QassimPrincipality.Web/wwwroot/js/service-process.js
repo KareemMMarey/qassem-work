@@ -373,8 +373,9 @@ $(document).ready(function () {
             .done(function (response) {
                 if (response.success) {
                     const requestNumber = response.requestNumber || "UNKNOWN";
+                    const requestId = response.requestId || "UNKNOWN";
                     clearServiceData(serviceId);
-                    window.location.href = `/Request/Success?requestNumber=${requestNumber}`;
+                    window.location.href = `/Request/Success?requestNumber=${requestNumber}&requestId=${requestId}`;
                 } else {
                     showPopup("error", messages.errorTitle, messages.failedToSubmitRequest);
                 }

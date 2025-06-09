@@ -376,3 +376,4 @@ FodyWeavers.xsd
 /src/QassimPrincipality.Web/Uploads
 /src/QassimPrincipality.Web/Uploads/Requests/2024/5/7
 /src/framework/Framework.Core/obj/Debug/net6.0/project.razor.vs.bin
+/src/QassimPrincipality.Web/wwwroot/uploads

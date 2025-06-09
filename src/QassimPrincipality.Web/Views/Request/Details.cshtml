@@ -82,10 +82,12 @@
                 @await Html.PartialAsync("../shared/requestdetails/_AttachmentsSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
 
-                
-
-                @await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
+                @if (User.IsInRole("Admin"))
+                {
+                    await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
                          new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                }
+
                 <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->
                 <div class="text-end">
                     <a href="javascript:history.back()" class="btn btn-outline-secondary">
@@ -95,8 +97,6 @@
             </div>
         </div>
     </div>
-
-    @* في حال كنت تريد تضمين جافاسكربت إضافي لديك، يمكنك إضافته هنا *@
 </body>
 
 
