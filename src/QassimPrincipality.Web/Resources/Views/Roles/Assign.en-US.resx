@@ -117,109 +117,196 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2FA" xml:space="preserve">
-    <value>Two-factor authentication</value>
+  <data name="ApprovedStatus" xml:space="preserve">
+    <value>Approved </value>
   </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="AboutEmirate" xml:space="preserve">
-    <value>About</value>
+  <data name="BirthDate" xml:space="preserve">
+    <value>Birth date</value>
   </data>
-  <data name="Absher" xml:space="preserve">
-    <value>Absher</value>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
   </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
+  <data name="ClearSearchInput" xml:space="preserve">
+    <value>Clear Search Input</value>
   </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>Details</value>
   </data>
-  <data name="ContactSupport" xml:space="preserve">
-    <value>Contact and Support</value>
+  <data name="District" xml:space="preserve">
+    <value>District</value>
   </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact Us</value>
+  <data name="FullName" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>All rights reserved for the Qassim Region Emirate ©</value>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="DigitalLibrary" xml:space="preserve">
-    <value>Digital Library of Dr. Faisal bin Mishaal bin Saud bin Abdulaziz</value>
+  <data name="IDNumber" xml:space="preserve">
+    <value>Identity number</value>
   </data>
-  <data name="ElectronicServices" xml:space="preserve">
-    <value>Electronic Services</value>
-  </data>
-  <data name="Email" xml:space="preserve">
+  <data name="mail" xml:space="preserve">
     <value>Email</value>
-  </data>
-  <data name="EParticipation" xml:space="preserve">
-    <value>e-Participation</value>
-  </data>
-  <data name="EService" xml:space="preserve">
-    <value>Electronic Services</value>
-  </data>
-  <data name="ExternalLogins" xml:space="preserve">
-    <value>My external logins</value>
-  </data>
-  <data name="FollowUs" xml:space="preserve">
-    <value>Follow Us</value>
-  </data>
-  <data name="FooterCopyright" xml:space="preserve">
-    <value>©</value>
-  </data>
-  <data name="Grants" xml:space="preserve">
-    <value>Grants</value>
-  </data>
-  <data name="ImportantLinks" xml:space="preserve">
-    <value>Important Links</value>
-  </data>
-  <data name="LawLibrary" xml:space="preserve">
-    <value>Electronic Law Library</value>
-  </data>
-  <data name="ManagePersonalData" xml:space="preserve">
-    <value>My personal data</value>
-  </data>
-  <data name="ManageProfile" xml:space="preserve">
-    <value>My profile</value>
-  </data>
-  <data name="Menu" xml:space="preserve">
-    <value>Menu</value>
-  </data>
-  <data name="MinistryOfInterior" xml:space="preserve">
-    <value>Ministry of Interior</value>
-  </data>
-  <data name="MyProfile" xml:space="preserve">
-    <value>My Profile</value>
   </data>
   <data name="MyRequests" xml:space="preserve">
     <value>My Requests</value>
   </data>
-  <data name="NationalPlatform" xml:space="preserve">
-    <value>Unified National Platform</value>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
   </data>
-  <data name="Phone" xml:space="preserve">
-    <value>0163231818</value>
+  <data name="NewRequestCreated" xml:space="preserve">
+    <value>A new Request has been created with number {0}.</value>
   </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy Policy</value>
+  <data name="NoRequests" xml:space="preserve">
+    <value>No Requests</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Required Field</value>
+  <data name="NoResults" xml:space="preserve">
+    <value>No Results</value>
   </data>
-  <data name="ServiceLevelAgreement" xml:space="preserve">
-    <value>Service Level Agreement</value>
+  <data name="NoResultsMatch" xml:space="preserve">
+    <value>No Results Match Search Criteria</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
   </data>
-  <data name="Signout" xml:space="preserve">
-    <value>Sign Out</value>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found</value>
   </data>
-  <data name="TermsAndConditions" xml:space="preserve">
-    <value>Terms and Conditions</value>
+  <data name="NotQualifiedStatus" xml:space="preserve">
+    <value>NotQualified</value>
   </data>
-  <data name="UserRoles" xml:space="preserve">
-    <value>User Roles</value>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="RejectedStatus" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
+  <data name="RejectionReasons" xml:space="preserve">
+    <value>Rejection reasons</value>
+  </data>
+  <data name="RequestDate" xml:space="preserve">
+    <value>Request Date</value>
+  </data>
+  <data name="RequestDetails" xml:space="preserve">
+    <value>Request Details</value>
+  </data>
+  <data name="RequestNumber" xml:space="preserve">
+    <value>Request Number</value>
+  </data>
+  <data name="RequestStatus" xml:space="preserve">
+    <value>Request Status</value>
+  </data>
+  <data name="RequestUpdatedTo" xml:space="preserve">
+    <value>The request has been updated to {0}.</value>
+  </data>
+  <data name="RequiresCompletionStatus" xml:space="preserve">
+    <value>RequiresCompletion</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SearchRequests" xml:space="preserve">
+    <value>Search Requests</value>
+  </data>
+  <data name="SearchWithRequestNumber" xml:space="preserve">
+    <value>Search With Request Number</value>
+  </data>
+  <data name="SearchWithServiceId" xml:space="preserve">
+    <value>Search with Service Name</value>
+  </data>
+  <data name="SearchWithStatusId" xml:space="preserve">
+    <value>Search with service status</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>Service Name</value>
+  </data>
+  <data name="SubmittedStatus" xml:space="preserve">
+    <value>Submitted</value>
+  </data>
+  <data name="UnderReview" xml:space="preserve">
+    <value>Under review</value>
+  </data>
+  <data name="UnknownStatus" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="NoActionsYet" xml:space="preserve">
+    <value>No action yet</value>
+  </data>
+  <data name="ApplicantData" xml:space="preserve">
+    <value>Applicant Data</value>
+  </data>
+  <data name="RequestedPartyData" xml:space="preserve">
+    <value>Applicant Data</value>
+  </data>
+  <data name="NoDetailsRecorded" xml:space="preserve">
+    <value>No details recorded</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="AttachmentName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="FileType" xml:space="preserve">
+    <value>File Type</value>
+  </data>
+  <data name="FileSize" xml:space="preserve">
+    <value>File Size (KB)</value>
+  </data>
+  <data name="UploadDate" xml:space="preserve">
+    <value>Upload Date</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="NoAttachments" xml:space="preserve">
+    <value>No Attachments</value>
+  </data>
+  <data name="AdminDecision" xml:space="preserve">
+    <value>Admin decision</value>
+  </data>
+  <data name="Relation_0" xml:space="preserve">
+    <value>Not found</value>
+  </data>
+  <data name="Relation_1" xml:space="preserve">
+    <value>Myself</value>
+  </data>
+  <data name="Relation_2" xml:space="preserve">
+    <value>Delegated</value>
+  </data>
+  <data name="Relation_3" xml:space="preserve">
+    <value>Lawyer</value>
+  </data>
+  <data name="Relation_4" xml:space="preserve">
+    <value>Frist class relative</value>
+  </data>
+  <data name="RequesterRelation" xml:space="preserve">
+    <value>Requester relation</value>
+  </data>
+  <data name="AttachToRequest" xml:space="preserve">
+    <value>Add to request</value>
+  </data>
+  <data name="CompleteRequest" xml:space="preserve">
+    <value>Complete request</value>
+  </data>
+  <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
+    <value>Attach a file to complete the request</value>
+  </data>
+  <data name="AssignPermissionsToUsers" xml:space="preserve">
+    <value>Assign permissions to users</value>
+  </data>
+  <data name="backToList" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="selectUser" xml:space="preserve">
+    <value>Select User</value>
+  </data>
+  <data name="userName" xml:space="preserve">
+    <value>User name</value>
   </data>
 </root>

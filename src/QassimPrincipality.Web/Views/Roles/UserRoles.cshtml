@@ -1,0 +1,91 @@
+﻿@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Web.ViewModels.Request
+@model UserRolesVM
+@inject IViewLocalizer localizer
+@{
+
+    ViewData["Title"] = @localizer["UserRoles"];/* "" */
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+
+<div class="pc-my-requests">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"> @localizer["Home"] </a>
+                </li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@localizer["UserRoles"]</li>
+            </ul>
+        </div>
+
+        <h1 class="pc-profile-title">@localizer["UserRoles"]</h1>
+    </div>
+
+    <div class="pc-my-requests-body">
+
+        <div class="d-flex justify-content-end mb-3" style="margin-right: 80% !important;">
+            <a asp-controller="Roles" asp-action="Assign" class="btn btn-primary">@localizer["Add"]</a>
+        </div>
+        <table class="pc-table my-requests-table">
+            <thead>
+                <tr>
+                    <th>@localizer["Number"]</th>
+                    <th>
+                        <div class="pc-table-thead-icon">
+                            <p>  @localizer["UserName"] </p>
+                            <img src="/icons/filter.svg" alt="filter" width="13" height="13">
+                        </div>
+                    </th>
+                    <th> @localizer["RoleName"]  </th>
+                    <th>@localizer["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Results.Count > 0)
+                {
+                    int rowNumber = 1;
+                    foreach (var request in Model.Results)
+                    {
+                        <tr>
+                            <td>@rowNumber</td>
+                            <td> @(@request.UserName) </td>
+                            <td class="break-word-cell"> @request.RoleName</td>
+                            <td>
+                                <a asp-controller="Roles" asp-action="Assign" asp-route-UserId="@request.UserId" class="btn btn-sm btn-light">@localizer["Edit"]</a>
+                                <a asp-controller="Roles" asp-action="DeleteUserRoles" asp-route-UserId="@request.UserId" class="btn btn-sm btn-danger" onclick="return confirm('@localizer["ConfirmDelete"]');">@localizer["Delete"]</a>
+                            </td>
+                        </tr>
+                        rowNumber++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">    @localizer["NoRequests"] </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @if (Model == null || Model.Results == null || Model.Results.Count < 1)
+        {
+            <div class="pc-empty-state">
+                <div class="pc-empty-state-message">
+                    <h2> @localizer["NoResults"]    </h2>
+                    <p> @localizer["NoResultsMatch"]  </p>
+                    <button class="pc-outline-btn" id="clear-search-field-btn"> @localizer["ClearSearchInput"] </button>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="pc-back-btn-container">
+        <button class="pc-outline-btn"> <a asp-controller="Home" asp-action="Index">@localizer["Back"]</a></button>
+    </div>
+</div>

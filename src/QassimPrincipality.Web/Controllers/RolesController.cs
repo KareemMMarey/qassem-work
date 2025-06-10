@@ -1,23 +1,33 @@
 ﻿using Framework.Core;
 using Framework.Core.AutoMapper;
+using Framework.Core.Extensions;
 using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
+using Framework.Identity.Data.Repositories;
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Application.Services.NewShema;
 using QassimPrincipality.Web.Helpers;
+using QassimPrincipality.Web.ViewModels.Request;
 using QassimPrincipality.Web.ViewModels.Roles;
+using System.Linq;
 
 namespace QassimPrincipality.Web.Controllers
 {
     public class RolesController : BaseController
     {
         private readonly UserAppService _userServices;
-        public RolesController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager,  UserAppService userServices)
+        private readonly UserRolesRepository _userRolesRepository;
+
+        public RolesController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, UserAppService userServices, UserRolesRepository userRolesRepository)
             : base(userManager, null, roleManager)
         {
-            _userServices=userServices;
+            _userServices = userServices;
+            _userRolesRepository = userRolesRepository;
         }
 
         [HttpGet]
@@ -37,23 +47,34 @@ namespace QassimPrincipality.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(RoleDto model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var appRole = new ApplicationRole
+            try
             {
-                Name = model.Name
-            };
+                if (!ModelState.IsValid)
+                    return View(model);
 
-            IdentityResult result = await _roleManager.CreateAsync(appRole);
+                var appRole = new ApplicationRole
+                {
+                    Name = model.Name,
+                    DisplayNameAr = model.Name,
+                    DisplayNameEn = model.Name,
+                    CreatedBy = User.Identity.Name
+                };
 
-            if (!result.Succeeded)
-            {
-                AddModelErrors(result);
-                return View(model);
+                IdentityResult result = await _roleManager.CreateAsync(appRole);
+
+                if (!result.Succeeded)
+                {
+                    AddModelErrors(result);
+                    return View(model);
+                }
+
+                return RedirectToAction(nameof(List));
             }
+            catch (Exception ex)
+            {
 
-            return RedirectToAction(nameof(List));
+                throw;
+            }
         }
 
         [HttpGet]
@@ -104,99 +125,255 @@ namespace QassimPrincipality.Web.Controllers
             return RedirectToAction(nameof(List));
         }
 
-        [HttpGet]
-        public IActionResult Assign(string userId)
+        //[HttpGet]
+        //public IActionResult Assign(string userId)
+        //{
+        //    var user = _userManager.FindByIdAsync(userId).Result;
+
+        //    if (user == null)
+        //        return RedirectToAction(nameof(List));
+
+        //    IList<string> rolesForUser = _userManager.GetRolesAsync(user).Result;
+
+        //    var assignedRoles = new List<RoleAssignViewModel>();
+
+        //    foreach (var role in GetRoles) //GetRoles BaseController'dan geliyor.
+        //    {
+        //        var roleAssignViewModel = new RoleAssignViewModel
+        //        {
+        //            Id = role.Id.ToString(),
+        //            Name = role.Name,
+        //            Exist = rolesForUser.Any(p => p.Equals(role.Name)) //Bu rol, kullanıcıya atanmış roller arasında mı?
+        //        };
+
+        //        assignedRoles.Add(roleAssignViewModel);
+        //    }
+
+        //    ViewBag.Username = user.UserName;
+        //    HttpContext.Session.SetString("userId", userId); //Post işlemi için aldım.
+
+        //    return View(assignedRoles);
+        //}
+
+        //[HttpPost]
+        //public async Task<IActionResult> Assign(List<RoleAssignViewModel> rolesAssignViewModel)
+        //{
+        //    string userId = HttpContext.Session.GetString("userId");
+        //    bool transactionStatus = true;
+
+        //    var user = await _userManager.FindByIdAsync(userId);
+
+        //    if (user == null)
+        //        return RedirectToAction(nameof(List));
+
+        //    var userRoles = await _userManager.GetRolesAsync(user); //Kullanıcının hazırdaki rolleri.
+
+        //    IEnumerable<string> rolesToAssigned = null;
+        //    IEnumerable<string> rolesToRemoved = null;
+
+        //    if (userRoles.Any())
+        //    {
+        //        rolesToAssigned = rolesAssignViewModel.Where(p => p.Exist && userRoles.Any(name => name != p.Name)).
+        //                                        Select(p => p.Name); //Eklenecek Roller
+
+        //        rolesToRemoved = rolesAssignViewModel.Where(p => !p.Exist && userRoles.Any(name => name.Equals(p.Name)))
+        //                                            .Select(p => p.Name); //Kaldırılacak Roller
+        //    }
+        //    else
+        //    {
+        //        rolesToAssigned = rolesAssignViewModel.Where(p => p.Exist).Select(p => p.Name);
+        //    }
+
+        //    if (rolesToAssigned != null && rolesToAssigned.Any())
+        //    {
+        //        await _userServices.AddRolesAsync(user.Id, rolesToAssigned.ToArray());
+        //        //IdentityResult result = await _userManager.AddToRolesAsync(user, rolesToAssigned);
+
+        //        //if (!result.Succeeded)
+        //        //{
+        //        //    AddModelErrors(result);
+        //        //    transactionStatus = false;
+        //        //}
+        //    }
+
+        //    if (rolesToRemoved != null && rolesToRemoved.Any())
+        //    {
+        //        //IdentityResult result = await _userManager.RemoveFromRolesAsync(user, rolesToRemoved);
+
+        //        //if (!result.Succeeded)
+        //        //{
+        //        //    AddModelErrors(result);
+        //        //    transactionStatus = false;
+        //        //}
+        //        foreach (var item in rolesToRemoved.ToArray())
+        //        {
+        //            await _userServices.RemoveUserFromRole(user.Id, item);
+        //        }
+
+        //    }
+
+        //    if (!transactionStatus)
+        //        return View(rolesAssignViewModel);
+
+
+        //    return RedirectToAction(nameof(Assign), new { userId = user.Id });
+        //}
+
+
+
+        public async Task<IActionResult> Assign(string UserId)
         {
-            var user = _userManager.FindByIdAsync(userId).Result;
+            var model = new AssignRolesViewModel();
 
-            if (user == null)
-                return RedirectToAction(nameof(List));
-
-            IList<string> rolesForUser = _userManager.GetRolesAsync(user).Result;
-
-            var assignedRoles = new List<RoleAssignViewModel>();
-
-            foreach (var role in GetRoles) //GetRoles BaseController'dan geliyor.
+            if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrWhiteSpace(UserId))
             {
-                var roleAssignViewModel = new RoleAssignViewModel
+                var user = await _userManager.FindByIdAsync(UserId);
+                var Rols = await _userServices.GetUserRolesAsync(new Guid(UserId));
+
+                model = new AssignRolesViewModel
                 {
-                    Id = role.Id.ToString(),
-                    Name = role.Name,
-                    Exist = rolesForUser.Any(p => p.Equals(role.Name)) //Bu rol, kullanıcıya atanmış roller arasında mı?
+                    Users = await _userManager.Users
+                    .Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.FullName })
+                    .ToListAsync(),
+                    AvailableRoles = await _roleManager.Roles
+                    .Select(r => new SelectListItem { Value = r.Id.ToString(), Text = r.Name })
+                    .ToListAsync(),
+                    SelectedUserId = user.Id,
+                    SelectedRoleIds = Rols
                 };
-
-                assignedRoles.Add(roleAssignViewModel);
-            }
-
-            ViewBag.Username = user.UserName;
-            HttpContext.Session.SetString("userId", userId); //Post işlemi için aldım.
-
-            return View(assignedRoles);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Assign(List<RoleAssignViewModel> rolesAssignViewModel)
-        {
-            string userId = HttpContext.Session.GetString("userId");
-            bool transactionStatus = true;
-
-            var user = await _userManager.FindByIdAsync(userId);
-
-            if (user == null)
-                return RedirectToAction(nameof(List));
-
-            var userRoles = await _userManager.GetRolesAsync(user); //Kullanıcının hazırdaki rolleri.
-
-            IEnumerable<string> rolesToAssigned = null;
-            IEnumerable<string> rolesToRemoved = null;
-
-            if (userRoles.Any())
-            {
-                rolesToAssigned = rolesAssignViewModel.Where(p => p.Exist && userRoles.Any(name => name != p.Name)).
-                                                Select(p => p.Name); //Eklenecek Roller
-
-                rolesToRemoved = rolesAssignViewModel.Where(p => !p.Exist && userRoles.Any(name => name.Equals(p.Name)))
-                                                    .Select(p => p.Name); //Kaldırılacak Roller
             }
             else
-            {
-                rolesToAssigned = rolesAssignViewModel.Where(p => p.Exist).Select(p => p.Name);
-            }
-
-            if (rolesToAssigned != null && rolesToAssigned.Any())
-            {
-                await _userServices.AddRolesAsync(user.Id, rolesToAssigned.ToArray());
-                //IdentityResult result = await _userManager.AddToRolesAsync(user, rolesToAssigned);
-
-                //if (!result.Succeeded)
-                //{
-                //    AddModelErrors(result);
-                //    transactionStatus = false;
-                //}
-            }
-
-            if (rolesToRemoved != null && rolesToRemoved.Any())
-            {
-                //IdentityResult result = await _userManager.RemoveFromRolesAsync(user, rolesToRemoved);
-
-                //if (!result.Succeeded)
-                //{
-                //    AddModelErrors(result);
-                //    transactionStatus = false;
-                //}
-                foreach (var item in rolesToRemoved.ToArray())
+                model = new AssignRolesViewModel
                 {
-                    await _userServices.RemoveUserFromRole(user.Id, item);
+                    Users = await _userManager.Users
+                       .Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.FullName })
+                       .ToListAsync(),
+                    AvailableRoles = await _roleManager.Roles
+                       .Select(r => new SelectListItem { Value = r.Id.ToString(), Text = r.Name })
+                       .ToListAsync()
+                };
+            return View(model);
+        }
+
+        //public async Task<IActionResult> Assign()
+        //{
+        //    var model = new AssignRolesViewModel
+        //    {
+        //        Users = await _userManager.Users
+        //            .Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.FullName })
+        //            .ToListAsync(),
+        //        AvailableRoles = await _roleManager.Roles
+        //            .Select(r => new SelectListItem { Value = r.Id.ToString(), Text = r.Name })
+        //            .ToListAsync()
+        //    };
+        //    return View(model);
+        //}
+
+        // POST: Roles/Assign
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Assign(AssignRolesViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingUserRoles = (await _userRolesRepository.GetListAsync())
+                                            .Where(ur => ur.UserId == model.SelectedUserId)
+                                            .ToList();
+
+                _userRolesRepository.DeleteRange(existingUserRoles, true);
+
+
+                // Add the newly selected roles
+                if (model.SelectedRoleIds != null && model.SelectedRoleIds.Any())
+                {
+                    foreach (var roleId in model.SelectedRoleIds)
+                    {
+                        await _userRolesRepository.InsertAsync(new ApplicationUserRoles
+                        {
+                            UserId = model.SelectedUserId,
+                            RoleId = roleId
+                        }, true);
+                    }
                 }
-                
+
+                TempData["SuccessMessage"] = "تم تعيين الصلاحيات بنجاح!"; // "Permissions assigned successfully!"
+                return RedirectToAction("UserRoles", "Roles"); // Redirect to a list view of user roles
             }
 
-            if (!transactionStatus)
-                return View(rolesAssignViewModel);
+            // If validation fails, re-populate DDLs and return to view
+            model.Users = await _userManager.Users
+                .Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.FullName })
+                .ToListAsync();
+            model.AvailableRoles = await _roleManager.Roles
+                .Select(r => new SelectListItem { Value = r.Id.ToString(), Text = r.Name })
+                .ToListAsync();
 
-
-            return RedirectToAction(nameof(Assign), new { userId = user.Id });
+            return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> UserRoles()
+        {
+            try
+            {
+                var results = await _userRolesRepository.GetListAsync();
+
+                var data = new List<UserRolesViewDto>();
+                foreach (var item in results.GroupBy(c => c.UserId))
+                {
+                    UserRolesViewDto userRolesVM = new UserRolesViewDto();
+                    userRolesVM.Id = item.FirstOrDefault().Id;
+                    userRolesVM.UserId = item.Key;
+                    //userRolesVM.RoleId = item.RoleId;
+                    var user = await _userManager.FindByIdAsync(item.Key.ToString());
+
+                    userRolesVM.RoleName = string.Join(',', await _userManager.GetRolesAsync(user));
+                    userRolesVM.UserName = user.FullName;
+
+                    data.Add(userRolesVM);
+                }
+
+
+                return View(
+                    new UserRolesVM
+                    {
+                        Results = data
+                    }
+                );
+
+                //return View(results); // Pass list to the view
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error searching requests: {ex.Message}");
+            }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteUserRoles(string UserId)
+        {
+            try
+            {
+
+                var userRoles = await _userRolesRepository.GetListAsync();
+
+                var toDeleteRoles = userRoles.Where(c => c.UserId == new Guid(UserId)).ToList();
+
+                _userRolesRepository.DeleteRange(toDeleteRoles, true);
+
+                return RedirectToAction("UserRoles", "Roles"); // Redirect to a list view of user roles
+
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error searching requests: {ex.Message}");
+            }
+        }
+
+
+
     }
 }
 
