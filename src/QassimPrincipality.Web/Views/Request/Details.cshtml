@@ -85,7 +85,7 @@
                 @if (User.IsInRole("Admin"))
                 {
                     await Html.PartialAsync("../shared/requestdetails/_AdminDecisionSection.cshtml", Model,
-                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer })
+                         new ViewDataDictionary(ViewData) { ["ParentLocalizer"] = localizer });
                 }
 
                 <!-- ======== زر “الرجوع للطلبات” في الأسفل ======== -->

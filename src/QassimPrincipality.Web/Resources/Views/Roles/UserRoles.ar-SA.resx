@@ -117,109 +117,103 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2FA" xml:space="preserve">
-    <value>Two-factor authentication</value>
+  <data name="Actions" xml:space="preserve">
+    <value>الاجراءات</value>
   </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة صلاحية لمستخدم</value>
   </data>
-  <data name="AboutEmirate" xml:space="preserve">
-    <value>About</value>
+  <data name="ApprovedStatus" xml:space="preserve">
+    <value>معتمد</value>
   </data>
-  <data name="Absher" xml:space="preserve">
-    <value>Absher</value>
+  <data name="Back" xml:space="preserve">
+    <value>عودة</value>
   </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
+  <data name="Cancelled" xml:space="preserve">
+    <value>ملغي</value>
   </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
+  <data name="ClearSearchInput" xml:space="preserve">
+    <value>محو مدخلات البحث</value>
   </data>
-  <data name="ContactSupport" xml:space="preserve">
-    <value>Contact and Support</value>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>هل أنت متأكد من حذف هذا العنصر؟</value>
   </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact Us</value>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
   </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>All rights reserved for the Qassim Region Emirate ©</value>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>تفاصيل</value>
   </data>
-  <data name="DigitalLibrary" xml:space="preserve">
-    <value>Digital Library of Dr. Faisal bin Mishaal bin Saud bin Abdulaziz</value>
+  <data name="Draft" xml:space="preserve">
+    <value>مسودة</value>
   </data>
-  <data name="ElectronicServices" xml:space="preserve">
-    <value>Electronic Services</value>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="EParticipation" xml:space="preserve">
-    <value>e-Participation</value>
-  </data>
-  <data name="EService" xml:space="preserve">
-    <value>Electronic Services</value>
-  </data>
-  <data name="ExternalLogins" xml:space="preserve">
-    <value>My external logins</value>
-  </data>
-  <data name="FollowUs" xml:space="preserve">
-    <value>Follow Us</value>
-  </data>
-  <data name="FooterCopyright" xml:space="preserve">
-    <value>©</value>
-  </data>
-  <data name="Grants" xml:space="preserve">
-    <value>Grants</value>
-  </data>
-  <data name="ImportantLinks" xml:space="preserve">
-    <value>Important Links</value>
-  </data>
-  <data name="LawLibrary" xml:space="preserve">
-    <value>Electronic Law Library</value>
-  </data>
-  <data name="ManagePersonalData" xml:space="preserve">
-    <value>My personal data</value>
-  </data>
-  <data name="ManageProfile" xml:space="preserve">
-    <value>My profile</value>
-  </data>
-  <data name="Menu" xml:space="preserve">
-    <value>Menu</value>
-  </data>
-  <data name="MinistryOfInterior" xml:space="preserve">
-    <value>Ministry of Interior</value>
-  </data>
-  <data name="MyProfile" xml:space="preserve">
-    <value>My Profile</value>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
   </data>
   <data name="MyRequests" xml:space="preserve">
-    <value>My Requests</value>
+    <value>طلباتي</value>
   </data>
-  <data name="NationalPlatform" xml:space="preserve">
-    <value>Unified National Platform</value>
+  <data name="NoRequests" xml:space="preserve">
+    <value>لا يوجد طلبات</value>
   </data>
-  <data name="Phone" xml:space="preserve">
-    <value>0163231818</value>
+  <data name="NoResults" xml:space="preserve">
+    <value>لا يوجد نتائج</value>
   </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy Policy</value>
+  <data name="NoResultsMatch" xml:space="preserve">
+    <value>لا توجد طلبات مطابقة للرقم المدخل، يرجى التحقق من الرقم والمحاولة مرة أخرى.</value>
   </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Required Field</value>
+  <data name="NotQualifiedStatus" xml:space="preserve">
+    <value>غير مختص</value>
   </data>
-  <data name="ServiceLevelAgreement" xml:space="preserve">
-    <value>Service Level Agreement</value>
+  <data name="Number" xml:space="preserve">
+    <value>رقم</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+  <data name="RejectedStatus" xml:space="preserve">
+    <value>مرفوض</value>
   </data>
-  <data name="Signout" xml:space="preserve">
-    <value>Sign Out</value>
+  <data name="RequestDate" xml:space="preserve">
+    <value>تاريخ الطلب</value>
   </data>
-  <data name="TermsAndConditions" xml:space="preserve">
-    <value>Terms and Conditions</value>
+  <data name="RequestDetails" xml:space="preserve">
+    <value>تفاصيل الطلب</value>
+  </data>
+  <data name="RequestNumber" xml:space="preserve">
+    <value>رقم الطلب</value>
+  </data>
+  <data name="RequestStatus" xml:space="preserve">
+    <value>حالة الطلب</value>
+  </data>
+  <data name="RequiresCompletionStatus" xml:space="preserve">
+    <value>يتطلب إكماله</value>
+  </data>
+  <data name="RoleName" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="SearchRequests" xml:space="preserve">
+    <value>Search Requests</value>
+  </data>
+  <data name="SearchWithRequestNumber" xml:space="preserve">
+    <value>ابحث برقم الطلب</value>
+  </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>اسم الخدمة</value>
+  </data>
+  <data name="SubmittedStatus" xml:space="preserve">
+    <value>تم تقديم الطلب</value>
+  </data>
+  <data name="UnderReview" xml:space="preserve">
+    <value>تحت المراجعة</value>
+  </data>
+  <data name="UnknownStatus" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>اسم المستخدم</value>
   </data>
   <data name="UserRoles" xml:space="preserve">
-    <value>User Roles</value>
+    <value>صلاحيات المستخدمين</value>
   </data>
 </root>

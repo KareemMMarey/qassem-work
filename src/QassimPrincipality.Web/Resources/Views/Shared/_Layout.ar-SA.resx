@@ -219,4 +219,7 @@
   <data name="TermsAndConditions" xml:space="preserve">
     <value>الشروط والأحكام</value>
   </data>
+  <data name="UserRoles" xml:space="preserve">
+    <value>صلاحيات المستخدمين</value>
+  </data>
 </root>

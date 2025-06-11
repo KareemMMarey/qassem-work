@@ -1152,6 +1152,12 @@ namespace Framework.Identity.Data.Services
             var idList = roles.Select(r => r.Id).ToList();
             return idList;
         }
+        public async Task<List<Guid>> GetUserRolesAsync(Guid UserId)
+        {
+            var roles = await _userRepository.GetRolesAsync(UserId);
+            var idList = roles.Select(r => r.Id).ToList();
+            return idList;
+        }
 
         public async Task<List<ApplicationUser>> FindByIds(List<Guid> ids)
         {
