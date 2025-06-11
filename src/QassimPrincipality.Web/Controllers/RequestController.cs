@@ -15,10 +15,6 @@ using QassimPrincipality.Application.Services.NewShema.Content;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Inquery;
 using QassimPrincipality.Web.ViewModels.Request;
-
-using Framework.Core.SharedServices.Services;
-using Framework.Identity.Data.Services;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System.Globalization;
 namespace QassimPrincipality.Web.Controllers
 {

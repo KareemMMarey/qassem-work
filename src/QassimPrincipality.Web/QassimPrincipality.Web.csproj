@@ -70,6 +70,7 @@
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5" />
 	  <PackageReference Include="NLog" Version="5.3.2" />
+	  <PackageReference Include="SixLabors.ImageSharp" Version="3.1.9" />
 	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 	  <PackageReference Include="System.DirectoryServices.AccountManagement" Version="7.0.0" />
   </ItemGroup>
@@ -80,6 +81,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\News\AddEdit.ar-SA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\News\AddEdit.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\News\Index.ar-SA.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\News\Index.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Request\Details.ar-SA.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -222,4 +222,7 @@
   <data name="UserRoles" xml:space="preserve">
     <value>User Roles</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
+  </data>
 </root>
