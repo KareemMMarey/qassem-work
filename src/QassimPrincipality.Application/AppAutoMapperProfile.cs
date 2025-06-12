@@ -75,7 +75,10 @@ namespace QassimPrincipality.Application
                 .ReverseMap();
 
             // News Mappings
-            CreateMap<News, NewsDto>().ReverseMap();
+            CreateMap<News, NewsDto>()
+                .ForMember(c=> c.PublishDateString,s=> s.MapFrom(x=> x.PublishDate.ToString("yyyy-MM-dd", new CultureInfo("en-US"))))
+
+                .ReverseMap();
             CreateMap<CreateNewsRequest, News>().ReverseMap();
 
             // Statistic Mappings

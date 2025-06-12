@@ -15,6 +15,7 @@ namespace QassimPrincipality.Domain.Entities.Lookups.NewSchema.Content
         public string ShortDescriptionEn { get; set; } = string.Empty;
 
         public string ImageUrl { get; set; } = string.Empty;
+        public string ImageThumbnailUrl { get; set; } = string.Empty;
 
         public DateTime PublishDate { get; set; }
 

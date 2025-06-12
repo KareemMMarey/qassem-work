@@ -222,4 +222,7 @@
   <data name="UserRoles" xml:space="preserve">
     <value>صلاحيات المستخدمين</value>
   </data>
+  <data name="News" xml:space="preserve">
+    <value>إدارة الاخبار</value>
+  </data>
 </root>

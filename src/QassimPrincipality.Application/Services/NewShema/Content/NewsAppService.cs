@@ -51,7 +51,9 @@ namespace QassimPrincipality.Application.Services.NewShema.Content
 
         public async Task<long> UpdateAsync(NewsDto dto)
         {
-            var entity = await _newsRepository.GetByIdAsync(dto.Id);
+            //var entity = await _newsRepository.GetByIdAsync(dto.Id);
+
+            var entity = await _newsRepository.TableNoTracking.FirstOrDefaultAsync(c=> c.Id == dto.Id);
             if (entity == null) return 0;
 
             entity = dto.MapTo<News>();

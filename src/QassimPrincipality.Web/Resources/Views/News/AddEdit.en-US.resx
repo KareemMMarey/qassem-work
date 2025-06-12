@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms</value>
+  </resheader>
+  <data name="Add News" xml:space="preserve">
+    <value>Add News</value>
+  </data>
+  <data name="Edit News" xml:space="preserve">
+    <value>Edit News</value>
+  </data>
+  <data name="Title (Arabic)" xml:space="preserve">
+    <value>Title (Arabic)</value>
+  </data>
+  <data name="Title (English)" xml:space="preserve">
+    <value>Title (English)</value>
+  </data>
+  <data name="Description (Arabic)" xml:space="preserve">
+    <value>Description (Arabic)</value>
+  </data>
+  <data name="Description (English)" xml:space="preserve">
+    <value>Description (English)</value>
+  </data>
+  <data name="News Image" xml:space="preserve">
+    <value>News Image</value>
+  </data>
+  <data name="Publish Date" xml:space="preserve">
+    <value>Publish Date</value>
+  </data>
+  <data name="Is Published" xml:space="preserve">
+    <value>Is Published</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+</root>

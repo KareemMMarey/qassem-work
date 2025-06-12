@@ -1,0 +1,87 @@
+﻿@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Web.ViewModels.News
+@model NewsVM
+@inject IViewLocalizer localizer
+@{
+
+    ViewData["Title"] = @localizer["News"];/* "" */
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+
+<div class="pc-my-requests">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="Index"> @localizer["Home"] </a>
+                </li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@localizer["News"]</li>
+            </ul>
+        </div>
+
+        <h1 class="pc-profile-title">@localizer["News"]</h1>
+    </div>
+
+    <div class="pc-my-requests-body">
+
+        <div class="d-flex justify-content-end mb-3" style="margin-right: 80% !important;">
+            <a asp-controller="News" asp-action="AddEdit" class="btn btn-primary">@localizer["Add"]</a>
+        </div>
+        <table class="pc-table my-requests-table">
+            <thead>
+                <tr>
+                    <th>@localizer["Number"]</th>
+
+                    <th>@localizer["Title"]</th>
+                    <th>@localizer["Description"]</th>
+                    <th>@localizer["Created Date"]</th>
+                    <th>@localizer["Image"]</th>
+                    <th>@localizer["Published"]</th>
+                    <th>@localizer["Actions"]</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Results.Count > 0)
+                {
+                    int rowNumber = 1;
+                    foreach (var request in Model.Results)
+                    {
+                        <tr>
+                            <td>@rowNumber</td>
+                            <td> @(currentCulture == "ar-SA" ? @request.NameAr : @request.NameEn) </td>
+                            <td> @(currentCulture == "ar-SA" ? @request.ShortDescriptionAr : @request.ShortDescriptionEn) </td>
+                            <td>@request.PublishDateString</td>
+                            <td>
+                                <img src="@request.ImageThumbnailUrl" alt="Thumbnail" style="width: 100px; height: auto;" />
+                            </td>
+                            <td>
+                                @(request.IsPublished ? localizer["Yes"] : localizer["No"])
+                            </td>
+                            <td>
+                                <a asp-controller="News" asp-action="AddEdit" asp-route-id="@request.Id" class="btn btn-sm btn-light">@localizer["Edit"]</a>
+                                <a asp-controller="News" asp-action="Delete" asp-route-id="@request.Id" class="btn btn-sm btn-danger" onclick="return confirm('@localizer["ConfirmDelete"]');">@localizer["Delete"]</a>
+                            </td>
+                        </tr>
+                        rowNumber++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4" class="text-center">    @localizer["NoNews"] </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pc-back-btn-container">
+        <button class="pc-outline-btn"> <a asp-controller="Home" asp-action="Index">@localizer["Back"]</a></button>
+    </div>
+</div>
