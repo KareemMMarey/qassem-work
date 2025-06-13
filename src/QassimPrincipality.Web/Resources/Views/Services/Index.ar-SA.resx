@@ -138,6 +138,9 @@
   <data name="NoDataMessage" xml:space="preserve">
     <value>لا توجد نتائج مطابقة للبحث، يرجى التحقق من اسم الخدمة والمحاولة مرة أخرى</value>
   </data>
+  <data name="Search about service" xml:space="preserve">
+    <value>ابحث عن خدمة</value>
+  </data>
   <data name="ServicesPageTitle" xml:space="preserve">
     <value>الخدمات الإلكترونية لإمارة منطقة القصيم</value>
   </data>

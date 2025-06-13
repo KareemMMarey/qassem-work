@@ -123,8 +123,17 @@
   <data name="Attachments" xml:space="preserve">
     <value>Attachments</value>
   </data>
+  <data name="BrowseFiles" xml:space="preserve">
+    <value>Browse files</value>
+  </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>Choose Files</value>
+  </data>
+  <data name="DragDropFiles" xml:space="preserve">
+    <value>Drag and drop files here to attach</value>
+  </data>
+  <data name="ExceedSize" xml:space="preserve">
+    <value>Some files exceed the maximum allowed size</value>
   </data>
   <data name="FileSizeExceeded" xml:space="preserve">
     <value>File {0} exceeds the maximum size of {1} MB.</value>
@@ -135,11 +144,26 @@
   <data name="NoFileChosen" xml:space="preserve">
     <value>No file chosen</value>
   </data>
+  <data name="RequiredDocuments" xml:space="preserve">
+    <value>Required Documents</value>
+  </data>
   <data name="SuccessUploadMessage" xml:space="preserve">
     <value>Files uploaded successfully!</value>
   </data>
+  <data name="TheMaximumAllowedFile" xml:space="preserve">
+    <value>The maximum allowed file size is 2 MB. Supported formats include .jpg, .png, and .pdf</value>
+  </data>
   <data name="UnsupportedExtension" xml:space="preserve">
     <value>has an unsupported extension. Allowed:</value>
+  </data>
+  <data name="UnsupportedExtensions" xml:space="preserve">
+    <value>The files contain an unsupported extension</value>
+  </data>
+  <data name="UploadedFailed" xml:space="preserve">
+    <value>Failed to upload the files. Please try again</value>
+  </data>
+  <data name="UploadedSuccessfully" xml:space="preserve">
+    <value>The file has been uploaded successfully</value>
   </data>
   <data name="UploadFailed" xml:space="preserve">
     <value>Failed to upload files. Please try again.</value>

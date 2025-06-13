@@ -1,38 +1,38 @@
 ﻿@using QassimPrincipality.Web.ViewModels.Account
+@model LoginVM
+@inject IViewLocalizer localizer
 
-@model LoginVM;
-
-@{ 
-    ViewData["Title"] = "تسجيل الدخول";
+@{
+    ViewData["Title"] = localizer["Login"];
 }
 <div class="account-login">
     <div class="row justify-content-xxl-center">
         <div class="col-xxl-8">
             <div class="page-panel">
-                <h3 class="page-title margin-bottom-lg">تسجيل مسؤلي الإمارة</h3>
+                <h3 class="page-title margin-bottom-lg">@localizer["EmarahAdminLogin"]</h3>
                 @if (TempData["Error"] != null)
                 {
                     <div class="alert alert-danger">
-                        <span><b>ناسف !</b> - @TempData["Error"] </span>
+                        <span><b>@localizer["Sorry"]</b> - @TempData["Error"] </span>
                     </div>
                 }
                 <form asp-action="Login" class="form">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group">
-                        <label asp-for="EmailAddress" class="form-label"> البريد الإلكتروني</label>
+                        <label asp-for="EmailAddress" class="form-label">@localizer["Email"]</label>
                         <input asp-for="EmailAddress" class="form-control" />
                         <span asp-validation-for="EmailAddress" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password" class="form-label"> كلمة المرور</label>
+                        <label asp-for="Password" class="form-label">@localizer["Password"]</label>
                         <input asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                     </div>
 
                     <div class="form-group mt-3">
-                        <input class="btn btn-primary" type="submit" value="تسجيل الدخول" />
-                        <a class="btn btn-outline-primary" asp-controller="Movies" asp-action="Index">الغاء</a>
+                        <input class="btn btn-primary" type="submit" value="@localizer["Login"]" />
+                        <a class="btn btn-outline-primary" asp-controller="Movies" asp-action="Index">@localizer["Cancel"]</a>
                     </div>
                 </form>
             </div>

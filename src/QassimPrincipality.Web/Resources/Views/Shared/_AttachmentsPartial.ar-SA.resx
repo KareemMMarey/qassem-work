@@ -123,8 +123,17 @@
   <data name="Attachments" xml:space="preserve">
     <value>المرفقات</value>
   </data>
+  <data name="BrowseFiles" xml:space="preserve">
+    <value>تصفح الملفات</value>
+  </data>
   <data name="ChooseFiles" xml:space="preserve">
     <value>اختر الملفات</value>
+  </data>
+  <data name="DragDropFiles" xml:space="preserve">
+    <value>اسحب وأفلت الملفات هنا للإرفاق</value>
+  </data>
+  <data name="ExceedSize" xml:space="preserve">
+    <value>بعض الملفات يتجاوز الحجم الأقصى</value>
   </data>
   <data name="FileSizeExceeded" xml:space="preserve">
     <value>الملف {0} يتجاوز الحجم الأقصى {1} ميغابايت.</value>
@@ -135,11 +144,26 @@
   <data name="NoFileChosen" xml:space="preserve">
     <value>لم يتم اختيار ملف</value>
   </data>
+  <data name="RequiredDocuments" xml:space="preserve">
+    <value>المستندات المطلوبة</value>
+  </data>
   <data name="SuccessUploadMessage" xml:space="preserve">
     <value>تم رفع الملف بنجاح</value>
   </data>
+  <data name="TheMaximumAllowedFile" xml:space="preserve">
+    <value>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</value>
+  </data>
   <data name="UnsupportedExtension" xml:space="preserve">
     <value>الملف {0} يحتوي على امتداد غير مدعوم. المسموح به: {1}.</value>
+  </data>
+  <data name="UnsupportedExtensions" xml:space="preserve">
+    <value>الملفات تحتوي على امتداد غير مدعوم</value>
+  </data>
+  <data name="UploadedFailed" xml:space="preserve">
+    <value>فشل في تحميل الملفات. يرجى المحاولة مرة أخرى</value>
+  </data>
+  <data name="UploadedSuccessfully" xml:space="preserve">
+    <value>تم رفع الملف بنجاح</value>
   </data>
   <data name="UploadFailed" xml:space="preserve">
     <value>فشل في تحميل الملفات. يرجى المحاولة مرة أخرى.</value>
