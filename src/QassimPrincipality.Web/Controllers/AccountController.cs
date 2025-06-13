@@ -776,6 +776,13 @@ namespace QassimPrincipality.Web.Controllers
 
         public static DateTime ConvertHijriToGregorian(string hijriDate)
         {
+            DateTime dateConverted;
+
+            //Check if th date not hijriDate
+            if (DateTime.TryParse(hijriDate, out dateConverted))
+            {
+                return dateConverted;
+            }
             // Step 1: Clean unwanted Arabic text and invisible RTL characters
             hijriDate = Regex.Replace(hijriDate, @"[\u200F\u202E\u202A-\u202C]", "");
             hijriDate = hijriDate.Replace("بعد الهجرة", "").Trim();
@@ -801,7 +808,7 @@ namespace QassimPrincipality.Web.Controllers
             //PersianCalendar pc = new PersianCalendar();
             // DateTime gregorianDate = hijriCalendar.ToDateTime(persianYear, month, day, 0, 0, 0, 0);
             string date = day.ToString() + "/" + month.ToString() + "/" + persianYear.ToString();
-            var dateConverted = DateTime.ParseExact(date, "d/M/yyyy", culture);
+             dateConverted = DateTime.ParseExact(date, "d/M/yyyy", culture);
             return dateConverted;
         }
 
