@@ -153,7 +153,6 @@
   <data name="emailRequiredMessage" xml:space="preserve">
     <value>يرجى تعبئة البريد الإلكتروني</value>
   </data>
-  
   <data name="RequiredInputMessage" xml:space="preserve">
     <value>يرجى تعبئة الحقل</value>
   </data>
@@ -279,5 +278,20 @@
   </data>
   <data name="ErrorMessageEmail" xml:space="preserve">
     <value>بريد الكترونى غير صالح</value>
+  </data>
+  <data name="Fileformat" xml:space="preserve">
+    <value>صيغة الملف</value>
+  </data>
+  <data name="Filename" xml:space="preserve">
+    <value>اسم الملف</value>
+  </data>
+  <data name="Filesize" xml:space="preserve">
+    <value>حجم الملف</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="Viewfile" xml:space="preserve">
+    <value>معاينة الملف</value>
   </data>
 </root>

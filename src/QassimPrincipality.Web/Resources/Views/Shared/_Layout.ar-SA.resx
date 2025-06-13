@@ -225,4 +225,7 @@
   <data name="News" xml:space="preserve">
     <value>إدارة الاخبار</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
 </root>

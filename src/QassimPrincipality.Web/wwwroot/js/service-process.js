@@ -541,10 +541,10 @@ $(document).ready(function () {
             attachmentContainer.append(`
             <thead>
                     <tr>
-                        <th>اسم الملف</th>
-                        <th>صيغة الملف</th>
-                        <th>حجم الملف</th>
-                        <th>معاينة الملف</th>
+                        <th>${attachHeaders.fileName}</th>
+                        <th>${attachHeaders.fileFormat}</th>
+                        <th>${attachHeaders.fileSize}</th>
+                        <th>${attachHeaders.viewFile}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -557,7 +557,7 @@ $(document).ready(function () {
                 <td>${att.extension}</td>
                 <td>${att.size} KB</td>
                 <td>
-                <button class="pc-outline-btn" href="${att.url}" target=_blank>معاينة</button>
+                <button class="pc-outline-btn" href="~${att.url}" target=_blank>${attachHeaders.view}</button>
                 </td>
                     </tr>
             `);

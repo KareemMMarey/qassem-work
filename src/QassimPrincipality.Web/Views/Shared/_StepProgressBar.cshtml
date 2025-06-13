@@ -11,7 +11,7 @@
     @foreach (var step in Model)
     {
         var stepNumber = step.StepNumber;
-        var stepName = culture == "ar" ? step.StepNameAr : step.StepNameAr;
+        var stepName = culture == "ar" ? step.StepNameAr : step.StepNameEn;
         var stepDescription = culture == "ar" ? step.DescriptionAr : step.DescriptionEn;
         var isActive = index == 0 ? "active" : "";
 

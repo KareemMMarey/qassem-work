@@ -18,7 +18,7 @@
     }
 </style>
 <h4>@localizer["Attachments"] </h4>
-<p class="pc-docs-requirements-heading">- المستندات المطلوبة:</p>
+<p class="pc-docs-requirements-heading">- @localizer["RequiredDocuments"]:</p>
 
 
 @if (Model != null && Model.Count > 0)
@@ -54,10 +54,11 @@ else
     </svg>
 
     <div>
-        <h4>اسحب وأفلت الملفات هنا للإرفاق</h4>
-        <p>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</p>
+        <h4>@localizer["DragDropFiles"]</h4>
+        <p>@localizer["TheMaximumAllowedFile"]</p>
     </div>
-    <button class="pc-secondary-btn">تصفح الملفات</button>
+    <button class="pc-secondary-btn">
+        @localizer["BrowseFiles"]</button>
     <input type="file" hidden class="form-control attachment-input" />
 </div>
 
@@ -69,10 +70,10 @@ else
 <script>
     if (typeof attachmentmessages === "undefined") {
         var attachmentmessages = {
-            fileSizeExceeded: 'الملف {0} يتجاوز الحجم الأقصى {1} ميغابايت.',
-            unsupportedExtension: 'الملف {0} يحتوي على امتداد غير مدعوم. المسموح به: {1}.',
-            uploadFailed: 'فشل في تحميل الملفات. يرجى المحاولة مرة أخرى.',
-            successUploadMessage: 'تم رفع الملف بنجاح'
+            fileSizeExceeded: '@localizer["ExceedSize"]',
+            unsupportedExtension: '@localizer["UnsupportedExtension"]',
+            uploadFailed: '@localizer["UploadedFailed"].',
+            successUploadMessage: '@localizer["UploadedSuccessfully"]'
         };
     }
 
