@@ -759,6 +759,9 @@ namespace QassimPrincipality.Web.Controllers
                         TempData["accessToken"] = JsonConvert.SerializeObject(
                             result["accessToken"]
                         );
+                        TempData["dateOfBirthGregorian"] = person["dateOfBirthGregorian"].ToString();
+                        TempData["nationality"] = person["nationality"].ToString();
+                        TempData["nationalId"] = person["nationalId"].ToString();
                         break;
                     }
                 }
