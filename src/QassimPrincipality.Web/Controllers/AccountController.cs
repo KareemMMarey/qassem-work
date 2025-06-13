@@ -588,7 +588,7 @@ namespace QassimPrincipality.Web.Controllers
                             {
                                 DOBDate = ConvertHijriToGregorian(dOB);
                             }
-                            string phone = "05xxxxxxxx";
+                            string phone = "0500020015";
                             user = new ApplicationUser(username, userFullName)
                             {
                                 Email = $"{username}@Nafath",
