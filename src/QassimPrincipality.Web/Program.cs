@@ -91,8 +91,8 @@ namespace QassimPrincipality.Web
 
                     options.LoginPath = "/Account/Login";
                     options.AccessDeniedPath = "/Account/AccessDenied";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                    //options.SlidingExpiration = true;
 
                     // ✅ توجيه مخصص بناءً على نوع المستخدم والمسار
                     options.Events.OnRedirectToLogin = context =>

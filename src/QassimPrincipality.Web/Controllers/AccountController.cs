@@ -5,6 +5,7 @@ using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,11 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Account;
+using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using ZXing;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -201,24 +207,24 @@ namespace QassimPrincipality.Web.Controllers
             if (!ModelState.IsValid)
                 return View(loginVM);
 
-            await _logservice.InsertAsync(
-                new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception = "After validate model",
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                }
-            );
+            //await _logservice.InsertAsync(
+            //    new Framework.Core.SharedServices.Dto.LogDto
+            //    {
+            //        CallSite = "",
+            //        Date = DateTime.Now,
+            //        Exception = "After validate model",
+            //        Host = "myhost",
+            //        Logger = "my logger",
+            //        LogLevel = "Info",
+            //        MachineName = "manual",
+            //        Message = "my message",
+            //        Thread = "No thread",
+            //        Url = "api",
+            //        UserAgent = "agent",
+            //        UserName = "my name",
+            //        Id = Guid.NewGuid(),
+            //    }
+            //);
             return await ProcessNafathUser(loginVM);
             //var user = await _userManager.FindByEmailAsync(loginVM.EmailAddress);
             //if (user != null)
@@ -305,22 +311,28 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<IActionResult> ProcessNafathUser(NafathLoginVM model)
         {
-            //await _logservice.InsertAsync(new Framework.Core.SharedServices.Dto.LogDto
-            //{
-            //    CallSite = "",
-            //    Date = DateTime.Now,
-            //    Exception = "Inside Call",
-            //    Host = "myhost",
-            //    Logger = "my logger",
-            //    LogLevel = "Info",
-            //    MachineName = "manual",
-            //    Message = "my message",
-            //    Thread = "No thread",
-            //    Url = "api",
-            //    UserAgent = "agent",
-            //    UserName = "my name",
-            //    Id = Guid.NewGuid(),
-            //});
+            // Simulate nafath login
+
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"{model.IdentityNumber}.txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+            Random simulate_random = new Random();
+            int fourDigitNumber = simulate_random.Next(1000, 10000);
+            await System.IO.File.WriteAllTextAsync(filePath, fourDigitNumber.ToString());
+
+            ViewBag.Message = string.Format(
+                       "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ <h1>{0}</h1>",
+                       fourDigitNumber.ToString()
+                   );
+            var simulate_transId= Guid.NewGuid();
+            ViewBag.UserName = model.IdentityNumber;
+            ViewBag.TransId = simulate_transId.ToString();
+            filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"simulateid.txt");
+            Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+            await System.IO.File.WriteAllTextAsync(filePath, simulate_transId.ToString());
+            ViewBag.Random = fourDigitNumber.ToString();
+            return View();
+
+            // End of simulation
             List<ApiHeaders> headers = new List<ApiHeaders>
             {
                 new ApiHeaders
@@ -332,57 +344,39 @@ namespace QassimPrincipality.Web.Controllers
             };
 
             _nafathConfiguartion.Value.NafathBody.Parameters.id = long.Parse(model.IdentityNumber);
-            await _logservice.InsertAsync(
-                new Framework.Core.SharedServices.Dto.LogDto
-                {
-                    CallSite = "",
-                    Date = DateTime.Now,
-                    Exception =
-                        "Nafath Body data "
-                        + JsonConvert.SerializeObject(
-                            _nafathConfiguartion.Value.NafathBody,
-                            Formatting.Indented
-                        ),
-                    Host = "myhost",
-                    Logger = "my logger",
-                    LogLevel = "Info",
-                    MachineName = "manual",
-                    Message = "my message",
-                    Thread = "No thread",
-                    Url = "api",
-                    UserAgent = "agent",
-                    UserName = "my name",
-                    Id = Guid.NewGuid(),
-                }
-            );
+
+            //await _logservice.InsertAsync(
+            //    new Framework.Core.SharedServices.Dto.LogDto
+            //    {
+            //        CallSite = "",
+            //        Date = DateTime.Now,
+            //        Exception =
+            //            "Nafath Body data "
+            //            + JsonConvert.SerializeObject(
+            //                _nafathConfiguartion.Value.NafathBody,
+            //                Formatting.Indented
+            //            ),
+            //        Host = "myhost",
+            //        Logger = "my logger",
+            //        LogLevel = "Info",
+            //        MachineName = "manual",
+            //        Message = "my message",
+            //        Thread = "No thread",
+            //        Url = "api",
+            //        UserAgent = "agent",
+            //        UserName = "my name",
+            //        Id = Guid.NewGuid(),
+            //    }
+            //);
             try
             {
+                
                 await _logservice.InsertAsync(
                     new Framework.Core.SharedServices.Dto.LogDto
                     {
                         CallSite = "",
                         Date = DateTime.Now,
-                        Exception =
-                            "Header data "
-                            + JsonConvert.SerializeObject(headers, Formatting.Indented),
-                        Host = "myhost",
-                        Logger = "my logger",
-                        LogLevel = "Info",
-                        MachineName = "manual",
-                        Message = "my message",
-                        Thread = "No thread",
-                        Url = "api",
-                        UserAgent = "agent",
-                        UserName = "my name",
-                        Id = Guid.NewGuid(),
-                    }
-                );
-                await _logservice.InsertAsync(
-                    new Framework.Core.SharedServices.Dto.LogDto
-                    {
-                        CallSite = "",
-                        Date = DateTime.Now,
-                        Exception = "url data " + _nafathConfiguartion.Value.ApiUrl,
+                        Exception = "Header data and url data " + JsonConvert.SerializeObject(headers, Formatting.Indented)+ " "+ _nafathConfiguartion.Value.ApiUrl,
                         Host = "myhost",
                         Logger = "my logger",
                         LogLevel = "Info",
@@ -468,8 +462,13 @@ namespace QassimPrincipality.Web.Controllers
             string transId
         )
         {
+            // Simulate Nafath
+             return await SimulateNafath(username, rememberLogin, random, transId);
+            // End Nafath Simulate
+
             if (!string.IsNullOrEmpty(transId))
             {
+
                 try
                 {
                     var user = await _userManager.FindByNameAsync($"{username}@Nafath");
@@ -495,7 +494,7 @@ namespace QassimPrincipality.Web.Controllers
                             DateTime? DOBDate = null;
                             if (!string.IsNullOrEmpty(dOB) && !string.IsNullOrWhiteSpace(dOB))
                             {
-                                DOBDate = Convert.ToDateTime(dOB);
+                                DOBDate = ConvertHijriToGregorian(dOB);
                             }
                             string phone = "05xxxxxxxx";
                             user = new ApplicationUser(username, userFullName)
@@ -557,6 +556,101 @@ namespace QassimPrincipality.Web.Controllers
             }
         }
 
+        private async Task<IActionResult> SimulateNafath(
+            string username,
+            bool rememberLogin,
+            string random,
+            string transId) {
+
+            if (!string.IsNullOrEmpty(transId))
+            {
+
+                try
+                {
+                    var user = await _userManager.FindByNameAsync($"{username}@Nafath");
+
+                    if (TempData["arTwoNames"] != null)
+                    {
+                        var accesstoken = TempData["accessToken"].ToString();
+
+                        ViewBag.accesstoken = accesstoken;
+                        string userFullName = "";
+                        if (user is null)
+                        {
+                            userFullName = TempData["arTwoNames"].ToString();
+
+                            var dOB = TempData["dateOfBirthGregorian"].ToString();
+                            var nationality = TempData["nationality"].ToString();
+                            var IdentityNumber = TempData["nationalId"].ToString();
+
+                            DateTime? DOBDate = null;
+                            if (!string.IsNullOrEmpty(dOB) && !string.IsNullOrWhiteSpace(dOB))
+                            {
+                                DOBDate = ConvertHijriToGregorian(dOB);
+                            }
+                            string phone = "05xxxxxxxx";
+                            user = new ApplicationUser(username, userFullName)
+                            {
+                                Email = $"{username}@Nafath",
+                                UserName = $"{username}@Nafath",
+                                FullName = userFullName,
+                                PhoneNumber = phone,
+                                CreatedBy = "Admin",
+                                CreatedOn = DateTime.Now,
+                                EmailConfirmed = true,
+                                DateOfBirth = DOBDate,
+                                Nationality = nationality,
+                                IdentityNumber = IdentityNumber
+                            };
+                            await _userManager.CreateAsync(user, "P@ssw0rd");
+                            await _userServices.AddRoleAsync(user.Id, UserRoles.User);
+                        }
+                        await _signInManager.SignInAsync(user, rememberLogin);
+
+                        return RedirectToAction(
+                            "Index",
+                            "Home",
+                            new { nafathFullName = userFullName }
+                        );
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                catch (Exception exc)
+                {
+                    ModelState.AddModelError("خطأ", "حدث خطأ");
+                    return RedirectToAction("Index", "Account");
+                }
+            }
+            else
+            {
+                var user = await _userManager.FindByNameAsync($"{username}@Nafath");
+                if (user is null)
+                {
+                    string phone = "05xxxxxxxx";
+
+                    user = new ApplicationUser(username, username)
+                    {
+                        Email = $"{username}@Nafath",
+                        UserName = $"{username}@Nafath",
+                        PhoneNumber = phone,
+                        CreatedBy = "Admin",
+                        CreatedOn = DateTime.Now,
+                        EmailConfirmed = true
+                    };
+                    await _userManager.CreateAsync(user, "P@ssw0rd");
+                    await _userServices.AddRoleAsync(user.Id, UserRoles.User);
+                }
+
+                await _signInManager.SignInAsync(user, false);
+
+                return RedirectToAction("Index", "Home");
+            }
+
+        }
+
         [HttpGet]
         public async Task<IActionResult> Members()
         {
@@ -573,6 +667,45 @@ namespace QassimPrincipality.Web.Controllers
             string transId
         )
         {
+            // Simulate Check nafath
+
+            for (int i = 0; i <= 2; i++)
+            {
+                Thread.Sleep(1000);
+            }
+            var person_simulate = new
+            {
+                id = Guid.NewGuid(),
+                nationalId = userName,
+                firstNameAr = "كريم",
+                secondNameAr = "محمد",
+                thirdNameAr = "حسن",
+                lastNameAr = "المرى",
+                fullNameAr = "كريم محمد حسن المرى",
+                firstNameEn = "Kareem",
+                secondNameEn = "Mohamed",
+                thirdNameEn = "Hassan",
+                lastNameEn = "El Marey",
+                fullNameEn = "Kareem Mohamed Hassan El Marey",
+                dateOfBirthHijri = "1405-01-01",
+                dateOfBirthGregorian = "1985-10-15",
+                gender = "Male",
+                mobileNumber = "966500000000",
+                issuePlace = "Riyadh",
+                nationality = "Saudi",
+                identityType = "NationalID",
+                identityExpiryDate = "1447-01-01",
+                arTwoNames = "كريم محمد"
+            };
+            TempData["arTwoNames"] = person_simulate.arTwoNames;
+            TempData["accessToken"] = "mocked-token-123";
+            TempData["dateOfBirthGregorian"] = person_simulate.dateOfBirthGregorian;
+            TempData["nationality"] = person_simulate.nationality;
+            TempData["nationalId"] = person_simulate.nationalId;
+
+            return Ok(new { status= NafathStatus.COMPLETED.ToString() });
+
+            // End Simulate Check nafath
             try
             {
                 List<ApiHeaders> headers = new List<ApiHeaders>
@@ -636,6 +769,47 @@ namespace QassimPrincipality.Web.Controllers
             {
                 return Ok(new { status = "Exception" });
             }
+        }
+
+        public static DateTime ConvertHijriToGregorian(string hijriDate)
+        {
+            // Step 1: Clean unwanted Arabic text and invisible RTL characters
+            hijriDate = Regex.Replace(hijriDate, @"[\u200F\u202E\u202A-\u202C]", "");
+            hijriDate = hijriDate.Replace("بعد الهجرة", "").Trim();
+
+            // Step 2: Convert Arabic digits to Western
+            hijriDate = ConvertArabicToWesternDigits(hijriDate);
+
+            // Step 3: Replace Arabic AM/PM
+            hijriDate = hijriDate.Replace("ص", "AM").Replace("م", "PM");
+
+            // Step 4: Parse using HijriCalendar
+            var hijriCalendar = new HijriCalendar();
+            var culture = new CultureInfo("ar-SA");
+            culture.DateTimeFormat.Calendar = hijriCalendar;
+
+            // Extract date parts
+            var parts = hijriDate.Split(new char[] { '/', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            int month = int.Parse(parts[0]);
+            int day = int.Parse(parts[1]);
+            int persianYear = int.Parse(parts[2]);
+
+            // Convert Persian to Gregorian
+            //PersianCalendar pc = new PersianCalendar();
+            // DateTime gregorianDate = hijriCalendar.ToDateTime(persianYear, month, day, 0, 0, 0, 0);
+            string date = day.ToString() + "/" + month.ToString() + "/" + persianYear.ToString();
+            var dateConverted = DateTime.ParseExact(date, "d/M/yyyy", culture);
+            return dateConverted;
+        }
+
+        private static string ConvertArabicToWesternDigits(string input)
+        {
+            string[] arabicDigits = { "٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩" };
+            for (int i = 0; i < arabicDigits.Length; i++)
+            {
+                input = input.Replace(arabicDigits[i], i.ToString());
+            }
+            return input;
         }
     }
 }

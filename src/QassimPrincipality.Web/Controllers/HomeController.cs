@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using QassimPrincipality.Application.Services.NewShema.Content;
+using Microsoft.AspNetCore.Authentication;
 namespace QassimPrincipality.Web.Controllers
 {
     public class HomeController : Controller
@@ -41,6 +42,8 @@ namespace QassimPrincipality.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
+            
+
             var services = await _eService.GetSimpleEServiceList();
             ViewData["services"] = services;
 			var newsList = await _news.GetNewsForHomeAsync();

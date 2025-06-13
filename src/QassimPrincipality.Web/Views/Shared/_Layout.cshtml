@@ -445,6 +445,7 @@
  @inject UserManager<ApplicationUser> _userManager
  @inject IViewLocalizer localizer
  @using System.Globalization
+ @using Microsoft.AspNetCore.Authentication;
 
  @{
     // Determine the page direction based on the current culture
@@ -515,6 +516,8 @@
                     }
                     else
                     {
+                        
+
                         var user = await _userManager.FindByNameAsync(User.Identity.Name);
                         @* logged in *@
                         <div class="pc-nav-dropdown-container">
