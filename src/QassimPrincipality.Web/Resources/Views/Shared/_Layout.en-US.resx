@@ -225,4 +225,10 @@
   <data name="News" xml:space="preserve">
     <value>News</value>
   </data>
+  <data name="AllRequests" xml:space="preserve">
+    <value>All requests</value>
+  </data>
+  <data name="LookupOptions" xml:space="preserve">
+    <value>Lookup options</value>
+  </data>
 </root>

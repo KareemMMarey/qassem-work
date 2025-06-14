@@ -1,11 +1,13 @@
 ﻿namespace QassimPrincipality.Web.Controllers
 {
     using Framework.Core.AutoMapper;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using QassimPrincipality.Application.Dtos;
     using QassimPrincipality.Application.Services.NewShema;
     using System.Threading.Tasks;
 
+    [Authorize(Roles = "Admin")]
     public class LookupOptionController : Controller
     {
         private readonly LookupAppService _lookupOptionService;

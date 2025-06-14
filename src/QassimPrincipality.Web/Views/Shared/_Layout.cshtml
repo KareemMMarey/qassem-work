@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
 
     <title>@ViewData["Title"] </title>
     <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/fav/apple-icon-57x57.png">
@@ -36,7 +36,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
-    
+
     <div class="top-bar">
         <div class="container top-bar__container">
             <div class="top-bar__date">
@@ -47,7 +47,7 @@
                         CultureInfo CurrentCulture = CultureInfo.GetCultureInfo("ar-SA");
                         string text = DateTime.Now.ToString("dddd dd MMMM yyyy", CurrentCulture) + " هـ ";
                     }
-                </svg> @text 
+                </svg> @text
             </div>
             <div class="top-bar__lang"> </div>
         </div>
@@ -81,7 +81,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div><span hidden class="nav-bar__menu">عن الإمارة</span>
@@ -105,7 +105,7 @@
                                                 </div>
                                                 <div class="mega-menu__description">
                                                     البيانات المفتوحة
-                                                    
+
                                                 </div>
                                             </div>
                                             <svg class="mega-menu__arrow" width="24" height="24">
@@ -113,8 +113,8 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    
-                                  
+
+
                                 </div>
                             </div>
                         </div><span class="nav-bar__menu">البيانات المفتوحة</span>
@@ -163,7 +163,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div><span hidden class="nav-bar__menu">المشاركة المجتمعية</span>
@@ -274,7 +274,7 @@
         </main>
     </div>
 
-   
+
 
     <footer class="footer">
         <div class="container">
@@ -282,7 +282,7 @@
                 <div class="col-xl-4 footer__col">
                     <h4 class="footer__title">تصفح</h4>
                     <ul class="footer__list">
-                        
+
                         <li class="footer__li">
                             <a class="footer__link" target="_blank" href="~/assets/Privacy.pdf">
                                 سياسة الخصوصية
@@ -320,7 +320,7 @@
                                 </svg>
                             </a>
                         </li>
-                       
+
                         <li class="footer__li">
                             <a class="footer__link" href="~/Home/About">
                                 اكتشف القصيم
@@ -329,7 +329,7 @@
                                 </svg>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </div>
                 <div class="col-xl-4 footer__col">
@@ -447,7 +447,7 @@
  @using System.Globalization
  @using Microsoft.AspNetCore.Authentication;
 
- @{
+@{
     // Determine the page direction based on the current culture
     var direction = CultureInfo.CurrentUICulture.Name.StartsWith("ar") ? "rtl" : "ltr";
 }
@@ -510,13 +510,13 @@
                         @* <a class="btn btn-outline-primary" href="~/Account/NafathLogin">تسجيل الدخول</a> *@
                         @* loggedout *@
                         <div class="pc-nav-tab">
-                    <img src="~/icons/login.svg" alt="login" width="24" height="24">
+                            <img src="~/icons/login.svg" alt="login" width="24" height="24">
                             <a class="pc-nav-link" asp-controller="Account" asp-action="NafathLogin">@localizer["Login"]</a>
-                    </div>
+                        </div>
                     }
                     else
                     {
-                        
+
 
                         var user = await _userManager.FindByNameAsync(User.Identity.Name);
                         @* logged in *@
@@ -525,7 +525,7 @@
                                 <img src="~/icons/user.svg" alt="login" width="24" height="24">
                                 @if (!string.IsNullOrEmpty(user.FullName))
                                 {
-                                    
+
                                     <p class="pc-nav-link">@user.FullName</p>
                                 }
 
@@ -534,7 +534,7 @@
 
                                     <p class="pc-nav-link">@user.UserName</p>
                                 }
-                                
+
                                 <div class="pc-arrow-toggle">
                                     <img src="~/icons/arrowDown.svg" alt="down arrow" class="pc-down-arrow" width="14" height="8">
                                     <img src="~/icons/arrowUp.svg" alt="up arrow" class="pc-up-arrow" width="16" height="16">
@@ -551,22 +551,27 @@
                                     <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
                                     <a asp-controller="Request" asp-action="MyRequests" class="pc-nav-link"> @localizer["MyRequests"]</a>
                                     @* <a href="#" class="pc-nav-link" id="search-my-requests"
-                                       data-user-id="@user.Id"
-                                       data-service-id="0"
-                                       data-status="0"
-                                       data-start-date=""
-                                       data-end-date="">@localizer["MyRequests"]</a> *@
+                                data-user-id="@user.Id"
+                                data-service-id="0"
+                                data-status="0"
+                                data-start-date=""
+                                data-end-date="">@localizer["MyRequests"]</a> *@
                                 </div>
 
                                 @if (User.IsInRole("Admin"))
                                 {
-                                <div class="pc-nav-header-menu-item">
-                                    <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
-                                    <a asp-controller="Roles" asp-action="UserRoles" class="pc-nav-link"> @localizer["UserRoles"]</a>
-                                </div>
-
-
-
+                                    <div class="pc-nav-header-menu-item">
+                                        <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
+                                        <a asp-controller="Roles" asp-action="UserRoles" class="pc-nav-link"> @localizer["UserRoles"]</a>
+                                    </div>
+                                    <div class="pc-nav-header-menu-item">
+                                        <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
+                                        <a asp-controller="Request" asp-action="AllRequests" class="pc-nav-link"> @localizer["AllRequests"]</a>
+                                    </div>
+                                    <div class="pc-nav-header-menu-item">
+                                        <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
+                                        <a asp-controller="LookupOption" asp-action="Index" class="pc-nav-link"> @localizer["LookupOptions"]</a>
+                                    </div>
                                     <div class="pc-nav-header-menu-item">
                                         <img src="~/icons/papers.svg" alt="my requests" width="24" height="24">
                                         <a asp-controller="News" asp-action="Index" class="pc-nav-link"> @localizer["News"]</a>
@@ -584,10 +589,10 @@
                     <div class="dropdown">
                         <partial name="_Culture" />
 
-                           
+
                     </div>
 
-                    
+
                 </div>
             </div>
         </nav>
@@ -671,48 +676,48 @@
         </div>
 
         @* <div class="pc-nav-drawer" id="nav-menu">
-            <div class="pc-nav-header-menu-item">
-                <a asp-controller="Home" asp-action="About" class="pc-nav-link">عن الإمارة</a>
-            </div>
+        <div class="pc-nav-header-menu-item">
+        <a asp-controller="Home" asp-action="About" class="pc-nav-link">عن الإمارة</a>
+        </div>
 
-            <svg width="100%" height="1">
-                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
-            </svg>
+        <svg width="100%" height="1">
+        <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+        </svg>
 
-            <div class="pc-nav-header-menu-item">
-                <a asp-controller="Services" asp-action="Index" class="pc-nav-link">الخدمات الإلكترونية</a>
-            </div>
+        <div class="pc-nav-header-menu-item">
+        <a asp-controller="Services" asp-action="Index" class="pc-nav-link">الخدمات الإلكترونية</a>
+        </div>
 
-            <svg width="100%" height="1">
-                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
-            </svg>
+        <svg width="100%" height="1">
+        <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+        </svg>
 
-            <div class="pc-nav-header-menu-item">
-                <a asp-controller="EParticipation" asp-action="Index" class="pc-nav-link">المشاركة الإلكترونية</a>
-            </div>
+        <div class="pc-nav-header-menu-item">
+        <a asp-controller="EParticipation" asp-action="Index" class="pc-nav-link">المشاركة الإلكترونية</a>
+        </div>
 
-            <svg width="100%" height="1">
-                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
-            </svg>
+        <svg width="100%" height="1">
+        <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+        </svg>
 
-            <div class="pc-nav-header-menu-item">
-                <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">ملفي الشخصي</a>
-            </div>
+        <div class="pc-nav-header-menu-item">
+        <a asp-controller="User" asp-action="MyProfile" class="pc-nav-link">ملفي الشخصي</a>
+        </div>
 
-            <svg width="100%" height="1">
-                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
-            </svg>
+        <svg width="100%" height="1">
+        <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+        </svg>
 
 
-            <div class="pc-nav-header-menu-item">
-                <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">طلباتي</a>
-            </div>
+        <div class="pc-nav-header-menu-item">
+        <a asp-controller="User" asp-action="MyRequests" class="pc-nav-link">طلباتي</a>
+        </div>
 
-            <svg width="100%" height="1">
-                <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
-            </svg>
+        <svg width="100%" height="1">
+        <line x1="0" y1="0" x2="100%" y2="0" stroke="#D2D6DB" stroke-width="2" />
+        </svg>
 
-           
+
         </div> *@
     </header>
     <div>
@@ -791,7 +796,7 @@
             <div class="pc-footer-logos">
                 <div class="pc-platform-license">
                     <a href="https://raqmi.dga.gov.sa/platforms/platforms/1cf664f0-d7c3-40d6-d293-08dcd6126718/platform-license">
-                         @* <img src="https://raqmi.dga.gov.sa/PlatformsApi/api/Attachments/9b964200-6505-4ad3-b71e-b1ee0159fed6" width="210" height="70" alt="license">  *@
+                        @* <img src="https://raqmi.dga.gov.sa/PlatformsApi/api/Attachments/9b964200-6505-4ad3-b71e-b1ee0159fed6" width="210" height="70" alt="license">  *@
                         <img src="./images/government.svg" width="210" height="70" alt="license">
                     </a>
                 </div>
@@ -805,14 +810,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/popup-script.js" asp-append-version="true"></script>
-     <script>
+    <script>
         const validationMessages = {
             requiredFieldMessage: '@localizer["RequiredFieldMessage"]',
-            
+
         };
-     </script> 
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
-    
+
 </body>
 </html>
 
