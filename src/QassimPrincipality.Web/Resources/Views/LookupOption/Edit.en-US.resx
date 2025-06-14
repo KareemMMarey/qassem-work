@@ -117,118 +117,57 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2FA" xml:space="preserve">
-    <value>Two-factor authentication</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="AboutEmirate" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="Absher" xml:space="preserve">
-    <value>Absher</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
-  </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
-  </data>
-  <data name="ContactSupport" xml:space="preserve">
-    <value>Contact and Support</value>
-  </data>
-  <data name="ContactUs" xml:space="preserve">
-    <value>Contact Us</value>
-  </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>All rights reserved for the Qassim Region Emirate ©</value>
-  </data>
-  <data name="DigitalLibrary" xml:space="preserve">
-    <value>Digital Library of Dr. Faisal bin Mishaal bin Saud bin Abdulaziz</value>
-  </data>
-  <data name="ElectronicServices" xml:space="preserve">
-    <value>Electronic Services</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="EParticipation" xml:space="preserve">
-    <value>e-Participation</value>
-  </data>
-  <data name="EService" xml:space="preserve">
-    <value>Electronic Services</value>
-  </data>
-  <data name="ExternalLogins" xml:space="preserve">
-    <value>My external logins</value>
-  </data>
-  <data name="FollowUs" xml:space="preserve">
-    <value>Follow Us</value>
-  </data>
-  <data name="FooterCopyright" xml:space="preserve">
-    <value>©</value>
-  </data>
-  <data name="Grants" xml:space="preserve">
-    <value>Grants</value>
-  </data>
-  <data name="ImportantLinks" xml:space="preserve">
-    <value>Important Links</value>
-  </data>
-  <data name="LawLibrary" xml:space="preserve">
-    <value>Electronic Law Library</value>
-  </data>
-  <data name="ManagePersonalData" xml:space="preserve">
-    <value>My personal data</value>
-  </data>
-  <data name="ManageProfile" xml:space="preserve">
-    <value>My profile</value>
-  </data>
-  <data name="Menu" xml:space="preserve">
-    <value>Menu</value>
-  </data>
-  <data name="MinistryOfInterior" xml:space="preserve">
-    <value>Ministry of Interior</value>
-  </data>
-  <data name="MyProfile" xml:space="preserve">
-    <value>My Profile</value>
-  </data>
-  <data name="MyRequests" xml:space="preserve">
-    <value>My Requests</value>
-  </data>
-  <data name="NationalPlatform" xml:space="preserve">
-    <value>Unified National Platform</value>
-  </data>
-  <data name="Phone" xml:space="preserve">
-    <value>0163231818</value>
-  </data>
-  <data name="PrivacyPolicy" xml:space="preserve">
-    <value>Privacy Policy</value>
-  </data>
-  <data name="RequiredFieldMessage" xml:space="preserve">
-    <value>Required Field</value>
-  </data>
-  <data name="ServiceLevelAgreement" xml:space="preserve">
-    <value>Service Level Agreement</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Signout" xml:space="preserve">
-    <value>Sign Out</value>
-  </data>
-  <data name="TermsAndConditions" xml:space="preserve">
-    <value>Terms and Conditions</value>
-  </data>
-  <data name="UserRoles" xml:space="preserve">
-    <value>User Roles</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>News</value>
-  </data>
-  <data name="AllRequests" xml:space="preserve">
-    <value>All requests</value>
-  </data>
+
+
+  <data name="Home" xml:space="preserve">
+<value>Home</value>
+</data>
   <data name="LookupOptions" xml:space="preserve">
-    <value>Lookup options</value>
-  </data>
+<value>Menu Options</value>
+</data>
+  <data name="Create" xml:space="preserve">
+<value>Add</value>
+</data>
+  <data name="Edit" xml:space="preserve">
+<value>Edit</value>
+</data>
+  <data name="CreateLookupOption" xml:space="preserve">
+<value>Add New Option</value>
+</data>
+  <data name="EditLookupOption" xml:space="preserve">
+<value>Edit Option</value>
+</data>
+  <data name="RequiredInfo" xml:space="preserve">
+<value>Required Information</value>
+</data>
+  <data name="ArabicName" xml:space="preserve">
+<value>Name in Arabic</value>
+</data>
+  <data name="EnglishName" xml:space="preserve">
+<value>Name in English</value>
+</data>
+  <data name="Type" xml:space="preserve">
+<value>Option Type</value>
+</data>
+  <data name="SearchWithStatusId" xml:space="preserve">
+<value>Search by Type</value>
+</data>
+  <data name="IsActive" xml:space="preserve">
+<value>Active</value>
+</data>
+  <data name="Cancel" xml:space="preserve">
+<value>Cancel</value>
+</data>
+  <data name="Save" xml:space="preserve">
+<value>Save</value>
+</data>
+  <data name="Prison" xml:space="preserve">
+<value>Prison</value>
+</data>
+  <data name="ExitReasons" xml:space="preserve">
+<value>Exit Reasons</value>
+</data>
+  <data name="UnknownType" xml:space="preserve">
+<value>Unknown Type</value>
+</data>
 </root>
