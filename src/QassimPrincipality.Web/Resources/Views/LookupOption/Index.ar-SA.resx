@@ -136,6 +136,9 @@
   <data name="Prison" xml:space="preserve"><value>السجن</value></data>
   <data name="ExitReasons" xml:space="preserve"><value>أسباب الخروج</value></data>
   <data name="UnknownType" xml:space="preserve"><value>نوع غير معروف</value></data>
+  <data name="CreateNewLookupOption" xml:space="preserve">
+  <value>إضافة خيار جديد</value>
+</data>
 
 
 </root>

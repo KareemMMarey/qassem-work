@@ -137,4 +137,7 @@
   <data name="Prison" xml:space="preserve"><value>Imprison</value></data>
   <data name="ExitReasons" xml:space="preserve"><value>Reasons for Exit</value></data>
   <data name="UnknownType" xml:space="preserve"><value>Unknown Type</value></data>
+  <data name="CreateNewLookupOption" xml:space="preserve">
+<value>Add a new option</value>
+</data>
 </root>
