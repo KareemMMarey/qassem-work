@@ -43,6 +43,17 @@ namespace QassimPrincipality.Web.Helpers.Business
                 _ => localizer["UnknownStatus"].Value,
             };
         }
+        
+        public static string GetLookupTypeDisplay(LookupOptionType status, IViewLocalizer localizer)
+        {
+            return status switch
+            {
+                LookupOptionType.Prison => localizer["Prison"].Value,
+                LookupOptionType.ExitReasons => localizer["ExitReasons"].Value,
+               
+                _ => localizer["UnknownType"].Value,
+            };
+        }
 
         /// <summary>
         /// Returns a localized “action description” based on the new status.

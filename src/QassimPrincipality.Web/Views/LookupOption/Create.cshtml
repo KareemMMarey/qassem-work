@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business;
+@inject IViewLocalizer localizer
+@model LookupOptionDto
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+@{
+    ViewData["Title"] = localizer["CreateLookupOption"];
+}
+
+<div class="pc-service-steps-page">
+    <div class="pc-breadcrumbs">
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index"> @localizer["Home"] </a></li>
+            <li>></li>
+            <li><a asp-controller="LookupOption" asp-action="Index"> @localizer["LookupOptions"]</a></li>
+            <li>></li>
+            <li class="pc-breadcrumbs-current">@localizer["Create"]</li>
+        </ul>
+    </div>
+
+    <div class="pc-service-steps-container">
+        <div class="pc-service-form pc-basic-container">
+            <div class="pc-service-form-heading">
+                <h3>@localizer["CreateLookupOption"]</h3>
+                <div class="pc-form-line"></div>
+                <p class="pc-warning-text">* @localizer["RequiredInfo"]</p>
+            </div>
+
+            <form asp-action="Create" method="post" class="pc-form">
+                <div class="pc-form-grid-2col">
+                    <div class="pc-input">
+                        <label class="pc-input-label"><span class="required">*</span> @localizer["ArabicName"]</label>
+                        <input asp-for="NameAr" class="pc-input-element" />
+                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label class="pc-input-label">@localizer["EnglishName"]</label>
+                        <input asp-for="NameEn" class="pc-input-element" />
+                        <span asp-validation-for="NameEn" class="text-danger"></span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label class="pc-input-label">@localizer["Type"]</label>
+                        <select asp-for="LookupOptionType" class="pc-search-select">
+                            <option value="">@localizer["SearchWithStatusId"]</option>
+                            @foreach (LookupOptionType type in Enum.GetValues(typeof(LookupOptionType)))
+                            {
+                                var selected = Model.LookupOptionType == type ? "selected" : "";
+                                <option value="@((int)type)" @selected>
+                                    @WorkFlowHelper.GetLookupTypeDisplay(type, localizer)
+                                </option>
+                            }
+                        </select>
+                        <span asp-validation-for="LookupOptionType" class="text-danger"></span>
+                    </div>
+
+                    <div class="pc-input">
+                        <label class="pc-input-label">@localizer["IsActive"]</label>
+                        <input asp-for="IsActive" type="checkbox" />
+                    </div>
+                </div>
+
+                <div class="pc-form-buttons">
+                    <a asp-action="Index" class="pc-outline-btn">@localizer["Cancel"]</a>
+                    <button type="submit" class="pc-primary-btn">@localizer["Save"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

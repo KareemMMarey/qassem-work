@@ -1,0 +1,91 @@
+﻿@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Domain.Enums
+@using QassimPrincipality.Web.Helpers.Business
+@model List<LookupOptionDto>
+@inject IViewLocalizer localizer
+@removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+@{
+    ViewData["Title"] = localizer["LookupOptions"];
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+}
+
+<div class="pc-my-requests">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@localizer["Home"]</a></li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@localizer["LookupOptions"]</li>
+            </ul>
+        </div>
+        <h1 class="pc-profile-title">@localizer["LookupOptions"]</h1>
+    </div>
+
+    <div class="pc-my-requests-body">
+       @*  <div class="pc-my-requests-header-new">
+            <p>@localizer["Search"]</p>
+
+            <div class="pc-search-container-new search-width">
+                <form asp-action="Index" method="get" class="pc-filter-form">
+                    <div class="d-flex gap-2 container-Allrequest">
+                        <input type="text" class="pc-search-input-new" name="Name" value="@Model.Filter.Name" placeholder="@localizer["SearchByName"]" />
+                        <select name="LookupOptionType" class="pc-search-select">
+                            <option value="">@localizer["SearchWithType"]</option>
+                            @foreach (LookupOptionType type in Enum.GetValues(typeof(LookupOptionType)))
+                            {
+                                var selected = Model.Filter.LookupOptionType == type ? "selected" : "";
+                                <option value="@((int)type)" @selected>
+                                    @WorkFlowHelper.GetLookupTypeDisplay(type, localizer)
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <button class="pc-primary-btn pc-btn-request" type="submit">
+                        @localizer["Search"]
+                    </button>
+                </form>
+            </div>
+        </div> *@
+
+        <table class="pc-table my-requests-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>@localizer["ArabicName"]</th>
+                    <th>@localizer["EnglishName"]</th>
+                    <th>@localizer["Type"]</th>
+                    <th>@localizer["IsActive"]</th>
+                    <th>@localizer["Actions"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    int index = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@item.NameAr</td>
+                            <td>@item.NameEn</td>
+                            <td>@WorkFlowHelper.GetLookupTypeDisplay(item.LookupOptionType, localizer)</td>
+                            <td>@(item.IsActive ? localizer["Yes"] : localizer["No"])</td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="pc-outline-btn">@localizer["Edit"]</a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="pc-outline-btn">@localizer["Delete"]</a>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">@localizer["NoResults"]</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

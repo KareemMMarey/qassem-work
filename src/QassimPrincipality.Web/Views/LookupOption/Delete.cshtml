@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using QassimPrincipality.Application.Dtos
+@using QassimPrincipality.Web.Helpers.Business
+@inject IViewLocalizer localizer
+@model LookupOptionDto
+
+@{
+    ViewData["Title"] = localizer["DeleteLookupOption"];
+}
+
+<div class="pc-my-requests">
+    <div class="pc-profile-header">
+        <div class="pc-breadcrumbs">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">@localizer["Home"]</a></li>
+                <li>></li>
+                <li><a asp-controller="LookupOption" asp-action="Index">@localizer["LookupOptions"]</a></li>
+                <li>></li>
+                <li class="pc-breadcrumbs-current">@localizer["Delete"]</li>
+            </ul>
+        </div>
+        <h1 class="pc-profile-title">@localizer["DeleteLookupOption"]</h1>
+    </div>
+
+    <div class="pc-my-requests-body">
+        <div class="pc-confirm-delete-box">
+            <p>@localizer["DeleteConfirmation"]</p>
+
+            <div class="pc-form-grid-2col">
+                <div>
+                    <strong>@localizer["ArabicName"]:</strong>
+                    <p>@Model.NameAr</p>
+                </div>
+                <div>
+                    <strong>@localizer["EnglishName"]:</strong>
+                    <p>@Model.NameEn</p>
+                </div>
+                <div>
+                    <strong>@localizer["Type"]:</strong>
+                    <p>@WorkFlowHelper.GetLookupTypeDisplay(Model.LookupOptionType, localizer)</p>
+                </div>
+                <div>
+                    <strong>@localizer["IsActive"]:</strong>
+                    <p>@(Model.IsActive ? localizer["Yes"] : localizer["No"])</p>
+                </div>
+            </div>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="pc-form-buttons">
+                    <a asp-action="Index" class="pc-outline-btn">@localizer["Cancel"]</a>
+                    <button type="submit" class="pc-primary-btn">@localizer["ConfirmDelete"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
