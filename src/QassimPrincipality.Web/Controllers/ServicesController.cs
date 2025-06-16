@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Localization;
 using QassimPrincipality.Application.Services.NewShema.Content;
 using QassimPrincipality.Application.Services.NewShema;
+using Framework.Core.Extensions;
 namespace QassimPrincipality.Web.Controllers
 {
     public class ServicesController : Controller
@@ -57,7 +58,7 @@ namespace QassimPrincipality.Web.Controllers
         {
            // ViewData["NewsId"] = Id;
 
-            var serviceItem = await _eService.GetServiceDetailsById(Id);
+            var serviceItem = await _eService.GetServiceDetailsById(Id,HttpContext.User.GetId());
             ViewData["serviceItem"] = serviceItem;
 
             return View();
@@ -69,6 +70,22 @@ namespace QassimPrincipality.Web.Controllers
             ViewBag.TotalSteps = service.ServiceSteps.Count;
             ViewBag.ServiceId = serviceId;
             return View(service.ServiceSteps);
+        }
+
+        [Authorize]
+        [HttpPost("/Services/{serviceId}/rating")]
+        public async Task<IActionResult> PostRating(int serviceId, [FromBody] RatingDto dto)
+        {
+            if (dto.Rating < 1 || dto.Rating > 5)
+                return BadRequest("Invalid rating value");
+            var userId = HttpContext.User.GetId();
+            await _eService.SaveRatingAsync(serviceId, dto.Rating, userId);
+            return Ok();
+        }
+
+        public class RatingDto
+        {
+            public int Rating { get; set; }
         }
 
         [HttpGet]

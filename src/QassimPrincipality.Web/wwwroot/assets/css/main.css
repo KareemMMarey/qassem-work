@@ -2194,6 +2194,8 @@ select.form-control {
 .service-details__rating-stars {
   display: flex;
   justify-content: center;
+  width:24px;
+  height:24px;
 }
 
 /**

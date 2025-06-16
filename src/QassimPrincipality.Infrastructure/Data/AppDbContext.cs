@@ -10,7 +10,7 @@ namespace QassimPrincipality.Infrastructure.Data
 {
     public class AppDbContext : BaseDbContext<AppDbContext>, IAppDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options, httpContextAccessor)
         {
             //CurrentUserName = httpContextAccessor?.HttpContext?.User?.Identity?.Name;
             CurrentUserName = ((System.Security.Claims.ClaimsIdentity)httpContextAccessor?.HttpContext?.User?.Identity)?.

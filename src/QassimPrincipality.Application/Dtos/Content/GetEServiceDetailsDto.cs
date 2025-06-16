@@ -35,6 +35,7 @@ namespace QassimPrincipality.Application.Dtos.Content
 
         // Rating
         public string RateValue { get; set; }
+        public int UserRating { get; set; }
     }
     public class ServiceFAQDto {
         public string NameAr { get; set; }
