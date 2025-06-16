@@ -192,4 +192,14 @@
   <data name="UserManuals" xml:space="preserve">
     <value>User Manuals</value>
   </data>
+  <data name="ThankYouForRating" xml:space="preserve">
+  <value>Thank you for your rating!</value>
+</data>
+  <data name="ErrorSubmittingRating" xml:space="preserve">
+  <value>Error submitting rating.</value>
+</data>
+  <data name="YouAlreadyRated" xml:space="preserve">
+  <value>You have already rated this service.</value>
+</data>
+
 </root>

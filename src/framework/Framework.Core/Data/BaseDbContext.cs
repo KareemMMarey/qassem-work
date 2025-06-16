@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Data;
@@ -12,11 +13,15 @@ namespace Framework.Core.Data
     public abstract class BaseDbContext<TContext> : DbContext, IBaseDbContext
         where TContext : DbContext
     {
-        protected BaseDbContext(DbContextOptions<TContext> options) : base(options)
+        protected BaseDbContext(DbContextOptions<TContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
+            CurrentUserName = httpContextAccessor?.HttpContext?.User?.Identity?.Name;
+            _httpContextAccessor = httpContextAccessor;
+
         }
 
         public string CurrentUserName { get; set; }
+        public IHttpContextAccessor _httpContextAccessor { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -107,6 +112,8 @@ namespace Framework.Core.Data
         {
             try
             {
+                CurrentUserName ??= _httpContextAccessor.HttpContext.User.Identity.Name;
+
                 ChangeTracker.SetShadowProperties(CurrentUserName);
                 ChangeTracker.Validate();
 

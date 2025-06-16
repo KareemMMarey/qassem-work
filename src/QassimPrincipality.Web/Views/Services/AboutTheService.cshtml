@@ -5,9 +5,14 @@
     var serviceItem = ViewData["serviceItem"] as GetEServiceDetailsDto;
     var currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
     // Generate rating stars
-    int rating = int.TryParse(serviceItem.RateValue, out var rate) ? rate : 0;
-    var fullStarCount = Math.Min(rating, 5);
-    var emptyStarCount = 5 - fullStarCount;
+    // int rating = int.TryParse(serviceItem.RateValue, out var rate) ? rate : 0;
+    // var fullStarCount = Math.Min(rating, 5);
+    // var emptyStarCount = 5 - fullStarCount;
+    var serviceId = serviceItem.Id;
+
+    int userRating = serviceItem.UserRating; // 0 if null
+    bool hasRated = userRating > 0;
+    var isAuth = User.Identity.IsAuthenticated;
 }
 
 <div class="pc-service-page" id="pcServicePage">
@@ -38,16 +43,16 @@
                     {
                         <a asp-controller="Request" asp-action="InqueryTransaction" asp-route-serviceId="@serviceItem.Id" class="pc-primary-btn">@localizer["StartServices"] </a>
                     }
-                       
-                        
-                        
-                    
+
+
+
+
                 </div>
                 <p class="pc-grey-tag"> @(currentCulture == "ar-SA" ? serviceItem.CategoryNameAr : serviceItem.CategoryNameEn) </p>
                 <p>@(currentCulture == "ar-SA" ? serviceItem.DescriptionAr : serviceItem.DescriptionEn) </p>
                 <div>
                     <a asp-controller="Home" asp-action="ServiceLevelAgreement" class="pc-link">
-                        @localizer["ServicesSLA"] 
+                        @localizer["ServicesSLA"]
                         <img src="~/icons/linkSquare.svg" alt="icon" width="20" height="20" />
                     </a>
                 </div>
@@ -66,7 +71,7 @@
                         {
                             <li>@itemRequirement</li>
                         }
-                        
+
                     </ol>
                 </div>
 
@@ -100,36 +105,36 @@
                                 <p class="pc-accordion-answer">@(currentCulture == "ar-SA" ? itemFAQ.AnswerAr : itemFAQ.AnswerEn)</p>
                             </div>
                         </div>
-                    //Console.WriteLine($"{requirement.Key}: {requirement.Value}");
+                        //Console.WriteLine($"{requirement.Key}: {requirement.Value}");
                     }
 
-                   
-                   @*  <div class="pc-accordion">
-                        <div class="pc-accordion-head">
-                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
-                            <img src="~/icons/arrowDown.svg" alt="money icon" />
-                        </div>
-                        <div class="pc-accordion-body">
-                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
-                        </div>
+
+                    @*  <div class="pc-accordion">
+                    <div class="pc-accordion-head">
+                    <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                    <img src="~/icons/arrowDown.svg" alt="money icon" />
+                    </div>
+                    <div class="pc-accordion-body">
+                    <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                    </div>
                     </div>
                     <div class="pc-accordion">
-                        <div class="pc-accordion-head">
-                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
-                            <img src="~/icons/arrowDown.svg" alt="money icon" />
-                        </div>
-                        <div class="pc-accordion-body">
-                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
-                        </div>
+                    <div class="pc-accordion-head">
+                    <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                    <img src="~/icons/arrowDown.svg" alt="money icon" />
+                    </div>
+                    <div class="pc-accordion-body">
+                    <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                    </div>
                     </div>
                     <div class="pc-accordion">
-                        <div class="pc-accordion-head">
-                            <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
-                            <img src="~/icons/arrowDown.svg" alt="money icon" />
-                        </div>
-                        <div class="pc-accordion-body">
-                            <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
-                        </div>
+                    <div class="pc-accordion-head">
+                    <p class=pc-accordion-question>هل تقديم العنوان الوطني إلزامي؟</p>
+                    <img src="~/icons/arrowDown.svg" alt="money icon" />
+                    </div>
+                    <div class="pc-accordion-body">
+                    <p class="pc-accordion-answer">نعم، تقديم العنوان الوطني إلزامي كجزء من متطلبات الطلب.</p>
+                    </div>
                     </div> *@
                 </div>
             </div>
@@ -168,23 +173,28 @@
             </svg>
 
             <div>
-                <h5>@localizer["ServiceRating"] </h5>
-                <div class="pc-card-rating">
-                    @for (int i = 0; i < fullStarCount; i++)
+                <h5>@localizer["ServiceRating"]</h5>
+                <div class="pc-card-rating" id="rating-container" data-has-rated="@hasRated.ToString().ToLower()">
+                    @for (int i = 1; i <= 5; i++)
                     {
-                        <img src="~/icons/star-filled.svg" alt="star" />
-                    }
-                    @for (int i = 0; i < emptyStarCount; i++)
-                    {
-                        <img src="~/icons/star.svg" alt="empty star" />
+                        var isFilled = i <= userRating;
+                        <img src="~/icons/@(isFilled ? "star-filled.svg" : "star.svg")"
+                             alt="star"
+                             style="width:24px;"
+                             data-value="@i"
+                             class="rating-star"
+                             style="cursor:@(hasRated ? "default" : "pointer")" />
                     }
                 </div>
+                <input type="hidden" id="selected-rating" value="@userRating" />
+
+
                 @* <div class="pc-card-rating">
-                    <img src="~/icons/star.svg" alt="star" />
-                    <img src="~/icons/star.svg" alt="star" />
-                    <img src="~/icons/star.svg" alt="star" />
-                    <img src="~/icons/star.svg" alt="star" />
-                    <img src="~/icons/star.svg" alt="star" />
+                <img src="~/icons/star.svg" alt="star" />
+                <img src="~/icons/star.svg" alt="star" />
+                <img src="~/icons/star.svg" alt="star" />
+                <img src="~/icons/star.svg" alt="star" />
+                <img src="~/icons/star.svg" alt="star" />
                 </div>
                 <p> تقييم x</p> *@
             </div>
@@ -235,3 +245,66 @@
         <partial name="_PageFeedback" />
     </div>
 </div>
+<script>
+    const ratingMessages = {
+        success: "@localizer["ThankYouForRating"]",
+        error: "@localizer["ErrorSubmittingRating"]",
+        alreadyRated: "@localizer["YouAlreadyRated"]"
+    };
+    document.addEventListener("DOMContentLoaded", function () {
+        const stars = document.querySelectorAll(".rating-star");
+        const ratingInput = document.getElementById("selected-rating");
+        const ratingContainer = document.getElementById("rating-container");
+        const hasRated = ratingContainer.dataset.hasRated === "true";
+
+        if (hasRated) return; // Disable interaction if already rated
+
+
+
+
+        if ('@isAuth' == 'True') {
+            stars.forEach(star => {
+                star.addEventListener("click", async function () {
+                    const selectedRating = parseInt(this.getAttribute("data-value"));
+                    ratingInput.value = selectedRating;
+
+                    // Update UI immediately
+                    updateStars(selectedRating);
+
+                    try {
+                        const response = await fetch(`/Services/${@serviceId}/rating`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                            },
+                            body: JSON.stringify({ rating: selectedRating })
+                        });
+
+                        if (response.ok) {
+                            // Prevent further interactions
+                            ratingContainer.dataset.hasRated = "true";
+                            stars.forEach(s => s.style.pointerEvents = "none");
+                            alert(ratingMessages.success);
+
+                        } else {
+                            const error = await response.text();
+                            alert(error);
+                            updateStars(0); // Reset stars on error
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        alert(error || ratingMessages.error);
+                        updateStars(0); // Reset on failure
+                    }
+                });
+            });
+
+        }
+        function updateStars(count) {
+            stars.forEach((star, index) => {
+                star.src = index < count ? "/icons/star-filled.svg" : "/icons/star.svg";
+            });
+        }
+    });
+</script>

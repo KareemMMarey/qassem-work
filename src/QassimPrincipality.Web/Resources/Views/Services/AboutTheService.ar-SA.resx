@@ -192,4 +192,14 @@
   <data name="UserManuals" xml:space="preserve">
     <value>دليل استخدام الخدمة</value>
   </data>
+  <data name="ThankYouForRating" xml:space="preserve">
+  <value>شكراً لتقييمك!</value>
+</data>
+  <data name="ErrorSubmittingRating" xml:space="preserve">
+  <value>حدث خطأ أثناء إرسال التقييم.</value>
+</data>
+  <data name="YouAlreadyRated" xml:space="preserve">
+  <value>لقد قمت بتقييم هذه الخدمة من قبل.</value>
+</data>
+
 </root>

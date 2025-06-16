@@ -11,7 +11,7 @@ namespace Framework.Core.SharedServices
     public partial class CommonsDbContext : BaseDbContext<CommonsDbContext>, ICommonsDbContext
     {
         public CommonsDbContext(DbContextOptions<CommonsDbContext> options, IHttpContextAccessor httpContextAccessor)
-            : base(options)
+            : base(options, httpContextAccessor)
         {
             CurrentUserName = httpContextAccessor?.HttpContext?.User?.Identity?.Name;
         }
