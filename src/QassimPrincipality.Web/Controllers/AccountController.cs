@@ -677,16 +677,16 @@ namespace QassimPrincipality.Web.Controllers
             {
                 id = Guid.NewGuid(),
                 nationalId = userName,
-                firstNameAr = "كريم",
-                secondNameAr = "محمد",
+                firstNameAr = "محمد",
+                secondNameAr = "العصيمي",
                 thirdNameAr = "حسن",
                 lastNameAr = "المرى",
-                fullNameAr = "كريم محمد حسن المرى",
+                fullNameAr = "محمد العصيمي حسن المرى",
                 firstNameEn = "Kareem",
                 secondNameEn = "Mohamed",
                 thirdNameEn = "Hassan",
-                lastNameEn = "El Marey",
-                fullNameEn = "Kareem Mohamed Hassan El Marey",
+                lastNameEn = "El osaimy",
+                fullNameEn = "Mohamed el osaimy",
                 dateOfBirthHijri = "1405-01-01",
                 dateOfBirthGregorian = "1985-10-15",
                 gender = "Male",
@@ -695,7 +695,7 @@ namespace QassimPrincipality.Web.Controllers
                 nationality = "Saudi",
                 identityType = "NationalID",
                 identityExpiryDate = "1447-01-01",
-                arTwoNames = "كريم محمد"
+                arTwoNames = "محمد العصيمي "
             };
             TempData["arTwoNames"] = person_simulate.arTwoNames;
             TempData["accessToken"] = "mocked-token-123";

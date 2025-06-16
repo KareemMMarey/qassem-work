@@ -7,6 +7,9 @@ if (document.querySelector(".pc-header")) {
         const year = today.getFullYear();
         const day = today.getDate();
 
+            console.log(currentCulture);
+            console.log(today);
+            console.log(year);
         // Format the month based on culture
         const month = today.toLocaleString(currentCulture, { month: 'long' });
 
