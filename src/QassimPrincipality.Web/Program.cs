@@ -56,6 +56,8 @@ namespace QassimPrincipality.Web
 				var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
                 var mailConfiguration = builder.Configuration.GetSection("NafathConfiguration");
                 builder.Services.Configure<NafathConfiguration>(mailConfiguration);
+                var identityOptions = builder.Configuration.GetSection("IdentityConfigurations");
+                builder.Services.Configure<IdentityConfigurations>(identityOptions);
 
             var emailConfiguration = builder.Configuration.GetSection("EmailConfiguration");
             builder.Services.Configure<SmtpConfiguration>(emailConfiguration);

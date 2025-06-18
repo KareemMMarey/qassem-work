@@ -4,6 +4,7 @@
     {
         public string ApiUrl { get; set; }
         public string LocaApiUrl { get; set; }
+        public bool EnableSimulation { get; set; }
         public string ApiKey { get; set; }
         public string ApplicationKey { get; set; }
         public string NafathResponseChecker { get; set; }

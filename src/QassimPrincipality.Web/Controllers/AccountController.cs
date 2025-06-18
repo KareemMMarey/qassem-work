@@ -5,7 +5,6 @@ using Framework.Identity.Data.Dtos;
 using Framework.Identity.Data.Entities;
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,11 +12,8 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Account;
-using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using ZXing;
-using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace QassimPrincipality.Web.Controllers
 {
@@ -29,6 +25,7 @@ namespace QassimPrincipality.Web.Controllers
         private readonly LogAppService _logservice;
         private readonly ILogger<AccountController> _logger;
         private readonly IOptions<NafathConfiguration> _nafathConfiguartion;
+        private readonly IdentityConfigurations _identityConfigurations;
         private readonly INotificationsManager _notificationsManager;
         private readonly IEmailService _emailservice;
 
@@ -37,6 +34,7 @@ namespace QassimPrincipality.Web.Controllers
             SignInManager<ApplicationUser> signInManager,
             RoleManager<ApplicationRole> roleManager,
             IOptions<NafathConfiguration> nafathConfiguartion,
+            IOptions<Helpers.IdentityConfigurations> identityOptions,
             UserAppService userAppService,
             ILogger<AccountController> logger,
             LogAppService logservice,
@@ -53,6 +51,7 @@ namespace QassimPrincipality.Web.Controllers
             _logservice = logservice;
             _notificationsManager = notificationsManager;
             _emailservice = emailService;
+            _identityConfigurations = identityOptions.Value;
         }
 
         //[AllowAnonymous]
@@ -81,8 +80,7 @@ namespace QassimPrincipality.Web.Controllers
             user.PhoneNumber = model.PhoneNumber;
             user.NormalizedEmail = model.Email.ToUpper();
 
-           await  _userManager.UpdateAsync(user);
-
+            await _userManager.UpdateAsync(user);
 
             // Save the data here (e.g., update the DB or call a service)
             // _userService.UpdateContactInfo(User.Identity.Name, model);
@@ -90,7 +88,6 @@ namespace QassimPrincipality.Web.Controllers
             TempData["SuccessMessage"] = "Contact info updated successfully.";
             return RedirectToAction("Profile"); // Or wherever your profile page is
         }
-
 
         [AllowAnonymous]
         public IActionResult Login() => View(new LoginVM());
@@ -101,10 +98,7 @@ namespace QassimPrincipality.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ProcessLogin(ApplicationUser user, LoginVM loginVM)
         {
-            await _signInManager.SignInAsync(
-                user,
-                false
-            );
+            await _signInManager.SignInAsync(user, false);
             return RedirectToAction("Index", "Home");
         }
 
@@ -119,7 +113,6 @@ namespace QassimPrincipality.Web.Controllers
             if (result)
             {
                 return await ProcessLogin(user, loginVM);
-
             }
 
             TempData["Error"] = " رمز التحقق غير صحيح";
@@ -134,15 +127,13 @@ namespace QassimPrincipality.Web.Controllers
 
             var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
 
-            return View("VerifyOtp", new LoginVM
-            {
-                EmailAddress = email
-            });
+            return View("VerifyOtp", new LoginVM { EmailAddress = email });
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
-         {
+        {
             if (!ModelState.IsValid)
                 return View(loginVM);
 
@@ -154,13 +145,23 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     try
                     {
+                        //TODO
+                        if (!_identityConfigurations.OtpEnabled)
+                        {
+                            return await ProcessLogin(user, loginVM);
+                        }
+
                         var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
 
-
-                        // Currently use this instead of email 
+                        // Currently use this instead of email
 
                         // Save token to file
-                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"{user.Id}.txt");
+                        var filePath = Path.Combine(
+                            Directory.GetCurrentDirectory(),
+                            "wwwroot",
+                            "otp_tokens",
+                            $"{user.Id}.txt"
+                        );
                         Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
                         await System.IO.File.WriteAllTextAsync(filePath, token);
                         //_emailservice.SendEmail(new EmailMessage
@@ -170,8 +171,6 @@ namespace QassimPrincipality.Web.Controllers
                         //    To = new List<string> { user.Email, "mqassem.c@nec.gov.sa" },
                         //    TemplateName = "LoginOTP"
                         //});
-
-
 
                         //await _notificationsManager.EnqueueEmailAsync(
                         //    new EmailMessage
@@ -185,9 +184,11 @@ namespace QassimPrincipality.Web.Controllers
                     }
                     catch (Exception ex)
                     {
-
                         TempData["Error"] = "بيانات المستخدم غير صحيحة";
-                        _logger.LogError(ex, "An unhandled exception occurred while processing the request.");
+                        _logger.LogError(
+                            ex,
+                            "An unhandled exception occurred while processing the request."
+                        );
                         return View(loginVM);
                     }
                 }
@@ -274,7 +275,7 @@ namespace QassimPrincipality.Web.Controllers
                 UserName = registerVM.EmailAddress,
                 CreatedBy = "Admin",
                 CreatedOn = DateTime.Now,
-                EmailConfirmed = true
+                EmailConfirmed = true,
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
@@ -313,24 +314,37 @@ namespace QassimPrincipality.Web.Controllers
         {
             // Simulate nafath login
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"{model.IdentityNumber}.txt");
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
-            Random simulate_random = new Random();
-            int fourDigitNumber = simulate_random.Next(1000, 10000);
-            await System.IO.File.WriteAllTextAsync(filePath, fourDigitNumber.ToString());
+            if (_nafathConfiguartion.Value.EnableSimulation)
+            {
+                var filePath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "otp_tokens",
+                    $"{model.IdentityNumber}.txt"
+                );
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+                Random simulate_random = new Random();
+                int fourDigitNumber = simulate_random.Next(1000, 10000);
+                await System.IO.File.WriteAllTextAsync(filePath, fourDigitNumber.ToString());
 
-            ViewBag.Message = string.Format(
-                       "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ <h1>{0}</h1>",
-                       fourDigitNumber.ToString()
-                   );
-            var simulate_transId= Guid.NewGuid();
-            ViewBag.UserName = model.IdentityNumber;
-            ViewBag.TransId = simulate_transId.ToString();
-            filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "otp_tokens", $"simulateid.txt");
-            Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
-            await System.IO.File.WriteAllTextAsync(filePath, simulate_transId.ToString());
-            ViewBag.Random = fourDigitNumber.ToString();
-            return View();
+                ViewBag.Message = string.Format(
+                    "الرجاء اختيار الرقم الظاهر على تطبيق نفاذ <h1>{0}</h1>",
+                    fourDigitNumber.ToString()
+                );
+                var simulate_transId = Guid.NewGuid();
+                ViewBag.UserName = model.IdentityNumber;
+                ViewBag.TransId = simulate_transId.ToString();
+                filePath = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "otp_tokens",
+                    $"simulateid.txt"
+                );
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+                await System.IO.File.WriteAllTextAsync(filePath, simulate_transId.ToString());
+                ViewBag.Random = fourDigitNumber.ToString();
+                return View();
+            }
 
             // End of simulation
             List<ApiHeaders> headers = new List<ApiHeaders>
@@ -338,9 +352,9 @@ namespace QassimPrincipality.Web.Controllers
                 new ApiHeaders
                 {
                     Name = "Authorization",
-                    Value = _nafathConfiguartion.Value.ApiKey
+                    Value = _nafathConfiguartion.Value.ApiKey,
                 },
-                new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey }
+                new ApiHeaders { Name = "AUD", Value = _nafathConfiguartion.Value.ApplicationKey },
             };
 
             _nafathConfiguartion.Value.NafathBody.Parameters.id = long.Parse(model.IdentityNumber);
@@ -370,13 +384,16 @@ namespace QassimPrincipality.Web.Controllers
             //);
             try
             {
-                
                 await _logservice.InsertAsync(
                     new Framework.Core.SharedServices.Dto.LogDto
                     {
                         CallSite = "",
                         Date = DateTime.Now,
-                        Exception = "Header data and url data " + JsonConvert.SerializeObject(headers, Formatting.Indented)+ " "+ _nafathConfiguartion.Value.ApiUrl,
+                        Exception =
+                            "Header data and url data "
+                            + JsonConvert.SerializeObject(headers, Formatting.Indented)
+                            + " "
+                            + _nafathConfiguartion.Value.ApiUrl,
                         Host = "myhost",
                         Logger = "my logger",
                         LogLevel = "Info",
@@ -463,12 +480,12 @@ namespace QassimPrincipality.Web.Controllers
         )
         {
             // Simulate Nafath
-             return await SimulateNafath(username, rememberLogin, random, transId);
+            if (_nafathConfiguartion.Value.EnableSimulation)
+                return await SimulateNafath(username, rememberLogin, random, transId);
             // End Nafath Simulate
 
             if (!string.IsNullOrEmpty(transId))
             {
-
                 try
                 {
                     var user = await _userManager.FindByNameAsync($"{username}@Nafath");
@@ -486,7 +503,7 @@ namespace QassimPrincipality.Web.Controllers
                             userFullName = JsonConvert
                                 .DeserializeObject(TempData["arTwoNames"].ToString())
                                 .ToString();
-                            
+
                             var dOB = JsonConvert
                                 .DeserializeObject(TempData["dateOfBirthGregorian"].ToString())
                                 .ToString();
@@ -506,7 +523,7 @@ namespace QassimPrincipality.Web.Controllers
                                 CreatedBy = "Admin",
                                 CreatedOn = DateTime.Now,
                                 EmailConfirmed = true,
-                                DateOfBirth = DOBDate
+                                DateOfBirth = DOBDate,
                             };
                             await _userManager.CreateAsync(user, "P@ssw0rd");
                             await _userServices.AddRoleAsync(user.Id, UserRoles.User);
@@ -544,7 +561,7 @@ namespace QassimPrincipality.Web.Controllers
                         PhoneNumber = phone,
                         CreatedBy = "Admin",
                         CreatedOn = DateTime.Now,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
                     };
                     await _userManager.CreateAsync(user, "P@ssw0rd");
                     await _userServices.AddRoleAsync(user.Id, UserRoles.User);
@@ -560,11 +577,11 @@ namespace QassimPrincipality.Web.Controllers
             string username,
             bool rememberLogin,
             string random,
-            string transId) {
-
+            string transId
+        )
+        {
             if (!string.IsNullOrEmpty(transId))
             {
-
                 try
                 {
                     var user = await _userManager.FindByNameAsync($"{username}@Nafath");
@@ -600,7 +617,7 @@ namespace QassimPrincipality.Web.Controllers
                                 EmailConfirmed = true,
                                 DateOfBirth = DOBDate,
                                 Nationality = nationality,
-                                IdentityNumber = IdentityNumber
+                                IdentityNumber = IdentityNumber,
                             };
                             await _userManager.CreateAsync(user, "P@ssw0rd");
                             await _userServices.AddRoleAsync(user.Id, UserRoles.User);
@@ -638,7 +655,7 @@ namespace QassimPrincipality.Web.Controllers
                         PhoneNumber = phone,
                         CreatedBy = "Admin",
                         CreatedOn = DateTime.Now,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
                     };
                     await _userManager.CreateAsync(user, "P@ssw0rd");
                     await _userServices.AddRoleAsync(user.Id, UserRoles.User);
@@ -648,7 +665,6 @@ namespace QassimPrincipality.Web.Controllers
 
                 return RedirectToAction("Index", "Home");
             }
-
         }
 
         [HttpGet]
@@ -695,7 +711,7 @@ namespace QassimPrincipality.Web.Controllers
                 nationality = "Saudi",
                 identityType = "NationalID",
                 identityExpiryDate = "1447-01-01",
-                arTwoNames = "محمد العصيمي "
+                arTwoNames = "محمد العصيمي ",
             };
             TempData["arTwoNames"] = person_simulate.arTwoNames;
             TempData["accessToken"] = "mocked-token-123";
@@ -703,7 +719,7 @@ namespace QassimPrincipality.Web.Controllers
             TempData["nationality"] = person_simulate.nationality;
             TempData["nationalId"] = person_simulate.nationalId;
 
-            return Ok(new { status= NafathStatus.COMPLETED.ToString() });
+            return Ok(new { status = NafathStatus.COMPLETED.ToString() });
 
             // End Simulate Check nafath
             try
@@ -713,13 +729,13 @@ namespace QassimPrincipality.Web.Controllers
                     new ApiHeaders
                     {
                         Name = "Authorization",
-                        Value = _nafathConfiguartion.Value.ApiKey
+                        Value = _nafathConfiguartion.Value.ApiKey,
                     },
                     new ApiHeaders
                     {
                         Name = "AUD",
-                        Value = _nafathConfiguartion.Value.ApplicationKey
-                    }
+                        Value = _nafathConfiguartion.Value.ApplicationKey,
+                    },
                 };
 
                 _nafathConfiguartion.Value.NafathCheckRequstBody.Parameters.id = long.Parse(
@@ -759,7 +775,8 @@ namespace QassimPrincipality.Web.Controllers
                         TempData["accessToken"] = JsonConvert.SerializeObject(
                             result["accessToken"]
                         );
-                        TempData["dateOfBirthGregorian"] = person["dateOfBirthGregorian"].ToString();
+                        TempData["dateOfBirthGregorian"] = person["dateOfBirthGregorian"]
+                            .ToString();
                         TempData["nationality"] = person["nationality"].ToString();
                         TempData["nationalId"] = person["nationalId"].ToString();
                         break;
@@ -799,7 +816,10 @@ namespace QassimPrincipality.Web.Controllers
             culture.DateTimeFormat.Calendar = hijriCalendar;
 
             // Extract date parts
-            var parts = hijriDate.Split(new char[] { '/', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var parts = hijriDate.Split(
+                new char[] { '/', ' ' },
+                StringSplitOptions.RemoveEmptyEntries
+            );
             int month = int.Parse(parts[0]);
             int day = int.Parse(parts[1]);
             int persianYear = int.Parse(parts[2]);
@@ -808,7 +828,7 @@ namespace QassimPrincipality.Web.Controllers
             //PersianCalendar pc = new PersianCalendar();
             // DateTime gregorianDate = hijriCalendar.ToDateTime(persianYear, month, day, 0, 0, 0, 0);
             string date = day.ToString() + "/" + month.ToString() + "/" + persianYear.ToString();
-             dateConverted = DateTime.ParseExact(date, "d/M/yyyy", culture);
+            dateConverted = DateTime.ParseExact(date, "d/M/yyyy", culture);
             return dateConverted;
         }
 
