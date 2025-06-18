@@ -53,38 +53,40 @@
                                                     // Layout = "~/Views/Shared/_AdminLayout.cshtml"; // Uncomment if you have a specific layout
 }
 
-<div class="row justify-content-xxl-center">
-    <div class="col-xxl-12">
-        <div class="page-panel" id="elementToToggle">
-            <h3 class="page-title margin-bottom-lg"> @localizer["AssignPermissionsToUsers"] </h3>
-            <form asp-action="Assign" class="form" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label asp-for="SelectedUserId" class="form-label">@localizer["userName"]:</label>
-                            <select asp-for="SelectedUserId" class="form-control"
-                                    asp-items="@Model.Users">
-                                <option value="">-- @localizer["selectUser"] --</option>
-                            </select>
-                            <span asp-validation-for="SelectedUserId" class="text-danger"></span>
+<div class="assign-page">
+    <div class="row justify-content-xxl-center">
+        <div class="col-xxl-10">
+            <div class="page-panel" id="elementToToggle">
+                <h3 class="page-title margin-bottom-lg"> @localizer["AssignPermissionsToUsers"] </h3>
+                <form asp-action="Assign" class="form" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label asp-for="SelectedUserId" class="form-label">@localizer["userName"]:</label>
+                                <select asp-for="SelectedUserId" class="form-control"
+                                        asp-items="@Model.Users">
+                                    <option value="">-- @localizer["selectUser"] --</option>
+                                </select>
+                                <span asp-validation-for="SelectedUserId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group">
+                                <label asp-for="SelectedRoleIds" class="form-label">@localizer["roles"]:</label>
+                                <select asp-for="SelectedRoleIds" class="form-control" multiple="multiple"
+                                        asp-items="@Model.AvailableRoles">
+                                </select>
+                                <span asp-validation-for="SelectedRoleIds" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label asp-for="SelectedRoleIds" class="form-label">@localizer["roles"]:</label>
-                            <select asp-for="SelectedRoleIds" class="form-control" multiple="multiple"
-                                    asp-items="@Model.AvailableRoles">
-                            </select>
-                            <span asp-validation-for="SelectedRoleIds" class="text-danger"></span>
-                        </div>
+                    <div class="form-group mt-4">
+                        <input type="submit" value="تعيين الصلاحيات" class="btn btn-primary" />
+                        <a asp-action="UserRoles" class="btn btn-secondary">@localizer["backToList"]</a>
                     </div>
-                </div>
-                <div class="form-group margin-top-lg">
-                    <input type="submit" value="تعيين الصلاحيات" class="btn btn-primary" />
-                    <a asp-action="UserRoles" class="btn btn-secondary">@localizer["backToList"]</a>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -96,14 +98,8 @@
 
     <script>
         $(document).ready(function () {
-        // Initialize Select2 for the multi-select DDL
-        // Make sure you have jQuery and Select2 library included in your project.
-        // Example of including Select2 (in your _Layout.cshtml or specific page):
-        // <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-        // <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    // <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-            $('#SelectedRoleIds').select2({
+       
+                $('#SelectedRoleIds').select2({
                 placeholder: "اختر صلاحية واحدة أو أكثر", // "Select one or more permissions"
                 allowClear: true // Option to clear all selections
             });

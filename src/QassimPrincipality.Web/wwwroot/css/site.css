@@ -2381,7 +2381,7 @@ iframe {
 }
 
 .request-status {
-    display: flex;
+/*    display: flex;*/
     gap: 12px;
 }
 
@@ -3421,12 +3421,15 @@ iframe {
     justify-content: space-between;
 }
 
-.account-login {
+.account-login, .assign-page {
     max-width: 1440px;
     margin-bottom: 40px;
 }
+.assign-page{
+    padding:40px 16px;
+}
 h3 {
-    font-size:1.5rem
+    font-size: 1.5rem
 }
 .pc-primary-btn{
     margin-right:15px;
@@ -3497,6 +3500,7 @@ h3 {
     border-radius: 16px;
     border: 1px solid #D2D6DB;
     padding: 24px;
+    background-color: #fff;
 }
 
 .timeline-item{
@@ -3506,6 +3510,7 @@ h3 {
 .btn-outline-secondary {
     color: #1b8354;
     border-color: #1b8354;
+
 }
 .btn-outline-secondary:hover {
     color: #fff;

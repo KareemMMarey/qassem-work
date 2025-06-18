@@ -301,6 +301,27 @@
     <value>اكمال الطلب</value>
   </data>
   <data name="ToCompleteRequestAttachDocs" xml:space="preserve">
-    <value>لإكمال الطلب أرفق ملف</value>
+    <value>لإكمال الطلب، نرجو إرفاق المستندات التالية</value>
+  </data>
+  <data name="RequiredDocuments" xml:space="preserve">
+    <value>المستندات المطلوبة:</value>
+  </data>
+  <data name="IdPhotoOfTheApplicant" xml:space="preserve">
+    <value>صورة الهوية لمقدم الطلب.</value>
+  </data>
+  <data name="CopyOfTheJudgmentInstrument" xml:space="preserve">
+    <value>نسخة من صك الحكم.</value>
+  </data>
+  <data name="AcopyOfThePowerOfAttorney" xml:space="preserve">
+    <value>صورة من الوكالة, في حالة كان مقدم الطلب من ينوب عن المعني بالطلب.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="DragDropFilesHere" xml:space="preserve">
+    <value>اسحب وأفلت الملفات هنا للإرفاق</value>
+  </data>
+  <data name="TheMaximumAllowedFileSize" xml:space="preserve">
+    <value>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</value>
   </data>
 </root>
