@@ -1,6 +1,6 @@
 ﻿@using QassimPrincipality.Application.Dtos
 @using QassimPrincipality.Domain.Enums
-@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Application.Helpers.Business
 @removeTagHelper "Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers.OptionTagHelper"
 
 @model ServiceRequestDto
@@ -101,7 +101,7 @@
 
                                 <select name="NewStatus" class="form-select pc-search-select" required>
                                     @{
-                                        var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+                                        var transitions = WorkFlowHelper.GetNextAllowedManualTransition(Model.Status);
                                     }
                                     @foreach (ServiceRequestStatus status in transitions)
                                     {

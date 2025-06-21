@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
+using AutoMapper;
 using Framework.Core.Extensions;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data.Entities;
@@ -8,14 +10,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.Ocsp;
 using QassimPrincipality.Application.Dtos;
 using QassimPrincipality.Application.Services.Lookups.Main.EServiceCategory;
 using QassimPrincipality.Application.Services.NewShema;
 using QassimPrincipality.Application.Services.NewShema.Content;
+using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Web.Helpers;
 using QassimPrincipality.Web.ViewModels.Inquery;
 using QassimPrincipality.Web.ViewModels.Request;
-using System.Globalization;
+
 namespace QassimPrincipality.Web.Controllers
 {
     [Authorize]
@@ -103,15 +107,10 @@ namespace QassimPrincipality.Web.Controllers
         {
             try
             {
-                var UserId = User
-                    .Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
-                    ?.Value;
-                var xx = Guid.Parse(changeStatusDto.RequestId);
-
                 await _serviceRequestAppService.ChangeRequestStatusAsync(
                     Guid.Parse(changeStatusDto.RequestId),
                     changeStatusDto.NewStatus,
-                    UserId,
+                    User.GetId(),
                     changeStatusDto.ActionNotes
                 );
                 return RedirectToAction("AllRequests");
@@ -196,7 +195,7 @@ namespace QassimPrincipality.Web.Controllers
         }
 
         [HttpPost]
-            public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
+        public async Task<IActionResult> MyRequests(RequestSearchFilterDto filter)
         {
             try
             {
@@ -377,14 +376,17 @@ namespace QassimPrincipality.Web.Controllers
                 return StatusCode(500, $"Error uploading files: {ex.Message}");
             }
         }
-                
+
         [HttpPost]
-        public async Task<IActionResult> DeleteAttachment(string requestId,string fileName)
+        public async Task<IActionResult> DeleteAttachment(string requestId, string fileName)
         {
             try
             {
-                    // Save the attachment in the database
-                    await _serviceRequestAppService.DeleteAttachmentAsync(new Guid(requestId),fileName);
+                // Save the attachment in the database
+                await _serviceRequestAppService.DeleteAttachmentAsync(
+                    new Guid(requestId),
+                    fileName
+                );
 
                 // Return the list of uploaded file names
                 return Ok(new { success = true });
@@ -394,8 +396,6 @@ namespace QassimPrincipality.Web.Controllers
                 return StatusCode(500, $"Error uploading files: {ex.Message}");
             }
         }
-
-
 
         [HttpPost]
         public IActionResult UploadAttachment(List<IFormFile> files)
@@ -433,7 +433,14 @@ namespace QassimPrincipality.Web.Controllers
                     requestId,
                     "current-user"
                 );
-                return Ok(new { success = true, requestNumber = request.RequestNumber , requestId = request.Id});
+                return Ok(
+                    new
+                    {
+                        success = true,
+                        requestNumber = request.RequestNumber,
+                        requestId = request.Id,
+                    }
+                );
             }
             catch (Exception ex)
             {
@@ -506,22 +513,31 @@ namespace QassimPrincipality.Web.Controllers
             {
                 var user = await _userManager.FindByNameAsync(User?.Identity?.Name);
 
-                if(user == null)
+                if (user == null)
                 {
                     return StatusCode(500, $"Error retrieving user data: No User Founded");
-
                 }
                 // Simulated user data (replace this with actual user data retrieval logic)
                 var userData = new
                 {
-                    fullName = /*"عبدالله احمد محمد الأحمد"*/ user.FullName,
-                    nationality = /*"المملكة العربية السعودية"*/ user.Nationality,
-                    birthDate = /*"1998-05-19"*/ user.DateOfBirth.HasValue ? user.DateOfBirth.Value.ToString("yyyy-MM-dd", new CultureInfo("en-US")) : "",
-                    idNumber = /*"1109882374"*/ user.IdentityNumber,
-                    email = /*"example@mail.com"*/ user.Email,
-                    phone = /*"0555555555"*/ user.PhoneNumber,
-                    city = /*"بريدة"*/ user.City,
-                    district = /*"حي الصفراء"*/ user.Neighborhood
+                    fullName = /*"عبدالله احمد محمد الأحمد"*/
+                    user.FullName,
+                    nationality = /*"المملكة العربية السعودية"*/
+                    user.Nationality,
+                    birthDate = /*"1998-05-19"*/
+                    user.DateOfBirth.HasValue
+                        ? user.DateOfBirth.Value.ToString("yyyy-MM-dd", new CultureInfo("en-US"))
+                        : "",
+                    idNumber = /*"1109882374"*/
+                    user.IdentityNumber,
+                    email = /*"example@mail.com"*/
+                    user.Email,
+                    phone = /*"0555555555"*/
+                    user.PhoneNumber,
+                    city = /*"بريدة"*/
+                    user.City,
+                    district = /*"حي الصفراء"*/
+                    user.Neighborhood,
                 };
 
                 // Return the data as JSON
@@ -648,12 +664,93 @@ namespace QassimPrincipality.Web.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CompleteRequest(Guid id, List<IFormFile> attachments)
+        {
+            if (attachments == null || attachments.Count == 0)
+            {
+                TempData["UploadError"] = "NO_FILE";
+                return RedirectToAction("RequestDetails", new { id });
+            }
+
+            var request = await _serviceRequestAppService.GetRequestByIdAsync(id);
+
+            var attTypes = await _serviceRequestAppService.GetAttachmentTypes(request.ServiceId);
+
+            var type = attTypes.FirstOrDefault(c => c.NameAr == "مستندات اكمال الطلب");
+
+            var allowedExtensions = type.AllowedExtensions.Split(',');
+
+            long maxFileSize = type.MaxSizeMB * 1024 * 1024;
+
+            foreach (var file in attachments)
+            {
+                var ext = Path.GetExtension(file.FileName).ToLower().Replace(".", "");
+                if (!allowedExtensions.Contains(ext) || file.Length > maxFileSize)
+                {
+                    TempData["UploadError"] = "INVALID_FILE";
+                    return RedirectToAction("RequestDetails", new { id });
+                }
+
+                var requestFolder = Path.Combine(
+                    _environment.WebRootPath,
+                    "uploads",
+                    id.ToString(),
+                    "CompleteRequest"
+                );
+                if (!Directory.Exists(requestFolder))
+                {
+                    Directory.CreateDirectory(requestFolder);
+                }
+
+                if (file == null || file.Length == 0)
+                    continue;
+
+                // Generate a unique file name to avoid conflicts
+                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
+                var filePath = Path.Combine(requestFolder, fileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    await file.CopyToAsync(fileStream);
+
+                var attachmentDto = new RequestAttachmentDto
+                {
+                    AttachmentTypeId = type.Id,
+                    FileName = fileName,
+                    FilePath = filePath,
+                    IsValid = false,
+                };
+
+                // Save the attachment in the database
+                await _serviceRequestAppService.AddAttachmentAsync(
+                    id,
+                    attachmentDto,
+                    HttpContext.User.GetId()
+                );
+            }
+
+            await _serviceRequestAppService.ChangeRequestStatusAsync(
+                id,
+                ServiceRequestStatus.ComletedFiles,
+                User.GetId(),
+                string.Empty
+            );
+
+            TempData["UploadSuccess"] = "UPLOAD_SUCCESS";
+            return RedirectToAction("RequestDetails", new { id });
+        }
+
         [HttpGet]
         public async Task<IActionResult> PreviewAttachment(Guid requestId, int attachmentId)
         {
             // Example: fetch file info from DB/service using requestId and attachmentId
             var attachment = await _serviceRequestAppService.GetAttachment(requestId, attachmentId);
-            if (attachment == null || string.IsNullOrEmpty(attachment.ContentType) || attachment.Data == null)
+            if (
+                attachment == null
+                || string.IsNullOrEmpty(attachment.ContentType)
+                || attachment.Data == null
+            )
             {
                 return NotFound("Attachment not found.");
             }
@@ -661,12 +758,17 @@ namespace QassimPrincipality.Web.Controllers
             // Return the file for preview
             return File(attachment.Data, attachment.ContentType);
         }
+
         [HttpGet]
         public async Task<IActionResult> DownloadAttachment(Guid requestId, int attachmentId)
         {
             // Fetch the attachment (same service as used in preview)
             var attachment = await _serviceRequestAppService.GetAttachment(requestId, attachmentId);
-            if (attachment == null || string.IsNullOrEmpty(attachment.ContentType) || attachment.Data == null)
+            if (
+                attachment == null
+                || string.IsNullOrEmpty(attachment.ContentType)
+                || attachment.Data == null
+            )
             {
                 return NotFound("Attachment not found.");
             }
@@ -688,10 +790,11 @@ namespace QassimPrincipality.Web.Controllers
                 "image/png" => ".png",
                 "image/jpeg" => ".jpg",
                 "application/msword" => ".doc",
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => ".docx",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =>
+                    ".docx",
                 "application/vnd.ms-excel" => ".xls",
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => ".xlsx",
-                _ => ""
+                _ => "",
             };
         }
         //[HttpGet]
