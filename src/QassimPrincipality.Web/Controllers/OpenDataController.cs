@@ -1,4 +1,5 @@
-﻿using Framework.Core.Extensions;
+﻿using System.Globalization;
+using Framework.Core.Extensions;
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,14 +26,12 @@ namespace QassimPrincipality.Web.Controllers
             LookupAppService lookUpService,
             UserAppService userAppService,
             IOptions<ReferralNumberConfiguration> referralNumberConfiguration
-
         )
         {
             _openService = openService;
             _lookUpService = lookUpService;
             _userAppService = userAppService;
             _referralNumberConfiguration = referralNumberConfiguration.Value;
-
         }
 
         public async Task<IActionResult> Index(string type, int page = 1)
@@ -74,7 +73,7 @@ namespace QassimPrincipality.Web.Controllers
                     IsApproved = status,
                     PageNumber = page,
                     PageSize = 10,
-                    CreatedBy = HttpContext.User.GetId()
+                    CreatedBy = HttpContext.User.GetId(),
                 }
             );
             return View(result);
@@ -87,9 +86,15 @@ namespace QassimPrincipality.Web.Controllers
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = user.UserName.Replace("@nafath", "");
             //vM.IdentityNumber = vM.IdentityNumber.Replace("@nafath", "");
-            //var types = await _lookUpService.GetRequesterTypes();
+            var types = await _lookUpService.GetRequesterTypes();
             //vM.RequesterTypeId = int.Parse(types.First().Value);
-            ViewData["requestertypes"] = null; // types;
+            ViewData["requestertypes"] = types
+                .Select(c => new SelectListItem
+                {
+                    Text = CultureInfo.CurrentCulture.Name == "en-US" ? c.NameEn : c.NameAr,
+                    Value = c.Id.ToString(),
+                })
+                .ToList();
             return View(vM);
         }
 
@@ -100,9 +105,15 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                //var types = await _lookUpService.GetRequesterTypes();
+                var types = await _lookUpService.GetRequesterTypes();
                 //model.RequesterTypeId = int.Parse(types.First().Value);
-                ViewData["requestertypes"] = null;// types;
+                ViewData["requestertypes"] = types
+                    .Select(c => new SelectListItem
+                    {
+                        Text = CultureInfo.CurrentCulture.Name == "en-US" ? c.NameEn : c.NameAr,
+                        Value = c.Id.ToString(),
+                    })
+                    .ToList();
                 return View(model);
             }
             OpenDataDto dto = new OpenDataDto();
@@ -116,10 +127,8 @@ namespace QassimPrincipality.Web.Controllers
             dto.IsApproved = null;
             dto.CreatedBy = HttpContext.User.GetId();
 
-
             //dto.ReferralNumber = _referralNumberConfiguration.OpenDataStart
             //            + DateTime.Now.ToString("yyMMddHHmmss");
-
 
             var req = await _openService.InsertAsync(dto);
 
@@ -172,7 +181,7 @@ namespace QassimPrincipality.Web.Controllers
                 {
                     IsApproved = status,
                     PageNumber = page,
-                    PageSize = 10
+                    PageSize = 10,
                 }
             );
             return View(result);

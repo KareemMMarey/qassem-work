@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QassimPrincipality.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using QassimPrincipality.Infrastructure.Data;
 namespace QassimPrincipality.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623212258_AddOpenData")]
+    partial class AddOpenData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,35 +56,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("RequesterType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 24, 1, 14, 30, 896, DateTimeKind.Local).AddTicks(1124),
-                            IsActive = false,
-                            NameAr = "فرد",
-                            NameEn = "Individual"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 24, 1, 14, 30, 896, DateTimeKind.Local).AddTicks(1134),
-                            IsActive = false,
-                            NameAr = "حكومة",
-                            NameEn = "Government"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 24, 1, 14, 30, 896, DateTimeKind.Local).AddTicks(1135),
-                            IsActive = false,
-                            NameAr = "خاص",
-                            NameEn = "Special"
-                        });
                 });
 
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.NewSchema.AttachmentType", b =>
