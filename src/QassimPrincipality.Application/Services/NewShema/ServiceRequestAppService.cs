@@ -7,6 +7,7 @@ using Framework.Core.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Asn1.Ocsp;
 using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Application.Helpers.Business;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Entities.Services.NewSchema;
 using QassimPrincipality.Domain.Enums;
@@ -17,6 +18,7 @@ namespace QassimPrincipality.Application.Services.NewShema
     public class ServiceRequestAppService
     {
         private readonly IRepository<ServiceRequest> _serviceRequestRepository;
+        private readonly IRepository<AttachmentType> _attachmentTypeRepository;
         private readonly IRepository<RequestAction> _requestActionRepository;
         private readonly IRepository<RequestBasicData> _requestBasicDataRepository;
         private readonly IRepository<RequestAdditionalData> _requestAdditionalDataRepository;
@@ -29,6 +31,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             IRepository<RequestAdditionalData> requestAdditionalDataRepository,
             IRepository<EService> serviceRepository,
             IRepository<RequestAction> requestActionRepository,
+            IRepository<AttachmentType> attachmentTypeRepository,
             IRepository<RequestAttachment> requestAttachmentRepository
         )
         {
@@ -38,6 +41,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             _requestAttachmentRepository = requestAttachmentRepository;
             _serviceRepository = serviceRepository;
             _requestActionRepository = requestActionRepository;
+            _attachmentTypeRepository = attachmentTypeRepository;
         }
 
         // Create a new service request (Draft)
@@ -300,37 +304,24 @@ namespace QassimPrincipality.Application.Services.NewShema
             ServiceRequestStatus newStatus
         )
         {
-            if (
-                currentStatus == ServiceRequestStatus.Approved
-                || currentStatus == ServiceRequestStatus.Rejected
-            )
+            // Define finalized statuses that should not allow transitions
+            var finalizedStatuses = new[]
+            {
+                ServiceRequestStatus.Approved,
+                ServiceRequestStatus.Rejected,
+            };
+
+            if (finalizedStatuses.Contains(currentStatus))
                 throw new InvalidOperationException("Cannot change status from a finalized state.");
 
-            if (
-                currentStatus == ServiceRequestStatus.Draft
-                && newStatus != ServiceRequestStatus.Submitted
-            )
-                throw new InvalidOperationException("Draft can only transition to Submitted.");
+            var allowedTransitions = WorkFlowHelper.GetNextTransition(currentStatus);
 
-            if (
-                currentStatus == ServiceRequestStatus.Submitted
-                && newStatus != ServiceRequestStatus.UnderReview
-            )
+            if (!allowedTransitions.Contains(newStatus))
+            {
                 throw new InvalidOperationException(
-                    "Submitted can only transition to UnderReview."
+                    $"Cannot transition from {currentStatus} to {newStatus}."
                 );
-
-            if (
-                currentStatus == ServiceRequestStatus.UnderReview
-                && (
-                    newStatus != ServiceRequestStatus.Approved
-                    && newStatus != ServiceRequestStatus.Rejected
-                    && newStatus != ServiceRequestStatus.RequiresCompletion
-                )
-            )
-                throw new InvalidOperationException(
-                    "UnderReview can only transition to Approved or Rejected."
-                );
+            }
         }
 
         private string GenerateRequestNumber(int serviceId)
@@ -380,6 +371,15 @@ namespace QassimPrincipality.Application.Services.NewShema
                 Data = fileBytes,
                 FileName = file.FileName,
             };
+        }
+
+        public async Task<List<AttachmentType>> GetAttachmentTypes(int serviceId)
+        {
+            var types = await _attachmentTypeRepository
+                .TableNoTracking.Where(c => c.ServiceId == serviceId)
+                .ToListAsync();
+
+            return types;
         }
 
         private string GetContentType(string path)

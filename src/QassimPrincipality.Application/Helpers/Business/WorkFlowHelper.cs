@@ -2,7 +2,7 @@
 using QassimPrincipality.Domain.Entities.Services.NewSchema;
 using QassimPrincipality.Domain.Enums;
 
-namespace QassimPrincipality.Web.Helpers.Business
+namespace QassimPrincipality.Application.Helpers.Business
 {
     public static class WorkFlowHelper
     {
@@ -15,6 +15,7 @@ namespace QassimPrincipality.Web.Helpers.Business
                 ServiceRequestStatus.UnderReview => "pc-blue-status",
                 ServiceRequestStatus.Rejected => "pc-red-status",
                 ServiceRequestStatus.RequiresCompletion => "pc-orange-status",
+                ServiceRequestStatus.ComletedFiles => "pc-orange-status",
                 ServiceRequestStatus.NotQualified => "pc-grey-status",
                 _ => "",
             };
@@ -30,6 +31,7 @@ namespace QassimPrincipality.Web.Helpers.Business
                 ServiceRequestStatus.RequiresCompletion => localizer[
                     "RequiresCompletionStatus"
                 ].Value,
+                ServiceRequestStatus.ComletedFiles => localizer["ComletedFilesStatus"].Value,
                 ServiceRequestStatus.NotQualified => localizer["NotQualifiedStatus"].Value,
                 ServiceRequestStatus.Cancelled => localizer[
                     ServiceRequestStatus.Cancelled.ToString()
@@ -43,14 +45,14 @@ namespace QassimPrincipality.Web.Helpers.Business
                 _ => localizer["UnknownStatus"].Value,
             };
         }
-        
+
         public static string GetLookupTypeDisplay(LookupOptionType status, IViewLocalizer localizer)
         {
             return status switch
             {
                 LookupOptionType.Prison => localizer["Prison"].Value,
                 LookupOptionType.ExitReasons => localizer["ExitReasons"].Value,
-               
+
                 _ => localizer["UnknownType"].Value,
             };
         }
@@ -74,7 +76,8 @@ namespace QassimPrincipality.Web.Helpers.Business
             {
                 // هذا المفتاح موجود لدينا في الـ .resx: "NewRequestCreated" => "تم إنشاء طلب جديد برقم {0}"
                 // localizer["NewRequestCreated", requestNumber] سيُرجع جملة تحتوي على التأشير وقيمة requestNumber
-                return localizer["NewRequestCreated", requestNumber].Value.Replace("{0}", requestNumber);
+                return localizer["NewRequestCreated", requestNumber]
+                    .Value.Replace("{0}", requestNumber);
             }
 
             // 2) غير ذلك => “تم تحديث الطلب إلى {0}”
@@ -83,7 +86,7 @@ namespace QassimPrincipality.Web.Helpers.Business
 
             // ثم نستدعي المفتاح "RequestUpdatedTo" من الـ .resx
             // والذي في مثالي هو: "تم تحديث الطلب إلى {0}"
-            var st =  localizer["RequestUpdatedTo", localizedStatus].Value;
+            var st = localizer["RequestUpdatedTo", localizedStatus].Value;
             return st.Replace("{0}", localizedStatus);
         }
 
@@ -141,16 +144,24 @@ namespace QassimPrincipality.Web.Helpers.Business
             {
                 Id = ServiceRequestStatus.Draft,
                 AllowedStatusses = new[] { ServiceRequestStatus.Submitted },
+                AllowedManualTransition = new[] { ServiceRequestStatus.Submitted },
             },
             new WorkFlowItem
             {
                 Id = ServiceRequestStatus.Submitted,
                 AllowedStatusses = new[] { ServiceRequestStatus.UnderReview },
+                AllowedManualTransition = new[] { ServiceRequestStatus.UnderReview },
             },
             new WorkFlowItem
             {
                 Id = ServiceRequestStatus.UnderReview,
                 AllowedStatusses = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
+                },
+                AllowedManualTransition = new[]
                 {
                     ServiceRequestStatus.Approved,
                     ServiceRequestStatus.Rejected,
@@ -165,6 +176,28 @@ namespace QassimPrincipality.Web.Helpers.Business
                     ServiceRequestStatus.Approved,
                     ServiceRequestStatus.Rejected,
                     ServiceRequestStatus.RequiresCompletion,
+                    ServiceRequestStatus.ComletedFiles,
+                },
+                AllowedManualTransition = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                },
+            },
+            new WorkFlowItem
+            {
+                Id = ServiceRequestStatus.ComletedFiles,
+                AllowedStatusses = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
+                },
+                AllowedManualTransition = new[]
+                {
+                    ServiceRequestStatus.Approved,
+                    ServiceRequestStatus.Rejected,
+                    ServiceRequestStatus.RequiresCompletion,
                 },
             },
         };
@@ -172,6 +205,12 @@ namespace QassimPrincipality.Web.Helpers.Business
         public static ServiceRequestStatus[] GetNextTransition(ServiceRequestStatus status)
         {
             return items.FirstOrDefault(c => c.Id == status)?.AllowedStatusses
+                ?? Array.Empty<ServiceRequestStatus>();
+        }
+    
+        public static ServiceRequestStatus[] GetNextAllowedManualTransition(ServiceRequestStatus status)
+        {
+            return items.FirstOrDefault(c => c.Id == status)?.AllowedManualTransition
                 ?? Array.Empty<ServiceRequestStatus>();
         }
     }

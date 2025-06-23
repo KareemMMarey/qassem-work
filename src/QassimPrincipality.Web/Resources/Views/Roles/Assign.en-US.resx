@@ -204,6 +204,9 @@
   <data name="RequiresCompletionStatus" xml:space="preserve">
     <value>RequiresCompletion</value>
   </data>
+  <data name="ComletedFilesStatus" xml:space="preserve">
+   <value>Requires Completion Review</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

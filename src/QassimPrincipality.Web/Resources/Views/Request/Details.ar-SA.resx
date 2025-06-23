@@ -201,6 +201,9 @@
   <data name="RequiresCompletionStatus" xml:space="preserve">
     <value>يتطلب إكماله</value>
   </data>
+  <data name="ComletedFilesStatus" xml:space="preserve">
+    <value>يتطلب مراجعة الإكمال</value>
+  </data>
   <data name="SearchRequests" xml:space="preserve">
     <value>Search Requests</value>
   </data>
@@ -324,4 +327,13 @@
   <data name="TheMaximumAllowedFileSize" xml:space="preserve">
     <value>الحد الأقصى لحجم الملف المسموح به هو 2 ميجابايت، وتشمل الصيغ المدعومة .jpg، .png، و.pdf.</value>
   </data>
+  <data name="PleaseUploadAtLeastOneFile" xml:space="preserve">
+  <value>يرجى رفع ملف واحد على الأقل</value>
+</data>
+  <data name="InvalidFileFormatOrSize" xml:space="preserve">
+  <value>صيغة الملف أو حجمه غير مناسب</value>
+</data>
+  <data name="FilesUploadedSuccessfully" xml:space="preserve">
+  <value>تم رفع الملفات بنجاح</value>
+</data>
 </root>

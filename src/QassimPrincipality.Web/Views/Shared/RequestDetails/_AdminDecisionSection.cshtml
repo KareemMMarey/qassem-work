@@ -1,5 +1,5 @@
 ﻿@using QassimPrincipality.Domain.Enums
-@using QassimPrincipality.Web.Helpers.Business
+@using QassimPrincipality.Application.Helpers.Business
 @model QassimPrincipality.Application.Dtos.ServiceRequestDto
 @{
     // Try to pull the parent’s localizer out of ViewData
@@ -27,7 +27,7 @@
 
             <select name="NewStatus" class="form-select pc-search-select" required>
                 @{
-                    var transitions = WorkFlowHelper.GetNextTransition(Model.Status);
+                    var transitions = WorkFlowHelper.GetNextAllowedManualTransition(Model.Status);
                 }
                 @foreach (ServiceRequestStatus status in transitions)
                 {

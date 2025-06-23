@@ -168,6 +168,9 @@
   <data name="RequiresCompletionStatus" xml:space="preserve">
     <value>يتطلب إكماله</value>
   </data>
+  <data name="ComletedFilesStatus" xml:space="preserve">
+    <value>يتطلب مراجعة الإكمال</value>
+  </data>
   <data name="SearchRequests" xml:space="preserve">
     <value>Search Requests</value>
   </data>

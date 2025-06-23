@@ -26,7 +26,7 @@
         Ref_ResearchWF = 6,
         Ref_CompleteNeededInfoWF = 7,
         Ref_ExtensionRequestWF = 8,
-        Ref_ExportLetterWF = 9
+        Ref_ExportLetterWF = 9,
     }
 
     public enum ProcessActivityEnum
@@ -34,13 +34,13 @@
         UploadRequestWF_RequestOwnerReview = 1,
         RequetsAccessWF_DirectorReview = 8,
         DiscussionRequestWF_Viewd = 15,
-        ReferralRequestWF_PresidentOfficeReview = 17
+        ReferralRequestWF_PresidentOfficeReview = 17,
     }
 
     public enum ReferralProcessActivityEnum
     {
         Ref_ResearchWF_ResExcHeadReview = 21,
-        ReferralRequestWF_PresidentOfficeReview = 17
+        ReferralRequestWF_PresidentOfficeReview = 17,
     }
 
     public enum ReferralRequestWFActions
@@ -76,7 +76,7 @@
         RepresentationWF_ResearchVpSelect = 125,
         RepresentationWF_RequiredDeptApprove = 126,
         RepresentationWF_RequiredDeptSelect = 128,
-        RepresentationWF_RequiredSubDeptApprove = 129
+        RepresentationWF_RequiredSubDeptApprove = 129,
     }
 
     public enum ProcessActivityWFStatusEnum
@@ -86,7 +86,7 @@
 
         RequetsAccessWF_Request_Submitted = 15,
         DiscussionRequestWF_Pending = 22,
-        UnderReviewPresidentOffice = 24
+        UnderReviewPresidentOffice = 24,
     }
 
     public enum UploadRequestWFActions
@@ -102,12 +102,12 @@
         RequestSubmitted = 24,
         VPApproved = 16,
         UnderReviewDirector = 10,
-        DirectorReviewReject = 15
+        DirectorReviewReject = 15,
     }
 
     public enum DiscussionRequestWFActions
     {
-        RequestSubmitted = 25
+        RequestSubmitted = 25,
     }
 
     public enum ChangeRequestWFActions
@@ -116,7 +116,7 @@
         ChangeRequestWF_RequestOwnerSendChanges = 20,
         ChangeRequestWF_KMManagerApprove = 21,
         ChangeRequestWF_KMManagerReject = 22,
-        ChangeRequestWF_KMManagerClose = 23
+        ChangeRequestWF_KMManagerClose = 23,
     }
 
     public enum ChangeRequestWFStatusEnum
@@ -124,12 +124,12 @@
         Request_Submitted = 16,
         UnderChangeRequestOwner = 17,
         Approved = 19,
-        Closed = 21
+        Closed = 21,
     }
 
     public enum ChangeRequestWFActivities
     {
-        ChangeRequestWF_RequestOwnerProvideInfo = 12
+        ChangeRequestWF_RequestOwnerProvideInfo = 12,
     }
 
     #endregion Workflow
@@ -143,7 +143,7 @@
         Representation = 2,
         DataAndInformation = 3,
         Announcement = 4,
-        CompleteRequired = 5
+        CompleteRequired = 5,
     }
 
     public enum ReferralRolesEnum
@@ -151,49 +151,57 @@
         SharedServices,
         Stakeholder,
         ReferralsManagement,
-        Admin
+        Admin,
     }
 
-	#endregion App
+    #endregion App
 
-	public enum ServiceRequestStatus
-	{
-		Draft = 0,
-		Submitted = 1,
-		UnderReview = 2,
-		Approved = 3,
-		Rejected = 4,
-		Cancelled = 5,
+    public enum ServiceRequestStatus
+    {
+        Draft = 0,
+        Submitted = 1,
+        UnderReview = 2,
+        Approved = 3,
+        Rejected = 4,
+        Cancelled = 5,
         RequiresCompletion = 6,
-        NotQualified = 7,   
+        NotQualified = 7,
+        ComletedFiles = 8,
     }
-	public enum ServiceRequesterRelation
-	{
-		MySelf = 1,
-		Delegated = 2,
-		Lawyer = 3,
-		FristClassRelative = 4
-	}
-    public enum LookupOptionType {
-		Prison = 1,
-        ExitReasons = 2
-	}
-	public enum ContactMessageType
-	{
-		Request = 1,   // طلب
-		Inquiry = 2    // تواصل
-	}
-	public enum TabType
-	{
-		Requirements = 1,   // طلب
-		FAQ = 2    // تواصل
-	}
-    public enum AboutSectionType {
-		About = 1,   
-		Tasks = 2,
-		Goals = 3,
-		Policies = 4,
-		Population = 5,
-		General =6,
-	}
+
+    public enum ServiceRequesterRelation
+    {
+        MySelf = 1,
+        Delegated = 2,
+        Lawyer = 3,
+        FristClassRelative = 4,
+    }
+
+    public enum LookupOptionType
+    {
+        Prison = 1,
+        ExitReasons = 2,
+    }
+
+    public enum ContactMessageType
+    {
+        Request = 1, // طلب
+        Inquiry = 2, // تواصل
+    }
+
+    public enum TabType
+    {
+        Requirements = 1, // طلب
+        FAQ = 2, // تواصل
+    }
+
+    public enum AboutSectionType
+    {
+        About = 1,
+        Tasks = 2,
+        Goals = 3,
+        Policies = 4,
+        Population = 5,
+        General = 6,
+    }
 }

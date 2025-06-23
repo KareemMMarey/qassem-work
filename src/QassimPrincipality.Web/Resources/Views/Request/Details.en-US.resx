@@ -199,6 +199,9 @@
   <data name="RequiresCompletionStatus" xml:space="preserve">
     <value>RequiresCompletion</value>
   </data>
+  <data name="ComletedFilesStatus" xml:space="preserve">
+   <value>Requires Completion Review</value>
+  </data>
   <data name="SearchRequests" xml:space="preserve">
     <value>Search Requests</value>
   </data>
@@ -319,4 +322,13 @@
   <data name="TheMaximumAllowedFileSize" xml:space="preserve">
     <value>The maximum allowed file size is 2MB, and supported formats include:</value>
   </data>
+  <data name="PleaseUploadAtLeastOneFile" xml:space="preserve">
+<value>Please upload at least one file</value>
+</data>
+  <data name="InvalidFileFormatOrSize" xml:space="preserve">
+<value>Invalid file format or size</value>
+</data>
+  <data name="FilesUploadedSuccessfully" xml:space="preserve">
+<value>Files uploaded successfully</value>
+</data>
 </root>
