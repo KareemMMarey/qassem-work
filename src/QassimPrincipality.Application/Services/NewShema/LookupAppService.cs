@@ -3,6 +3,7 @@ using Framework.Core.Globalization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using QassimPrincipality.Application.Dtos;
+using QassimPrincipality.Domain.Entities.Lookups.Main;
 using QassimPrincipality.Domain.Entities.Lookups.NewSchema;
 using QassimPrincipality.Domain.Enums;
 using QassimPrincipality.Domain.Interfaces;
@@ -13,23 +14,32 @@ namespace QassimPrincipality.Application.Services.NewShema
     {
         private readonly IRepository<ServicesCategory> _servicesCategoryRepository;
         private readonly IRepository<LookupOption> _lookupOptionRepository;
+        private readonly IRepository<RequesterType> _requesterTypeRepository;
         private readonly IRepository<Country> _countryRepository;
 
         public LookupAppService(
             IRepository<ServicesCategory> servicesCategoryRepository,
             IRepository<LookupOption> lookupOptionRepository,
+            IRepository<RequesterType> requesterTypeRepository,
             IRepository<Country> countryRepository
         )
         {
             _servicesCategoryRepository = servicesCategoryRepository;
             _lookupOptionRepository = lookupOptionRepository;
             _countryRepository = countryRepository;
+            _requesterTypeRepository = requesterTypeRepository;
         }
 
         public async Task<List<LookupOptionDto>> GetAllAsync()
         {
             var entities = await _lookupOptionRepository.TableNoTracking.ToListAsync();
             return entities.MapTo<List<LookupOptionDto>>();
+        }
+
+        public async Task<List<RequesterType>> GetRequesterTypes()
+        {
+            var entities = await _requesterTypeRepository.TableNoTracking.ToListAsync();
+            return entities;
         }
 
         public async Task<List<SelectListItem>> GetCategories()

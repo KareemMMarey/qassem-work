@@ -18,6 +18,5 @@ namespace QassimPrincipality.Domain.Entities.Services.Main
         public string IdentityNumber { get; set; }
         public string RejectReason { get; set; }
         public RequesterType RequesterType { get; set; } // open data
-        public List<Attachment> Attachments { get; set; }
     }
 }
