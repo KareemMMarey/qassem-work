@@ -689,37 +689,41 @@ namespace QassimPrincipality.Web.Controllers
             {
                 Thread.Sleep(1000);
             }
-            var person_simulate = new
-            {
-                id = Guid.NewGuid(),
-                nationalId = userName,
-                firstNameAr = "محمد",
-                secondNameAr = "العصيمي",
-                thirdNameAr = "حسن",
-                lastNameAr = "المرى",
-                fullNameAr = "محمد العصيمي حسن المرى",
-                firstNameEn = "Kareem",
-                secondNameEn = "Mohamed",
-                thirdNameEn = "Hassan",
-                lastNameEn = "El osaimy",
-                fullNameEn = "Mohamed el osaimy",
-                dateOfBirthHijri = "1405-01-01",
-                dateOfBirthGregorian = "1985-10-15",
-                gender = "Male",
-                mobileNumber = "966500000000",
-                issuePlace = "Riyadh",
-                nationality = "Saudi",
-                identityType = "NationalID",
-                identityExpiryDate = "1447-01-01",
-                arTwoNames = "محمد العصيمي ",
-            };
-            TempData["arTwoNames"] = person_simulate.arTwoNames;
-            TempData["accessToken"] = "mocked-token-123";
-            TempData["dateOfBirthGregorian"] = person_simulate.dateOfBirthGregorian;
-            TempData["nationality"] = person_simulate.nationality;
-            TempData["nationalId"] = person_simulate.nationalId;
+            if (_nafathConfiguartion.Value.EnableSimulation)
+            { 
+                var person_simulate = new
+                {
+                    id = Guid.NewGuid(),
+                    nationalId = userName,
+                    firstNameAr = "محمد",
+                    secondNameAr = "العصيمي",
+                    thirdNameAr = "حسن",
+                    lastNameAr = "المرى",
+                    fullNameAr = "محمد العصيمي حسن المرى",
+                    firstNameEn = "Kareem",
+                    secondNameEn = "Mohamed",
+                    thirdNameEn = "Hassan",
+                    lastNameEn = "El osaimy",
+                    fullNameEn = "Mohamed el osaimy",
+                    dateOfBirthHijri = "1405-01-01",
+                    dateOfBirthGregorian = "1985-10-15",
+                    gender = "Male",
+                    mobileNumber = "966500000000",
+                    issuePlace = "Riyadh",
+                    nationality = "Saudi",
+                    identityType = "NationalID",
+                    identityExpiryDate = "1447-01-01",
+                    arTwoNames = "محمد العصيمي ",
+                };
+                TempData["arTwoNames"] = person_simulate.arTwoNames;
+                TempData["accessToken"] = "mocked-token-123";
+                TempData["dateOfBirthGregorian"] = person_simulate.dateOfBirthGregorian;
+                TempData["nationality"] = person_simulate.nationality;
+                TempData["nationalId"] = person_simulate.nationalId;
 
-            return Ok(new { status = NafathStatus.COMPLETED.ToString() });
+                return Ok(new { status = NafathStatus.COMPLETED.ToString() });
+            }
+               
 
             // End Simulate Check nafath
             try
