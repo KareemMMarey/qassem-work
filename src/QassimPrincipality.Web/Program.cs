@@ -1,25 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using AutoMapper;
-using QassimPrincipality.Application;
-using QassimPrincipality.Infrastructure;
+﻿using AutoMapper;
 using Framework.Core.AutoMapper;
+using Framework.Core.Notifications;
 using Framework.Core.SharedServices.Services;
 using Framework.Identity.Data;
-using NLog.Web;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using QassimPrincipality.Web.Helpers;
-using Framework.Core.Globalization;
-using System.Configuration;
-using System.Globalization;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
-using Framework.Core.Notifications;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Options;
+using QassimPrincipality.Application;
+using QassimPrincipality.Infrastructure;
+using QassimPrincipality.Web.Helpers;
+using System.Globalization;
 namespace QassimPrincipality.Web
 {
     public class Program

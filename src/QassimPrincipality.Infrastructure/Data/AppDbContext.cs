@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using QassimPrincipality.Domain.Entities.Services.Main;
 using Framework.Identity.Data.Seed;
+using QassimPrincipality.Domain.Configurations;
 
 namespace QassimPrincipality.Infrastructure.Data
 {
@@ -19,6 +20,7 @@ namespace QassimPrincipality.Infrastructure.Data
     FindFirst("fullName")?.Value;
         }
         public virtual DbSet<OpenDataRequest> OpenDataRequests { get; set; }
+        public virtual DbSet<ShareDataRequest> ShareDataRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +36,7 @@ namespace QassimPrincipality.Infrastructure.Data
             }
 
             modelBuilder.ApplyConfiguration(new RequesterTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new EntityTypeConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

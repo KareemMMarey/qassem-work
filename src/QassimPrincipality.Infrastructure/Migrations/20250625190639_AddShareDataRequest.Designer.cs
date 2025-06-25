@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QassimPrincipality.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using QassimPrincipality.Infrastructure.Data;
 namespace QassimPrincipality.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250625190639_AddShareDataRequest")]
+    partial class AddShareDataRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,35 +56,6 @@ namespace QassimPrincipality.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EntityType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
-                            IsActive = false,
-                            NameAr = "فرد",
-                            NameEn = "Individual"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
-                            IsActive = false,
-                            NameAr = "حكومة",
-                            NameEn = "Government"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
-                            IsActive = false,
-                            NameAr = "خاص",
-                            NameEn = "Special"
-                        });
                 });
 
             modelBuilder.Entity("QassimPrincipality.Domain.Entities.Lookups.Main.RequesterType", b =>
@@ -123,7 +96,7 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         {
                             Id = 1,
                             CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
+                            CreatedOn = new DateTime(2025, 6, 25, 22, 6, 39, 571, DateTimeKind.Local).AddTicks(8810),
                             IsActive = false,
                             NameAr = "فرد",
                             NameEn = "Individual"
@@ -132,7 +105,7 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         {
                             Id = 2,
                             CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
+                            CreatedOn = new DateTime(2025, 6, 25, 22, 6, 39, 571, DateTimeKind.Local).AddTicks(8819),
                             IsActive = false,
                             NameAr = "حكومة",
                             NameEn = "Government"
@@ -141,7 +114,7 @@ namespace QassimPrincipality.Infrastructure.Migrations
                         {
                             Id = 3,
                             CreatedBy = "Admin",
-                            CreatedOn = new DateTime(2025, 6, 25, 22, 13, 27, 230, DateTimeKind.Local).AddTicks(141),
+                            CreatedOn = new DateTime(2025, 6, 25, 22, 6, 39, 571, DateTimeKind.Local).AddTicks(8820),
                             IsActive = false,
                             NameAr = "خاص",
                             NameEn = "Special"
