@@ -15,12 +15,14 @@ namespace QassimPrincipality.Application.Services.NewShema
         private readonly IRepository<ServicesCategory> _servicesCategoryRepository;
         private readonly IRepository<LookupOption> _lookupOptionRepository;
         private readonly IRepository<RequesterType> _requesterTypeRepository;
+        private readonly IRepository<EntityType> _entityTypeRepository;
         private readonly IRepository<Country> _countryRepository;
 
         public LookupAppService(
             IRepository<ServicesCategory> servicesCategoryRepository,
             IRepository<LookupOption> lookupOptionRepository,
             IRepository<RequesterType> requesterTypeRepository,
+            IRepository<EntityType> entityTypeRepository,
             IRepository<Country> countryRepository
         )
         {
@@ -28,6 +30,7 @@ namespace QassimPrincipality.Application.Services.NewShema
             _lookupOptionRepository = lookupOptionRepository;
             _countryRepository = countryRepository;
             _requesterTypeRepository = requesterTypeRepository;
+            _entityTypeRepository = entityTypeRepository;
         }
 
         public async Task<List<LookupOptionDto>> GetAllAsync()
@@ -111,6 +114,12 @@ namespace QassimPrincipality.Application.Services.NewShema
                 return;
 
             await _lookupOptionRepository.DeleteAsync(entity, true);
+        }
+
+        public async Task<List<EntityType>> GetEntities()
+        {
+            var entities = await _entityTypeRepository.TableNoTracking.ToListAsync();
+            return entities;
         }
     }
 }

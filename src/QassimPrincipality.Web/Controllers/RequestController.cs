@@ -607,6 +607,7 @@ namespace QassimPrincipality.Web.Controllers
                         + "&NationalNo="
                         + long.Parse(model.NationalNo)
                 );
+                ViewBag.Result = result;
                 await _logservice.InsertAsync(
                     new Framework.Core.SharedServices.Dto.LogDto
                     {
