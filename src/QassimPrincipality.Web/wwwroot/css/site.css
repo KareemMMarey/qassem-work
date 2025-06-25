@@ -8,7 +8,11 @@ html {
     position: relative;
     min-height: 100%;
 }
-
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
 body {
     font-family: "IBM Plex Sans Arabic";
     font-size: 14px;
