@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using QassimPrincipality.Domain.Entities.Lookups.Main;
 
-namespace Framework.Identity.Data.Seed
+namespace QassimPrincipality.Domain.Configurations
 {
     public class RequesterTypeConfiguration : IEntityTypeConfiguration<RequesterType>
     {
@@ -15,7 +15,16 @@ namespace Framework.Identity.Data.Seed
                     NameAr = "فرد",
                     NameEn = "Individual",
                     CreatedBy = "Admin",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(
+                        2025,
+                        6,
+                        25,
+                        22,
+                        13,
+                        27,
+                        230,
+                        DateTimeKind.Local
+                    ).AddTicks(141),
                 },
                 new RequesterType
                 {
@@ -23,7 +32,16 @@ namespace Framework.Identity.Data.Seed
                     NameAr = "حكومة",
                     NameEn = "Government",
                     CreatedBy = "Admin",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(
+                        2025,
+                        6,
+                        25,
+                        22,
+                        13,
+                        27,
+                        230,
+                        DateTimeKind.Local
+                    ).AddTicks(141),
                 },
                 new RequesterType
                 {
@@ -31,7 +49,16 @@ namespace Framework.Identity.Data.Seed
                     NameAr = "خاص",
                     NameEn = "Special",
                     CreatedBy = "Admin",
-                    CreatedOn = DateTime.Now,
+                    CreatedOn = new DateTime(
+                        2025,
+                        6,
+                        25,
+                        22,
+                        13,
+                        27,
+                        230,
+                        DateTimeKind.Local
+                    ).AddTicks(141),
                 }
             );
         }

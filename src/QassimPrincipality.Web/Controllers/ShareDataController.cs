@@ -1,4 +1,5 @@
-﻿using Framework.Core.Extensions;
+﻿using System.Globalization;
+using Framework.Core.Extensions;
 using Framework.Identity.Data.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,18 +29,15 @@ namespace QassimPrincipality.Web.Controllers
         public ShareDataController(
             ShareDataAppService shareDataService,
             LookupAppService lookUpService,
-             UserAppService userAppService,
+            UserAppService userAppService,
             IOptions<ReferralNumberConfiguration> referralNumberConfiguration
-
         )
         {
             _shareDataService = shareDataService;
             _lookUpService = lookUpService;
             _userAppService = userAppService;
             _referralNumberConfiguration = referralNumberConfiguration.Value;
-
         }
-
 
         public async Task<IActionResult> Index(string type, int page = 1)
         {
@@ -76,16 +74,15 @@ namespace QassimPrincipality.Web.Controllers
             var result = await _shareDataService.SearchAsync(
                 new ShareDataRequestSearchDto()
                 {
-                   // IsPending = isPending,
+                    // IsPending = isPending,
                     IsApproved = status,
                     PageNumber = page,
                     PageSize = 10,
-                   // CreatedBy = HttpContext.User.GetId()
+                    // CreatedBy = HttpContext.User.GetId()
                 }
             );
             return View(result);
         }
-
 
         public async Task<ActionResult> Create()
         {
@@ -94,7 +91,13 @@ namespace QassimPrincipality.Web.Controllers
             vM.UserFullName = user.FullNameAr ?? user.FullName;
             vM.IdentityNumber = "1234567899";
             vM.LegalJustificationDescription = "وصف المسوغ القانوني";
-            ViewData["entities"] = null; // await _lookUpService.GetEntities();
+            ViewData["entities"] = (await _lookUpService.GetEntities())
+                .Select(c => new SelectListItem
+                {
+                    Text = CultureInfo.CurrentCulture.Name == "en-US" ? c.NameEn : c.NameAr,
+                    Value = c.Id.ToString(),
+                })
+                .ToList();
             return View(vM);
         }
 
@@ -105,7 +108,13 @@ namespace QassimPrincipality.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewData["entities"] = null;// await _lookUpService.GetEntities();
+                ViewData["entities"] = (await _lookUpService.GetEntities())
+                    .Select(c => new SelectListItem
+                    {
+                        Text = CultureInfo.CurrentCulture.Name == "en-US" ? c.NameEn : c.NameAr,
+                        Value = c.Id.ToString(),
+                    })
+                    .ToList();
                 return View(model);
             }
             ShareDataDto dto = new ShareDataDto();
@@ -123,19 +132,19 @@ namespace QassimPrincipality.Web.Controllers
             ;
             dto.IsContainsPersonalData = model.IsContainsPersonalData == "true" ? true : false;
             dto.IsShareAgreementExist = model.IsShareAgreementExist == "true" ? true : false;
-           // dto.IsApproved = null;
+            // dto.IsApproved = null;
             //dto.CreatedBy = HttpContext.User.GetId();
 
-           // dto.ReferralNumber = _referralNumberConfiguration.ShareDataStart
-                       // + DateTime.Now.ToString("yyMMddHHmmss");
-           var req =  await _shareDataService.InsertAsync(dto);
+            // dto.ReferralNumber = _referralNumberConfiguration.ShareDataStart
+            // + DateTime.Now.ToString("yyMMddHHmmss");
+            var req = await _shareDataService.InsertAsync(dto);
             return RedirectToAction(
                 "Index",
                 "Common",
                 new
                 {
                     SuccessMessage = "تم حفظ بيانات الطلب بنجاح",
-                   // requestNumber = req.ReferralNumber
+                    // requestNumber = req.ReferralNumber
                 }
             );
         }
