@@ -3421,9 +3421,10 @@ iframe {
     justify-content: space-between;
 }
 
-.account-login, .assign-page {
+.account-login, .assign-page , .open-data {
     max-width: 1440px;
     margin-bottom: 40px;
+    padding:40px 16px;
 }
 .assign-page{
     padding:40px 16px;
@@ -3460,7 +3461,7 @@ h3 {
     .btn-outline-primary:visited,
     .btn-outline-primary:focus,
     .btn-outline-primary:active:focus {
-        color: #fff;
+/*        color: #fff;*/
         background-color: #1B8354;
         border-color: #1B8354;
         outline: none;
@@ -3516,4 +3517,16 @@ h3 {
     color: #fff;
     background-color: #1b8354;
     border-color: #1b8354;
+}
+.box-panel {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 1px 1px 1px #eee;
+    -moz-box-shadow: 1px 1px 1px 1px #eee;
+    box-shadow: 1px 1px 1px 1px #eee;
+    border: 1px solid #eee;
+}
+.box-title {
+    color: #1B8354;
 }
