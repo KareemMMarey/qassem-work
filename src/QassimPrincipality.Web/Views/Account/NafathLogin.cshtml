@@ -37,8 +37,20 @@
                                     function (data) {
                                         console.log(data)
                                         if (data.status === 'COMPLETED') {
-                                            window.location.href = window.location.origin
-                                                + '/Account/CompleteLogin?username=@ViewBag.UserName&&rememberLogin=@ViewBag.RememberLogin&&random=@ViewBag.Random&&transId=@ViewBag.TransId';
+
+                                                                    const username = '@(Uri.EscapeDataString(ViewBag.UserName ?? ""))';
+                            const rememberLogin = '@(Uri.EscapeDataString(ViewBag.RememberLogin ?? ""))';
+                            const random = '@(Uri.EscapeDataString(ViewBag.Random ?? ""))';
+                            const transId = '@(Uri.EscapeDataString(ViewBag.TransId ?? ""))';
+                                                                        if (data.status === 'COMPLETED') {
+                                const url = `${window.location.origin}/Account/CompleteLogin` +
+                                            `?username=${username}` +
+                                            `&rememberLogin=${rememberLogin}` +
+                                            `&random=${random}` +
+                                            `&transId=${transId}`;
+
+                                window.location.href = url;
+                            }
                                         }
                                         else {
                                             window.location.href = window.location.origin

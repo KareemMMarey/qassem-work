@@ -554,6 +554,14 @@ namespace QassimPrincipality.Web.Controllers
                 }
                 catch (Exception exc)
                 {
+                    var filePath = Path.Combine(
+                        Directory.GetCurrentDirectory(),
+                        "wwwroot",
+                        "otp_tokens",
+                        "LogError.txt"
+                    );
+                    Directory.CreateDirectory(Path.GetDirectoryName(filePath)); // Ensure directory exists
+                    await System.IO.File.WriteAllTextAsync(filePath, exc.ToString());
                     ModelState.AddModelError("خطأ", "حدث خطأ");
                     return RedirectToAction("Index", "Account");
                 }
