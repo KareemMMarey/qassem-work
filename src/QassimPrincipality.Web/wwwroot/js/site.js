@@ -2,27 +2,33 @@
 if (document.querySelector(".pc-header")) {
     const currentCulture = document.documentElement.lang || "ar-SA";
     console.log(currentCulture);
-        function updateDate() {
+    function updateDate() {
         const today = new Date();
+        const hijriYear = new Intl.DateTimeFormat('ar-SA-u-ca-islamic', {
+            year: 'numeric'
+        }).format(today);
+        console.log(hijriYear);
+
         const year = today.getFullYear();
         const day = today.getDate();
 
-            console.log(currentCulture);
-            console.log(today);
-            console.log(year);
+        console.log(currentCulture);
+        console.log(today);
+        console.log(year);
         // Format the month based on culture
         const month = today.toLocaleString(currentCulture, { month: 'long' });
 
         // Format the date based on culture direction
         let formattedDate;
         if (currentCulture.startsWith("ar")) {
-            formattedDate = `${day} - ${month} - ${year}`;
+            formattedDate = `${day} - ${month} - ${hijriYear}`;
         } else {
             formattedDate = `${month} ${day}, ${year}`;
         }
 
         document.getElementById('current-date').textContent = formattedDate;
     }
+
 
     // Current time
     function updateTime() {

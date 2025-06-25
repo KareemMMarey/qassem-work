@@ -41,8 +41,8 @@
                                                 + '/Account/CompleteLogin?username=@ViewBag.UserName&&rememberLogin=@ViewBag.RememberLogin&&random=@ViewBag.Random&&transId=@ViewBag.TransId';
                                         }
                                         else {
-                                            console.log(data)
-                                            //window.location.href = window.location.origin
+                                            window.location.href = window.location.origin
+                                                + '/Account/NafathLogin';
                                         }
                                     });
                             });
@@ -60,6 +60,11 @@
 
                     else
                     {
+                        if (TempData["NafathNotChecked"]!=null)
+                        {
+                            <span class="text-danger">@localizer["PleasePressNumberOnPhone"]</span>
+
+                        }
                         <form asp-action="NafathLogin" class="form">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

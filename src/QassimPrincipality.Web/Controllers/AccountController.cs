@@ -508,11 +508,20 @@ namespace QassimPrincipality.Web.Controllers
                                 .DeserializeObject(TempData["dateOfBirthGregorian"].ToString())
                                 .ToString();
 
+                            var nationality = JsonConvert
+                                .DeserializeObject(TempData["nationality"].ToString())
+                                .ToString();
+                            var IdentityNumber = JsonConvert
+                                .DeserializeObject(TempData["nationalId"].ToString())
+                                .ToString();
+
                             DateTime? DOBDate = null;
                             if (!string.IsNullOrEmpty(dOB) && !string.IsNullOrWhiteSpace(dOB))
                             {
                                 DOBDate = ConvertHijriToGregorian(dOB);
                             }
+
+
                             string phone = "05xxxxxxxx";
                             user = new ApplicationUser(username, userFullName)
                             {
@@ -524,6 +533,8 @@ namespace QassimPrincipality.Web.Controllers
                                 CreatedOn = DateTime.Now,
                                 EmailConfirmed = true,
                                 DateOfBirth = DOBDate,
+                                Nationality = nationality,
+                                IdentityNumber = IdentityNumber,
                             };
                             await _userManager.CreateAsync(user, "P@ssw0rd");
                             await _userServices.AddRoleAsync(user.Id, UserRoles.User);
@@ -684,42 +695,44 @@ namespace QassimPrincipality.Web.Controllers
         )
         {
             // Simulate Check nafath
-
-            for (int i = 0; i <= 2; i++)
+            if (_nafathConfiguartion.Value.EnableSimulation)
             {
-                Thread.Sleep(1000);
+                for (int i = 0; i <= 2; i++)
+                {
+                    Thread.Sleep(1000);
+                }
+                var person_simulate = new
+                {
+                    id = Guid.NewGuid(),
+                    nationalId = userName,
+                    firstNameAr = "محمد",
+                    secondNameAr = "العصيمي",
+                    thirdNameAr = "حسن",
+                    lastNameAr = "المرى",
+                    fullNameAr = "محمد العصيمي حسن المرى",
+                    firstNameEn = "Kareem",
+                    secondNameEn = "Mohamed",
+                    thirdNameEn = "Hassan",
+                    lastNameEn = "El osaimy",
+                    fullNameEn = "Mohamed el osaimy",
+                    dateOfBirthHijri = "1405-01-01",
+                    dateOfBirthGregorian = "1985-10-15",
+                    gender = "Male",
+                    mobileNumber = "966500000000",
+                    issuePlace = "Riyadh",
+                    nationality = "Saudi",
+                    identityType = "NationalID",
+                    identityExpiryDate = "1447-01-01",
+                    arTwoNames = "محمد العصيمي ",
+                };
+                TempData["arTwoNames"] = person_simulate.arTwoNames;
+                TempData["accessToken"] = "mocked-token-123";
+                TempData["dateOfBirthGregorian"] = person_simulate.dateOfBirthGregorian;
+                TempData["nationality"] = person_simulate.nationality;
+                TempData["nationalId"] = person_simulate.nationalId;
+
+                return Ok(new { status = NafathStatus.COMPLETED.ToString() });
             }
-            var person_simulate = new
-            {
-                id = Guid.NewGuid(),
-                nationalId = userName,
-                firstNameAr = "محمد",
-                secondNameAr = "العصيمي",
-                thirdNameAr = "حسن",
-                lastNameAr = "المرى",
-                fullNameAr = "محمد العصيمي حسن المرى",
-                firstNameEn = "Kareem",
-                secondNameEn = "Mohamed",
-                thirdNameEn = "Hassan",
-                lastNameEn = "El osaimy",
-                fullNameEn = "Mohamed el osaimy",
-                dateOfBirthHijri = "1405-01-01",
-                dateOfBirthGregorian = "1985-10-15",
-                gender = "Male",
-                mobileNumber = "966500000000",
-                issuePlace = "Riyadh",
-                nationality = "Saudi",
-                identityType = "NationalID",
-                identityExpiryDate = "1447-01-01",
-                arTwoNames = "محمد العصيمي ",
-            };
-            TempData["arTwoNames"] = person_simulate.arTwoNames;
-            TempData["accessToken"] = "mocked-token-123";
-            TempData["dateOfBirthGregorian"] = person_simulate.dateOfBirthGregorian;
-            TempData["nationality"] = person_simulate.nationality;
-            TempData["nationalId"] = person_simulate.nationalId;
-
-            return Ok(new { status = NafathStatus.COMPLETED.ToString() });
 
             // End Simulate Check nafath
             try
@@ -775,14 +788,16 @@ namespace QassimPrincipality.Web.Controllers
                         TempData["accessToken"] = JsonConvert.SerializeObject(
                             result["accessToken"]
                         );
-                        TempData["dateOfBirthGregorian"] = person["dateOfBirthGregorian"]
-                            .ToString();
-                        TempData["nationality"] = person["nationality"].ToString();
-                        TempData["nationalId"] = person["nationalId"].ToString();
+                        TempData["dateOfBirthGregorian"] = JsonConvert.SerializeObject(person["dobG"]);
+                        TempData["nationality"] = JsonConvert.SerializeObject(person["arNationality"]);
+                        TempData["nationalId"] = JsonConvert.SerializeObject(person["id"]);
                         break;
                     }
                 }
-
+                if (status != NafathStatus.COMPLETED.ToString())
+                {
+                    TempData["NafathNotChecked"] = "NotChecked";
+                }
                 return Ok(new { status });
             }
             catch (Exception ex)
