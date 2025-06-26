@@ -2,207 +2,217 @@
 @model AddShareDataVM
 
 
-<div id="requestContent" class="row justify-content-xxl-center">
-    <div class="col-xxl-10">
-        <div class="page-panel">
-            <h3 class="page-title margin-bottom-lg">طلب مشاركة البيانات</h3>
-            <form id="client-form" class="form" asp-controller="ShareData" asp-action="Create" Method="post">
-                <div class="row">
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label class="form-label" asp-for="UserFullName">
-                                اسم
-                            </label>
-                            <input type="text" class="form-control" readonly asp-for="UserFullName">
-                            <span asp-validation-for="UserFullName"  class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label class="form-label" asp-for="UserEmail">
-                                البريد إلكتروني
-                            </label>
-                            <input type="text" class="form-control" asp-for="UserEmail" maxlength="50">
-                            <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label class="form-label" asp-for="IdentityNumber">
-                                رقم الهوية / الإقامة
-                            </label>
-                            <input type="text" class="form-control" maxlength="10" asp-for="IdentityNumber">
-                            <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label class="form-label" asp-for="UserMobile">
-                                رقم الجوال
-                            </label>
-
-                            <input type="text" class="form-control" asp-for="UserMobile" maxlength="14">
-                            <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
-                    @if (ViewData["entities"] != null)
-                    {
-                        var entities = (List<SelectListItem>)ViewData["entities"];
+<div class="share-data">
+    <div id="requestContent" class="row justify-content-xxl-center">
+        <div class="col-xxl-10">
+            <div class="page-panel box-panel">
+                <h3 class="page-title box-title text-center">طلب مشاركة البيانات</h3>
+                <form id="client-form" class="form" asp-controller="ShareData" asp-action="Create" Method="post">
+                    <div class="row">
                         <div class="col-xl-6">
-                            <div id="RequestType" class="form-group">
-                                <label asp-for="EntityId" class="form-label">
-                                    نوع الجهة
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="UserFullName">
+                                    اسم
+                                </label>
+                                <input type="text" class="form-control" readonly asp-for="UserFullName">
+                                <span asp-validation-for="UserFullName" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="UserEmail">
+                                    البريد إلكتروني
+                                </label>
+                                <input type="text" class="form-control" asp-for="UserEmail" maxlength="50">
+                                <span asp-validation-for="UserEmail" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="IdentityNumber">
+                                    رقم الهوية / الإقامة
+                                </label>
+                                <input type="text" class="form-control" maxlength="10" asp-for="IdentityNumber">
+                                <span asp-validation-for="IdentityNumber" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="UserMobile">
+                                    رقم الجوال
                                 </label>
 
-                                <select asp-for="EntityId" required asp-items="@(new SelectList(entities, "Value", "Text"))"
-                                        class="form-control" id="ddlentityTypes">
-                                </select>
-                                <span asp-validation-for="EntityId" class="text-danger"></span>
-
+                                <input type="text" class="form-control" asp-for="UserMobile" maxlength="14">
+                                <span asp-validation-for="UserMobile" class="field-validation-valid text-danger"> </span>
                             </div>
                         </div>
-                    }
-                    <div class="col-xl-6">
-                        <div class="form-group">
-                            <label class="form-label" asp-for="PurposeOfRequest">
-                                الغرض من طلب البيانات
-                            </label>
-                            <input type="text" class="form-control" asp-for="PurposeOfRequest">
-                            <span asp-validation-for="PurposeOfRequest" class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
-                    <div class="col-xl-12">
-                        <div class="form-group">
-                            <label asp-for="Description" class="form-label">وصف البيانات المطلوبة</label>
-                            <textarea asp-for="Description" class="form-control" rows="5" cols="6" maxlength="400"></textarea>
-                            <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
-                        </div>
-                    </div>
+                        @if (ViewData["entities"] != null)
+                        {
+                            var entities = (List<SelectListItem>)ViewData["entities"];
+                            <div class="col-xl-6">
+                                <div id="RequestType" class="form-group mt-3">
+                                    <label asp-for="EntityId" class="form-label">
+                                        نوع الجهة
+                                    </label>
 
+                                    <select asp-for="EntityId" required asp-items="@(new SelectList(entities, "Value", "Text"))"
+                                            class="form-control" id="ddlentityTypes">
+                                    </select>
+                                    <span asp-validation-for="EntityId" class="text-danger"></span>
 
-                    <div class="col-xl-12">
-                        <label class="form-label   required" asp-for="IsShareAgreementExist">هل توجد اتفاقية مشاركة بيانات مسبقاً؟</label>
-                        <div class="d-flex gap-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" asp-for="IsShareAgreementExist" value="نعم" id="IsShareAgreementExistTrue" />
-                                <label for="IsShareAgreementExistTrue">نعم</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" asp-for="IsShareAgreementExist" value="لا" id="IsShareAgreementExistFalse" />
-                                <label for="IsShareAgreementExistFalse">لا</label>
-                            </div>
-                        </div>
-                            <span asp-validation-for="IsShareAgreementExist" class="field-validation-valid text-danger"> </span>
-                    </div>
-
-                    <div class="col-xl-12">
-                        <label class="form-label  required" asp-for="IsContainsPersonalData">هل تحتوي على بيانات شخصية؟</label>
-                        <div class="d-flex gap-3">
-
-                            <div class="form-check form-check-inline">
-
-
-                                <input class="form-check-input" type="radio" asp-for="IsContainsPersonalData" value="نعم" id="IsContainsPersonalDataTrue" />
-
-                                <label for="IsContainsPersonalDataTrue">نعم</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-
-
-                                <input class="form-check-input" type="radio" asp-for="IsContainsPersonalData" value="لا" id="IsContainsPersonalDataFalse" />
-                                <label for="IsContainsPersonalDataFalse">لا</label>
-                            </div>
-
-
-                        </div>
-                            <span asp-validation-for="IsContainsPersonalData" class="field-validation-valid text-danger"> </span>
-                    </div>
-
-
-                    <div class="col-xl-12">
-                        <label class="form-label  required" asp-for="IsRequesterDataOfficePresenter">هل مقدم الطلب هو ممثل مكتب البيانات لدى الجهة؟</label>
-                        <div class="d-flex gap-3">
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" asp-for="IsRequesterDataOfficePresenter" value="نعم" id="IsRequesterDataOfficePresenterTrue" />
-                                <label for="IsRequesterDataOfficePresenterTrue">نعم</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" asp-for="IsRequesterDataOfficePresenter" value="لا" id="IsRequesterDataOfficePresenterFalse" />
-                                <label for="IsRequesterDataOfficePresenterFalse">لا</label>
-                            </div>
-                        </div>
-                            <span asp-validation-for="IsRequesterDataOfficePresenter" class="field-validation-valid text-danger"> </span>
-                    </div>
-
-                    <div class="col-xl-12">
-                        <label class="form-label  required" asp-for="IsLegalJustification">هل يوجد لدى الجهة مسوغ قانوني لطلب البيانات؟</label>
-                        <div class="d-flex gap-3">
-
-                            <div class="form-check form-check-inline ">
-                                <div class="form-check form-check-inline">
-
-
-                                    <input class="form-check-input" type="radio" asp-for="IsLegalJustification" value="نعم" id="IsLegalJustificationTrue" />
-
-                                    <label for="IsLegalJustificationTrue">نعم</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-
-
-                                    <input class="form-check-input" type="radio" asp-for="IsLegalJustification" value="لا" id="IsLegalJustificationFalse" />
-                                    <label for="IsLegalJustificationFalse">لا</label>
-                                </div>
-
-
+                            </div>
+                        }
+                        <div class="col-xl-6">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="PurposeOfRequest">
+                                    الغرض من طلب البيانات
+                                </label>
+                                <input type="text" class="form-control" asp-for="PurposeOfRequest">
+                                <span asp-validation-for="PurposeOfRequest" class="field-validation-valid text-danger"> </span>
                             </div>
                         </div>
+                        <div class="col-xl-12">
+                            <div class="form-group mt-3">
+                                <label asp-for="Description" class="form-label">وصف البيانات المطلوبة</label>
+                                <textarea asp-for="Description" class="form-control" rows="5" cols="6" maxlength="400"></textarea>
+                                <span asp-validation-for="Description" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-12">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="IsShareAgreementExist">هل توجد اتفاقية مشاركة بيانات مسبقاً؟</label>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="IsShareAgreementExist" value="نعم" id="IsShareAgreementExistTrue" />
+                                        <label for="IsShareAgreementExistTrue">نعم</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="IsShareAgreementExist" value="لا" id="IsShareAgreementExistFalse" />
+                                        <label for="IsShareAgreementExistFalse">لا</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="IsShareAgreementExist" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="IsContainsPersonalData">هل تحتوي على بيانات شخصية؟</label>
+                                <div class="d-flex gap-3">
+
+                                    <div class="form-check form-check-inline">
+
+
+                                        <input class="form-check-input" type="radio" asp-for="IsContainsPersonalData" value="نعم" id="IsContainsPersonalDataTrue" />
+
+                                        <label for="IsContainsPersonalDataTrue">نعم</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+
+
+                                        <input class="form-check-input" type="radio" asp-for="IsContainsPersonalData" value="لا" id="IsContainsPersonalDataFalse" />
+                                        <label for="IsContainsPersonalDataFalse">لا</label>
+                                    </div>
+
+
+                                </div>
+                                <span asp-validation-for="IsContainsPersonalData" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-12">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="IsRequesterDataOfficePresenter">هل مقدم الطلب هو ممثل مكتب البيانات لدى الجهة؟</label>
+                                <div class="d-flex gap-3">
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="IsRequesterDataOfficePresenter" value="نعم" id="IsRequesterDataOfficePresenterTrue" />
+                                        <label for="IsRequesterDataOfficePresenterTrue">نعم</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" asp-for="IsRequesterDataOfficePresenter" value="لا" id="IsRequesterDataOfficePresenterFalse" />
+                                        <label for="IsRequesterDataOfficePresenterFalse">لا</label>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="IsRequesterDataOfficePresenter" class="field-validation-valid text-danger"> </span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12">
+                            <div class="form-group mt-3">
+                                <label class="form-label" asp-for="IsLegalJustification">هل يوجد لدى الجهة مسوغ قانوني لطلب البيانات؟</label>
+                                <div class="d-flex gap-3">
+
+                                    <div class="form-check form-check-inline ">
+                                        <div class="form-check form-check-inline">
+
+
+                                            <input class="form-check-input" type="radio" asp-for="IsLegalJustification" value="نعم" id="IsLegalJustificationTrue" />
+
+                                            <label for="IsLegalJustificationTrue">نعم</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+
+
+                                            <input class="form-check-input" type="radio" asp-for="IsLegalJustification" value="لا" id="IsLegalJustificationFalse" />
+                                            <label for="IsLegalJustificationFalse">لا</label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
                                 <span asp-validation-for="IsLegalJustification" class="field-validation-valid text-danger"> </span>
-                    </div>
-
-
-                    <div class="form-group" id="divLegalJustificationDescription" style="display:none">
-                        <label class="form-label" asp-for="LegalJustificationDescription">وصف المسوغ القانوني</label>
-
-                        <textarea asp-for="LegalJustificationDescription" class="form-control"></textarea>
-
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <button type="submit" class="btn btn-primary text-right">إرسال</button>
-                            <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            </form>
+
+                        <div class="form-group mt-3" id="divLegalJustificationDescription" style="display:none">
+                            <label class="form-label" asp-for="LegalJustificationDescription">وصف المسوغ القانوني</label>
+
+                            <textarea asp-for="LegalJustificationDescription" class="form-control"></textarea>
+
+                        </div>
+
+
+
+                        <div class="form-group mt-3">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-primary text-right">إرسال</button>
+                                <a class="btn btn-outline-primary" href="/">الى الخلف</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
 
-<div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
-    <script src="/Scripts/jquery.validate.min.js"></script>
-    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <div class="modal" id="newItemRejectLink" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">تقديم طلب مشاركة بيانات</h5>
+    <div class="container-fluid body-content bg-transparent" style="background-image: url('~/../../Images/row.pattern2.png');">
+        <script src="/Scripts/jquery.validate.min.js"></script>
+        <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+        <div class="modal" id="newItemRejectLink" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">تقديم طلب مشاركة بيانات</h5>
 
-                </div>
-                <div class="modal-body">
-                    <div style="text-align:center;color:#a12d00;font-weight:600;">
-                        تم إستقبال طلبكم بخصوص مشاركة البيانات  <br> سيتم دراسة المطلوب من قبل المختصين  <br> ويكون الرد عليكم من خلال البريد الإلكتروني المسجل <br> خلال 15 يوم عمل
                     </div>
+                    <div class="modal-body">
+                        <div style="text-align:center;color:#a12d00;font-weight:600;">
+                            تم إستقبال طلبكم بخصوص مشاركة البيانات  <br> سيتم دراسة المطلوب من قبل المختصين  <br> ويكون الرد عليكم من خلال البريد الإلكتروني المسجل <br> خلال 15 يوم عمل
+                        </div>
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnChangeMobaileNo" data-dismiss="modal" class="btn btn-success" style="width:40%">تم</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnChangeMobaileNo" data-dismiss="modal" class="btn btn-success" style="width:40%">تم</button>
 
+                    </div>
                 </div>
             </div>
         </div>

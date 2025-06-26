@@ -3421,7 +3421,7 @@ iframe {
     justify-content: space-between;
 }
 
-.account-login, .assign-page , .open-data {
+.account-login, .assign-page , .open-data ,.share-data , .save-data-success {
     max-width: 1440px;
     margin-bottom: 40px;
     padding:40px 16px;
@@ -3529,4 +3529,14 @@ h3 {
 }
 .box-title {
     color: #1B8354;
+}
+.badge{
+    color:red;
+}
+.empty-state {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
 }

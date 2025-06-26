@@ -14,7 +14,7 @@
     <div class="row justify-content-xxl-center">
         <div class="col-xxl-10">
             <h3 class="page-title mb-4"> @ViewBag.Title </h3>
-            <div id="elementToToggle">
+            <div id="elementToToggle" class="mb-5">
                 <form asp-controller="OpenData" asp-action="RequestList" method="get">
                     <div class="row g-3 align-items-center">
                         <div class="col-auto"><label class="col-form-label">أنواع الطلبات</label></div>
@@ -26,8 +26,8 @@
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
+       
+   
     @* <div class="list-search" id="elementToToggle">
         <div class="idm-search">
 
@@ -45,36 +45,36 @@
 
     @if (Model.TotalItemsCount > 0)
     {
-        <a class="btn btn-success btn-sm"
-           asp-controller="OpenData" asp-action="Create">إضافة طلب</a>
-        <div class="idm-table">
-            <table>
+        @* <a class="btn btn-success btn-sm"
+           asp-controller="OpenData" asp-action="Create">إضافة طلب</a> *@
+        <div class="idm-table mb-4">
+            <table class="table">
                 <thead>
                     <tr>
-                        <th style="width:150px" class="text-center">عنوان الطلب</th>
-                        <th style="width:150px" class="text-center">مقدم الطلب</th>
-                        <th style="width:150px" class="text-center">تاريخ الطلب</th>
-                        <th style="width:150px" class="text-center">حالة الطلب</th>
-                        <th style="width:150px"></th>
+                        <th>عنوان الطلب</th>
+                        <th>مقدم الطلب</th>
+                        <th>تاريخ الطلب</th>
+                        <th>حالة الطلب</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var request in Model.Items)
                     {
                         <tr>
-                            <td class="text-center">@(request.Title ?? "--")</td>
-                            <td class="text-center">@(request.UserFullName ?? "--")</td>
-                            <td class="text-center">@request.CreatedOn</td>
+                            <td>@(request.Title ?? "--")</td>
+                            <td>@(request.UserFullName ?? "--")</td>
+                            <td>@request.CreatedOn</td>
                             @switch (request.IsApproved)
                             {
                                 case true:
-                                    <td class="text-center alert alert-success">تمت الموافقة</td>
+                                    <td>تمت الموافقة</td>
                                     break;
                                 case false:
-                                    <td class="text-center alert alert-danger">مرفوض</td>
+                                    <td>مرفوض</td>
                                     break;
                                 default:
-                                    <td class="text-center  " style="background-color:yellow; color:black">الطلب تحت الإجراء</td>
+                                            <td><p class="pc-blue-status">الطلب تحت الإجراء</p></td>
                                     break;
                             }
 
@@ -105,5 +105,7 @@
     <div class="idm-pager">
         @await Html.PartialAsync("Common/Pager", new Pager { Action = "RequestList", PageSize = 10, TotalCount = Model.TotalItemsCount, EnableSearch = true, Search = ViewBag.Search })
     </div>
+ </div>
+ </div>
 </div>
 
