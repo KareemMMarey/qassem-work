@@ -1,17 +1,19 @@
-﻿<div cite="row">
-    <div cite="col-12">
-        <div class="empty-state">
-            <div class="empty-state__icon">
-                <svg>
-                    <use xlink:href="/assets/images/svg-icons.svg#done"></use>
-                </svg>
-            </div>
-            <h3 class="empty-state__title">@ViewBag.SuccessMessage</h3>
-            @if (ViewBag.requestNumber != null && !string.IsNullOrEmpty(ViewBag.requestNumber))
-            {
-                <div class="empty-state__description">رقم الطلب : @ViewBag.requestNumber</div>
-            }
+﻿<div class="save-data-success">
+    <div class="row">
+        <div class="d-flex justify-content-center">
+            <div class="empty-state">
+                <div class="empty-state__icon text-center">
+                    <svg fill="#1B8354">
+                        <use xlink:href="/assets/images/svg-icons.svg#done"></use>
+                    </svg>
+                </div>
+                <h3 class="empty-state__title text-center">@ViewBag.SuccessMessage</h3>
+                @if (ViewBag.requestNumber != null && !string.IsNullOrEmpty(ViewBag.requestNumber))
+                {
+                    <div class="empty-state__description">رقم الطلب : @ViewBag.requestNumber</div>
+                }
 
+            </div>
         </div>
     </div>
 </div>

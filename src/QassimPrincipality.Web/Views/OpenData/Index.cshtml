@@ -14,7 +14,7 @@
         <div class="col-xxl-10">
             <div class="page-panel" id="elementToToggle">
                 <h3 class="page-title mb-4"> @ViewBag.Title </h3>
-                <div id="elementToToggle">
+                <div id="elementToToggle" class="mb-5">
                     <form asp-controller="OpenData" asp-action="Index" method="get">
                         <div class="row g-3 align-items-center">
                             <div class="col-auto"><label class="col-form-label">أنواع الطلبات</label></div>
@@ -30,7 +30,7 @@
 
                 @if (Model.TotalItemsCount > 0)
                 {
-                    <div class="idm-table">
+                    <div class="idm-table mb-4">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -57,7 +57,7 @@
                                                 <td><span class="badge text-bg-danger">مرفوض</span></td>
                                                 break;
                                             default:
-                                                <td><span class="badge " style="background-color:yellow; color:black">الطلب تحت الإجراء</span></td>
+                                                <td><p class="pc-blue-status">الطلب تحت الإجراء</p></td>
                                                 break;
                                         }
 
@@ -65,8 +65,13 @@
                                         <td>
 
                                             <a class="btn btn-sm" asp-action="Details" asp-route-requestId="@request.Id" asp->
-                                                <svg width="24" height="24">
-                                                    <use xlink:href="/assets/images/svg-icons.svg#view"></use>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14.548" height="14.549" viewBox="0 0 14.548 14.549">
+                                                    <g id="Actions" transform="translate(12.654)">
+                                                        <g id="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(-11.745)">
+                                                            <path id="Path_6" data-name="Path 6" d="M13.451,18.4H4.2A1.948,1.948,0,0,1,2.25,16.451V7.2A1.948,1.948,0,0,1,4.2,5.25H8.823a.624.624,0,0,1,0,1.247H4.2a.7.7,0,0,0-.7.7v9.255a.7.7,0,0,0,.7.7h9.255a.7.7,0,0,0,.7-.7V11.823a.624.624,0,1,1,1.247,0v4.628A1.948,1.948,0,0,1,13.451,18.4Z" transform="translate(-3.159 -3.848)" fill="#393c46" />
+                                                            <path id="Path_7" data-name="Path 7" d="M19.807,2.068a2.026,2.026,0,0,1,1.433,3.458l-6.28,6.28a.623.623,0,0,1-.29.164l-2.644.661a.624.624,0,0,1-.756-.756l.661-2.644a.624.624,0,0,1,.164-.29l6.28-6.28A2.013,2.013,0,0,1,19.807,2.068ZM14.2,10.8l6.158-6.158a.779.779,0,1,0-1.1-1.1L13.1,9.7,12.73,11.17Z" transform="translate(-8.193 -2.068)" fill="#393c46" />
+                                                        </g>
+                                                    </g>
                                                 </svg>
                                             </a>
                                         </td>
